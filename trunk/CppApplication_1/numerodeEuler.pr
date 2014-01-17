@@ -1,38 +1,22 @@
 //CALCULO DEL NUMERO e  ( EULER)    metodo serie  (ver wikipedia)
-s = 1
+e = 1
 decimales 14
 imprimir 'demostracion para Oscar'
-
-
 desde x = 1 hasta 39
-
     haz
         llamar factorial
-        imprimir 'numero: ', x ,   'suma: ', s  // ,  '  factorial: ', f
-        s = s +  (1/f)
-
+        imprimir 'numero:  ', x ,   ' Suma: ', e     // ,  '  factorial: ', f
+        e = e +  (1/f)
     fin-haz
-
-    //s = s + 1
-
-    imprimir 'numero e = ', s
-
-
+    imprimir 'numero e = ', e
 terminar
 
 
-
-
 procedimiento factorial   //calculamos el fact x
-
   f = 1
-
   desde n = 1 hasta x
-
       haz
          f = f * n
       fin-haz
-
-
 fin
 
