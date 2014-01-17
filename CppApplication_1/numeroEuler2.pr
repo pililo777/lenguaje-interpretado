@@ -2,7 +2,7 @@
 // calculo del numero  e,   segundo metodo : limite (muy lento)
 //
 
-decimales 14
+decimales 4
 
 e = 0
 
@@ -11,7 +11,7 @@ desde n = 1 hasta 20000
     haz
       e = 1 +  (1/n)
       llamar  potencia
-      imprimir e, '  elevado a = ', n, '  =  ', m
+      imprimir n, ' ', e, '  elevado a = ', n, '  =  ', m
 
     fin-haz
 
@@ -20,13 +20,9 @@ terminar
 
 
 proc    potencia
-
     m = 1
     desde x = 1 hasta n
         haz
-
            m  = m * e
-
         fin-haz
-
 fin
