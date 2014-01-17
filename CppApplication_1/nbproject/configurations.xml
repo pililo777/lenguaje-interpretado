@@ -12,14 +12,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>../../workspace/gtk en C/colorchooser.c</itemPath>
-      <itemPath>../../workspace/inter/err.c</itemPath>
-      <itemPath>../../workspace/inter/grammar.tab.c</itemPath>
-      <itemPath>../../workspace/inter/grammar.tab.h</itemPath>
-      <itemPath>../../workspace/inter/lex.yy.c</itemPath>
-      <itemPath>../../workspace/inter/main.c</itemPath>
-      <itemPath>../../workspace/inter/nodo.h</itemPath>
-      <itemPath>../../workspace/inter/run.c</itemPath>
+      <itemPath>Propio.syn</itemPath>
+      <itemPath>err.c</itemPath>
+      <itemPath>grammar.tab.c</itemPath>
+      <itemPath>grammar.tab.h</itemPath>
+      <itemPath>lex.yy.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>nodo.h</itemPath>
+      <itemPath>run.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -31,7 +31,11 @@
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
+      <itemPath>Propio.syn</itemPath>
+      <itemPath>grammar.y</itemPath>
       <itemPath>integracion.pr</itemPath>
+      <itemPath>/home/ruben/workspace/inter/raiz22.pr</itemPath>
+      <itemPath>tokens.l</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

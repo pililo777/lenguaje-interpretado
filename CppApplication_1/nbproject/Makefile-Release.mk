@@ -34,12 +34,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/1392732482/lex.yy.o \
-	${OBJECTDIR}/_ext/1267939800/colorchooser.o \
-	${OBJECTDIR}/_ext/1392732482/err.o \
-	${OBJECTDIR}/_ext/1392732482/grammar.tab.o \
-	${OBJECTDIR}/_ext/1392732482/run.o \
-	${OBJECTDIR}/_ext/1392732482/main.o
+	${OBJECTDIR}/run.o \
+	${OBJECTDIR}/grammar.tab.o \
+	${OBJECTDIR}/lex.yy.o \
+	${OBJECTDIR}/err.o \
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -66,35 +65,30 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/_ext/1392732482/lex.yy.o: ../../workspace/inter/lex.yy.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1392732482
+${OBJECTDIR}/run.o: run.c 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1392732482/lex.yy.o ../../workspace/inter/lex.yy.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/run.o run.c
 
-${OBJECTDIR}/_ext/1267939800/colorchooser.o: ../../workspace/gtk\ en\ C/colorchooser.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1267939800
+${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1267939800/colorchooser.o ../../workspace/gtk\ en\ C/colorchooser.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
 
-${OBJECTDIR}/_ext/1392732482/err.o: ../../workspace/inter/err.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1392732482
+${OBJECTDIR}/lex.yy.o: lex.yy.c 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1392732482/err.o ../../workspace/inter/err.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/lex.yy.o lex.yy.c
 
-${OBJECTDIR}/_ext/1392732482/grammar.tab.o: ../../workspace/inter/grammar.tab.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1392732482
+${OBJECTDIR}/err.o: err.c 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1392732482/grammar.tab.o ../../workspace/inter/grammar.tab.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
 
-${OBJECTDIR}/_ext/1392732482/run.o: ../../workspace/inter/run.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1392732482
+${OBJECTDIR}/main.o: main.c 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1392732482/run.o ../../workspace/inter/run.c
-
-${OBJECTDIR}/_ext/1392732482/main.o: ../../workspace/inter/main.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1392732482
-	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1392732482/main.o ../../workspace/inter/main.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.c
 
 # Subprojects
 .build-subprojects:
