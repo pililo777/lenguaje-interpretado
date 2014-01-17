@@ -53,7 +53,7 @@
 ROOT:
    stmtseq    {  pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++ ; }
 |  stmtseq TERMINAR procedimientos { pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++; }
-|  TERMINAR { xmain ("fin del programa\n");  }
+|  TERMINAR { // xmain ("fin del programa\n");  }
 ;
 
 procedimientos:
