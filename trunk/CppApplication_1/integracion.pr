@@ -1,0 +1,53 @@
+imprimir 'hola, inicio del programa'
+x=1
+imprimir 'x=', x
+
+NOMBRE = 'perico'
+APELLIDO = 'de los palotes'
+DIRECCION = ' '
+TELEFONO = ' '
+
+xyz = 1
+abc = 2
+
+ventana xyz 400 300
+xyz ventana 'MENU PRINCIPAL'
+xyz etiqueta 'INTRODUZCA SUS DATOS:' 10 10 
+xyz texto NOMBRE         10 30
+xyz texto APELLIDO       10 60
+xyz texto DIRECCION      10 90
+xyz texto TELEFONO       10 120
+xyz boton 'clicame'       clicar_boton 270 50   // enlaza un boton con un evento que muestra un dialogo con un mensaje
+xyz boton 'abrir ventana' abre_ventana 270 90
+
+llamar ventana xyz   // activa todas las ventanas creadas hasta que se cierra la primera
+
+// despues de cerrar la primer ventana el flujo continua aqui:
+
+desde y = 1 hasta 10
+haz
+    imprimir 'fin ', y
+fin-haz
+
+terminar  // ****************  finaliza  el programa *************
+
+procedimiento abre_ventana
+ventana abc 400 350
+ abc ventana 'SEGUNDA VENTANA'
+ abc etiqueta 'INTRODUZCA SU APELLIDO: ' 10 20 
+ abc texto APELLIDO 20 30
+ abc boton 'por favor clic aqui' clicar_boton2  140 150
+fin
+
+procedimiento clicar_boton
+  //mensaje 'el boton ha sido clicado ', x, x*2
+  mensaje 'Los datos son: N:', NOMBRE, ' A:', APELLIDO, ' D:', DIRECCION, ' T:', TELEFONO
+  x = x  + 1
+fin
+
+procedimiento clicar_boton2
+  //mensaje 'clicaste en la  segunda ventana ', x*2
+  mensaje 'el apellido es: ', APELLIDO
+  x = x  + 1
+fin
+
