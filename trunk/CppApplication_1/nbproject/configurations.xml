@@ -12,7 +12,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Propio.syn</itemPath>
       <itemPath>err.c</itemPath>
       <itemPath>grammar.tab.c</itemPath>
       <itemPath>grammar.tab.h</itemPath>
@@ -34,6 +33,8 @@
       <itemPath>Propio.syn</itemPath>
       <itemPath>grammar.y</itemPath>
       <itemPath>integracion.pr</itemPath>
+      <itemPath>numeroEuler2.pr</itemPath>
+      <itemPath>numerodeEuler.pr</itemPath>
       <itemPath>/home/ruben/workspace/inter/raiz22.pr</itemPath>
       <itemPath>tokens.l</itemPath>
     </logicalFolder>
