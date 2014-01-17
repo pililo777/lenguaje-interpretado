@@ -486,7 +486,7 @@ switch (p->tipo) {
  		a=1;
       		//argv[0] = "";
                 argv[0] =  constantes [(int)p->nodo1->num] ;
-		xmain (a, argv); 
+	//	xmain (a, argv); 
      		}
           	break;
 
