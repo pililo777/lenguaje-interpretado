@@ -1557,7 +1557,7 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 56 "grammar.y"
-    { xmain ("fin del programa\n");  }
+   // { xmain ("fin del programa\n");  }
     break;
 
   case 5:
