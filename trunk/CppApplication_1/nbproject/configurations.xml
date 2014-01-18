@@ -32,12 +32,13 @@
       <itemPath>Makefile</itemPath>
       <itemPath>Propio.syn</itemPath>
       <itemPath>grammar.y</itemPath>
-      <itemPath>integracion.pr</itemPath>
       <itemPath>numeroEuler2.pr</itemPath>
       <itemPath>numerodeEuler.pr</itemPath>
       <itemPath>/home/ruben/workspace/inter/raiz22.pr</itemPath>
       <itemPath>tokens.l</itemPath>
+      <itemPath>ventanas.pr</itemPath>
     </logicalFolder>
+    <itemPath>leeme.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
