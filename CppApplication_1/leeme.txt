@@ -1,0 +1,13 @@
+sabado 18 enero 2014
+
+error al compilar inter en netbeans
+
+/lib/i386-linux-gnu/glib-2.0.so.0
+
+no hay ninguna regla 
+
+se cambió por  libglib-2.0.so.0
+y funcionó la compilación ya que el enlazado fué bien.
+lo curioso es que en el otro pendrive funciona bien.
+--fin--
+
