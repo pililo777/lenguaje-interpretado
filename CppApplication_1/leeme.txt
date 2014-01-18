@@ -11,3 +11,8 @@ y funcionó la compilación ya que el enlazado fué bien.
 lo curioso es que en el otro pendrive funciona bien.
 --fin--
 
+NOTA: para instalar gtk 2.0 ejecutar:
+# apt-get  install libgtk2.0
+
+---fin ----
+
