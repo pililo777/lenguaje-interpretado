@@ -15,4 +15,10 @@ NOTA: para instalar gtk 2.0 ejecutar:
 # apt-get  install libgtk2.0
 
 ---fin ----
+falla al hacer RUN en pendrive emtec
+java.util.MissingResourceException: bin/nativeexecution/Linux-x86/pty
+-investigando: no abre terminal consola, así que cambié a external console default. y funcionó.
+-- fin --
+
+
 
