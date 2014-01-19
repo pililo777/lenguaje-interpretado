@@ -20,6 +20,7 @@ falla al hacer RUN en pendrive emtec
 java.util.MissingResourceException: bin/nativeexecution/Linux-x86/pty
 -investigando: no abre terminal consola, así que cambié a external console default. y funcionó.
 -- fin --
-
+domingo 19 enero 2014
+reparse project porque aparecian referencias no encontradas
 
 
