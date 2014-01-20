@@ -350,8 +350,8 @@ switch (p->tipo) {
  		a =  (int)p->nodo1->num;   //ventana
                 t =  (int)p->nodo2->num;   //variable alfa
                 
-                w =  (int)p->nodo3->num;    //ancho y alto
-                h =  (int)p->nodo4->num;
+                w = (int) evalua( p->nodo3 );    //ancho y alto
+                h =  (int) evalua( p->nodo4 );   //ancho y alto
                 
                 //GtkWidget *fixed;
                 GtkWidget *entry;
