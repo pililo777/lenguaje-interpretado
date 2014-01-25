@@ -46,14 +46,13 @@
 %token NUMBER
 %token NAME SNAME
 %token LITERAL
-%type <nodo> stmtseq statement expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2
+%type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME defventana defcontroles lista_controles
 %%
 
 ROOT:
    stmtseq    {  pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++ ; }
 |  stmtseq TERMINAR procedimientos { pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++; }
-|  TERMINAR { // xmain ("fin del programa\n");  }
 ;
 
 procedimientos:
@@ -80,7 +79,7 @@ statement:
 | designator VENTANA LITERAL { $$=nodo2(cambiar_titulo, $1, $3) ;  } 
 | designator BOTON LITERAL proc_designator NUMBER NUMBER { $$=nodo5(guardar_boton, $1, $3, $4, $5, $6) ;  } 
 | designator ETIQUETA LITERAL NUMBER NUMBER { $$=nodo4(guardar_etiqueta, $1, $3, $4, $5) ;  } 
-| designator TEXTO SNAME NUMBER NUMBER { $$=nodo4(guardar_texto, $1, $3, $4, $5) ;  } 
+| designator TEXTO SNAME expr2 COMMA expr2 { $$=nodo4(guardar_texto, $1, $3, $4, $6) ;  } 
 | MENSAJE lista_expr  { $$ = nodo1(mensaje,  $2); /*imprimir lista expr*/}
 ;
 
