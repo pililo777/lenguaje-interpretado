@@ -7,7 +7,7 @@
 # Macros
 TOP=`pwd`
 CND_PLATFORM=Cygwin_4.x_1-Windows
-CND_CONF=Windows
+CND_CONF=Windows_E
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 CND_DLIB_EXT=dll
