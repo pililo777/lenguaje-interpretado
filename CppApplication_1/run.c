@@ -234,6 +234,30 @@ elnodo * p;
 
 p = a;
 switch (p->tipo) {
+
+        case interpreta:
+
+        {
+            char input[40] = "imprimir z*3";
+
+            /*Copy string into new buffer and Switch buffers*/
+            yypush_buffer_state(yy_scan_string(input));
+            idx_prg = 1;
+            yyparse();
+            yypop_buffer_state();
+            execut(pila_programas[1]);
+
+            /*Analyze the string*/
+            //    yylex();
+            //   yyparse();
+
+            /*Delete the new buffer*/
+            //  liberar_buffer();
+        }
+
+            break;
+
+
     
     case mensaje :
         {
