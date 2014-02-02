@@ -81,6 +81,7 @@ statement:
 | designator ETIQUETA LITERAL NUMBER NUMBER { $$=nodo4(guardar_etiqueta, $1, $3, $4, $5) ;  } 
 | designator TEXTO SNAME expr2 COMMA expr2 { $$=nodo4(guardar_texto, $1, $3, $4, $6) ;  } 
 | MENSAJE lista_expr  { $$ = nodo1(mensaje,  $2); /*imprimir lista expr*/}
+| LLAMAR LITERAL {   $$ = nodo1(interpreta, $2);  }
 ;
 
 defventana:
