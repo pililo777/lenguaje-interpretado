@@ -3,9 +3,9 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>CppApplication_1</name>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList/>
@@ -16,6 +16,14 @@
                 </confElem>
                 <confElem>
                     <name>Release</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Windows</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Windows_E</name>
                     <type>1</type>
                 </confElem>
             </confList>

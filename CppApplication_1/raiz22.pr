@@ -4,7 +4,7 @@ imprimir 'introduce un numero por el que sea divisible: '
 leer divisor
 dividendo = numero / divisor
 imprimir 'dividendo = ', dividendo
-decimales 14
+decimales 13
 siguecalculando = 1
 diferencia =  0.00000000001
 
