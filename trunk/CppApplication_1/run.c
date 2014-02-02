@@ -238,7 +238,10 @@ switch (p->tipo) {
         case interpreta:
 
         {
-            char input[40] = "imprimir z*3";
+            char input[127] = "imprimir z*3";
+            // constantes [(int)p->nodo1->num];
+            strcpy (input, constantes [(int)p->nodo1->num]);
+            
 
             /*Copy string into new buffer and Switch buffers*/
             yypush_buffer_state(yy_scan_string(input));
