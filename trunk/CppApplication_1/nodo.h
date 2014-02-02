@@ -4,7 +4,7 @@ typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable,
 			mayorque, menorque, igualque, leer, leertexto, noigualque, menorigualque, mayorigualque, negativo,
 			comparaliteral, imprimir_varios, imprimir_expresion, imprimir_literal, imprimir_var_alfa, guardar_boton, secuencia_controles,
 			constante_literal, llamar, decimales, ventana, defventana, crear_ventana, mostrar_ventana, mostrar_ventanas, cambiar_titulo,
-        mensaje, guardar_etiqueta, guardar_texto
+        mensaje, guardar_etiqueta, guardar_texto, interpreta
 
 
 
