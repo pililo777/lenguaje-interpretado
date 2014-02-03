@@ -34,11 +34,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/minieditor.o \
+	${OBJECTDIR}/variables.o \
 	${OBJECTDIR}/run.o \
 	${OBJECTDIR}/grammar.tab.o \
 	${OBJECTDIR}/lex.yy.o \
-	${OBJECTDIR}/err.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/err.o
 
 
 # C Compiler Flags
@@ -65,6 +66,16 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -L/cygdrive/c/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
+${OBJECTDIR}/minieditor.o: minieditor.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/minieditor.o minieditor.c
+
+${OBJECTDIR}/variables.o: variables.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/variables.o variables.c
+
 ${OBJECTDIR}/run.o: run.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -84,11 +95,6 @@ ${OBJECTDIR}/err.o: err.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
-
-${OBJECTDIR}/main.o: main.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.c
 
 # Subprojects
 .build-subprojects:

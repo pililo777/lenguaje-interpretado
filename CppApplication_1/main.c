@@ -13,7 +13,7 @@ extern char *yytext;
 extern  char contadorvar;
 
 FILE * fichero = (FILE *) 0;
-main (int argc, char **argv)
+xxmain (int argc, char **argv)
 {
      	GtkWidget * ventana;
 

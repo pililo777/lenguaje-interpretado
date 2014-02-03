@@ -8,15 +8,24 @@
 extern int linenumber;
 extern int LineaInicial;
 #include "nodo.h"
+
 #include "stdio.h"
 #include "stdlib.h"
 
 extern char variables[127][127];
 extern char constantes[127][127];
+extern elnodo * procedimientos[127]; 
+
+extern elnodo * pila_programas[32];
+ extern int idx_prg;
+
+ extern int nro_decimales;
+
 char msgbox[2550];
 char mensaje2[255];
 
 static int  idx_win = 0;
+//static long memoria = 0;
 
 double evalua (elnodo *);
 

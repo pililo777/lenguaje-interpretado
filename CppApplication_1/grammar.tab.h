@@ -90,7 +90,7 @@ typedef union YYSTYPE
 {
 
 /* Line 2068 of yacc.c  */
-#line 11 "grammar.y"
+#line 22 "grammar.y"
 
  elnodo * nodo;
 

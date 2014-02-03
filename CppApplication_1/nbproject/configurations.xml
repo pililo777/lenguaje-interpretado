@@ -16,9 +16,10 @@
       <itemPath>grammar.tab.c</itemPath>
       <itemPath>grammar.tab.h</itemPath>
       <itemPath>lex.yy.c</itemPath>
-      <itemPath>main.c</itemPath>
+      <itemPath>minieditor.c</itemPath>
       <itemPath>nodo.h</itemPath>
       <itemPath>run.c</itemPath>
+      <itemPath>variables.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
