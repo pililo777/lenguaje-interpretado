@@ -1,6 +1,17 @@
 
 %{
 #include "nodo.h"
+
+extern elnodo * procedimientos[127]; //cambiar esta forma
+extern int idx_prc;
+
+extern elnodo * pila_programas[32];
+ extern int idx_prg;
+
+ extern int nro_decimales;
+ extern long memoria;
+
+
 #include "stdio.h"
  
 #define MSDOS

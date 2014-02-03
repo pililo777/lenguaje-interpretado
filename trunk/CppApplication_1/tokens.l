@@ -108,7 +108,7 @@ char x;
 
 
 '[^\']+'  {
-        /* constantes literales contienen una serie de variados signos ó simbolos */
+        /* constantes literales contienen una serie de variados signos ï¿½ simbolos */
 	yylval.nodo = nuevonodo();
 	yylval.nodo->tipo = constante_literal; 
 	yylval.nodo->subnodos = 0;
@@ -141,7 +141,7 @@ char x;
 
 
 [A-Z_0-9]+  {
-                /* nombres de variables ALFANUMERICAS van en mayúsculas */
+                /* nombres de variables ALFANUMERICAS van en mayï¿½sculas */
 	yylval.nodo  = nuevonodo();
 	yylval.nodo->tipo = nombre_de_variable;
 	yylval.nodo->subnodos = 0;
@@ -169,11 +169,20 @@ yywrap() { return 1; }
  elnodo * nuevonodo()  {
  elnodo * p;
 p = malloc(sizeof(struct elnodo));
+
+extern long memoria;
+memoria += sizeof(struct elnodo);
+
 p->num = 0;
 p->tipo = 9999;
  
 p->subnodos = 0;
-// p->nodo1 = NULL;
+p->nodo1 = NULL;
+p->nodo2 = NULL;
+p->nodo3 = NULL;
+p->nodo4 = NULL;
+p->nodo5 = NULL;
+
 
 return p;
 

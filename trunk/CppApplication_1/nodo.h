@@ -24,12 +24,3 @@ typedef struct elnodo {
 	struct elnodo * nodo4;
         struct elnodo * nodo5;
 } elnodo;
-
-elnodo * procedimientos[127]; //cambiar esta forma
-static int idx_prc = 0;
-
-elnodo * pila_programas[32];
-static int idx_prg = 0;
-
-
-static int nro_decimales = 0;
