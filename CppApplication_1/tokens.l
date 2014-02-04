@@ -172,6 +172,7 @@ p = malloc(sizeof(struct elnodo));
 
 extern long memoria;
 memoria += sizeof(struct elnodo);
+printf("nuevo nodo: %ld\n", memoria);
 
 p->num = 0;
 p->tipo = 9999;

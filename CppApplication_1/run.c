@@ -25,7 +25,7 @@ char msgbox[2550];
 char mensaje2[255];
 
 static int  idx_win = 0;
-//static long memoria = 0;
+extern long memoria;
 
 double evalua (elnodo *);
 
