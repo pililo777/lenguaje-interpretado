@@ -32,31 +32,109 @@ extern int idx_prg;
 extern  long memoria;
 
 
-void liberar_nodo(elnodo * p)
+void liberar_nodo( elnodo * a)
 
 {
-    if (p == pila_programas[0]) {
-        
-        if (p->subnodos > 0)
-        liberar_nodo(p->nodo1);
-        
-        if (p->subnodos > 1)
-        liberar_nodo(p->nodo2);
-        
-        if (p->subnodos > 2)
-        liberar_nodo(p->nodo3);
+    elnodo * p;
+    p=a;
     
-    if (p->subnodos > 3)
-        liberar_nodo(p->nodo4);
-    
-    if (p->subnodos > 4)
-        liberar_nodo(p->nodo5);
+       if (p == pila_programas[0]) {
+           
+           
+            if (p->subnodos == 0) {
+            free(p);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+            return;
+        }
+        
+     if (p->subnodos > 0) {
+            liberar_nodo(p->nodo1);
+            free(p->nodo1);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+
+        }
+
+        if (p->subnodos > 1) {
+            liberar_nodo(p->nodo2);
+            free(p->nodo2);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+        }
+
+        if (p->subnodos > 2) {
+            liberar_nodo(p->nodo3);
+            free(p->nodo3);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+        }
+
+        if (p->subnodos > 3) {
+            liberar_nodo(p->nodo4);
+            free(p->nodo4);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+        }
+
+        if (p->subnodos > 4) {
+            liberar_nodo(p->nodo5);
+            free(p->nodo5);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+        }
         
         pila_programas[0] = NULL; }
             
     else {
-       free(p);
-  }
+           
+           if (p->subnodos == 0) {
+            free(p);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+            return;
+        }
+           
+           
+           if (p->subnodos > 0) {
+            liberar_nodo(p->nodo1);
+            && aqui da error .....
+            free(p->nodo1);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+
+        }
+
+        if (p->subnodos > 1) {
+            liberar_nodo(p->nodo2);
+            free(p->nodo2);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+        }
+
+        if (p->subnodos > 2) {
+            liberar_nodo(p->nodo3);
+            free(p->nodo3);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+        }
+
+        if (p->subnodos > 3) {
+            liberar_nodo(p->nodo4);
+            free(p->nodo4);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+        }
+
+        if (p->subnodos > 4) {
+            liberar_nodo(p->nodo5);
+            free(p->nodo5);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+        }
+           
+        
+           }
 }
  
 
@@ -74,6 +152,7 @@ void on_button_color_clicked (GtkButton * button, gpointer user_data);
 int
 main (int argc, char *argv[])
 {
+   memoria = 0;
         
     GtkWidget *window;
 
@@ -220,7 +299,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
             idx_prg = 0;
             yyparse();
             
-            printf("memoria: %lf \n", memoria);
+            printf("memoria: %ld \n", memoria);
             
             yypop_buffer_state();
              execut(pila_programas[0]);
@@ -234,6 +313,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
             //  liberar_buffer();
              //g_free(input);
              liberar_nodo(pila_programas[0]);
+            printf("memoria: %ld \n", memoria);
     
 }
 
