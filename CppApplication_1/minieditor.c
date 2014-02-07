@@ -1,4 +1,6 @@
 #include <gtk/gtk.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable, 
 			indice_strings, procedimiento, secuencia , imprimir, 
@@ -319,16 +321,30 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
             // constantes [(int)p->nodo1->num];
           input = gtk_text_buffer_get_text  (textbuffer, &start, &end, FALSE );
           
-          char uncero = '\0';
+         //char *uncero = malloc(2);
+         
+         //strcpy(uncero, "\0");
+         
+         
+         char *c = malloc(strlen((gchar *) input) +   2);
+      if ( c != NULL )
+      {
+         strcpy(c, input);
+         strcat(c,   "\0");
+         int l;
+         l = strlen((char *) c);
+         l++;
+      }
+         
+         
+          //strcat(input,  &uncero);
           
-/*
-          
-          strcat(input, uncero);
+          /*
           strcat(input, uncero);
 */
           
             /*Copy string into new buffer and Switch buffers*/
-          yypush_buffer_state(yy_scan_string(input));
+          yypush_buffer_state(yy_scan_string(c));
          // yy_scan_string(input);
 /*
              GError                  *err=NULL;   
@@ -349,7 +365,8 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
           //  
             printf("memoria: %ld \n", memoria);
          
-          
+            free(c);
+      
             liberar_nodo(pila_programas[0]);
             printf("memoria: %ld \n", memoria);
             
