@@ -31,7 +31,7 @@ DEFAULTCONF=Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release Windows Windows_E 
+ALLCONFS=Debug Release Windows Windows_E Windows_G 
 
 
 # build

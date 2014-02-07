@@ -15,13 +15,14 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=g++-4.7
-CXX=g++-4.7
+CCC=g++
+CXX=g++
 FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=Cygwin_4.x-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Windows_E
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -34,12 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/minieditor.o \
-	${OBJECTDIR}/variables.o \
-	${OBJECTDIR}/run.o \
+	${OBJECTDIR}/err.o \
 	${OBJECTDIR}/grammar.tab.o \
 	${OBJECTDIR}/lex.yy.o \
-	${OBJECTDIR}/err.o
+	${OBJECTDIR}/minieditor.o \
+	${OBJECTDIR}/run.o \
+	${OBJECTDIR}/variables.o
 
 
 # C Compiler Flags
@@ -60,41 +61,41 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -L/cygdrive/e/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/minieditor.o: minieditor.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/minieditor.o minieditor.c
-
-${OBJECTDIR}/variables.o: variables.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/variables.o variables.c
-
-${OBJECTDIR}/run.o: run.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/run.o run.c
-
-${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
-
-${OBJECTDIR}/lex.yy.o: lex.yy.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/lex.yy.o lex.yy.c
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} -L/cygdrive/e/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl
 
 ${OBJECTDIR}/err.o: err.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
+	$(COMPILE.c) -g -mms-bitfields -I/cygdrive/e/gtk/include/gtk-2.0 -I/cygdrive/e/gtk/lib/gtk-2.0/include -I/cygdrive/e/gtk/include/atk-1.0 -I/cygdrive/e/gtk/include/cairo -I/cygdrive/e/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/e/gtk/include/pango-1.0 -I/cygdrive/e/gtk/include/glib-2.0 -I/cygdrive/e/gtk/lib/glib-2.0/include -I/cygdrive/e/gtk/include -I/cygdrive/e/gtk/include/freetype2 -I/cygdrive/e/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
+
+${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -mms-bitfields -I/cygdrive/e/gtk/include/gtk-2.0 -I/cygdrive/e/gtk/lib/gtk-2.0/include -I/cygdrive/e/gtk/include/atk-1.0 -I/cygdrive/e/gtk/include/cairo -I/cygdrive/e/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/e/gtk/include/pango-1.0 -I/cygdrive/e/gtk/include/glib-2.0 -I/cygdrive/e/gtk/lib/glib-2.0/include -I/cygdrive/e/gtk/include -I/cygdrive/e/gtk/include/freetype2 -I/cygdrive/e/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
+
+${OBJECTDIR}/lex.yy.o: lex.yy.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -mms-bitfields -I/cygdrive/e/gtk/include/gtk-2.0 -I/cygdrive/e/gtk/lib/gtk-2.0/include -I/cygdrive/e/gtk/include/atk-1.0 -I/cygdrive/e/gtk/include/cairo -I/cygdrive/e/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/e/gtk/include/pango-1.0 -I/cygdrive/e/gtk/include/glib-2.0 -I/cygdrive/e/gtk/lib/glib-2.0/include -I/cygdrive/e/gtk/include -I/cygdrive/e/gtk/include/freetype2 -I/cygdrive/e/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/lex.yy.o lex.yy.c
+
+${OBJECTDIR}/minieditor.o: minieditor.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -mms-bitfields -I/cygdrive/e/gtk/include/gtk-2.0 -I/cygdrive/e/gtk/lib/gtk-2.0/include -I/cygdrive/e/gtk/include/atk-1.0 -I/cygdrive/e/gtk/include/cairo -I/cygdrive/e/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/e/gtk/include/pango-1.0 -I/cygdrive/e/gtk/include/glib-2.0 -I/cygdrive/e/gtk/lib/glib-2.0/include -I/cygdrive/e/gtk/include -I/cygdrive/e/gtk/include/freetype2 -I/cygdrive/e/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/minieditor.o minieditor.c
+
+${OBJECTDIR}/run.o: run.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -mms-bitfields -I/cygdrive/e/gtk/include/gtk-2.0 -I/cygdrive/e/gtk/lib/gtk-2.0/include -I/cygdrive/e/gtk/include/atk-1.0 -I/cygdrive/e/gtk/include/cairo -I/cygdrive/e/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/e/gtk/include/pango-1.0 -I/cygdrive/e/gtk/include/glib-2.0 -I/cygdrive/e/gtk/lib/glib-2.0/include -I/cygdrive/e/gtk/include -I/cygdrive/e/gtk/include/freetype2 -I/cygdrive/e/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/run.o run.c
+
+${OBJECTDIR}/variables.o: variables.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g -mms-bitfields -I/cygdrive/e/gtk/include/gtk-2.0 -I/cygdrive/e/gtk/lib/gtk-2.0/include -I/cygdrive/e/gtk/include/atk-1.0 -I/cygdrive/e/gtk/include/cairo -I/cygdrive/e/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/e/gtk/include/pango-1.0 -I/cygdrive/e/gtk/include/glib-2.0 -I/cygdrive/e/gtk/lib/glib-2.0/include -I/cygdrive/e/gtk/include -I/cygdrive/e/gtk/include/freetype2 -I/cygdrive/e/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/variables.o variables.c
 
 # Subprojects
 .build-subprojects:
@@ -102,7 +103,7 @@ ${OBJECTDIR}/err.o: err.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe
 
 # Subprojects
 .clean-subprojects:
