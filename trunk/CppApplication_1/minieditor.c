@@ -30,6 +30,7 @@ typedef struct elnodo {
 extern elnodo * pila_programas[32];
 extern int idx_prg;
 extern  long memoria;
+extern int linenumber;
 
 
 void liberar_nodo( elnodo * a)
@@ -37,52 +38,64 @@ void liberar_nodo( elnodo * a)
 {
     elnodo * p;
     p=a;
-    
        if (p == pila_programas[0]) {
-           
-           
             if (p->subnodos == 0) {
-            free(p);
-            memoria -= sizeof (struct elnodo);
-            printf("librando un nodo: %ld\n", memoria);
+           
+            printf("no hay nodos para liberar\n");
             return;
         }
         
      if (p->subnodos > 0) {
             liberar_nodo(p->nodo1);
+/*
             free(p->nodo1);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
 
         }
 
         if (p->subnodos > 1) {
             liberar_nodo(p->nodo2);
+/*
             free(p->nodo2);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
         }
 
         if (p->subnodos > 2) {
             liberar_nodo(p->nodo3);
+/*
             free(p->nodo3);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
         }
 
         if (p->subnodos > 3) {
             liberar_nodo(p->nodo4);
+/*
             free(p->nodo4);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
         }
 
         if (p->subnodos > 4) {
             liberar_nodo(p->nodo5);
+/*
             free(p->nodo5);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
         }
+            
+           free(p);
+           memoria -= sizeof (struct elnodo);
+           printf("librando el nodo raiz: %ld\n", memoria);
+            
+            
         
         pila_programas[0] = NULL; }
             
@@ -91,50 +104,63 @@ void liberar_nodo( elnodo * a)
            if (p->subnodos == 0) {
             free(p);
             memoria -= sizeof (struct elnodo);
-            printf("librando un nodo: %ld\n", memoria);
+            printf("librando un nodo sin subnodos: %ld\n", memoria);
             return;
         }
            
            
            if (p->subnodos > 0) {
             liberar_nodo(p->nodo1);
-            && aqui da error .....
+            
+/*
             free(p->nodo1);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
 
         }
 
         if (p->subnodos > 1) {
             liberar_nodo(p->nodo2);
+/*
             free(p->nodo2);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
         }
 
         if (p->subnodos > 2) {
             liberar_nodo(p->nodo3);
+/*
             free(p->nodo3);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
         }
 
         if (p->subnodos > 3) {
             liberar_nodo(p->nodo4);
+/*
             free(p->nodo4);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
         }
 
         if (p->subnodos > 4) {
             liberar_nodo(p->nodo5);
+/*
             free(p->nodo5);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
+*/
         }
            
-        
-           }
+           free(p);
+           memoria -= sizeof (struct elnodo);
+           printf("librando el nodo: %ld\n", memoria);
+
+    }
 }
  
 
@@ -292,17 +318,49 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
         gchar *input;
             // constantes [(int)p->nodo1->num];
           input = gtk_text_buffer_get_text  (textbuffer, &start, &end, FALSE );
-            
-
+          
+          char uncero = '\0';
+          
+/*
+          
+          strcat(input, uncero);
+          strcat(input, uncero);
+*/
+          
             /*Copy string into new buffer and Switch buffers*/
-            yypush_buffer_state(yy_scan_string(input));
+          yypush_buffer_state(yy_scan_string(input));
+         // yy_scan_string(input);
+/*
+             GError                  *err=NULL;   
+            gboolean                result;
+            gchar *filename;
+            filename = g_strdup ("buffer.pr");
+                 
+    result = g_file_set_contents (filename, input, -1, &err);
+    g_free(filename);
+*/
+ 
+
             idx_prg = 0;
-            yyparse();
             
+               linenumber = 1;
+            yyparse();
+            execut(pila_programas[0]);
+          //  
+            printf("memoria: %ld \n", memoria);
+         
+          
+            liberar_nodo(pila_programas[0]);
             printf("memoria: %ld \n", memoria);
             
-            yypop_buffer_state();
-             execut(pila_programas[0]);
+           yypop_buffer_state();
+           
+           g_free(input);
+           
+           
+         //  yy_delete_buffer(input); /* free up memory */ 
+            
+      //  yy_delete_buffer(YY_CURRENT_BUFFER);   
              
 
             /*Analyze the string*/
@@ -312,8 +370,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
             /*Delete the new buffer*/
             //  liberar_buffer();
              //g_free(input);
-             liberar_nodo(pila_programas[0]);
-            printf("memoria: %ld \n", memoria);
+            
     
 }
 
