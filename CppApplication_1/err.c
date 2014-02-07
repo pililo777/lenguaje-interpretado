@@ -1,5 +1,5 @@
 #include "stdio.h"
-int linenumber = 1;
+extern int linenumber;
 
 yyerror(msg)
    char * msg;

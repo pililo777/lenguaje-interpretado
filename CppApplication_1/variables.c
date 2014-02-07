@@ -7,3 +7,5 @@ elnodo * pila_programas[32];
 
  int nro_decimales = 0;
  long memoria = 0;
+ 
+ int linenumber = 0;
