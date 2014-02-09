@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="89">
+<configurationDescriptor version="80">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -47,8 +47,6 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -79,31 +77,11 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="err.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="nodo.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="run.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="variables.c" ex="false" tool="0" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -119,31 +97,11 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="err.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="nodo.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="run.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="variables.c" ex="false" tool="0" flavor2="0">
-      </item>
     </conf>
     <conf name="Windows" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -153,31 +111,11 @@
           <commandLine>-L/cygdrive/c/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="err.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="nodo.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="run.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="variables.c" ex="false" tool="0" flavor2="0">
-      </item>
     </conf>
     <conf name="Windows_E" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -187,31 +125,11 @@
           <commandLine>-L/cygdrive/e/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="err.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="nodo.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="run.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="variables.c" ex="false" tool="0" flavor2="0">
-      </item>
     </conf>
     <conf name="Windows_G" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -221,24 +139,6 @@
           <commandLine>-L/cygdrive/g/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="err.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="nodo.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="run.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="variables.c" ex="false" tool="0" flavor2="0">
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>

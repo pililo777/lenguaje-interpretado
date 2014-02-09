@@ -9,3 +9,4 @@ elnodo * pila_programas[32];
  long memoria = 0;
  
  int linenumber = 0;
+ int err_number = 0;

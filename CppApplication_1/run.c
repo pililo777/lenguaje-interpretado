@@ -242,6 +242,7 @@ elnodo * p;
 //p = nuevonodo();
 
 p = a;
+
 switch (p->tipo) {
 
         case interpreta:
