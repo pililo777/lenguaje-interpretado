@@ -171,6 +171,7 @@ void liberar_nodo( elnodo * a)
 
 GtkWidget *create_window ();
 void create_tags (GtkTextBuffer * buffer);
+void on_button_load_clicked (GtkButton * button, gpointer user_data);
 void on_button_clear_clicked (GtkButton * button, gpointer user_data);
 void on_button_cut_clicked (GtkButton * button, gpointer user_data);
 void on_button_copy_clicked (GtkButton * button, gpointer user_data);
@@ -203,6 +204,7 @@ create_window ()
     GtkWidget *vbox_main;
     GtkWidget *handlebox;
     GtkWidget *toolbar;
+    GtkWidget *button_load;
     GtkWidget *button_clear;
     GtkWidget *button_cut;
     GtkWidget *button_copy;
@@ -228,6 +230,11 @@ create_window ()
 
     toolbar = gtk_toolbar_new ();
     gtk_container_add (GTK_CONTAINER (handlebox), toolbar);
+    
+    button_load = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
+                          GTK_STOCK_OPEN,
+                         NULL,
+                         NULL, NULL, NULL, -1);
 
     button_clear = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
                          "gtk-clear",
@@ -272,9 +279,16 @@ create_window ()
 
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
     create_tags (buffer);
+    
 
     g_signal_connect ((gpointer) window, "delete_event",
               G_CALLBACK (gtk_main_quit), NULL);
+    
+    g_signal_connect ((gpointer) button_load, "clicked",
+              G_CALLBACK (on_button_load_clicked),
+              (gpointer) textview);
+    
+    
     g_signal_connect ((gpointer) button_clear, "clicked",
               G_CALLBACK (on_button_clear_clicked),
               (gpointer) textview);
@@ -414,6 +428,59 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
             
   //  printf("fin clicked\n");
 }
+
+
+void
+on_button_load_clicked (GtkButton * button, gpointer user_data)
+{
+    GtkTextBuffer *textbuffer = NULL;
+
+    g_assert (GTK_IS_TEXT_VIEW (user_data));
+
+    textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (user_data));
+
+    gtk_text_buffer_cut_clipboard (textbuffer,
+                       gtk_clipboard_get (GDK_NONE), TRUE);
+    
+    
+    
+    
+    GtkWidget *dialog;
+
+dialog = gtk_file_chooser_dialog_new ("Open File",
+                                      NULL,
+                                      GTK_FILE_CHOOSER_ACTION_OPEN,
+                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                      NULL);
+
+if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+  {
+    char *filename;
+    gchar *text;
+
+    filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+    
+    
+      GError                  *err=NULL;   
+      gboolean                result;
+            
+           // gchar *filename;
+          //  filename = g_strdup ("buffer.pr");
+                 
+      //result = g_file_get_contents (filename, input, -1, &err);
+      result = g_file_get_contents (filename, &text, NULL, &err);
+    
+    g_free (filename);
+  }
+
+gtk_widget_destroy (dialog);
+    
+    
+    
+}
+
+
 
 void
 on_button_cut_clicked (GtkButton * button, gpointer user_data)
