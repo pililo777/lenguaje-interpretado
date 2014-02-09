@@ -15,14 +15,13 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=g++
-CXX=g++
+CCC=g++-4.7
+CXX=g++-4.7
 FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Windows
-CND_DLIB_EXT=dll
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -35,12 +34,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/err.o \
+	${OBJECTDIR}/minieditor.o \
+	${OBJECTDIR}/variables.o \
+	${OBJECTDIR}/run.o \
 	${OBJECTDIR}/grammar.tab.o \
 	${OBJECTDIR}/lex.yy.o \
-	${OBJECTDIR}/minieditor.o \
-	${OBJECTDIR}/run.o \
-	${OBJECTDIR}/variables.o
+	${OBJECTDIR}/err.o
 
 
 # C Compiler Flags
@@ -61,16 +60,26 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/err.o: err.c 
+${OBJECTDIR}/minieditor.o: minieditor.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/minieditor.o minieditor.c
+
+${OBJECTDIR}/variables.o: variables.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/variables.o variables.c
+
+${OBJECTDIR}/run.o: run.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/run.o run.c
 
 ${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -82,20 +91,10 @@ ${OBJECTDIR}/lex.yy.o: lex.yy.c
 	${RM} $@.d
 	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/lex.yy.o lex.yy.c
 
-${OBJECTDIR}/minieditor.o: minieditor.c 
+${OBJECTDIR}/err.o: err.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/minieditor.o minieditor.c
-
-${OBJECTDIR}/run.o: run.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/run.o run.c
-
-${OBJECTDIR}/variables.o: variables.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/variables.o variables.c
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
 
 # Subprojects
 .build-subprojects:
@@ -103,7 +102,7 @@ ${OBJECTDIR}/variables.o: variables.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
 
 # Subprojects
 .clean-subprojects:

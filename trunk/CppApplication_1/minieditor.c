@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+extern FILE * yyin;
+extern int err_number;
+
 typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable, 
 			indice_strings, procedimiento, secuencia , imprimir, 
 			suma, resta, multiplica, divide, si, mientras, asigna_num, asigna_alfa,
@@ -95,7 +98,7 @@ void liberar_nodo( elnodo * a)
             
            free(p);
            memoria -= sizeof (struct elnodo);
-           printf("librando el nodo raiz: %ld\n", memoria);
+       //    printf("librando el nodo raiz: %ld\n", memoria);
             
             
         
@@ -106,7 +109,7 @@ void liberar_nodo( elnodo * a)
            if (p->subnodos == 0) {
             free(p);
             memoria -= sizeof (struct elnodo);
-            printf("librando un nodo sin subnodos: %ld\n", memoria);
+         //   printf("librando un nodo sin subnodos: %ld\n", memoria);
             return;
         }
            
@@ -160,7 +163,7 @@ void liberar_nodo( elnodo * a)
            
            free(p);
            memoria -= sizeof (struct elnodo);
-           printf("librando el nodo: %ld\n", memoria);
+       //    printf("librando el nodo: %ld\n", memoria);
 
     }
 }
@@ -307,16 +310,16 @@ on_button_clear_clicked (GtkButton * button, gpointer user_data)
     GtkTextBuffer *textbuffer = NULL;
      GtkTextIter start, end;
      
- 
+// printf("on buton clicked\n");
      
-
+   //  printf("check1\n");
     g_assert (GTK_IS_TEXT_VIEW (user_data));
-
+//printf("check2\n");
     textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (user_data));
     // gtk_text_buffer_get_selection_bounds (textbuffer, &start, &end);
 gtk_text_buffer_get_start_iter (textbuffer, &start);
 gtk_text_buffer_get_end_iter (textbuffer, &end);
-     
+//printf("check3\n");
         gchar *input;
             // constantes [(int)p->nodo1->num];
           input = gtk_text_buffer_get_text  (textbuffer, &start, &end, FALSE );
@@ -326,17 +329,21 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
          //strcpy(uncero, "\0");
          
          
-         char *c = malloc(strlen((gchar *) input) +   2);
+   //   char *c = malloc(strlen((gchar *) input) +   3);
+//   printf("check4\n");
+/*
       if ( c != NULL )
       {
          strcpy(c, input);
+         strcat(c,   "\0");
          strcat(c,   "\0");
          int l;
          l = strlen((char *) c);
          l++;
       }
+*/
          
-         
+      //   printf("check5\n");
           //strcat(input,  &uncero);
           
           /*
@@ -344,35 +351,52 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
 */
           
             /*Copy string into new buffer and Switch buffers*/
-          yypush_buffer_state(yy_scan_string(c));
-         // yy_scan_string(input);
+        //  yypush_buffer_state(yy_scan_string(input));
+       
+          yy_scan_string(input);
 /*
+
              GError                  *err=NULL;   
             gboolean                result;
             gchar *filename;
             filename = g_strdup ("buffer.pr");
                  
     result = g_file_set_contents (filename, input, -1, &err);
-    g_free(filename);
+   
+
+    yyin =  fopen(filename , "r"); 
 */
- 
+    
 
             idx_prg = 0;
             
                linenumber = 1;
-            yyparse();
-            execut(pila_programas[0]);
-          //  
-            printf("memoria: %ld \n", memoria);
-         
-            free(c);
-      
-            liberar_nodo(pila_programas[0]);
-            printf("memoria: %ld \n", memoria);
+           //    printf("check6 parsing....\n");
+           //    if (yyin != NULL) {
+               
+                 yyparse();
+             //    fclose(yyin);
+               
+           //    }
+            //    g_free(filename);
+                 
             
-           yypop_buffer_state();
-           
-           g_free(input);
+         //   free(c);
+            
+            yypop_buffer_state();
+            
+          //  printf("check7 ejecutando....\n");
+            if (err_number == 0)
+            execut(pila_programas[0]);
+       //     printf("check8\n");
+      //      printf("memoria: %ld \n", memoria);
+         
+            
+    //  printf("check9 liberando memoria\n");
+            liberar_nodo(pila_programas[0]);
+      //      printf("memoria: %ld \n", memoria);
+
+        //   g_free(input);
            
            
          //  yy_delete_buffer(input); /* free up memory */ 
@@ -388,7 +412,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
             //  liberar_buffer();
              //g_free(input);
             
-    
+  //  printf("fin clicked\n");
 }
 
 void
