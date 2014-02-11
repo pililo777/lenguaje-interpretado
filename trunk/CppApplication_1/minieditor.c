@@ -470,6 +470,21 @@ if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
                  
       //result = g_file_get_contents (filename, input, -1, &err);
       result = g_file_get_contents (filename, &text, NULL, &err);
+      
+       if (result == FALSE)
+        {
+                /* error loading file, show message to user */
+              //  error_message (err->message);
+                g_error_free (err);
+                g_free (filename);
+        }
+      
+      gtk_widget_set_sensitive (user_data, FALSE);
+        textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (user_data ));
+        gtk_text_buffer_set_text (textbuffer, text, -1);
+        gtk_text_buffer_set_modified (textbuffer, FALSE);
+        gtk_widget_set_sensitive (user_data, TRUE);
+        g_free (text); 
     
     g_free (filename);
   }
