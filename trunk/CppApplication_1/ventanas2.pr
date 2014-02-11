@@ -4,7 +4,7 @@ imprimir 'hola, inicio del programa'
 x=130
 z=4
 imprimir 'x=', x
-llamar  'imprimir z * 9'
+LLAMAR 'imprimir z * 9'
 
 NOMBRE = 'perico'
 APELLIDO = 'de los palotes'
