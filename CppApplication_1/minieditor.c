@@ -171,6 +171,7 @@ void liberar_nodo( elnodo * a)
 
 GtkWidget *create_window ();
 void create_tags (GtkTextBuffer * buffer);
+void on_button_save_clicked (GtkButton * button, gpointer user_data);
 void on_button_load_clicked (GtkButton * button, gpointer user_data);
 void on_button_clear_clicked (GtkButton * button, gpointer user_data);
 void on_button_cut_clicked (GtkButton * button, gpointer user_data);
@@ -205,6 +206,7 @@ create_window ()
     GtkWidget *handlebox;
     GtkWidget *toolbar;
     GtkWidget *button_load;
+    GtkWidget *button_save;
     GtkWidget *button_clear;
     GtkWidget *button_cut;
     GtkWidget *button_copy;
@@ -233,6 +235,11 @@ create_window ()
     
     button_load = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
                           GTK_STOCK_OPEN,
+                         NULL,
+                         NULL, NULL, NULL, -1);
+    
+     button_save = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
+                          GTK_STOCK_SAVE,
                          NULL,
                          NULL, NULL, NULL, -1);
 
@@ -286,6 +293,10 @@ create_window ()
     
     g_signal_connect ((gpointer) button_load, "clicked",
               G_CALLBACK (on_button_load_clicked),
+              (gpointer) textview);
+    
+    g_signal_connect ((gpointer) button_save, "clicked",
+              G_CALLBACK (on_button_save_clicked),
               (gpointer) textview);
     
     
@@ -494,6 +505,74 @@ gtk_widget_destroy (dialog);
     
     
 }
+
+void
+on_button_save_clicked (GtkButton * button, gpointer user_data)
+{
+    GtkTextBuffer *textbuffer = NULL;
+    GtkTextIter start, end;
+
+    g_assert (GTK_IS_TEXT_VIEW (user_data));
+
+    textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (user_data));
+
+    gtk_text_buffer_cut_clipboard (textbuffer,
+                       gtk_clipboard_get (GDK_NONE), TRUE);
+    
+    
+    
+    
+    GtkWidget *dialog;
+
+dialog = gtk_file_chooser_dialog_new ("Guardar programa...",
+                                      NULL,
+                                      GTK_FILE_CHOOSER_ACTION_SAVE,
+                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                      NULL);
+
+if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+  {
+    char *filename;
+  //  gchar *text;
+
+    filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+    
+    
+      GError                  *err=NULL;   
+      gboolean                result;
+    
+    textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (user_data));
+    // gtk_text_buffer_get_selection_bounds (textbuffer, &start, &end);
+    gtk_text_buffer_get_start_iter (textbuffer, &start);
+    gtk_text_buffer_get_end_iter (textbuffer, &end);
+ 
+    gchar *input;
+    input = gtk_text_buffer_get_text  (textbuffer, &start, &end, FALSE );
+      
+    result = g_file_set_contents (filename, input, -1, &err);
+ 
+      
+       if (result == FALSE)
+        {
+                /* error loading file, show message to user */
+              //  error_message (err->message);
+                g_error_free (err);
+                g_free (filename);
+        }
+      
+     
+        g_free (input); 
+    
+    g_free (filename);
+  }
+
+gtk_widget_destroy (dialog);
+    
+    
+    
+}
+
 
 
 
