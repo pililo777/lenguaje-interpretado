@@ -13,7 +13,7 @@ _COMPILACION DEL PROYECTO_
 
 Este proyecto está actualmente listo para utilizar en Netbeans, pero si se descargan los ficheros .c y .h, se pueden compilar en otro IDE: Visual Studio, Eclipse, etc.
 
-Para Windows: Instalar cygwin (para tener el compilador de C)
+Para Windows: Instalar cygwin (para tener el compilador de C), instalar Gtk.
 
 Para Linux: Instalar Gtk ( a veces ya viene pre-instalado en algunas distribuciones).
 
