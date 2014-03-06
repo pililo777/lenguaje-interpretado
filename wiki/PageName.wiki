@@ -1,0 +1,29 @@
+#summary One-sentence summary of this page.
+#labels Featured,Phase-Support,Phase-Implementation
+
+= Introduction =
+
+LENGUAJE INTERPRETE EN C. EJECUTA PROGRAMAS ESCRITOS EN CASTELLANO
+
+
+= Details =
+
+*LENGUAJE INTERPRETE*
+
+_COMPILACION DEL PROYECTO_
+
+Este proyecto está actualmente listo para utilizar en Netbeans, pero si se descargan los ficheros .c y .h, se pueden compilar en otro IDE: Visual Studio, Eclipse, etc.
+
+Para Windows: Instalar cygwin (para tener el compilador de C)
+
+Para Linux: Instalar Gtk ( a veces ya viene pre-instalado en algunas distribuciones).
+
+_FUNCIONALIDAD_ 
+
+Actualmente permite mostrar ventanas con algunos controles: etiquetas, cuadros de texto y botones. A los botones se les enlaza con un procedimiento y a los cuadros de texto con una variable alfanumerica.
+
+También se puede utilizar el lenguaje sin hacer uso de  las ventanas, para ello dispone de dos instrucciones: "leer" para leer variables por teclado y "imprimir" para mostrar las variables en la consola terminal.
+
+Comentarios, sugerencias al email: pililo777@gmail.com
+
+Saludos: Rubén Rivero Roca.
