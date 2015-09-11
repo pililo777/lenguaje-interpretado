@@ -1,7 +1,7 @@
 //CALCULO DEL NUMERO e  ( EULER)    metodo serie  (ver wikipedia)
 e = 1
 decimales 14
-imprimir 'demostracion para Oscar'
+imprimir 'demostracion del calculo del numero de Euler por el metodo del factorial '
 desde x = 1 hasta 39
     haz
         llamar factorial
@@ -12,7 +12,7 @@ desde x = 1 hasta 39
 terminar
 
 
-procedimiento factorial   //calculamos el fact x
+procedimiento factorial   //calculamos el fact x iterativamente
   f = 1
   desde n = 1 hasta x
       haz

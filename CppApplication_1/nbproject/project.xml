@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.cnd.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>CppApplication_1</name>
+            <name>InterGit</name>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
             <header-extensions>h</header-extensions>
@@ -21,18 +21,6 @@
                 </confElem>
                 <confElem>
                     <name>Windows</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Windows_E</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Windows_G</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Windows_D</name>
                     <type>1</type>
                 </confElem>
             </confList>

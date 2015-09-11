@@ -2,9 +2,10 @@
 // calculo del numero  e,   segundo metodo : limite (muy lento)
 //
 
-decimales 4
+decimales 14
 
 e = 0
+n = 0
 
 desde n = 1 hasta 20000
 

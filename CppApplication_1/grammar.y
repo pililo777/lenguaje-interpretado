@@ -1,4 +1,4 @@
-
+// compilar con la orden:     bison -d grammar.y      luego    flex tokens.l
 %{
 #include "nodo.h"
 
@@ -26,7 +26,8 @@ extern elnodo * pila_programas[32];
 
 %start ROOT
 
-%token LLAMAR PROC END PROCNAME
+%token STOP
+%token LLAMAR PROC END PROCNAME GRAFICOS DIM LINEA CIRCULO CONVERTIR EVALUAR
 %token EQ
 %token TERMINAR DECIMALES VENTANA FIN BOTON MENSAJE ETIQUETA TEXTO
 %token NE
@@ -56,14 +57,17 @@ extern elnodo * pila_programas[32];
 %token LEER BORRAR
 %token NUMBER
 %token NAME SNAME
-%token LITERAL
-%type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2
+%token LITERAL DOBLECOMILLA
+%type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME defventana defcontroles lista_controles
+%type <nodo> CONVERTIR EVALUAR STOP
 %%
 
 ROOT:
    stmtseq    {  pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++ ; }
-|  stmtseq TERMINAR procedimientos { pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++; }
+|  stmtseq TERMINAR procedimientos {
+  	printf("se ha reducido el programa por la regla de la linea 66 de grammar.y\n");
+ 	pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++; }
 ;
 
 procedimientos:
@@ -74,9 +78,11 @@ procedimientos:
 statement:
   designator EQ expression { $$ = nodo2(asigna_num, $1, $3); /*asignacion*/} 
 | sdesignator EQ LITERAL  { $$ = nodo2(asigna_alfa, $1, $3); /*asign literal*/} 
-| LLAMAR proc_designator   {  $$ = nodo1(llamar, $2) ;/*llamar proced.*/}
-| DECIMALES NUMBER  { $$ = nodo1(decimales, $2 ) ; }
-| PRINT lista_expr  { $$ = nodo1(imprimir_varios,  $2); /*imprimir lista expr*/}
+| DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
+| designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }
+| LLAMAR proc_designator   {  $$ = nodo1(llamar, $2) ;/*llamar proced.*/} 
+| DECIMALES NUMBER  { $$ = nodo1(decimales, $2 ) ; } 
+| PRINT lista_expr  { $$ = nodo1(imprimir_varios,  $2); /*imprimir lista expr*/} 
 | LEER sdesignator  { $$ = nodo1(leertexto,  $2) ; /*leer variable alfa*/}
 | LEER designator   { $$ = nodo1(leer,  $2) ; /*leer variable numerica*/}
 | IF expression THEN stmtseq ELSE stmtseq FI { $$ = nodo3(si, $2, $4, $6); /*if con else */}
@@ -92,7 +98,14 @@ statement:
 | designator ETIQUETA LITERAL NUMBER NUMBER { $$=nodo4(guardar_etiqueta, $1, $3, $4, $5) ;  } 
 | designator TEXTO SNAME expr2 COMMA expr2 { $$=nodo4(guardar_texto, $1, $3, $4, $6) ;  } 
 | MENSAJE lista_expr  { $$ = nodo1(mensaje,  $2); /*imprimir lista expr*/}
-| LLAMAR LITERAL {   $$ = nodo1(interpreta, $2);  }
+| LLAMAR LITERAL {   $$ = nodo1(interpreta, $2);  }  /*los siguientes... 18 de Enero de 2014 */
+| GRAFICOS proc_designator designator designator designator { $$ = nodo4(graficos, $2, $3, $4, $5);   }  /* proc  boton x y */
+| LINEA expr2 COMMA expr2 COMMA expr2 COMMA expr2 { $$ = nodo4(dibuja_linea, $2, $4, $6, $8) ; }  /* dibuja una linea en la ventana grafica */
+| CIRCULO expr2 COMMA expr2 COMMA expr2 { $$ = nodo3(dibuja_circulo, $2, $4, $6) ; } 
+| CONVERTIR sdesignator designator {$$=nodo2(convertir_texto_a_numero, $2, $3);}
+| CONVERTIR designator sdesignator {$$=nodo2(convertir_numero_a_texto, $2, $3);}
+| EVALUAR LITERAL  {  $$ = nodo1(interpreta, $2 );  } 
+| STOP { $$=nodo1(stop, $1); }
 ;
 
 defventana:
@@ -117,6 +130,7 @@ lista_expr2:
   expression   { $$=nodo1(imprimir_expresion, $1); /*lista expresion2*/}
 | LITERAL      { $$=nodo1(imprimir_literal, $1 ); /* un literal*/}
 | sdesignator  { $$=nodo1(imprimir_var_alfa, $1); /* una variable literal*/}
+
 ;
 
 stmtseq:
@@ -153,6 +167,7 @@ expr4:
 | LPAREN expression RPAREN { $$ = $2; /*expr enter parentesis*/}
 | NUMBER { $$ =  $1; /*numero*/}
 | designator { $$ = $1; /*designador variable*/}
+| designator '[' expression ']' { $$ = nodo2(evalua_vector, $1, $3);   }
 ;
 
 sdesignator:

@@ -1,6 +1,5 @@
 imprimir 'hola, inicio del programa'
 imprimir 'Introduce tu nombre: '
-TUNOMBRE = ' '
 leer TUNOMBRE
 imprimir 'Tu nombre es: ', TUNOMBRE
 evalua 'resultado = 3*8'
@@ -10,7 +9,6 @@ evalua 'imprimir resultado'
 desde x = 1 hasta 5 
 	haz
 		imprimir 'x=', x
-		//stop
 	fin-haz
 indice = 0  // variable para los vectores de coordenadas
 x=130
@@ -40,15 +38,9 @@ imprimir 'x=', x
 
 NOMBRE = 'perico'
 APELLIDO = 'de los palotes'
-DIRECCION = ' vive en su casa'
-TELEFONO = ' 93123456'
+DIRECCION = ' '
+TELEFONO = ' '
 
-//p = 1
-imprimir 'introduce el valor de p'
-leer p
-imprimir 'p=', p
-
-//stop
 xyz = 1
 abc = 2
 
@@ -98,7 +90,6 @@ fin
 
 procedimiento clicar_boton2
   //mensaje 'el boton ha sido clicado ', x, x*2
-  //stop
   mensaje 'Los datos son: N:', NOMBRE, ' A:', APELLIDO, ' D:', DIRECCION, ' T:', TELEFONO
 fin
 
@@ -144,10 +135,10 @@ procedimiento clicar_ventana_grafica
    			j=0
    			mientras j < indice
    			haz
-   			   coordx_1 = vec1[j]
-   			   coordy_1 = vec2[j]
+   			   coordx1 = vec1[j]
+   			   coordy1 = vec2[j]
    			   //imprimir 'linea desde ' , coordx, ' ', coordy, ' hasta ' , coordx1, ' ', coordy1
-   			   linea coordx, coordy,  coordx_1, coordy_1
+   			   linea coordx, coordy,  coordx1, coordy1
    			   j = j + 1
    			fin-haz
    			i=i+1

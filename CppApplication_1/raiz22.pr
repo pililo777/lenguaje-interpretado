@@ -1,14 +1,22 @@
 imprimir 'introduce el numero al que quieres calcular la raíz cuadrada:'
+numero = 0
 leer numero
 imprimir 'introduce un numero por el que sea divisible: '
+divisor = 0
 leer divisor
+dividendo = 0
 dividendo = numero / divisor
 imprimir 'dividendo = ', dividendo
-decimales 13
-siguecalculando = 1
+decimales 14
+siguecalculando = 1.5
 diferencia =  0.00000000001
+si
+ diferencia = 0 entonces
+ 		stop
+si-fin
+ 
 
-mientras siguecalculando = 1
+mientras siguecalculando > 1
 
     haz
       si  dividendo = divisor entonces
@@ -26,7 +34,7 @@ mientras siguecalculando = 1
       
       si diferencia2 < 0 entonces
          diferencia2 = diferencia2 * (-1)
-         imprimir 'dif ', diferencia2
+         imprimir 'dife ', diferencia2
          // leer x
       si-fin
  
@@ -34,6 +42,7 @@ mientras siguecalculando = 1
          imprimir 'la raiz cuadrada es: ', dividendo
          siguecalculando = 0
       si-fin
+	  //stop
       
     fin-haz
 		
