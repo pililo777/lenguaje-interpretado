@@ -214,3 +214,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+CppApplication_1/build/Windows/Cygwin_4.x-Windows/run.o.d
+CppApplication_1/dist/Windows/Cygwin_4.x-Windows/cppapplication_1.exe
+CppApplication_1/build/Windows/Cygwin_4.x-Windows/run.o.d
