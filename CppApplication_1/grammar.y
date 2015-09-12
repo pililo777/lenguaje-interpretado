@@ -58,10 +58,10 @@ extern elnodo * pila_programas[32];
 %token LEER BORRAR
 %token NUMBER
 %token NAME SNAME 
-%token LITERAL DOBLECOMILLA OR AND
+%token LITERAL DOBLECOMILLA OR AND CONTINUAR SALIR
 %type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME defventana defcontroles lista_controles
-%type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND
+%type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND CONTINUAR SALIR
 %%
 
 ROOT:
@@ -113,6 +113,8 @@ statement:
 | LEER sdesignator  { $$ = nodo1(leertexto,  $2) ; /*leer variable alfa*/}
 | MOSTRAR sdesignator { $$=nodo1(mostrar, $2); }
 | VACIAR sdesignator { $$=nodo1(vaciar, $2); }
+| CONTINUAR { $$=nodo1(continuar, $1); }
+| SALIR { $$=nodo1(salir, $1); }
 ;
 
 defventana:

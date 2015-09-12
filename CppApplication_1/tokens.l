@@ -115,13 +115,13 @@ int x;
 "while"|"WHILE"|"MIENTRAS"|"mientras" { LineaInicial = linenumber; return WHILE; }
 "to"|"TO"|"HASTA"|"hasta" { return TO ; }
 "for"|"FOR"|"DESDE"|"desde" { return FOR ; }
-"do"|"DO"|"HAZ"|"haz"|"hacer"|"HACER"    { return DO; }
-"od"|"OD"|"FIN-HAZ"|"fin-haz"|"fin-hacer"    { return OD; }
+"do"|"DO"|"HAZ"|"haz"|"hacer"|"HACER"|"{"    { return DO; }
+"od"|"OD"|"FIN-HAZ"|"fin-haz"|"fin-hacer"|"}"    { return OD; }
 "print"|"PRINT"|"IMPRIMIR"|"imprimir"|"?"  { return PRINT; }
 "input"|"INPUT"|"LEER"|"leer" { return LEER; }
 "cls"|"CLS"|"BORRAR"|"borrar"|"cls"   { return BORRAR ; }
 "decimales"|"dec"|"DECIMALES"|"DEC" { return DECIMALES; }
-"TERMINAR"|"terminar"|"FINALIZAR"|"finalizar"|"salir"|"SALIR"|"exit"|"EXIT"|"quit"|"QUIT"  { return TERMINAR ; }
+"TERMINAR"|"terminar"|"FINALIZAR"|"finalizar"|"exit"|"EXIT"|"quit"|"QUIT"  { return TERMINAR ; }
 "ventana" {return VENTANA; }
 "boton" {return BOTON; }
 "etiqueta" {return ETIQUETA; }
@@ -138,6 +138,8 @@ int x;
 "cerrar" {return CERRAR; }
 "mostrar" {return MOSTRAR; }
 "vaciar" {return VACIAR; }
+"continuar" {return CONTINUAR; }
+"salir" {return SALIR; }
 
 '[^\']+'  {
         /* constantes literales contienen una serie de variados signos � simbolos */

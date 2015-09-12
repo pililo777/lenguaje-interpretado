@@ -7,7 +7,7 @@ typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable, dimensionar, a
 			comparaliteral, imprimir_varios, imprimir_expresion, imprimir_literal, imprimir_var_alfa, guardar_boton, secuencia_controles,
 			constante_literal, llamar, decimales, ventana, defventana, crear_ventana, mostrar_ventana, mostrar_ventanas, cambiar_titulo,  mensaje, guardar_etiqueta, guardar_texto, interpreta, 
             graficos, stop, abrir, cerrar, leer_archivo, mostrar, 
-			sumar_alfa, vaciar, and, or } tiponodo;
+			sumar_alfa, salir,  vaciar, and, or, continuar } tiponodo;
 
 typedef struct elnodo {
 	tiponodo tipo;

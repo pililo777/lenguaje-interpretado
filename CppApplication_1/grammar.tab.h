@@ -101,7 +101,9 @@ extern int yydebug;
     LITERAL = 311,
     DOBLECOMILLA = 312,
     OR = 313,
-    AND = 314
+    AND = 314,
+    CONTINUAR = 315,
+    SALIR = 316
   };
 #endif
 
@@ -114,7 +116,7 @@ union YYSTYPE
 
  elnodo * nodo;
 
-#line 118 "grammar.tab.h" /* yacc.c:1909  */
+#line 120 "grammar.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

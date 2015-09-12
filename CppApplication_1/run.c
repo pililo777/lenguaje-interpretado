@@ -353,14 +353,20 @@ extern void ejecutar_string(elnodo * p);
 extern void yyrestart(FILE * input_file);
 extern FILE * yyin;
 extern int mquit;
+int retornar;
+int salir1;
 
 void * execut(elnodo * p) {
-   // elnodo * p;
-    //p = nuevonodo();
-
-    //p = a;
+   
     //printf("profundidad: %d\n", profundidad);
     //profundidad++;
+    
+    if (retornar == 1)
+        {
+            return;
+        }
+        
+    
     if (p==NULL) {
         printf ("error en funcion execute\n");
         return;
@@ -1048,11 +1054,32 @@ void * execut(elnodo * p) {
             strcpy(array_variables[(int) p->nodo1->num].valor , constantes [ (int) var [(int) p->nodo1->num] ]);
             break;
 
+        case continuar:
+                {
+                    retornar = 1;
+                }
+                break;
+                
+        case salir :
+                {
+                    retornar = 1;
+                    salir1 = 1;
+                }
+                break;
+
         case mientras:
             //printf ("mientras se cumple la condicion\n");
             {
-                while (evalua(p->nodo1))
+                salir1 = 0;
+                while (evalua(p->nodo1)) {
+                    retornar = 0;
                     execut(p->nodo2);
+                    retornar = 0;
+                    if (salir1 == 1) {
+                        salir1 = 0;
+                        break;
+                    }
+                }
             }
             //printf ("fin del bloque-mientras\n");
             break;

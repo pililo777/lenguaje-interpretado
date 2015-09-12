@@ -10,9 +10,8 @@ vaciar LINEA
 letra = 0
 contador = 0
 mientras num_archivo <> 99
-haz
+{
     leer # num_archivo LETRA letra
-     
     si (letra = 32) oo (letra = 9) oo (letra=10) oo (letra=13) entonces
         si contador <> 0 entonces
             imprimir   LINEA 
@@ -23,7 +22,7 @@ haz
 		contador = contador + 1
 		LINEA += LETRA
 	si-fin
-fin-haz
+}
 imprimir LINEA
 cerrar num_archivo
 
@@ -37,42 +36,36 @@ dividendo = 0
 dividendo = numero / divisor
 imprimir 'dividendo = ', dividendo
 decimales 14
-siguecalculando = 1.5
+siguecalculando = 1
 diferencia =  0.00000000001
 si diferencia = 0 entonces
  		stop  //significa que se redondea a cero
 si-fin
  
-
-mientras siguecalculando > 1
-
-    haz
+mientras siguecalculando > 0
+{
       si  dividendo = divisor entonces
           imprimir 'la raiz cuadrada es: ', dividendo
           siguecalculando = 0
-      sino
-          //dividendoanterior = dividendo
+	  salir
+	si-fin
+
          dividendo = ( divisor + dividendo ) / 2
          divisor   = ( numero / dividendo )
+	
          imprimir 'aproximacion: ', dividendo, ' ---- ',  divisor
-      si-fin
       	
       diferencia2 = dividendo - divisor
-//imprimir 'dif ', diferencia2
       
       si diferencia2 < 0 entonces
          diferencia2 = diferencia2 * (-1)
-         imprimir 'dife ', diferencia2
-         // leer x
       si-fin
  
       si diferencia2 < diferencia entonces
          imprimir 'la raiz cuadrada es: ', dividendo
          siguecalculando = 0
       si-fin
-	  //stop
-      
-    fin-haz
+}
 	
 imprimir 'hemos finalizado el programa '
 	
