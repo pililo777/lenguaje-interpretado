@@ -57,11 +57,11 @@ extern elnodo * pila_programas[32];
 %token PRINT
 %token LEER BORRAR
 %token NUMBER
-%token NAME SNAME
-%token LITERAL DOBLECOMILLA
+%token NAME SNAME 
+%token LITERAL DOBLECOMILLA OR AND
 %type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME defventana defcontroles lista_controles
-%type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR
+%type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND
 %%
 
 ROOT:
@@ -160,6 +160,8 @@ expr2:
   expr3 { $$ = $1; /* expr2*/}
 | expr2 PLUS expr3 { $$ = nodo2(suma, $1, $3); /*suma*/}
 | expr2 MINUS expr3 { $$ = nodo2(resta, $1, $3); /*resta*/}
+| expr2 OR expr3 { $$ = nodo2(or, $1, $3); /*or*/}
+| expr2 AND expr3  { $$ = nodo2(and, $1, $3); /*and*/}
 ;
 
 expr3:

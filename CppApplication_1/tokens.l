@@ -84,6 +84,8 @@ int x;
 
 
 %%
+"oo" { return OR; }
+"yy" { return AND; }
 "\"" {return DOBLECOMILLA; }
 "="     { return EQ; }
 "<>"    { return NE; }
@@ -156,7 +158,6 @@ int x;
 	yylval.nodo->num  = numdbl;     //yylval.num  = atoi(yytext)
 	return NUMBER; 
 	}
-
 
 [a-z_0-9]+     {
         /* nombres de variables numericas en minusculas */

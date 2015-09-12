@@ -1,3 +1,6 @@
+// se muestra en pantalla a sí mismo
+// luego calcula la raiz cuadrada de un numero 
+
 ARCHIVO = 'raiz22.pr'
 num_archivo = 0
 abrir ARCHIVO num_archivo
@@ -9,31 +12,17 @@ contador = 0
 mientras num_archivo <> 99
 haz
     leer # num_archivo LETRA letra
-    //imprimir letra
      
-    si letra = 32 entonces
+    si (letra = 32) oo (letra = 9) oo (letra=10) oo (letra=13) entonces
         si contador <> 0 entonces
-            imprimir   LINEA                  //, '=>', contador
-            // LINEA = ' '
+            imprimir   LINEA 
             vaciar LINEA
             contador = 0
         si-fin
-        
     sino
-	si letra <> 10 entonces
-            si letra <> 13 entonces
-                contador = contador + 1
-        	LINEA += LETRA
-            sino 
-                imprimir 'codigo:', letra
-            si-fin
-	 sino 
-            imprimir   LINEA                  //, '=>', contador
-            // LINEA = ' '
-            vaciar LINEA
-            contador = 0
-         si-fin
-    si-fin
+		contador = contador + 1
+		LINEA += LETRA
+	si-fin
 fin-haz
 imprimir LINEA
 cerrar num_archivo
@@ -50,9 +39,8 @@ imprimir 'dividendo = ', dividendo
 decimales 14
 siguecalculando = 1.5
 diferencia =  0.00000000001
-si
- diferencia = 0 entonces
- 		stop
+si diferencia = 0 entonces
+ 		stop  //significa que se redondea a cero
 si-fin
  
 

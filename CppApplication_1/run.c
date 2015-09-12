@@ -1251,6 +1251,20 @@ double evalua(elnodo * p) {
 
         }
         break;
+        
+        case and :
+        {
+            res = evalua(p->nodo1) && evalua(p->nodo2);
+        
+        }
+        break ;
+        
+        case or :
+        {
+             res = evalua(p->nodo1) || evalua(p->nodo2);
+        }
+        break ;
+        
 
         default:
             res = 0;
