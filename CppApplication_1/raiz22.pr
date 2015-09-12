@@ -1,3 +1,43 @@
+ARCHIVO = 'raiz22.pr'
+num_archivo = 0
+abrir ARCHIVO num_archivo
+LINEA = ' '
+LETRA = ' '
+vaciar LINEA 
+letra = 0
+contador = 0
+mientras num_archivo <> 99
+haz
+    leer # num_archivo LETRA letra
+    //imprimir letra
+     
+    si letra = 32 entonces
+        si contador <> 0 entonces
+            imprimir   LINEA                  //, '=>', contador
+            // LINEA = ' '
+            vaciar LINEA
+            contador = 0
+        si-fin
+        
+    sino
+	si letra <> 10 entonces
+            si letra <> 13 entonces
+                contador = contador + 1
+        	LINEA += LETRA
+            sino 
+                imprimir 'codigo:', letra
+            si-fin
+	 sino 
+            imprimir   LINEA                  //, '=>', contador
+            // LINEA = ' '
+            vaciar LINEA
+            contador = 0
+         si-fin
+    si-fin
+fin-haz
+imprimir LINEA
+cerrar num_archivo
+
 imprimir 'introduce el numero al que quieres calcular la raíz cuadrada:'
 numero = 0
 leer numero
@@ -45,4 +85,6 @@ mientras siguecalculando > 1
 	  //stop
       
     fin-haz
-		
+	
+imprimir 'hemos finalizado el programa '
+	

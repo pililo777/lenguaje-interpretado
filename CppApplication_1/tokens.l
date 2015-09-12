@@ -101,6 +101,7 @@ int x;
 ","     { return COMMA; }
 "[" { return '['; }
 "]" { return ']'; }
+"#"     { return '#'; }
 
 "if"|"IF"|"SI"|[sS]i    { return IF; }
 "call"|"LLAMAR"|"CALL"|[Ll]lamar   { return LLAMAR ; }
@@ -131,6 +132,10 @@ int x;
 "convertir" {return CONVERTIR; }
 "evalua" {return EVALUAR; }
 "stop" {return STOP; }
+"abrir" {return ABRIR; }
+"cerrar" {return CERRAR; }
+"mostrar" {return MOSTRAR; }
+"vaciar" {return VACIAR; }
 
 '[^\']+'  {
         /* constantes literales contienen una serie de variados signos � simbolos */

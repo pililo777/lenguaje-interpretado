@@ -26,7 +26,8 @@ extern elnodo * pila_programas[32];
 
 %start ROOT
 
-%token STOP
+%token STOP 
+%token ABRIR CERRAR MOSTRAR VACIAR
 %token LLAMAR PROC END PROCNAME GRAFICOS DIM LINEA CIRCULO CONVERTIR EVALUAR
 %token EQ
 %token TERMINAR DECIMALES VENTANA FIN BOTON MENSAJE ETIQUETA TEXTO
@@ -60,7 +61,7 @@ extern elnodo * pila_programas[32];
 %token LITERAL DOBLECOMILLA
 %type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME defventana defcontroles lista_controles
-%type <nodo> CONVERTIR EVALUAR STOP
+%type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR
 %%
 
 ROOT:
@@ -78,13 +79,12 @@ procedimientos:
 statement:
   designator EQ expression { $$ = nodo2(asigna_num, $1, $3); /*asignacion*/} 
 | sdesignator EQ LITERAL  { $$ = nodo2(asigna_alfa, $1, $3); /*asign literal*/} 
+| sdesignator PLUS EQ sdesignator  { $$ = nodo2(sumar_alfa, $1, $4); /*suma alfa*/} 
 | DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
 | designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }
 | LLAMAR proc_designator   {  $$ = nodo1(llamar, $2) ;/*llamar proced.*/} 
 | DECIMALES NUMBER  { $$ = nodo1(decimales, $2 ) ; } 
 | PRINT lista_expr  { $$ = nodo1(imprimir_varios,  $2); /*imprimir lista expr*/} 
-| LEER sdesignator  { $$ = nodo1(leertexto,  $2) ; /*leer variable alfa*/}
-| LEER designator   { $$ = nodo1(leer,  $2) ; /*leer variable numerica*/}
 | IF expression THEN stmtseq ELSE stmtseq FI { $$ = nodo3(si, $2, $4, $6); /*if con else */}
 | IF expression THEN stmtseq FI { $$ = nodo2(si, $2, $4); /*if sin else*/}
 | WHILE expression DO stmtseq OD { $$ = nodo2(mientras, $2, $4); /*while*/}
@@ -106,6 +106,13 @@ statement:
 | CONVERTIR designator sdesignator {$$=nodo2(convertir_numero_a_texto, $2, $3);}
 | EVALUAR LITERAL  {  $$ = nodo1(interpreta, $2 );  } 
 | STOP { $$=nodo1(stop, $1); }
+| ABRIR sdesignator designator { $$=nodo2(abrir, $2, $3); }
+| CERRAR designator { $$=nodo1(cerrar, $2); }
+| LEER designator   { $$ = nodo1(leer,  $2) ; /*leer variable numerica*/}
+| LEER  '#' designator sdesignator designator { $$=nodo3(leer_archivo, $3, $4, $5); }
+| LEER sdesignator  { $$ = nodo1(leertexto,  $2) ; /*leer variable alfa*/}
+| MOSTRAR sdesignator { $$=nodo1(mostrar, $2); }
+| VACIAR sdesignator { $$=nodo1(vaciar, $2); }
 ;
 
 defventana:

@@ -1,10 +1,12 @@
 //run.c
-
+#include <stdio.h>
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 //  #include <gdk/gdkkeysyms.h>
 
+
+FILE * ficheros[10];
 
 
 
@@ -366,6 +368,97 @@ void * execut(elnodo * p) {
     
     
     switch (p->tipo) {
+        case  vaciar:
+        {
+            int  n;
+            n = (int) p->nodo1->num;
+            
+            array_variables[n].valor[0] = 0   ;
+            
+        }
+        break;
+        
+        case sumar_alfa:
+        {
+            int n, m, x, y;
+            n = (int) p->nodo1->num;
+            m = (int) p->nodo2->num;
+            x = strlen(array_variables[n].valor);
+            y = strlen(array_variables[m].valor) + x;
+/*
+            printf("%d\n", y );
+*/
+            if (y<=127)
+            strcat(array_variables[n].valor, array_variables[m].valor);
+            else printf("error concatenando...\n");
+            
+        }
+        break;
+        
+        
+	case mostrar:
+	{
+	   int n;
+	   n = (int) p->nodo1->num;
+	   printf ("%s", array_variables[n].valor);
+	}
+	break;
+
+
+
+        case abrir:   //  abrir ARCHIVO
+        {
+            int n;
+            n = (int) p->nodo1->num;
+/*
+            printf("abriremos el fichero:  %s\n", constantes[(int) var[(int)   p->nodo1->num]]) ;
+            
+*/
+            ficheros[n] = fopen(constantes[(int) var[(int)   p->nodo1->num]], "r");
+/*
+            while (!feof(ficheros[n])) {
+                char c = getc(ficheros[n]);
+                printf("%c", c);
+            }
+            fclose(ficheros[n]);
+*/
+        }
+        break;
+        
+        case cerrar:
+        {
+            int n;
+            n = (int) p->nodo1->num;
+            fclose(ficheros[n]);
+        }
+        break;
+        
+        case leer_archivo:
+        {
+            int n, x, y, m;
+            n = (int) p->nodo1->num;   // numero de archivo
+            m = (int) p->nodo3->num;   // variable de status para codigo ascii
+            x = (int) p->nodo2->num;   // variable donde se deposita la letra
+            y = (int) array_variables[n].numero;
+            char c = getc(ficheros[y]);
+            
+            if (c!=EOF) {
+            
+                array_variables[x].valor[0] = c ;
+                array_variables[x].valor[1] = 0 ;
+                array_variables[m].numero = (double) c ;
+                
+                } else {
+                  array_variables[n].numero = 99.0;
+/*
+                  printf("%lf\n", array_variables[n].numero );
+*/
+            }
+            
+            
+            
+        }
+        break;
         
         
         case stop:
@@ -826,13 +919,17 @@ void * execut(elnodo * p) {
 
         case imprimir_var_alfa:
             //printf("%s", constantes [(int) var [(int)p->nodo1->num]] ) ;
+        {
+            int n;
+            n = (int) p->nodo1->num;   // indice
             fflush(stdout);
-            printf("%s", constantes [ (int) var [(int) p->nodo1->num] ]);
-            sprintf(mensaje2, "%s", constantes [ (int) var [(int) p->nodo1->num] ]);
+            printf("%s", array_variables [ n  ].valor);
+            sprintf(mensaje2, "%s", array_variables [ n ].valor);
             strcat(msgbox, mensaje2);
             strcat(msgbox, " ");
             //printf("MSGBOX inicio---> %s   fin <-----", msgbox ) ;
             //msgbox[0] = 0;
+        }
             break;
 
         case imprimir_expresion:
@@ -1077,7 +1174,14 @@ double evalua(elnodo * p) {
 
 
         case indice_strings: //una variable numerica
-            res = var [(int) p->num];
+        {
+            int n;
+            double m;
+            n = (int) p->num;
+            m = array_variables[n].numero;
+            
+            res = m;
+        }
             break;
 
         case un_numero:
@@ -1141,8 +1245,8 @@ double evalua(elnodo * p) {
             char string1[255];
             char string2[255];
 
-            strcpy(string1, constantes[(int) var[(int) p->nodo1->num]]);
-            strcpy(string2, constantes[(int) p->nodo2->num]);
+            strcpy(string1, array_variables[(int) p->nodo1->num].valor);
+            strcpy(string2, constantes[(int) var[(int) p->nodo2->num]]);
             res = (double) !strcmp(string1, string2);
 
         }

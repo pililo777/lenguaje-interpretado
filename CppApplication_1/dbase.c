@@ -85,6 +85,7 @@ int doit();
 int enorden();
 int t_close();
 int runprog();
+extern int main_anterior(int argc, char *argv[]);
 
 
 
@@ -214,6 +215,8 @@ init_comandos() {
     comando[29].pfuncion = listavar;
     comando[30].nombre = "prog";
     comando[30].pfuncion = runprog;
+    comando[31].nombre = "editorgtk";
+    comando[31].pfuncion = main_anterior;
 
 }
 

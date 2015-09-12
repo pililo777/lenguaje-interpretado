@@ -2,7 +2,20 @@
     #include <stdio.h>
     #include <dlfcn.h>
 
-const char * libreria = "/lib/libmyModule.so";
+extern int contador;
+extern int contadorvar;
+
+typedef struct  {
+          char        tipo;
+          char        nombre[18];
+          char        valor[127]; 
+          double     numero;
+} struct_variable;
+
+extern struct_variable array_variables[256];
+extern char constantes[127][127];
+
+const char * libreria = "libmyModule.so";
 void *el_handle;
 char *el_error;
 
@@ -34,7 +47,7 @@ int llamaCosine() {
             fputs(el_error, stderr);
             return(1);
         }
-        (*cosine)();
+        (*cosine)(&contador, &contadorvar, array_variables, constantes);
     }
 
     
@@ -54,7 +67,7 @@ int testlib()
     
     
 
-    lib = dlopen("/lib/libbtree.so", RTLD_LAZY); 
+    lib = dlopen("btree.dll", RTLD_LAZY); 
     Btree = dlsym(lib, "testdin"); 
     CrearRaiz = dlsym(lib, "creaRaiz");
     (*CrearRaiz)();
