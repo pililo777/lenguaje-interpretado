@@ -486,7 +486,7 @@ void * execut(elnodo * p) {
         {
             double numero;
             numero = atof(constantes[(int) var[(int) p->nodo1->num ] ]); //constantes [(int)p->nodo1->num]
-            var[(int) p->nodo2->num] = numero;
+            array_variables[(int) p->nodo2->num].numero = numero;
 
         }
         break;
@@ -495,7 +495,7 @@ void * execut(elnodo * p) {
         case convertir_numero_a_texto:
         {
             double numero;
-            numero = var[(int) p->nodo1->num];
+            numero = array_variables[(int) p->nodo1->num].numero;
             sprintf(constantes[(int) var[(int) p->nodo2->num ] ], "%lf", numero);
         }
             break;
@@ -1201,7 +1201,11 @@ double evalua(elnodo * p) {
 
 
         case indice_strings: //una variable numerica
-        {
+        
+{
+/*
+            res = var [(int) p->num];
+*/
             int n;
             double m;
             n = (int) p->num;

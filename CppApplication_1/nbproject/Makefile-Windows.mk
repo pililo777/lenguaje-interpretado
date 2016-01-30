@@ -73,53 +73,53 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe: ${OBJECTFILES}
 
 ${OBJECTDIR}/_ext/1023490377/bt.o: /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/bt.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1023490377
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1023490377/bt.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/bt.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1023490377/bt.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/bt.c
 
 ${OBJECTDIR}/_ext/1023490377/dbase.o: /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dbase.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1023490377
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1023490377/dbase.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dbase.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1023490377/dbase.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dbase.c
 
 ${OBJECTDIR}/_ext/1023490377/dinamic.o: /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dinamic.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1023490377
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1023490377/dinamic.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dinamic.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1023490377/dinamic.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dinamic.c
 
 ${OBJECTDIR}/_ext/1023490377/err.o: /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/err.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1023490377
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1023490377/err.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/err.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1023490377/err.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/err.c
 
 ${OBJECTDIR}/_ext/1023490377/graficos.o: /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/graficos.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1023490377
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1023490377/graficos.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/graficos.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1023490377/graficos.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/graficos.c
 
 ${OBJECTDIR}/_ext/1023490377/grammar.tab.o: /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/grammar.tab.c 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1023490377
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1023490377/grammar.tab.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/grammar.tab.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1023490377/grammar.tab.o /cygdrive/C/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/grammar.tab.c
 
 ${OBJECTDIR}/lex.yy.o: lex.yy.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lex.yy.o lex.yy.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/lex.yy.o lex.yy.c
 
 ${OBJECTDIR}/minieditor.o: minieditor.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/minieditor.o minieditor.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/minieditor.o minieditor.c
 
 ${OBJECTDIR}/run.o: run.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/run.o run.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/run.o run.c
 
 ${OBJECTDIR}/variables.o: variables.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/variables.o variables.c
+	${RM} $@.d
+	$(COMPILE.c) -g -std=c99 -mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -MMD -MP -MF $@.d -o ${OBJECTDIR}/variables.o variables.c
 
 # Subprojects
 .build-subprojects:

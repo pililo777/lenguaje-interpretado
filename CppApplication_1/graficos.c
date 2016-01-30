@@ -3,6 +3,15 @@
 #include <gtk/gtk.h>
 #include "nodo.h"
 
+typedef struct  {
+          char        tipo;
+          char        nombre[18];
+          char        valor[127]; 
+          double     numero;
+          
+} struct_variable;
+extern struct_variable   array_variables[256];
+
 extern elnodo * procedimientos[127]; //cambiar esta forma
 extern double var[127];  // 127 variables numericas e indices a variables alfa y literales
 
@@ -108,20 +117,30 @@ GtkWidget *ventanaGrafica;
 static gboolean clicked(GtkWidget *widget, GdkEventButton *event,
     gpointer user_data)
 {
-   var[ (int) nodografico->nodo3->num] = (double) event->x;  //ponemos x en el nodo  coordx
-   var[ (int) nodografico->nodo4->num] = (double) event->y;
+    
+/*
+    int n;
+    double m;
+    n = (int) p->num;
+*/
+/*
+    m = array_variables[n].numero;
+*/
+    
+   array_variables[ (int) nodografico->nodo3->num].numero = (double) event->x;  //ponemos x en el nodo  coordx
+   array_variables[ (int) nodografico->nodo4->num].numero = (double) event->y;
     
     if (event->button == 1) {
 /*
         glob.coordx[glob.count] = event->x;
         glob.coordy[glob.count++] = event->y;
 */
-      var[ (int) nodografico->nodo2->num] = 1;
+      array_variables[ (int) nodografico->nodo2->num].numero = 1;
         printf("boton1\n");
     }
 
     if (event->button == 3) {
-        var[ (int) nodografico->nodo2->num] = 3;  //boton
+        array_variables[ (int) nodografico->nodo2->num].numero = 3;  //boton
         ventanaGrafica = widget;                           // copia global
        //gtk_widget_queue_draw(widget);
         printf("boton3\n");
