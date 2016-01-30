@@ -12,12 +12,12 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/bt.c</itemPath>
-      <itemPath>C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dbase.c</itemPath>
-      <itemPath>C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dinamic.c</itemPath>
-      <itemPath>C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/err.c</itemPath>
-      <itemPath>C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/graficos.c</itemPath>
-      <itemPath>C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/grammar.tab.c</itemPath>
+      <itemPath>bt.c</itemPath>
+      <itemPath>dbase.c</itemPath>
+      <itemPath>dinamic.c</itemPath>
+      <itemPath>err.c</itemPath>
+      <itemPath>graficos.c</itemPath>
+      <itemPath>grammar.tab.c</itemPath>
       <itemPath>grammar.tab.h</itemPath>
       <itemPath>lex.yy.c</itemPath>
       <itemPath>minieditor.c</itemPath>
