@@ -20,7 +20,7 @@
       <itemPath>grammar.tab.c</itemPath>
       <itemPath>grammar.tab.h</itemPath>
       <itemPath>lex.yy.c</itemPath>
-      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c</itemPath>
+      <itemPath>minieditor.c</itemPath>
       <itemPath>nodo.h</itemPath>
       <itemPath>run.c</itemPath>
       <itemPath>variables.c</itemPath>
@@ -82,11 +82,6 @@
           <commandLine>-L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
       <item path="bt.c" ex="false" tool="0" flavor2="9">
         <cTool>
         </cTool>
@@ -95,17 +90,11 @@
         <cTool>
         </cTool>
       </item>
-      <item path="dinamic.c" ex="false" tool="0" flavor2="9">
-        <cTool>
-        </cTool>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="err.c" ex="false" tool="0" flavor2="9">
-        <cTool>
-        </cTool>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="graficos.c" ex="false" tool="0" flavor2="9">
-        <cTool>
-        </cTool>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grammar.tab.c" ex="false" tool="0" flavor2="9">
         <cTool>
@@ -118,6 +107,8 @@
       <item path="lex.yy.c" ex="false" tool="0" flavor2="9">
         <cTool>
         </cTool>
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="nodo.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -132,7 +123,7 @@
     </conf>
     <conf name="Debug" type="1">
       <toolsSet>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>Cygwin_4.x|Cygwin_4.x</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -165,16 +156,23 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
+      <item path="dbase.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="nodo.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -203,16 +201,23 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
+      <item path="dbase.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="nodo.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -236,16 +241,25 @@
           <commandLine>-L/cygdrive/c/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
+      <item path="bt.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dbase.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="nodo.h" ex="false" tool="3" flavor2="0">
       </item>
