@@ -1,5 +1,10 @@
 domingo 31 enero 2016
 ---------------------
+Seg'un esta web:
+http://stackoverflow.com/questions/14942738/how-to-push-to-github-from-netbeans-without-local-branch
+
+hay que hacer clic en team/remote/push  para finalizar el commit.
+
 aun no logro hacer el commit desde NetBeans, probaré con otros parametros.
 se ha editado el fichero .git/config para añadir el usuario pililo777
 segun esta web:
