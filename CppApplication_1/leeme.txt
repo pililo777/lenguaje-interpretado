@@ -1,3 +1,20 @@
+domingo 31 enero 2016
+---------------------
+he subido desde el pc de la sala al GitHub
+he bajado del GitHub al pc de la habitacion
+el proyecto se llama InterGit
+he copiado la seccion "Conf" de configurations.xml para poder compilar
+ya que al ser otra maquina, las librerias gtk y cygwin estan en otras rutas fisicas
+tambi'en quit'e las referencias absolutas en dicho fichero xml (stackoverflow)
+ahora el proyecto compila y corre en los 2 pc's
+
+he visto que no hace falta utilizar github desktop sino que desde netbeans ya lo tenia
+conectado al control de codigo fuente de github.
+
+está pendiente pasar las 2 librerias dinamicas y colocarlas con control de codigo en github.
+
+
+
 sabado 18 enero 2014
 clave de google: Dc9Ka5kS4ZA3
 
