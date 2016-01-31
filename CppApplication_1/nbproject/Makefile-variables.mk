@@ -6,6 +6,14 @@
 CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
+# WindowsPC configuration
+CND_PLATFORM_WindowsPC=Cygwin_4.x-Windows
+CND_ARTIFACT_DIR_WindowsPC=
+CND_ARTIFACT_NAME_WindowsPC=cppapp1.exe
+CND_ARTIFACT_PATH_WindowsPC=cppapp1.exe
+CND_PACKAGE_DIR_WindowsPC=dist/WindowsPC/Cygwin_4.x-Windows/package
+CND_PACKAGE_NAME_WindowsPC=cppapplication1.tar
+CND_PACKAGE_PATH_WindowsPC=dist/WindowsPC/Cygwin_4.x-Windows/package/cppapplication1.tar
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86

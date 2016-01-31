@@ -3,5 +3,6 @@
 #
 # NOCDDL
 #
+# WindowsPC configuration
 # Release configuration
 # Windows configuration

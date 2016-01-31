@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="89">
+<configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -20,7 +20,7 @@
       <itemPath>grammar.tab.c</itemPath>
       <itemPath>grammar.tab.h</itemPath>
       <itemPath>lex.yy.c</itemPath>
-      <itemPath>minieditor.c</itemPath>
+      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c</itemPath>
       <itemPath>nodo.h</itemPath>
       <itemPath>run.c</itemPath>
       <itemPath>variables.c</itemPath>
@@ -47,9 +47,91 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
+    <conf name="WindowsPC" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>D:/GTK/lib/gtk-2.0/include</pElem>
+            <pElem>D:/GTK/include/gtk-2.0</pElem>
+            <pElem>c:/cygwin/usr/include/libgnomeui-2.0</pElem>
+            <pElem>c:/cygwin/usr/include</pElem>
+            <pElem>/usr/include/libgnomeui-2.0</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed</pElem>
+            <pElem>/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++</pElem>
+            <pElem>/usr/x86_64-pc-cygwin/sys-root/usr/include</pElem>
+            <pElem>c:/cygwin/usr/include/libgnomecanvas-2.0</pElem>
+            <pElem>c:/cygwin/usr/include/libgnomeui-2.0</pElem>
+            <pElem>c:/cygwin/usr/include/libgnome-2.0</pElem>
+            <pElem>C:/cygwin/usr/include/libbonobo-2.0</pElem>
+            <pElem>C:/cygwin/usr/include/libbonoboui-2.0</pElem>
+            <pElem>C:/cygwin/usr/include/libart-2.0</pElem>
+            <pElem>C:/cygwin/usr/include/gnome-vfs-2.0</pElem>
+            <pElem>c:/cygwin/usr/lib</pElem>
+          </incDir>
+          <commandLine>-mms-bitfields -I/cygdrive/d/gtk/include/gtk-2.0 -I/cygdrive/d/gtk/lib/gtk-2.0/include -I/cygdrive/d/gtk/include/atk-1.0 -I/cygdrive/d/gtk/include/cairo -I/cygdrive/d/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/d/gtk/include/pango-1.0 -I/cygdrive/d/gtk/include/glib-2.0 -I/cygdrive/d/gtk/lib/glib-2.0/include -I/cygdrive/d/gtk/include -I/cygdrive/d/gtk/include/freetype2 -I/cygdrive/d/gtk/include/libpng14 -std=c99 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -v -g -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -w</commandLine>
+        </cTool>
+        <linkerTool>
+          <output>cppapp1.exe</output>
+          <commandLine>-L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="bt.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+      <item path="dbase.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lex.yy.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+      <item path="nodo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="run.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+      <item path="variables.c" ex="false" tool="0" flavor2="9">
+        <cTool>
+        </cTool>
+      </item>
+    </conf>
     <conf name="Debug" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
@@ -83,32 +165,7 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/bt.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dbase.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dinamic.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/err.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/graficos.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/grammar.tab.c"
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c"
             ex="false"
             tool="0"
             flavor2="0">
@@ -119,8 +176,6 @@
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="nodo.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="run.c" ex="false" tool="0" flavor2="0">
@@ -130,7 +185,6 @@
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
@@ -149,32 +203,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/bt.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dbase.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dinamic.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/err.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/graficos.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/grammar.tab.c"
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c"
             ex="false"
             tool="0"
             flavor2="0">
@@ -185,8 +214,6 @@
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
       </item>
-      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
-      </item>
       <item path="nodo.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="run.c" ex="false" tool="0" flavor2="0">
@@ -196,7 +223,6 @@
     </conf>
     <conf name="Windows" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
@@ -210,32 +236,7 @@
           <commandLine>-L/cygdrive/c/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/bt.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dbase.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/dinamic.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/err.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/graficos.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/Ruben/Documents/GitHub/repo/lenguaje-interpretado/CppApplication_1/grammar.tab.c"
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c"
             ex="false"
             tool="0"
             flavor2="0">
@@ -245,8 +246,6 @@
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="nodo.h" ex="false" tool="3" flavor2="0">
       </item>

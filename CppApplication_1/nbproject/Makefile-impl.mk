@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=CppApplication_1
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=WindowsPC
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release Windows 
+ALLCONFS=WindowsPC Debug Release Windows 
 
 
 # build
