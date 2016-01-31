@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/1813848277/minieditor.o \
 	${OBJECTDIR}/bt.o \
 	${OBJECTDIR}/dbase.o \
 	${OBJECTDIR}/dinamic.o \
@@ -43,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/graficos.o \
 	${OBJECTDIR}/grammar.tab.o \
 	${OBJECTDIR}/lex.yy.o \
+	${OBJECTDIR}/minieditor.o \
 	${OBJECTDIR}/run.o \
 	${OBJECTDIR}/variables.o
 
@@ -69,11 +69,6 @@ LDLIBSOPTIONS=
 
 cppapp1.exe: ${OBJECTFILES}
 	${LINK.c} -o cppapp1.exe ${OBJECTFILES} ${LDLIBSOPTIONS} -L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl
-
-${OBJECTDIR}/_ext/1813848277/minieditor.o: nbproject/Makefile-${CND_CONF}.mk /cygdrive/C/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1813848277
-	${RM} "$@.d"
-	$(COMPILE.c) -g -I/cygdrive/D/GTK/lib/gtk-2.0/include -I/cygdrive/D/GTK/include/gtk-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -I/cygdrive/c/cygwin/usr/lib -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1813848277/minieditor.o /cygdrive/C/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c
 
 ${OBJECTDIR}/bt.o: nbproject/Makefile-${CND_CONF}.mk bt.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -109,6 +104,11 @@ ${OBJECTDIR}/lex.yy.o: nbproject/Makefile-${CND_CONF}.mk lex.yy.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -I/cygdrive/D/GTK/lib/gtk-2.0/include -I/cygdrive/D/GTK/include/gtk-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -I/cygdrive/c/cygwin/usr/lib -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lex.yy.o lex.yy.c
+
+${OBJECTDIR}/minieditor.o: nbproject/Makefile-${CND_CONF}.mk minieditor.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -I/cygdrive/D/GTK/lib/gtk-2.0/include -I/cygdrive/D/GTK/include/gtk-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -I/cygdrive/c/cygwin/usr/lib -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/minieditor.o minieditor.c
 
 ${OBJECTDIR}/run.o: nbproject/Makefile-${CND_CONF}.mk run.c 
 	${MKDIR} -p ${OBJECTDIR}

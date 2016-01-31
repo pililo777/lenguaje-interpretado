@@ -1,5 +1,13 @@
 Domingo 31 enero 2016
 ----------------------
+He tenido problemas debido a que hice un checkout
+perdi la informaci'on de compilacion de la 
+configuracion "Windows"
+Se soluciono removiendo del proyecto algunos fuentes en c
+y volviendolos a agregar.
+Debido a que la ventana Navigator informaba de que no
+estaban habilitados para "code assistance"
+
 Si voy a repository browser puedo ver
 que si intento hacer checkout de los repositorios
 local y remoto, me muestra si es que hay una nueva version.
