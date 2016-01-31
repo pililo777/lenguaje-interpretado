@@ -1,5 +1,14 @@
 Domingo 31 enero 2016
 ----------------------
+Si voy a repository browser puedo ver
+que si intento hacer checkout de los repositorios
+local y remoto, me muestra si es que hay una nueva version.
+Si ambas versiones no coinciden, es porque hay una ultima versi'on.
+esto ser'a util por si quiero sincronizar el trabajo
+de mas de 2 pc's o personas.
+Lo que mejor ma ha configurado es la opci'on PULL
+
+
 Git  remote   pull
 
 Comando en el menu contextual para actualizar los cambios desde el repositorio
