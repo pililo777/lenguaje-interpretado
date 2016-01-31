@@ -7,6 +7,7 @@ Si ambas versiones no coinciden, es porque hay una ultima versi'on.
 esto ser'a util por si quiero sincronizar el trabajo
 de mas de 2 pc's o personas.
 Lo que mejor ma ha configurado es la opci'on PULL
+pero antes de esto, ir a repository browser y hacer un remote/fetch.
 
 
 Git  remote   pull
