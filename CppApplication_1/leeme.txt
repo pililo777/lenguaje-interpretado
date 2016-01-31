@@ -1,4 +1,15 @@
-domingo 31 enero 2016
+Domingo 31 enero 2016
+----------------------
+Git  remote   pull
+
+Comando en el menu contextual para actualizar los cambios desde el repositorio
+remoto al repositorio local.
+
+Aún no encuentro una manera de saber si existen cambios en el repositorio remoto.
+
+
+
+domingo 31 enero 2016 ( magrugada )
 ---------------------
 Seg'un esta web:
 http://stackoverflow.com/questions/14942738/how-to-push-to-github-from-netbeans-without-local-branch
