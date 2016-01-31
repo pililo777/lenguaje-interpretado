@@ -1,5 +1,10 @@
 domingo 31 enero 2016
 ---------------------
+aun no logro hacer el commit desde NetBeans, probaré con otros parametros.
+se ha editado el fichero .git/config para añadir el usuario pililo777
+segun esta web:
+http://stackoverflow.com/questions/8803714/change-git-commiter-in-netbeans
+
 he subido desde el pc de la sala al GitHub
 he bajado del GitHub al pc de la habitacion
 el proyecto se llama InterGit
