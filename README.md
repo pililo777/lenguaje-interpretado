@@ -3,7 +3,13 @@ Automatically exported from code.google.com/p/lenguaje-interpretado
 
 # Requisitos
 
- gtk + (fedora dnf  install gtk2.* )
+ gtk + 
+ 
+ Para instalar en fedora: 
+ 
+ yum install gtk2-devel
+ 
+ 
 
  gcc
 
