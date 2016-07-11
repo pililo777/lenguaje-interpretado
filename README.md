@@ -2,8 +2,11 @@
 Automatically exported from code.google.com/p/lenguaje-interpretado
 
 # Requisitos
+
  gtk + (fedora dnf  install gtk2.* )
+
  gcc
+
  https://cairographics.org/download/
  
  
