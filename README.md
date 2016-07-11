@@ -1,9 +1,11 @@
 # lenguaje-interpretado
 Automatically exported from code.google.com/p/lenguaje-interpretado
 
- # Requisitos
+# Requisitos
  gtk +
  gcc
+ https://cairographics.org/download/
+ 
  
 
 
