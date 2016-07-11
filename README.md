@@ -1,6 +1,12 @@
 # lenguaje-interpretado
 Automatically exported from code.google.com/p/lenguaje-interpretado
 
+ # Requisitos
+ gtk +
+ gcc
+ 
+
+
 
 Hola, este es un interprete programado en C
 ver el fichero tokens.l para ver las palabras clave
