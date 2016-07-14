@@ -77,6 +77,7 @@ grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray) {
     char buffer[variableArray];
     
     int tamanyoRegistro;
+     // printf("Tamaño registro: %d\n",variableArray);
     tamanyoRegistro = sizeof(conteo)+sizeof(rama)*5+variableArray*4+2;
     struct xnodo xpnLocal;
     xpnLocal  = *xpn;
@@ -120,6 +121,7 @@ leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray) {
     
     memset(buffer, 0, sizeof(buffer));
     int tamanyoRegistro;
+   // printf("Tamaño registro: %d\n",variableArray);
     tamanyoRegistro = sizeof(conteo)+sizeof(rama)*5+variableArray*4+2;
     struct xnodo xpnLocal;
     xpnLocal  = *xpn;
@@ -165,6 +167,9 @@ buscarnodo(tipollave *objetivo, xapuntador *xp, int *encontrar, posicion *k) {
     int a;
 
     leenodo(xp, &xpn, tam_registro);
+ //   printf("Tamaño registro: %d\n", tam_registro  );
+            
+            
     if (strcmp(objetivo, xpn.xllave[0]) < 0) {
         *encontrar = 0;
         *k = 0;
@@ -499,32 +504,47 @@ eliminar(tipollave *objetivo, xapuntador *xraiz) {
 
 enorden(xapuntador xraiz, int *contador) {
     struct xnodo xraizn;
+    const int pagina = 150;
+    
     if (xraiz != -1) {
         leenodo(&xraiz, &xraizn, tam_registro);
         enorden(xraizn.xrama[0], contador);
         if (xraizn.xconteo > 0) {
-            fprintf(stdout, "%s\n", xraizn.xllave[0]);
+            fprintf(stdout, "%4d -- %s\n", *contador, xraizn.xllave[0]);
             (*contador)++;
+            if ( (*contador  % pagina)==0) {
+               printf("presione una tecla para continuar....."); getchar();
+            }
             enorden(xraizn.xrama[1], contador);
         };
 
         if (xraizn.xconteo > 1) {
-            fprintf(stdout, "%s\n", xraizn.xllave[1]);
+            fprintf(stdout, "%4d -- %s\n", *contador, xraizn.xllave[1]);
             (*contador)++;
+            if ( (*contador  % pagina)==0) {
+               printf("presione una tecla para continuar....."); getchar();
+            }            
             enorden(xraizn.xrama[2], contador);
         };
 
         if (xraizn.xconteo > 2) {
-            fprintf(stdout, "%s\n", xraizn.xllave[2]);
+            fprintf(stdout, "%4d -- %s\n", *contador, xraizn.xllave[2]);
             (*contador)++;
+            if ( (*contador  % pagina)==0) {
+               printf("presione una tecla para continuar....."); getchar();
+            }            
             enorden(xraizn.xrama[3], contador);
         };
 
         if (xraizn.xconteo > 3) {
-            fprintf(stdout, "%s\n", xraizn.xllave[3]);
+            fprintf(stdout, "%4d -- %s\n", *contador, xraizn.xllave[3]);
             (*contador)++;
+            if ( (*contador  % pagina)==0) {
+               printf("presione una tecla para continuar....."); getchar();
+            }            
             enorden(xraizn.xrama[4], contador);
         };
+        
     }
 }
 
@@ -535,7 +555,7 @@ leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */ {
 
     len = 0;
     while ((c = getc(datafile)) != EOF) {
-        if (c != '\xA') {
+        if (c != '\xA' && c!= '\xD') {
             linea[len] = c;
             len++;
         } else {
@@ -553,7 +573,7 @@ obtenerllave(tipollave *llave) {
     char c;
     int i;
     llave1[0] = '\x0';
-    fprintf(stdout, "Ingrese la llave: ");
+    fprintf(stdout, "Ingrese la clave ('.' para fin) :  ");
     scanf("%s", llave1);
 
     /*
@@ -634,7 +654,7 @@ int main2() {
 
         /*   clrscr();   */
         opcion = 0;
-        fprintf(stdout, "La raiz se encuentra en el nodo: %d\n", xraiz);
+    /*    fprintf(stdout, "La raiz se encuentra en el nodo: %d\n", xraiz); */
         fprintf(stdout, "MENU\n");
         fprintf(stdout, "\n");
         fprintf(stdout, "1. Altas\n");
@@ -665,25 +685,30 @@ int main2() {
         if (opcion == 3) {
             contador = 0;
             enorden(xraiz, &contador);
-            fprintf(stdout, "total items: %d\n", contador);
+            fprintf(stdout, "total items: %d\n\n", --contador);
             /*
                       getchar();
              */
         }
 
         if (opcion == 4) {
+            
+          while ((strcmp(llave, "."))) {
             obtenerllave(llave);
+            if (strcmp(llave, ".")) {
             posobjetivo = 0;
             nodoobjetivo = 0;
             encontrar = 0;
             buscar(&llave, &xraiz, &encontrar, &nodoobjetivo, &posobjetivo);
             if (encontrar == 1) {
                 leenodo(&nodoobjetivo, &xnodoobjetivo, tam_registro);
-                fprintf(stdout, "%s\n", xnodoobjetivo.xllave[posobjetivo - 1]);
+                fprintf(stdout, "Se ha encontrado: %s\n\n", xnodoobjetivo.xllave[posobjetivo - 1]);
             } else {
-                fprintf(stdout, "Llave no existe.....");
+                fprintf(stdout, "Clave no existe.....\n\n");
             };
+            }
             getchar(); /*encuentre o no encuentre pide una tecla */
+          }
         }; /* FIN DE OPCION 4 */
 
         if (opcion == 7) {
@@ -733,7 +758,7 @@ int use() {
     xraiz = -1;
     leenodo(&xraiz, &primernodo, tam_registro);
     xraiz = primernodo.xrama[0];
-    fprintf(stdout, "La raiz se encuentra en %d\n", xraiz);
+    /* fprintf(stdout, "La raiz se encuentra en %d\n", xraiz);  */
     /*
             dbminit("testfile");
      */
