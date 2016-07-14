@@ -21,7 +21,7 @@ mientras num_archivo <> 99
     sino
 		contador = contador + 1
 		LINEA += LETRA
-	si-fin
+    si-fin
 }
 imprimir LINEA
 cerrar num_archivo
@@ -37,7 +37,7 @@ dividendo = numero / divisor
 imprimir 'dividendo = ', dividendo
 decimales 14
 siguecalculando = 1
-diferencia =  0.00000000001
+diferencia =  0.0000000000001
 si diferencia = 0 entonces
  		stop  //significa que se redondea a cero
 si-fin
@@ -64,6 +64,7 @@ mientras siguecalculando > 0
       si diferencia2 < diferencia entonces
          imprimir 'la raiz cuadrada es: ', dividendo
          siguecalculando = 0
+         salir
       si-fin
 }
 	
