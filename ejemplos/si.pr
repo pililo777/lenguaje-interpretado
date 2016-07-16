@@ -2,4 +2,13 @@
 
 imprimir 'Como te llamas'
 
+leer NOMBRE
+
+si NOMBRE = 'robinson' entonces
+    imprimir 'hola ', NOMBRE
+sino
+    imprimir 'hola desconocido'
+si-fin
+
+
 
