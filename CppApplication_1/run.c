@@ -1149,6 +1149,7 @@ void * execut(elnodo * p) {
             for (counter1[indice_ctr]; counter1[indice_ctr] <= (int) evalua(p->nodo3); counter1[indice_ctr]++) {
                 //y = evalua(p->nodo3);
                 var[x] = counter1[indice_ctr];
+                array_variables[ x ].numero = counter1[indice_ctr];
                 execut(p->nodo4);
             }
 
