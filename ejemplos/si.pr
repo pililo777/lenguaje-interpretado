@@ -2,6 +2,10 @@
 
 imprimir 'Como te llamas'
 
+
+// actualmente es preciso iniciar el valor de la variable ALFANUMERICA
+
+NOMBRE = ' '
 leer NOMBRE
 
 si NOMBRE = 'robinson' entonces
