@@ -1,0 +1,4 @@
+NOMBRE = 'robinson'
+edad   = 42
+imprimir NOMBRE, ' tiene ', edad, ' años'
+

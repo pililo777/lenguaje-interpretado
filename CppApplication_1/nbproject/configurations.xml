@@ -36,10 +36,12 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
       <itemPath>Propio.syn</itemPath>
+      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/añadir_instruccion</itemPath>
       <itemPath>grammar.y</itemPath>
       <itemPath>numeroEuler2.pr</itemPath>
       <itemPath>numerodeEuler.pr</itemPath>
       <itemPath>raiz22.pr</itemPath>
+      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/temp</itemPath>
       <itemPath>tokens.l</itemPath>
       <itemPath>ventanas.pr</itemPath>
     </logicalFolder>
