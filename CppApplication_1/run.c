@@ -1277,7 +1277,7 @@ double evalua(elnodo * p) {
             char string2[255];
 
             strcpy(string1, array_variables[(int) p->nodo1->num].valor);
-            strcpy(string2, constantes[(int) var[(int) p->nodo2->num]]);
+            strcpy(string2, constantes[(int) p->nodo2->num]);
             res = (double) !strcmp(string1, string2);
 
         }
