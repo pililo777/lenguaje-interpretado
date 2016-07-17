@@ -65,7 +65,7 @@
   <confs>
     <conf name="WindowsPC" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -441,8 +441,6 @@
       <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
       </item>
