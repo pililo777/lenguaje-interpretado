@@ -38,6 +38,14 @@ CND_ARTIFACT_PATH_Windows=dist/Windows/Cygwin_4.x-Windows/cppapplication_1
 CND_PACKAGE_DIR_Windows=dist/Windows/Cygwin_4.x-Windows/package
 CND_PACKAGE_NAME_Windows=cppapplication1.tar
 CND_PACKAGE_PATH_Windows=dist/Windows/Cygwin_4.x-Windows/package/cppapplication1.tar
+# Linux configuration
+CND_PLATFORM_Linux=GNU-Linux
+CND_ARTIFACT_DIR_Linux=dist/Linux/GNU-Linux
+CND_ARTIFACT_NAME_Linux=cppapplication_1
+CND_ARTIFACT_PATH_Linux=dist/Linux/GNU-Linux/cppapplication_1
+CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Linux/package
+CND_PACKAGE_NAME_Linux=cppapplication1.tar
+CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Linux/package/cppapplication1.tar
 #
 # include compiler specific variables
 #

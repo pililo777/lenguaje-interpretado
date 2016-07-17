@@ -7,3 +7,4 @@
 # Debug configuration
 # Release configuration
 # Windows configuration
+# Linux configuration
