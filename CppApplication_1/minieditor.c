@@ -10,8 +10,8 @@ extern char constantes[127][127];
 extern int idx_prg;
 
 #include <stdio.h>
-  #include "stdlib.h"
- #include <string.h>
+#include "stdlib.h"
+#include <string.h>
 #include <gtk/gtk.h> 
 
 #ifndef xrun
