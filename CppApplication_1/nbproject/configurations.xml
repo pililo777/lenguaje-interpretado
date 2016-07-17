@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="ejemplos" displayName="ejemplos" projectFiles="true">
+    <logicalFolder name="ejemplos" displayName="Ejemplos" projectFiles="true">
       <itemPath>../ejemplos/archivos.pr</itemPath>
       <itemPath>../ejemplos/bat1</itemPath>
       <itemPath>../ejemplos/bucles_anidados.pr</itemPath>
