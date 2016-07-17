@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="ejemplos" displayName="ejemplos" projectFiles="true">
+      <itemPath>../ejemplos/archivos.pr</itemPath>
+      <itemPath>../ejemplos/bat1</itemPath>
+      <itemPath>../ejemplos/bucles_anidados.pr</itemPath>
+      <itemPath>../ejemplos/buffer.pr</itemPath>
+      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr</itemPath>
+      <itemPath>../ejemplos/integracion.pr</itemPath>
+      <itemPath>../ejemplos/integracion2.pr</itemPath>
+      <itemPath>../ejemplos/integracion3.pr</itemPath>
+      <itemPath>../ejemplos/numeroEuler2.pr</itemPath>
+      <itemPath>../ejemplos/numerodeEuler.pr</itemPath>
+      <itemPath>../ejemplos/raiz_cuadrada.pr</itemPath>
+      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr</itemPath>
+      <itemPath>../ejemplos/si_anidado.pr</itemPath>
+      <itemPath>../ejemplos/ventanas.pr</itemPath>
+      <itemPath>../ejemplos/ventanas2.pr</itemPath>
+    </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
@@ -36,17 +53,14 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
       <itemPath>Propio.syn</itemPath>
-      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/añadir_instruccion</itemPath>
       <itemPath>grammar.y</itemPath>
-      <itemPath>numeroEuler2.pr</itemPath>
-      <itemPath>numerodeEuler.pr</itemPath>
-      <itemPath>raiz22.pr</itemPath>
       <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/temp</itemPath>
       <itemPath>tokens.l</itemPath>
-      <itemPath>ventanas.pr</itemPath>
     </logicalFolder>
-    <itemPath>leeme.txt</itemPath>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>C:\Users\test\Documents\NetBeansProjects\lenguaje-interpretado\ejemplos</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="WindowsPC" type="1">
@@ -84,6 +98,42 @@
           <commandLine>-L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bat1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="bt.c" ex="false" tool="0" flavor2="9">
         <cTool>
         </cTool>
@@ -103,8 +153,6 @@
         </cTool>
       </item>
       <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="9">
         <cTool>
@@ -158,6 +206,42 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bat1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="dbase.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="dinamic.c" ex="false" tool="0" flavor2="0">
@@ -169,8 +253,6 @@
       <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -203,6 +285,42 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bat1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="dbase.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="dinamic.c" ex="false" tool="0" flavor2="0">
@@ -214,8 +332,6 @@
       <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -243,6 +359,42 @@
           <commandLine>-L/cygdrive/c/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bat1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="bt.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="dbase.c" ex="false" tool="0" flavor2="0">
@@ -256,8 +408,6 @@
       <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
       </item>
