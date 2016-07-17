@@ -3,7 +3,7 @@ Automatically exported from code.google.com/p/lenguaje-interpretado
 
 # Requisitos
 
- gtk + 
+ gtk +   (version 2.24)
  
  Para instalar en fedora: 
  
@@ -26,7 +26,7 @@ git clone https://github.com/pililo777/lenguaje-interpretado.git
 Después entra en la carpeta
 
 ```
-cd lenguaje-interpretado2/CppApplication_1
+cd lenguaje-interpretado/CppApplication_1
 
 ```
 
