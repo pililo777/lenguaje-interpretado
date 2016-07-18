@@ -1,12 +1,9 @@
-// Este programa es uno de ejemplo, esta dividido en 2 partes
-// la primera se muestra a si mismo
-// la segunda calcula la raiz cuadrada de un numero
-// 
 
 // se muestra en pantalla a sí mismo
-// luego calcula la raiz cuadrada de un numero 
 
-ARCHIVO = 'raiz22.pr'
+
+ARCHIVO = '../ejemplos/archivos.pr'
+
 num_archivo = 0
 abrir ARCHIVO num_archivo
 LINEA = ' '
@@ -14,6 +11,7 @@ LETRA = ' '
 vaciar LINEA 
 letra = 0
 contador = 0
+// cuando se acaba de leer el archivo, esta variable se pone en 99
 mientras num_archivo <> 99
 {
     leer # num_archivo LETRA letra
@@ -29,49 +27,8 @@ mientras num_archivo <> 99
     si-fin
 }
 imprimir LINEA
+
+num_archivo = 0
 cerrar num_archivo
 
-imprimir 'introduce el numero al que quieres calcular la raíz cuadrada:'
-numero = 0
-leer numero
-imprimir 'introduce un numero por el que sea divisible: '
-divisor = 0
-leer divisor
-dividendo = 0
-dividendo = numero / divisor
-imprimir 'dividendo = ', dividendo
-decimales 14
-siguecalculando = 1
-diferencia =  0.0000000000001
-si diferencia = 0 entonces
- 		stop  //significa que se redondea a cero
-si-fin
- 
-mientras siguecalculando > 0
-{
-      si  dividendo = divisor entonces
-          imprimir 'la raiz cuadrada es: ', dividendo
-          siguecalculando = 0
-	  salir
-	si-fin
 
-         dividendo = ( divisor + dividendo ) / 2
-         divisor   = ( numero / dividendo )
-	
-         imprimir 'aproximacion: ', dividendo, ' ---- ',  divisor
-      	
-      diferencia2 = dividendo - divisor
-      
-      si diferencia2 < 0 entonces
-         diferencia2 = diferencia2 * (-1)
-      si-fin
- 
-      si diferencia2 < diferencia entonces
-         imprimir 'la raiz cuadrada es: ', dividendo
-         siguecalculando = 0
-         salir
-      si-fin
-}
-	
-imprimir 'hemos finalizado el programa '
-	
