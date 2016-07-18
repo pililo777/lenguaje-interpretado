@@ -1,34 +1,8 @@
-// Este programa es uno de ejemplo, esta dividido en 2 partes
-// la primera se muestra a si mismo
-// la segunda calcula la raiz cuadrada de un numero
 
-// se muestra en pantalla a sí mismo
-// luego calcula la raiz cuadrada de un numero 
+// calcula la raiz cuadrada de un numero por el metodo del algoritmo babilonico
+// ver el articulo de wikipedia
 
-ARCHIVO = 'raiz22.pr'
-num_archivo = 0
-abrir ARCHIVO num_archivo
-LINEA = ' '
-LETRA = ' '
-vaciar LINEA 
-letra = 0
-contador = 0
-mientras num_archivo <> 99
-{
-    leer # num_archivo LETRA letra
-    si (letra = 32) oo (letra = 9) oo (letra=10) oo (letra=13) entonces
-        si contador <> 0 entonces
-            imprimir   LINEA 
-            vaciar LINEA
-            contador = 0
-        si-fin
-    sino
-		contador = contador + 1
-		LINEA += LETRA
-    si-fin
-}
-imprimir LINEA
-cerrar num_archivo
+
 
 imprimir 'introduce el numero al que quieres calcular la raíz cuadrada:'
 numero = 0
