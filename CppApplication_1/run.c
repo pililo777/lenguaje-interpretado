@@ -792,7 +792,7 @@ void * execut(elnodo * p) {
             gtk_window_set_default_size(GTK_WINDOW(arrayWidgets[idx_win].nombre), width, heigh);
             gtk_container_add(GTK_CONTAINER(arrayWidgets[idx_win].nombre), box1);
             if (idx_win == 0) {
-                g_signal_connect(arrayWidgets[idx_win].nombre, "delete_event", G_CALLBACK(close_main_window), NULL);
+                g_signal_connect(arrayWidgets[idx_win].nombre, "destroy", G_CALLBACK(close_main_window), NULL);
             } else
                 // g_signal_connect (arrayWidgets[aa].nombre, "delete_event", G_CALLBACK (close_window), NULL);
                 g_signal_connect(arrayWidgets[idx_win].nombre, "destroy", G_CALLBACK(close_window), idx_win);
