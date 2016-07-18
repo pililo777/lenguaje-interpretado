@@ -53,11 +53,9 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
       <itemPath>Propio.syn</itemPath>
-      <itemPath>grammar.y.c</itemPath>
-      <itemPath>grammar.y.c</itemPath>
+      <itemPath>grammar.y</itemPath>
       <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/temp</itemPath>
-      <itemPath>tokens.l.c</itemPath>
-      <itemPath>tokens.l.c</itemPath>
+      <itemPath>tokens.l</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
