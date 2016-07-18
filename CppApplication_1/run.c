@@ -406,7 +406,10 @@ void * execut(elnodo * p) {
 	{
 	   int n;
 	   n = (int) p->nodo1->num;
+           fflush(stdout);
 	   printf ("%s", array_variables[n].valor);
+           fflush(stdout);
+           
 	}
 	break;
 
@@ -415,11 +418,11 @@ void * execut(elnodo * p) {
         case abrir:   //  abrir ARCHIVO
         {
             int n;
-            n = (int) p->nodo1->num;
-/*
-            printf("abriremos el fichero:  %s\n", constantes[(int) var[(int)   p->nodo1->num]]) ;
+            n = (int) p->nodo2->num;
+            n = (int) array_variables[n].numero;
             
-*/
+// pendiente  quitar VAR y poner array_variables
+            printf("abriremos el fichero:  %s\n", constantes[(int) var[(int)   p->nodo1->num]]) ;
             ficheros[n] = fopen(constantes[(int) var[(int)   p->nodo1->num]], "r");
 /*
             while (!feof(ficheros[n])) {
@@ -435,6 +438,7 @@ void * execut(elnodo * p) {
         {
             int n;
             n = (int) p->nodo1->num;
+            n = (int) array_variables[n].numero;
             fclose(ficheros[n]);
         }
         break;
