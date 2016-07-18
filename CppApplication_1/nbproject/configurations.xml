@@ -53,9 +53,11 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
       <itemPath>Propio.syn</itemPath>
-      <itemPath>grammar.y</itemPath>
+      <itemPath>grammar.y.c</itemPath>
+      <itemPath>grammar.y.c</itemPath>
       <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/temp</itemPath>
-      <itemPath>tokens.l</itemPath>
+      <itemPath>tokens.l.c</itemPath>
+      <itemPath>tokens.l.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -426,6 +428,7 @@
             <linkerOptionItem>`pkg-config --libs gtk+-2.0`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs gdk-2.0`</linkerOptionItem>
           </linkerLibItems>
+          <commandLine>-ldl</commandLine>
         </linkerTool>
       </compileType>
       <item path="bt.c" ex="false" tool="0" flavor2="0">
