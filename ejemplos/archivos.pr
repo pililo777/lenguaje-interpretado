@@ -18,6 +18,7 @@ mientras num_archivo <> 99
     si (letra = 32) oo (letra = 9) oo (letra=10) oo (letra=13) entonces
         si contador <> 0 entonces
             imprimir   LINEA 
+		si LINEA = 'num_archivo' entonces stop si-fin
             vaciar LINEA
             contador = 0
         si-fin
@@ -30,5 +31,5 @@ imprimir LINEA
 
 num_archivo = 0
 cerrar num_archivo
-
+// stop
 
