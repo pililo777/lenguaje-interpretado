@@ -13,6 +13,7 @@ extern int idx_prg;
 #include "stdlib.h"
 #include <string.h>
 #include <gtk/gtk.h> 
+#include <cairo.h>
 
 #ifndef xrun
 
@@ -204,12 +205,14 @@ extern  long memoria;
 extern int linenumber;
 
 
-void liberar_nodo( elnodo * a)
+void liberar_nodo( elnodo * a, int n)
 
 {
     elnodo * p;
     p=a;
-       if (p == pila_programas[0]) {
+    if (p==NULL) return;
+    
+       if (p == pila_programas[n]) {
             if (p->subnodos == 0) {
            
             printf("no hay nodos para liberar\n");
@@ -217,7 +220,7 @@ void liberar_nodo( elnodo * a)
         }
         
      if (p->subnodos > 0) {
-            liberar_nodo(p->nodo1);
+            liberar_nodo(p->nodo1, n);
 /*
             free(p->nodo1);
             memoria -= sizeof (struct elnodo);
@@ -227,7 +230,7 @@ void liberar_nodo( elnodo * a)
         }
 
         if (p->subnodos > 1) {
-            liberar_nodo(p->nodo2);
+            liberar_nodo(p->nodo2, n);
 /*
             free(p->nodo2);
             memoria -= sizeof (struct elnodo);
@@ -236,7 +239,7 @@ void liberar_nodo( elnodo * a)
         }
 
         if (p->subnodos > 2) {
-            liberar_nodo(p->nodo3);
+            liberar_nodo(p->nodo3,n);
 /*
             free(p->nodo3);
             memoria -= sizeof (struct elnodo);
@@ -245,7 +248,7 @@ void liberar_nodo( elnodo * a)
         }
 
         if (p->subnodos > 3) {
-            liberar_nodo(p->nodo4);
+            liberar_nodo(p->nodo4,n );
 /*
             free(p->nodo4);
             memoria -= sizeof (struct elnodo);
@@ -254,7 +257,7 @@ void liberar_nodo( elnodo * a)
         }
 
         if (p->subnodos > 4) {
-            liberar_nodo(p->nodo5);
+            liberar_nodo(p->nodo5,n);
 /*
             free(p->nodo5);
             memoria -= sizeof (struct elnodo);
@@ -268,68 +271,17 @@ void liberar_nodo( elnodo * a)
             
             
         
-        pila_programas[0] = NULL;
+        pila_programas[n] = NULL;
     }
     else {
            
-           if (p->subnodos == 0) {
+        if (p->subnodos == 0) 
+        {
             free(p);
             memoria -= sizeof (struct elnodo);
          //   printf("librando un nodo sin subnodos: %ld\n", memoria);
             return;
         }
-           
-           
-           if (p->subnodos > 0) {
-            liberar_nodo(p->nodo1);
-            
-/*
-            free(p->nodo1);
-            memoria -= sizeof (struct elnodo);
-            printf("librando un nodo: %ld\n", memoria);
-*/
-
-        }
-
-        if (p->subnodos > 1) {
-            liberar_nodo(p->nodo2);
-/*
-            free(p->nodo2);
-            memoria -= sizeof (struct elnodo);
-            printf("librando un nodo: %ld\n", memoria);
-*/
-        }
-
-        if (p->subnodos > 2) {
-            liberar_nodo(p->nodo3);
-/*
-            free(p->nodo3);
-            memoria -= sizeof (struct elnodo);
-            printf("librando un nodo: %ld\n", memoria);
-*/
-        }
-
-        if (p->subnodos > 3) {
-            liberar_nodo(p->nodo4);
-/*
-            free(p->nodo4);
-            memoria -= sizeof (struct elnodo);
-            printf("librando un nodo: %ld\n", memoria);
-*/
-        }
-
-        if (p->subnodos > 4) {
-            liberar_nodo(p->nodo5);
-/*
-            free(p->nodo5);
-            memoria -= sizeof (struct elnodo);
-            printf("librando un nodo: %ld\n", memoria);
-*/
-        }
-           
-           free(p);
-           memoria -= sizeof (struct elnodo);
-       //    printf("librando el nodo: %ld\n", memoria);
 
     }
 }
@@ -348,6 +300,8 @@ void on_button_underline_clicked (GtkButton * button, gpointer user_data);
 void on_button_strike_clicked (GtkButton * button, gpointer user_data);
 void on_button_color_clicked (GtkButton * button, gpointer user_data);
 
+extern int gtk_iniciado;
+
 int
 main_anterior (int argc, char *argv[])
 //main_old()
@@ -356,9 +310,22 @@ main_anterior (int argc, char *argv[])
         
     GtkWidget *window;
 
-    gtk_init (&argc, &argv);
+  // gtk_init (&argc, &argv);
+    if (!gtk_iniciado) {
+      gtk_disable_setlocale();
+      argc = 0;
+      gtk_init(&argc, &argv); 
+    }
+    
+    gtk_iniciado = 1;
 
     window = create_window ();
+    
+    // los connect estan en la funcion create_window())
+    
+     //g_signal_connect(window, "destroy",   destroy, NULL); 
+    //  g_signal_connect(G_OBJECT(window), "destroy",    G_CALLBACK(gtk_main_quit), NULL);
+    
     gtk_widget_show_all (window);
 
     gtk_main ();
@@ -389,7 +356,7 @@ create_window() {
     
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title (GTK_WINDOW (window), "EDITOR DE PROGRAMAS");
-    gtk_window_set_default_size (GTK_WINDOW (window), 400, 500);
+    gtk_window_set_default_size (GTK_WINDOW (window), 400, 800);
 
     vbox_main = gtk_vbox_new (FALSE, 0);
     gtk_container_add (GTK_CONTAINER (window), vbox_main);
@@ -476,8 +443,8 @@ create_window() {
     create_tags (buffer);
     
 
-    g_signal_connect ((gpointer) window, "delete_event",
-              G_CALLBACK (gtk_main_quit), NULL);
+    //g_signal_connect ((gpointer) window, "delete_event",  G_CALLBACK (gtk_main_quit), NULL);
+    g_signal_connect ((gpointer) window, "destroy",  G_CALLBACK (gtk_main_quit), NULL);
     
     g_signal_connect ((gpointer) button_load, "clicked",
               G_CALLBACK (on_button_load_clicked),
@@ -605,7 +572,8 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
          
             
     //  printf("check9 liberando memoria\n");
-            liberar_nodo(pila_programas[0]);
+            liberar_nodo(pila_programas[0], 0);
+         //   liberar_nodo(pila_programas[31], 31);
       //      printf("memoria: %ld \n", memoria);
 
         //   g_free(input);
