@@ -332,9 +332,47 @@ main_anterior (int argc, char *argv[])
     return 0;
 }
 
+
+update_statusbar(GtkTextBuffer *buffer,
+                  GtkStatusbar  *statusbar) {
+  gchar *msg;
+  gint row, col;
+  GtkTextIter iter;
+  
+  gtk_statusbar_pop(statusbar, 0); 
+
+  gtk_text_buffer_get_iter_at_mark(buffer,
+      &iter, gtk_text_buffer_get_insert(buffer));
+
+  row = gtk_text_iter_get_line(&iter);
+  col = gtk_text_iter_get_line_offset(&iter);
+
+  msg = g_strdup_printf("Col: %d Ln: %d", col+1, row+1);
+
+  gtk_statusbar_push(statusbar, 0, msg);
+
+  g_free(msg);
+}
+
+void mark_set_callback(GtkTextBuffer *buffer, 
+    const GtkTextIter *new_location, GtkTextMark *mark, gpointer data) {
+                       
+  update_statusbar(buffer, GTK_STATUSBAR(data));
+}
+
+
+
+ GtkWidget *window;
+ GtkWidget *label1, *label2, *label3, *label4;
+ GtkWidget *statusbar;
+ gchar * str_status;
+ 
+ 
+ 
+
 GtkWidget *
 create_window() {
-    GtkWidget *window;
+   
     GtkWidget *vbox_main;
     GtkWidget *handlebox;
     GtkWidget *toolbar;
@@ -351,7 +389,9 @@ create_window() {
     GtkWidget *scrolledwindow;
     GtkWidget *textview;
     GtkTextBuffer *buffer;
-    GtkWidget *label1, *label2, *label3;
+    GtkWidget *balign;
+    
+    
     
     
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -368,10 +408,12 @@ create_window() {
     gtk_box_pack_start (GTK_BOX (vbox_main), label1, FALSE, FALSE, 0);
     
     label2 = gtk_label_new("VARIABLES");
-    gtk_box_pack_start (GTK_BOX (vbox_main), label2, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox_main), label2,  FALSE, FALSE, 0);
     
     label3 = gtk_label_new("CONSTANTES");
     gtk_box_pack_start (GTK_BOX (vbox_main), label3, FALSE, FALSE, 0);
+    
+   
     
     
 
@@ -432,12 +474,30 @@ create_window() {
                          "gtk-select-color",
                          NULL,
                          NULL, NULL, NULL, -1);
+    
+  //  label4 = gtk_label_new("Line: xx  Col: xx");
+  //  gtk_box_pack_start (GTK_BOX (toolbar), label3, FALSE, FALSE, 0);
+    
+    
+    
     scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
     gtk_box_pack_start (GTK_BOX (vbox_main), scrolledwindow, TRUE,
                 TRUE, 0);
 
     textview = gtk_text_view_new ();
+    gtk_text_view_set_left_margin ((gpointer) textview, (gint) 60);
     gtk_container_add (GTK_CONTAINER (scrolledwindow), textview);
+    
+    balign = gtk_alignment_new(0, 2, 2, 0);
+    
+    statusbar = gtk_statusbar_new();
+     
+    gtk_container_add(GTK_CONTAINER(balign), statusbar);
+    gtk_box_pack_start(GTK_BOX(vbox_main), balign, FALSE, FALSE, 0);
+     
+    //gtk_container_add(GTK_BOX(vbox_main), statusbar);
+    
+    
 
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
     create_tags (buffer);
@@ -479,15 +539,36 @@ create_window() {
     g_signal_connect ((gpointer) button_color, "clicked",
               G_CALLBACK (on_button_color_clicked),
               (gpointer) textview);
+    
+    str_status = g_strdup_printf("Hemos cargado %d programas",  (int) 1);
+    gtk_statusbar_push(GTK_STATUSBAR(statusbar),
+     gtk_statusbar_get_context_id(GTK_STATUSBAR(statusbar), str_status), str_status);
+    
+    
+     g_signal_connect(buffer, "changed",
+        G_CALLBACK(update_statusbar), statusbar);
+
+  g_signal_connect_object(buffer, "mark_set", 
+        G_CALLBACK(mark_set_callback), statusbar, 0);
+    
+    
     return window;
 }
 
+
+
+
+
+
+//extern int contador, contadorvar;
+// void gtk_label_set_text( GtkLabel   *label,  const char *str );
 
 
 void
 on_button_clear_clicked(GtkButton * button, gpointer user_data) {
     GtkTextBuffer *textbuffer = NULL;
      GtkTextIter start, end;
+     char *str1;
      
 // printf("on buton clicked\n");
      
@@ -554,6 +635,19 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
            //    if (yyin != NULL) {
                
                  yyparse();
+                 
+                 //actualizamos valores en la ventana del editor (provenientes del parsing)
+                 
+                 sprintf(str1, "Constantes: %d", (int) contador );
+                 gtk_label_set_text( label3, str1 );
+                 
+                 sprintf(str1, "Variables: %d", (int) contadorvar );
+                 gtk_label_set_text( label2, str1 );
+                 
+                 sprintf(str1, "Memoria: %d", (long) memoria );
+                 gtk_label_set_text( label1, (gpointer) str1 );
+                 
+                 
              //    fclose(yyin);
                
            //    }
@@ -573,6 +667,8 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
             
     //  printf("check9 liberando memoria\n");
             liberar_nodo(pila_programas[0], 0);
+            
+            
          //   liberar_nodo(pila_programas[31], 31);
       //      printf("memoria: %ld \n", memoria);
 
