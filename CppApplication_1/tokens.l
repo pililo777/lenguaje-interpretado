@@ -38,9 +38,12 @@ extern void  insAST(char * ) ;
 
  int contador = 0; 
  int  contadorvar = 0; 
+ int contador_lineaInicial = 0;
 
 extern int linenumber;
-int  LineaInicial ;
+int lineaEjecucion = 0;
+int lineaAnterior = 0;
+int  LineaInicial[20] ;   //para anidar  IF, FOR, WHILE
 
 int instala(x) 
 int x;
@@ -78,7 +81,15 @@ int x;
    return x;
 }
 
-
+lineaEjecucion2() {
+    lineaAnterior = lineaEjecucion;
+    lineaEjecucion = linenumber;
+    printf("Linea Ejecucion: %d\n", lineaEjecucion);
+/*
+    if (lineaEjecucion==12)
+        pausar();
+*/
+}
 
 %}
 
@@ -105,41 +116,41 @@ int x;
 "]" { return ']'; }
 "#"     { return '#'; }
 
-"if"|"IF"|"SI"|[sS]i    { return IF; }
-"call"|"LLAMAR"|"CALL"|[Ll]lamar   { return LLAMAR ; }
+"if"|"IF"|"SI"|[sS]i   {LineaInicial [contador_lineaInicial] = linenumber; contador_lineaInicial++; return IF; }
+"call"|"LLAMAR"|"CALL"|[Ll]lamar  {lineaEjecucion2(); return LLAMAR ; }
 "PROC"|"proc"|[Pp]rocedimiento|"PROCEDIMIENTO"    { return PROC ; }
 "end"|"END"|"fin"|"FIN"     { return END ; }
 "then"|"THEN"|"ENTONCES"|"entonces"  { return THEN; }
 "else"|"ELSE"|"SINO"|"sino"  { return ELSE; }
-"fi"|"FI"|"SI-FIN"|"si-fin"|"fin-si"    { return FI; }
-"while"|"WHILE"|"MIENTRAS"|"mientras" { LineaInicial = linenumber; return WHILE; }
+"fi"|"FI"|"SI-FIN"|"si-fin"|"fin-si"    { contador_lineaInicial--;  return FI; }
+"while"|"WHILE"|"MIENTRAS"|"mientras" { LineaInicial [contador_lineaInicial] = linenumber; contador_lineaInicial++; return WHILE; }
 "to"|"TO"|"HASTA"|"hasta" { return TO ; }
-"for"|"FOR"|"DESDE"|"desde" { return FOR ; }
+"for"|"FOR"|"DESDE"|"desde" {LineaInicial [contador_lineaInicial] = linenumber; contador_lineaInicial++; return FOR ; }
 "do"|"DO"|"HAZ"|"haz"|"hacer"|"HACER"|"{"    { return DO; }
-"od"|"OD"|"FIN-HAZ"|"fin-haz"|"fin-hacer"|"}"    { return OD; }
-"print"|"PRINT"|"IMPRIMIR"|"imprimir"|"?"  { return PRINT; }
-"input"|"INPUT"|"LEER"|"leer" { return LEER; }
-"cls"|"CLS"|"BORRAR"|"borrar"|"cls"   { return BORRAR ; }
-"decimales"|"dec"|"DECIMALES"|"DEC" { return DECIMALES; }
+"od"|"OD"|"FIN-HAZ"|"fin-haz"|"fin-hacer"|"}"  {contador_lineaInicial--; return OD; }
+"print"|"PRINT"|"IMPRIMIR"|"imprimir"|"?"  {lineaEjecucion2(); return PRINT; }
+"input"|"INPUT"|"LEER"|"leer" {lineaEjecucion2(); return LEER; }
+"cls"|"CLS"|"BORRAR"|"borrar"|"cls"   {lineaEjecucion2(); return BORRAR ; }
+"decimales"|"dec"|"DECIMALES"|"DEC" {lineaEjecucion2(); return DECIMALES; }
 "TERMINAR"|"terminar"|"FINALIZAR"|"finalizar"|"exit"|"EXIT"|"quit"|"QUIT"  { return TERMINAR ; }
-"ventana" {return VENTANA; }
-"boton" {return BOTON; }
-"etiqueta" {return ETIQUETA; }
-"texto" {return TEXTO; }
-"mensaje" {return MENSAJE; }
-"graficos" {return GRAFICOS; }
-"dim" {return DIM; }
-"linea" {return LINEA; }
-"circulo" {return CIRCULO; }
-"convertir" {return CONVERTIR; }
-"evalua" {return EVALUAR; }
-"stop" {return STOP; }
-"abrir" {return ABRIR; }
-"cerrar" {return CERRAR; }
-"mostrar" {return MOSTRAR; }
-"vaciar" {return VACIAR; }
-"continuar" {return CONTINUAR; }
-"salir" {return SALIR; }
+"ventana" {lineaEjecucion2(); return VENTANA; }
+"boton" {lineaEjecucion2();  return BOTON; }
+"etiqueta" {lineaEjecucion2();   return ETIQUETA; }
+"texto" {lineaEjecucion2(); return TEXTO; }
+"mensaje" {lineaEjecucion2(); return MENSAJE; }
+"graficos" {lineaEjecucion2(); return GRAFICOS; }
+"dim" {lineaEjecucion2(); return DIM; }
+"linea" {lineaEjecucion2(); return LINEA; }
+"circulo" {lineaEjecucion2(); return CIRCULO; }
+"convertir" {lineaEjecucion2(); return CONVERTIR; }
+"evalua" {lineaEjecucion2(); return EVALUAR; }
+"stop" {lineaEjecucion2();  return STOP; }
+"abrir" { lineaEjecucion2();  return ABRIR; }
+"cerrar" { lineaEjecucion2();  return CERRAR; }
+"mostrar" {lineaEjecucion2();    return MOSTRAR; }
+"vaciar" { lineaEjecucion2(); return VACIAR; }
+"continuar" { lineaEjecucion2(); return CONTINUAR; }
+"salir" { lineaEjecucion2(); return SALIR; }
 
 '[^\']+'  {
         /* constantes literales contienen una serie de variados signos � simbolos */
@@ -164,6 +175,9 @@ int x;
 [a-z_0-9]+     {
         /* nombres de variables numericas en minusculas */
 
+lineaEjecucion2();
+//printf("var num lineaEjecución: %d\n", lineaEjecucion);
+
 	yylval.nodo  = nuevonodo();
 	yylval.nodo->tipo = indice_strings;
 	yylval.nodo->subnodos = 0;
@@ -171,12 +185,14 @@ int x;
                 //array_variables[(int)yylval.nodo->num].numero=0;  // esto debe ponerse en un bucle al inicio del programa
                 array_variables[(int)yylval.nodo->num].tipo = 'N';   //numero
 	printf("variable numerica: %s    indice %4.0f   en linea : %i \n", yytext, yylval.nodo->num, linenumber );
+        yylval.nodo->nrolinea1 = yylval.nodo->nrolinea2 = linenumber;
 	return NAME; 
 	}
 
 
 [A-Z_0-9]+  {
-                /* nombres de variables ALFANUMERICAS van en mayusculas */
+        /* nombres de variables ALFANUMERICAS van en mayusculas */
+        lineaEjecucion2();
 	yylval.nodo  = nuevonodo();
 	yylval.nodo->tipo = nombre_de_variable;
 	yylval.nodo->subnodos = 0;
@@ -231,4 +247,3 @@ p->nodo5 = NULL;
 return p;
 
 }
-
