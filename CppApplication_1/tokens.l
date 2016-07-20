@@ -76,7 +76,7 @@ int x;
    strcpy (variables[x],  yytext);
    strcpy  (array_variables[x].nombre, yytext);
    printf("VARIABLE %d  --    %s\n", x, variables[x]);
-   insAST(yytext) ;
+  // insAST(yytext) ;
 /*   printf("%d  --    %s\n", x, variables[x]);  */
    return x;
 }
