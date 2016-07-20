@@ -1,5 +1,14 @@
 //run.c
 #include <stdio.h>
+
+/*
+#include <time.h>
+#include <sys/time.h>
+
+#include <sys/types.h>
+*/
+
+
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
@@ -11,7 +20,8 @@ FILE * ficheros[10];
 
 
 extern int linenumber;
-extern int LineaInicial;
+extern int LineaInicial[20];
+extern int contador_lineaInicial;
 extern struct elnodo* nodografico;
 extern struct elnodo* nodografico2;
 int flag_ventanas = 0;
@@ -112,6 +122,8 @@ elnodo *nodo4(tiponodo, elnodo *, elnodo *, elnodo *, elnodo *);
 
 
 extern struct elnodo * nuevonodo();
+extern int lineaEjecucion ;
+extern int lineaAnterior ;
 
 elnodo * nodo1(tiponodo Tipo, elnodo * a) {
     elnodo * p;
@@ -119,8 +131,11 @@ elnodo * nodo1(tiponodo Tipo, elnodo * a) {
     p->tipo = Tipo;
     p->num = 777;
     p->nodo1 = a;
-    p->nrolinea2 = linenumber;
+    p->nrolinea1 = LineaInicial[contador_lineaInicial];
+    p->nrolinea2 = lineaEjecucion ;
     p->subnodos = 1;
+    if (p->tipo == imprimir_varios)
+        p->nrolinea2 = lineaAnterior;
 
 
 
@@ -136,9 +151,12 @@ elnodo * nodo2(tiponodo Tipo, elnodo * a, elnodo * b)
     p->nodo1 = a;
     p->nodo2 = b;
     p->subnodos = 2;
-    p->nrolinea2 = linenumber;
-    p->nrolinea1 = LineaInicial;
-
+    p->nrolinea1 = LineaInicial[contador_lineaInicial];
+    p->nrolinea2 = lineaEjecucion ;
+    if (p->tipo == asigna_num)
+        p->nrolinea2 = a->nrolinea1;
+        //lineaAnterior = lineaEjecucion;
+    
     return p;
 
 }
@@ -152,9 +170,8 @@ elnodo * nodo3(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c) {
     p->nodo2 = b;
     p->nodo3 = c;
     p->subnodos = 3;
-    p->nrolinea2 = linenumber;
-
-
+    p->nrolinea1 = LineaInicial[contador_lineaInicial];
+    p->nrolinea2 = lineaEjecucion ;
     return p;
 
 
@@ -170,7 +187,8 @@ elnodo * nodo4(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c, elnodo * d) {
     p->nodo3 = c;
     p->nodo4 = d;
     p->subnodos = 4;
-    p->nrolinea2 = linenumber;
+    p->nrolinea1 = LineaInicial[contador_lineaInicial];
+    p->nrolinea2 = lineaEjecucion ;
     return p;
 }
 
@@ -185,7 +203,8 @@ elnodo * nodo5(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c, elnodo * d, el
     p->nodo4 = d;
     p->nodo5 = e;
     p->subnodos = 5;
-    p->nrolinea2 = linenumber;
+    p->nrolinea1 = LineaInicial[contador_lineaInicial];
+    p->nrolinea2 = lineaEjecucion ;
     return p;
 }
 
@@ -356,6 +375,109 @@ extern int mquit;
 int retornar;
 int salir1;
 
+
+// variables para el resaltado
+GtkTextIter start, end;
+extern GtkWidget *textview2;
+extern GtkTextBuffer * buffer2;
+GtkTextMark *cursor;
+extern  GtkWidget *label1, *label2, *label3, *label4;
+char str_temp[256];
+//char buf[256];
+
+
+/* Determines if to continue the timer or not */
+static gboolean continue_timer = FALSE;
+
+/* Determines if the timer has started */
+static gboolean start_timer = FALSE;
+
+/* Display seconds expired */
+static int sec_expired = 0;
+
+static void
+_quit_cb (GtkWidget *button, gpointer data)
+{
+    (void)button; (void)data; /*Avoid compiler warnings*/
+    gtk_main_quit();
+    return;
+}
+
+
+
+static gboolean
+_label_update(gpointer data)
+{
+    GtkLabel *label = (GtkLabel*)data;
+    char buf[256];
+    memset(&buf, 0x0, 256);
+    snprintf(buf, 255, "Time elapsed: %d secs", ++sec_expired);
+    gtk_label_set_label(label, buf);
+    if ((sec_expired % 3000)==0) printf("*** 3000 *****");
+    return continue_timer;
+
+}
+
+static void
+_start_timer (  gpointer data)
+{
+    
+    GtkWidget *label = data;
+    if(!start_timer)
+    {
+        g_timeout_add_seconds(10, _label_update, label);
+        start_timer = TRUE;
+        continue_timer = TRUE;
+    }
+}
+
+static void
+_pause_resume_timer (  gpointer data)
+{
+    
+    if(start_timer)
+    {
+        GtkWidget *label = data;
+        continue_timer = !continue_timer;
+        if(continue_timer)
+        {
+            g_timeout_add_seconds(1, _label_update, label);
+        }
+        else
+        {
+            /*Decrementing because timer will be hit one more time before expiring*/
+            sec_expired--;
+        }
+    }
+}
+
+static void
+_reset_timer ( gpointer data)
+{
+      (void)data;/*Avoid compiler warnings*/
+    /*Setting to -1 instead of 0, because timer will be triggered once more before expiring*/
+    sec_expired = -1;
+    continue_timer = FALSE;
+    start_timer = FALSE;
+}
+
+int pausar()
+{
+/*
+        g_timeout_add_seconds(10, _label_update, label2);
+        continue_timer = TRUE;
+        start_timer = TRUE;
+        gtk_widget_queue_draw(textview2);         
+        gtk_widget_queue_draw(label2);         
+        _start_timer(label2);
+        return 0;
+*/
+    gulong tiempo = 1000000L;
+    g_usleep (tiempo);
+}
+
+
+
 void * execut(elnodo * p) {
    
     //printf("profundidad: %d\n", profundidad);
@@ -365,6 +487,17 @@ void * execut(elnodo * p) {
         {
             return;
         }
+    
+    
+/*
+    if (p->tipo == vaciar)
+        pausar();
+*/
+    
+/*
+     if (p->tipo == imprimir_varios)
+        pausar();
+*/
         
     
     if (p==NULL) {
@@ -372,6 +505,47 @@ void * execut(elnodo * p) {
         return;
      }
     
+    if (p->tipo != secuencia) {
+        int numlinea;
+        
+        if (p->tipo == si || p->tipo == mientras || p->tipo == desde  )
+            numlinea = p->nrolinea1-1;
+        else
+            numlinea = p->nrolinea2-1;
+        
+    
+        //en desarrollo: resaltar en editorgtk la linea del nodo ejecutado
+
+        //movernos a la linea del nodo
+        gtk_text_buffer_get_start_iter (buffer2, &start);
+        gtk_text_iter_set_line (&start, numlinea);
+
+        //obtener un iter y posicionarlo en la posicion 0
+        //gtk_text_iter_set_line_offset( &start,  (gint) 0 );
+
+        // movernos al final de la linea
+
+        end = start;
+
+        gtk_text_iter_forward_to_line_end (&end);
+
+        //seleccionar el texto
+        gtk_text_buffer_select_range (buffer2, &start, &end); 
+
+        //cambiar el color de la linea
+        gtk_text_buffer_apply_tag_by_name (buffer2, "color", &start,
+                           &end);
+        
+        sprintf(str_temp, "LINEA: %d", numlinea+1 );
+        if (numlinea==25) 
+            pausar();
+        gtk_label_set_label(label2, str_temp );
+        gtk_widget_queue_draw(label2);     
+        pausar();
+        
+        while (gtk_events_pending ()) gtk_main_iteration();
+        
+    }
     
     switch (p->tipo) {
         case  vaciar:

@@ -366,8 +366,9 @@ void mark_set_callback(GtkTextBuffer *buffer,
  GtkWidget *label1, *label2, *label3, *label4;
  GtkWidget *statusbar;
  gchar * str_status;
- 
- 
+ GtkWidget *textview2;
+ GtkTextBuffer *buffer2;
+  
  
 
 GtkWidget *
@@ -388,7 +389,8 @@ create_window() {
     GtkWidget *button_color;
     GtkWidget *scrolledwindow;
     GtkWidget *textview;
-    GtkTextBuffer *buffer;
+    GtkTextBuffer * buffer;
+    
     GtkWidget *balign;
     
     
@@ -501,6 +503,9 @@ create_window() {
 
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
     create_tags (buffer);
+    
+    buffer2 = buffer;
+    textview2 = textview;
     
 
     //g_signal_connect ((gpointer) window, "delete_event",  G_CALLBACK (gtk_main_quit), NULL);

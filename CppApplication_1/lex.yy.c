@@ -141,7 +141,15 @@ typedef unsigned int flex_uint32_t;
 
 /* Size of default input buffer. */
 #ifndef YY_BUF_SIZE
+#ifdef __ia64__
+/* On IA-64, the buffer size is 16k, not 8k.
+ * Moreover, YY_BUF_SIZE is 2*YY_READ_BUF_SIZE in the general case.
+ * Ditto for the __ia64__ case accordingly.
+ */
+#define YY_BUF_SIZE 32768
+#else
 #define YY_BUF_SIZE 16384
+#endif /* __ia64__ */
 #endif
 
 /* The state buf must be large enough to hold one state per character in the main buffer.
@@ -758,9 +766,12 @@ extern void  insAST(char * ) ;
 
  int contador = 0; 
  int  contadorvar = 0; 
+ int contador_lineaInicial = 0;
 
 extern int linenumber;
-int  LineaInicial ;
+int lineaEjecucion = 0;
+int lineaAnterior = 0;
+int  LineaInicial[20] ;   //para anidar  IF, FOR, WHILE
 
 int instala(x) 
 int x;
@@ -793,14 +804,22 @@ int x;
    strcpy (variables[x],  yytext);
    strcpy  (array_variables[x].nombre, yytext);
    printf("VARIABLE %d  --    %s\n", x, variables[x]);
-  // insAST(yytext) ;  
+   insAST(yytext) ;
 /*   printf("%d  --    %s\n", x, variables[x]);  */
    return x;
 }
 
+lineaEjecucion2() {
+    lineaAnterior = lineaEjecucion;
+    lineaEjecucion = linenumber;
+    printf("Linea Ejecucion: %d\n", lineaEjecucion);
+/*
+    if (lineaEjecucion==12)
+        pausar();
+*/
+}
 
-
-#line 804 "lex.yy.c"
+#line 823 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -881,7 +900,12 @@ static int input (void );
 
 /* Amount of stuff to slurp up with each read. */
 #ifndef YY_READ_BUF_SIZE
+#ifdef __ia64__
+/* On IA-64, the buffer size is 16k, not 8k */
+#define YY_READ_BUF_SIZE 16384
+#else
 #define YY_READ_BUF_SIZE 8192
+#endif /* __ia64__ */
 #endif
 
 /* Copy whatever the last rule matched to the standard output. */
@@ -1009,9 +1033,9 @@ YY_DECL
 		}
 
 	{
-#line 86 "tokens.l"
+#line 97 "tokens.l"
 
-#line 1015 "lex.yy.c"
+#line 1039 "lex.yy.c"
 
 	while ( 1 )		/* loops until end-of-file is reached */
 		{
@@ -1070,283 +1094,283 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 87 "tokens.l"
+#line 98 "tokens.l"
 { return OR; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 88 "tokens.l"
+#line 99 "tokens.l"
 { return AND; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 89 "tokens.l"
+#line 100 "tokens.l"
 {return DOBLECOMILLA; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 90 "tokens.l"
+#line 101 "tokens.l"
 { return EQ; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 91 "tokens.l"
+#line 102 "tokens.l"
 { return NE; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 92 "tokens.l"
+#line 103 "tokens.l"
 { return LT; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 93 "tokens.l"
+#line 104 "tokens.l"
 { return LE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 94 "tokens.l"
+#line 105 "tokens.l"
 { return GT; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 95 "tokens.l"
+#line 106 "tokens.l"
 { return GE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 96 "tokens.l"
+#line 107 "tokens.l"
 { return PLUS; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 97 "tokens.l"
+#line 108 "tokens.l"
 { return MINUS; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 98 "tokens.l"
+#line 109 "tokens.l"
 { return MULT; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 99 "tokens.l"
+#line 110 "tokens.l"
 { return DIVIDE; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 100 "tokens.l"
+#line 111 "tokens.l"
 { return RPAREN; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 101 "tokens.l"
+#line 112 "tokens.l"
 { return LPAREN; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 102 "tokens.l"
+#line 113 "tokens.l"
 { return SEMICOLON; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 103 "tokens.l"
+#line 114 "tokens.l"
 { return COMMA; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 104 "tokens.l"
+#line 115 "tokens.l"
 { return '['; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 105 "tokens.l"
+#line 116 "tokens.l"
 { return ']'; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 106 "tokens.l"
+#line 117 "tokens.l"
 { return '#'; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 108 "tokens.l"
-{ return IF; }
+#line 119 "tokens.l"
+{LineaInicial [contador_lineaInicial] = linenumber; contador_lineaInicial++; return IF; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 109 "tokens.l"
-{ return LLAMAR ; }
+#line 120 "tokens.l"
+{lineaEjecucion2(); return LLAMAR ; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 110 "tokens.l"
+#line 121 "tokens.l"
 { return PROC ; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 111 "tokens.l"
+#line 122 "tokens.l"
 { return END ; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 112 "tokens.l"
+#line 123 "tokens.l"
 { return THEN; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 113 "tokens.l"
+#line 124 "tokens.l"
 { return ELSE; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 114 "tokens.l"
-{ return FI; }
+#line 125 "tokens.l"
+{ contador_lineaInicial--;  return FI; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 115 "tokens.l"
-{ LineaInicial = linenumber; return WHILE; }
+#line 126 "tokens.l"
+{ LineaInicial [contador_lineaInicial] = linenumber; contador_lineaInicial++; return WHILE; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 116 "tokens.l"
+#line 127 "tokens.l"
 { return TO ; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 117 "tokens.l"
-{ return FOR ; }
+#line 128 "tokens.l"
+{LineaInicial [contador_lineaInicial] = linenumber; contador_lineaInicial++; return FOR ; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 118 "tokens.l"
+#line 129 "tokens.l"
 { return DO; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 119 "tokens.l"
-{ return OD; }
+#line 130 "tokens.l"
+{contador_lineaInicial--; return OD; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 120 "tokens.l"
-{ return PRINT; }
+#line 131 "tokens.l"
+{lineaEjecucion2(); return PRINT; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 121 "tokens.l"
-{ return LEER; }
+#line 132 "tokens.l"
+{lineaEjecucion2(); return LEER; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 122 "tokens.l"
-{ return BORRAR ; }
+#line 133 "tokens.l"
+{lineaEjecucion2(); return BORRAR ; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 123 "tokens.l"
-{ return DECIMALES; }
+#line 134 "tokens.l"
+{lineaEjecucion2(); return DECIMALES; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 124 "tokens.l"
+#line 135 "tokens.l"
 { return TERMINAR ; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 125 "tokens.l"
-{return VENTANA; }
+#line 136 "tokens.l"
+{lineaEjecucion2(); return VENTANA; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 126 "tokens.l"
-{return BOTON; }
+#line 137 "tokens.l"
+{lineaEjecucion2();  return BOTON; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 127 "tokens.l"
-{return ETIQUETA; }
+#line 138 "tokens.l"
+{lineaEjecucion2();   return ETIQUETA; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 128 "tokens.l"
-{return TEXTO; }
+#line 139 "tokens.l"
+{lineaEjecucion2(); return TEXTO; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 129 "tokens.l"
-{return MENSAJE; }
+#line 140 "tokens.l"
+{lineaEjecucion2(); return MENSAJE; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 130 "tokens.l"
-{return GRAFICOS; }
+#line 141 "tokens.l"
+{lineaEjecucion2(); return GRAFICOS; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 131 "tokens.l"
-{return DIM; }
+#line 142 "tokens.l"
+{lineaEjecucion2(); return DIM; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 132 "tokens.l"
-{return LINEA; }
+#line 143 "tokens.l"
+{lineaEjecucion2(); return LINEA; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 133 "tokens.l"
-{return CIRCULO; }
+#line 144 "tokens.l"
+{lineaEjecucion2(); return CIRCULO; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 134 "tokens.l"
-{return CONVERTIR; }
+#line 145 "tokens.l"
+{lineaEjecucion2(); return CONVERTIR; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 135 "tokens.l"
-{return EVALUAR; }
+#line 146 "tokens.l"
+{lineaEjecucion2(); return EVALUAR; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 136 "tokens.l"
-{return STOP; }
+#line 147 "tokens.l"
+{lineaEjecucion2();  return STOP; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 137 "tokens.l"
-{return ABRIR; }
+#line 148 "tokens.l"
+{ lineaEjecucion2();  return ABRIR; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 138 "tokens.l"
-{return CERRAR; }
+#line 149 "tokens.l"
+{ lineaEjecucion2();  return CERRAR; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 139 "tokens.l"
-{return MOSTRAR; }
+#line 150 "tokens.l"
+{lineaEjecucion2();    return MOSTRAR; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 140 "tokens.l"
-{return VACIAR; }
+#line 151 "tokens.l"
+{ lineaEjecucion2(); return VACIAR; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 141 "tokens.l"
-{return CONTINUAR; }
+#line 152 "tokens.l"
+{ lineaEjecucion2(); return CONTINUAR; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 142 "tokens.l"
-{return SALIR; }
+#line 153 "tokens.l"
+{ lineaEjecucion2(); return SALIR; }
 	YY_BREAK
 case 56:
 /* rule 56 can match eol */
 YY_RULE_SETUP
-#line 144 "tokens.l"
+#line 155 "tokens.l"
 {
         /* constantes literales contienen una serie de variados signos � simbolos */
 	yylval.nodo = nuevonodo();
@@ -1359,7 +1383,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 154 "tokens.l"
+#line 165 "tokens.l"
 { double numdbl = 0;
 	yylval.nodo  = nuevonodo();
 	yylval.nodo->tipo = un_numero;
@@ -1372,9 +1396,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 164 "tokens.l"
+#line 175 "tokens.l"
 {
         /* nombres de variables numericas en minusculas */
+
+lineaEjecucion2();
+//printf("var num lineaEjecución: %d\n", lineaEjecucion);
 
 	yylval.nodo  = nuevonodo();
 	yylval.nodo->tipo = indice_strings;
@@ -1383,14 +1410,16 @@ YY_RULE_SETUP
                 //array_variables[(int)yylval.nodo->num].numero=0;  // esto debe ponerse en un bucle al inicio del programa
                 array_variables[(int)yylval.nodo->num].tipo = 'N';   //numero
 	printf("variable numerica: %s    indice %4.0f   en linea : %i \n", yytext, yylval.nodo->num, linenumber );
+        yylval.nodo->nrolinea1 = yylval.nodo->nrolinea2 = linenumber;
 	return NAME; 
 	}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 178 "tokens.l"
+#line 193 "tokens.l"
 {
-                /* nombres de variables ALFANUMERICAS van en mayusculas */
+        /* nombres de variables ALFANUMERICAS van en mayusculas */
+        lineaEjecucion2();
 	yylval.nodo  = nuevonodo();
 	yylval.nodo->tipo = nombre_de_variable;
 	yylval.nodo->subnodos = 0;
@@ -1403,39 +1432,39 @@ YY_RULE_SETUP
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 191 "tokens.l"
+#line 207 "tokens.l"
 { ; }
 	YY_BREAK
 case 61:
 /* rule 61 can match eol */
 YY_RULE_SETUP
-#line 192 "tokens.l"
+#line 208 "tokens.l"
 { nextline(); }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 193 "tokens.l"
+#line 209 "tokens.l"
 { ; }
 	YY_BREAK
 case 63:
 /* rule 63 can match eol */
 YY_RULE_SETUP
-#line 194 "tokens.l"
+#line 210 "tokens.l"
 { nextline(); }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 199 "tokens.l"
+#line 215 "tokens.l"
 { 
                yyerror2("caracter ilegal", yytext[0]); 
 }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 202 "tokens.l"
+#line 218 "tokens.l"
 ECHO;
 	YY_BREAK
-#line 1439 "lex.yy.c"
+#line 1468 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2430,7 +2459,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 202 "tokens.l"
+#line 217 "tokens.l"
 
 
 #ifndef yywrap
