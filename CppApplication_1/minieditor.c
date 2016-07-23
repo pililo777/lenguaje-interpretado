@@ -8,6 +8,7 @@ extern char contador;
 extern char variables[127][127];
 extern char constantes[127][127];
 extern int idx_prg;
+extern int nodos;
 
 #include <stdio.h>
 #include "stdlib.h"
@@ -170,6 +171,7 @@ extern int err_number;
 
 
 
+
 /*
 typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable, 
 			indice_strings, procedimiento, secuencia , imprimir, 
@@ -200,34 +202,43 @@ typedef struct elnodo {
 */
 
 extern elnodo * pila_programas[32];
+extern elnodo * procedimientos[127];
 extern int idx_prg;
 extern  long memoria;
 extern int linenumber;
 
 
-void liberar_nodo( elnodo * a, int n)
+void liberar_nodo( elnodo * p, int n)
 
 {
-    elnodo * p;
-    p=a;
-    if (p==NULL) return;
-    
-       if (p == pila_programas[n]) {
-            if (p->subnodos == 0) {
-           
-            printf("no hay nodos para liberar\n");
-            return;
-        }
+    //elnodo * p;
+    //p=a;
+
         
-     if (p->subnodos > 0) {
-            liberar_nodo(p->nodo1, n);
+        if (p==NULL) return;
+        
+/*
+        if (p->tipo == stop) 
+            pausar();
+*/
+    
+        if (p == pila_programas[n]) {
+                if (p->subnodos == 0) 
+                    {
+                        free(p);
+                        nodos--;
+                        //printf("no hay nodos para liberar\n");
+                        return;
+                    }
+        
+            if (p->subnodos > 0) {
+                liberar_nodo(p->nodo1, n);
 /*
             free(p->nodo1);
             memoria -= sizeof (struct elnodo);
             printf("librando un nodo: %ld\n", memoria);
 */
-
-        }
+            }
 
         if (p->subnodos > 1) {
             liberar_nodo(p->nodo2, n);
@@ -266,24 +277,82 @@ void liberar_nodo( elnodo * a, int n)
         }
             
            free(p);
-           memoria -= sizeof (struct elnodo);
+           memoria -= (long) sizeof (struct elnodo);
+           nodos--;
        //    printf("librando el nodo raiz: %ld\n", memoria);
             
             
         
         pila_programas[n] = NULL;
+        return;
     }
     else {
            
         if (p->subnodos == 0) 
         {
             free(p);
-            memoria -= sizeof (struct elnodo);
+            memoria -= (long) sizeof (struct elnodo);
+            nodos--;
          //   printf("librando un nodo sin subnodos: %ld\n", memoria);
             return;
         }
 
+           
+           if (p->subnodos > 0) {
+            liberar_nodo(p->nodo1, n);
+            
+/*
+            free(p->nodo1);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+*/
+
     }
+
+        if (p->subnodos > 1) {
+            liberar_nodo(p->nodo2, n);
+/*
+            free(p->nodo2);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+*/
+}
+ 
+        if (p->subnodos > 2) {
+            liberar_nodo(p->nodo3, n);
+/*
+            free(p->nodo3);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+*/
+        }
+
+        if (p->subnodos > 3) {
+            liberar_nodo(p->nodo4, n);
+/*
+            free(p->nodo4);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+*/
+        }
+
+        if (p->subnodos > 4) {
+            liberar_nodo(p->nodo5, n);
+/*
+            free(p->nodo5);
+            memoria -= sizeof (struct elnodo);
+            printf("librando un nodo: %ld\n", memoria);
+*/
+        }
+           
+           free(p);
+           memoria -= (long) sizeof (struct elnodo);
+           nodos--;
+       //    printf("librando el nodo: %ld\n", memoria);
+           return;
+
+    }
+    //return
 }
  
 
@@ -573,7 +642,9 @@ void
 on_button_clear_clicked(GtkButton * button, gpointer user_data) {
     GtkTextBuffer *textbuffer = NULL;
      GtkTextIter start, end;
-     char *str1;
+     char str1 [100];
+     
+    //YY_BUFFER_STATE buf;
      
 // printf("on buton clicked\n");
      
@@ -619,6 +690,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
         //  yypush_buffer_state(yy_scan_string(input));
        
           yy_scan_string(input);
+           
 /*
 
              GError                  *err=NULL;   
@@ -633,23 +705,25 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
 */
     
 
-            idx_prg = 0;
+               idx_prg = 0;
             
                linenumber = 1;
            //    printf("check6 parsing....\n");
            //    if (yyin != NULL) {
                
+               //yypush_buffer_state();
+               
                  yyparse();
                  
                  //actualizamos valores en la ventana del editor (provenientes del parsing)
                  
-                 sprintf(str1, "Constantes: %d", (int) contador );
+                 snprintf(str1, 100, "Constantes: %d", (int) contador );
                  gtk_label_set_text( label3, str1 );
                  
-                 sprintf(str1, "Variables: %d", (int) contadorvar );
+                 snprintf(str1, 100,  "Variables: %d", (int) contadorvar );
                  gtk_label_set_text( label2, str1 );
                  
-                 sprintf(str1, "Memoria: %d", (long) memoria );
+                 snprintf(str1, 100, "Memoria: %d -- nodos: %d", (long) memoria, nodos );
                  gtk_label_set_text( label1, (gpointer) str1 );
                  
                  
@@ -660,18 +734,35 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
                  
             
          //   free(c);
+                 
+            // yy_delete_buffer(input);
             
-            yypop_buffer_state();
+             //yypop_buffer_state();
+             //yylex_destroy();
             
           //  printf("check7 ejecutando....\n");
             if (err_number == 0)
-            execut(pila_programas[0]);
+                execut(pila_programas[0]);
        //     printf("check8\n");
       //      printf("memoria: %ld \n", memoria);
          
             
     //  printf("check9 liberando memoria\n");
             liberar_nodo(pila_programas[0], 0);
+
+            liberar_nodo(procedimientos[6], 0);
+           // free ( procedimientos[6]->nodo1);
+           // free (procedimientos[6]);
+
+            
+            sprintf(str1, "Constantes: %d", (int) contador );
+            gtk_label_set_text( label3, str1 );
+                 
+            sprintf(str1, "Variables: %d", (int) contadorvar );
+            gtk_label_set_text( label2, str1 );
+                 
+             sprintf(str1, "Memoria: %d -- nodos: %d", (long) memoria, nodos );
+            gtk_label_set_text( label1, (gpointer) str1 );
             
             
          //   liberar_nodo(pila_programas[31], 31);
@@ -691,7 +782,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
 
             /*Delete the new buffer*/
             //  liberar_buffer();
-             //g_free(input);
+             g_free(input);
             
   //  printf("fin clicked\n");
 }

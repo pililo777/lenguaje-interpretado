@@ -13,3 +13,5 @@ elnodo * pila_programas[32];
  int err_number = 0;
  int gtk_iniciado = 0;
  
+ int nodos = 0;
+ 

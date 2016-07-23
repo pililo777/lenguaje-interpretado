@@ -125,6 +125,27 @@ extern struct elnodo * nuevonodo();
 extern int lineaEjecucion ;
 extern int lineaAnterior ;
 
+elnodo * nodo0(tiponodo Tipo, elnodo * a) {
+    elnodo * p;
+    p = nuevonodo();
+    p->tipo = Tipo;
+    p->num = 777;
+    //p->nodo1 = a;
+    p->nrolinea1 = LineaInicial[contador_lineaInicial];
+    p->nrolinea2 = lineaEjecucion ;
+    p->subnodos = 0;
+    
+    
+/*
+    if (p->tipo == stop) {
+        pausar();
+    }
+*/
+
+    printf("Tipo: %d\n", Tipo);
+    return p;
+}
+
 elnodo * nodo1(tiponodo Tipo, elnodo * a) {
     elnodo * p;
     p = nuevonodo();
@@ -136,9 +157,15 @@ elnodo * nodo1(tiponodo Tipo, elnodo * a) {
     p->subnodos = 1;
     if (p->tipo == imprimir_varios)
         p->nrolinea2 = lineaAnterior;
+    
+/*
+    if (p->tipo == stop) {
+        pausar();
+    }
+*/
 
 
-
+    printf("Tipo: %d\n", Tipo);
     return p;
 }
 
@@ -157,6 +184,7 @@ elnodo * nodo2(tiponodo Tipo, elnodo * a, elnodo * b)
         p->nrolinea2 = a->nrolinea1;
         //lineaAnterior = lineaEjecucion;
     
+    printf("Tipo: %d\n", Tipo);
     return p;
 
 }
@@ -172,8 +200,15 @@ elnodo * nodo3(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c) {
     p->subnodos = 3;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
-    return p;
 
+    if (p->tipo == asigna_vector)
+        p->nrolinea2 = a->nrolinea1;
+
+    if (p->tipo  == dibuja_circulo  )
+        p->nrolinea2 = lineaAnterior;
+
+    printf("Tipo: %d\n", Tipo);
+    return p;
 
 }
 
@@ -189,6 +224,11 @@ elnodo * nodo4(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c, elnodo * d) {
     p->subnodos = 4;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
+    if (p->tipo == guardar_texto || p->tipo == dibuja_linea )
+        p->nrolinea2 = lineaAnterior;
+        //lineaAnterior = lineaEjecucion;
+    
+    printf("Tipo: %d\n", Tipo);
     return p;
 }
 
@@ -205,6 +245,7 @@ elnodo * nodo5(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c, elnodo * d, el
     p->subnodos = 5;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
+    printf("Tipo: %d\n", Tipo);
     return p;
 }
 
@@ -472,7 +513,7 @@ int pausar()
         _start_timer(label2);
         return 0;
 */
-    gulong tiempo = 1000000L;
+    gulong tiempo = 200000L;
     g_usleep (tiempo);
 }
 
@@ -489,10 +530,8 @@ void * execut(elnodo * p) {
         }
     
     
-/*
-    if (p->tipo == vaciar)
+    if (p->tipo == asigna_vector)
         pausar();
-*/
     
 /*
      if (p->tipo == imprimir_varios)
@@ -548,6 +587,15 @@ void * execut(elnodo * p) {
     }
     
     switch (p->tipo) {
+        
+        
+        case procedimiento:
+        {
+            execut(p->nodo2);
+        }
+        break;
+        
+        
         case  vaciar:
         {
             int  n;
@@ -729,7 +777,9 @@ void * execut(elnodo * p) {
         case dibuja_linea:
         {
             flag_ventanas = 1; // hemos iniciado las ventanas
+/*
             nodografico2 = nuevonodo();
+*/
             nodografico2 = p;
             dibujarlinea();
         }
@@ -788,6 +838,12 @@ void * execut(elnodo * p) {
                  */
 
                 execut(pila_programas[31]); // mejor hacer que el 1 sea el 31, es decir el último programa en el array de programas
+                
+                
+                //pendiente: liberar nodos de la memoria
+                
+                
+                
             } else printf("hubieron errores, no se ejecuta\n");
         }
 

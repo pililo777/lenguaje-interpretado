@@ -194,7 +194,8 @@ proc_designator:
 procedimiento:
    PROC proc_designator stmtseq END { 
 			$$ = nodo2(procedimiento, $2, $3) ;/*un procedimiento*/
-                        procedimientos[(int) $2->num] = $3   ;   /* revisar este metodo */
+//cambiamos a que el nodo sea el procedimiento entero para poder liberarlo con free()
+                        procedimientos[(int) $2->num] = $$   ;   /* revisar este metodo */
 			idx_prc++;
 			}
 %%
