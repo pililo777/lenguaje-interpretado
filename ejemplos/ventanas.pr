@@ -38,7 +38,7 @@ mientras j < 7
 	fin-haz	
 imprimir 'vectores: ',  vec1[1], ' ',  vec1[2], ' ',  vec2[1]
 imprimir 'x=', x
-
+stop
 NOMBRE = 'perico'
 APELLIDO = 'de los palotes'
 DIRECCION = ' vive en su casa'

@@ -3,31 +3,31 @@
 
 
 ARCHIVO = '../ejemplos/archivos.pr'
-
 num_archivo = 0
 abrir ARCHIVO num_archivo
-LINEA = ' '
+PALABRA = ' '
 LETRA = ' '
-vaciar LINEA 
+vaciar PALABRA 
 letra = 0
 contador = 0
 // cuando se acaba de leer el archivo, esta variable se pone en 99
+
 mientras num_archivo <> 99
 {
     leer # num_archivo LETRA letra
+
     si (letra = 32) oo (letra = 9) oo (letra=10) oo (letra=13) entonces
         si contador <> 0 entonces
-            imprimir   LINEA 
-		si LINEA = 'num_archivo' entonces stop si-fin
-            vaciar LINEA
+            imprimir   PALABRA
+            vaciar PALABRA
             contador = 0
         si-fin
     sino
-		contador = contador + 1
-		LINEA += LETRA
+            contador = contador + 1
+            PALABRA += LETRA
     si-fin
 }
-imprimir LINEA
+imprimir PALABRA
 
 num_archivo = 0
 cerrar num_archivo
