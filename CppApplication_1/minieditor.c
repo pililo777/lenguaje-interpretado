@@ -1,12 +1,16 @@
 /* minieditor.c */
+#include <malloc.h>
 
 #define xrun
 
 extern double var[127];
 extern char contadorvar;
 extern char contador;
-extern char variables[127][127];
-extern char constantes[127][127];
+
+#include "vars.h"
+/*extern char variables[127][127];
+extern char constantes[127][127]; */
+
 extern int idx_prg;
 extern int nodos;
 
@@ -201,14 +205,14 @@ typedef struct elnodo {
 } elnodo;
 */
 
-extern elnodo * pila_programas[32];
-extern elnodo * procedimientos[127];
+extern ast * pila_programas[32];
+extern ast * procedimientos[127];
 extern int idx_prg;
 extern  long memoria;
 extern int linenumber;
 
 
-void liberar_nodo( elnodo * p, int n)
+void liberar_nodo( ast * p, int n)
 
 {
     //elnodo * p;
@@ -277,7 +281,7 @@ void liberar_nodo( elnodo * p, int n)
         }
             
            free(p);
-           memoria -= (long) sizeof (struct elnodo);
+           memoria -= (long) sizeof (struct ast);
            nodos--;
        //    printf("librando el nodo raiz: %ld\n", memoria);
             
@@ -291,7 +295,7 @@ void liberar_nodo( elnodo * p, int n)
         if (p->subnodos == 0) 
         {
             free(p);
-            memoria -= (long) sizeof (struct elnodo);
+            memoria -= (long) sizeof (struct ast);
             nodos--;
          //   printf("librando un nodo sin subnodos: %ld\n", memoria);
             return;
@@ -346,7 +350,7 @@ void liberar_nodo( elnodo * p, int n)
         }
            
            free(p);
-           memoria -= (long) sizeof (struct elnodo);
+           memoria -= (long) sizeof (struct ast);
            nodos--;
        //    printf("librando el nodo: %ld\n", memoria);
            return;
@@ -370,12 +374,14 @@ void on_button_strike_clicked (GtkButton * button, gpointer user_data);
 void on_button_color_clicked (GtkButton * button, gpointer user_data);
 
 extern int gtk_iniciado;
+extern int ejecuta_desde_editor;
 
 int
 main_anterior (int argc, char *argv[])
 //main_old()
 {
    memoria = 0;
+   ejecuta_desde_editor = 1;
         
     GtkWidget *window;
 
@@ -398,6 +404,7 @@ main_anterior (int argc, char *argv[])
     gtk_widget_show_all (window);
 
     gtk_main ();
+    ejecuta_desde_editor = 0;
     return 0;
 }
 
@@ -706,6 +713,9 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
     
 
                idx_prg = 0;
+               idx_vec = 0;
+               idx_prc = 0;
+               nodos = 0;
             
                linenumber = 1;
            //    printf("check6 parsing....\n");
@@ -750,7 +760,26 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
     //  printf("check9 liberando memoria\n");
             liberar_nodo(pila_programas[0], 0);
 
-            liberar_nodo(procedimientos[6], 0);
+            while (idx_prc>0)
+            {
+                idx_prc--;
+                liberar_nodo(procedimientos[idx_prc], idx_prc);
+            }
+            
+            //liberar vectores:
+            while (idx_vec>0)
+            {
+                int tamano;
+                int * vector;
+                idx_vec--;
+                
+                vector = arrayVectores[idx_vec];
+                tamano = malloc_usable_size(vector);
+                free(vector);
+                memoria -= tamano;
+            }
+            
+            
            // free ( procedimientos[6]->nodo1);
            // free (procedimientos[6]);
 

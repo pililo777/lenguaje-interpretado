@@ -18,12 +18,12 @@
 FILE * ficheros[10];
 
 
-
+extern int ejecuta_desde_editor;
 extern int linenumber;
 extern int LineaInicial[20];
 extern int contador_lineaInicial;
-extern struct elnodo* nodografico;
-extern struct elnodo* nodografico2;
+extern struct ast* nodografico;
+extern struct ast* nodografico2;
 int flag_ventanas = 0;
 
 
@@ -35,7 +35,7 @@ int flag_ventanas = 0;
 
 
 
-
+/*
 typedef struct  {
           char        tipo;
           char        nombre[18];
@@ -43,22 +43,23 @@ typedef struct  {
           double     numero;
           
 } struct_variable;
+*/
+
+#include "vars.h"
+/*
 extern struct_variable   array_variables[256];
 extern char variables[127][127];
 extern char constantes[127][127];
+ * 
+ * */
+
 double var[127]; // 127 variables numericas e indices a variables alfa y literales
 
 
-
-
-
-
-
-int* arrayVectores [32];
 extern int idx_vec;
-extern elnodo * procedimientos[127];
+extern ast * procedimientos[127];
 
-extern elnodo * pila_programas[32];
+extern ast * pila_programas[32];
 extern int idx_prg;
 
 
@@ -71,17 +72,18 @@ char mensaje2[255];
 
 extern long memoria;
 
-double evalua(elnodo *);
+double evalua(ast *);
 
 
 static int counter1[32];
 static int indice_ctr = 0;
 static int error_getstring = 0;
 
-void * execut(elnodo *);
+void * execut(ast *);
 
 int * nuevoValorEnteros(int cantidad) {
-    int * vector = malloc(sizeof (int) *cantidad);
+    int * vector = malloc(sizeof (int) *  cantidad);   // 4 * cantidad (el * no es puntero)
+    memoria += (sizeof (int) * cantidad);
     return vector;
 }
 
@@ -115,18 +117,18 @@ char *getstring(char *s) {
     return s;
 }
 
-elnodo *nodo1(tiponodo, elnodo *);
-elnodo *nodo2(tiponodo, elnodo *, elnodo *);
-elnodo *nodo3(tiponodo, elnodo *, elnodo *, elnodo *);
-elnodo *nodo4(tiponodo, elnodo *, elnodo *, elnodo *, elnodo *);
+ast *nodo1(tiponodo, ast *);
+ast *nodo2(tiponodo, ast *, ast *);
+ast *nodo3(tiponodo, ast *, ast *, ast *);
+ast *nodo4(tiponodo, ast *, ast *, ast *, ast *);
 
 
-extern struct elnodo * nuevonodo();
+extern struct ast * nuevonodo();
 extern int lineaEjecucion ;
 extern int lineaAnterior ;
 
-elnodo * nodo0(tiponodo Tipo, elnodo * a) {
-    elnodo * p;
+ast * nodo0(tiponodo Tipo, ast * a) {
+    ast * p;
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
@@ -146,8 +148,8 @@ elnodo * nodo0(tiponodo Tipo, elnodo * a) {
     return p;
 }
 
-elnodo * nodo1(tiponodo Tipo, elnodo * a) {
-    elnodo * p;
+ast * nodo1(tiponodo Tipo, ast * a) {
+    ast * p;
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
@@ -169,9 +171,9 @@ elnodo * nodo1(tiponodo Tipo, elnodo * a) {
     return p;
 }
 
-elnodo * nodo2(tiponodo Tipo, elnodo * a, elnodo * b)
+ast * nodo2(tiponodo Tipo, ast * a, ast * b)
  {
-    elnodo * p;
+    ast * p;
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
@@ -189,8 +191,8 @@ elnodo * nodo2(tiponodo Tipo, elnodo * a, elnodo * b)
 
 }
 
-elnodo * nodo3(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c) {
-    elnodo * p;
+ast * nodo3(tiponodo Tipo, ast * a, ast * b, ast * c) {
+    ast * p;
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
@@ -212,8 +214,8 @@ elnodo * nodo3(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c) {
 
 }
 
-elnodo * nodo4(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c, elnodo * d) {
-    elnodo * p;
+ast * nodo4(tiponodo Tipo, ast * a, ast * b, ast * c, ast * d) {
+    ast * p;
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
@@ -232,8 +234,8 @@ elnodo * nodo4(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c, elnodo * d) {
     return p;
 }
 
-elnodo * nodo5(tiponodo Tipo, elnodo * a, elnodo * b, elnodo * c, elnodo * d, elnodo * e) {
-    elnodo * p;
+ast * nodo5(tiponodo Tipo, ast * a, ast * b, ast * c, ast * d, ast * e) {
+    ast * p;
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
@@ -409,7 +411,7 @@ int interpretar() {
 
 
 
-extern void ejecutar_string(elnodo * p);
+extern void ejecutar_string(ast * p);
 extern void yyrestart(FILE * input_file);
 extern FILE * yyin;
 extern int mquit;
@@ -519,7 +521,7 @@ int pausar()
 
 
 
-void * execut(elnodo * p) {
+void * execut(ast * p) {
    
     //printf("profundidad: %d\n", profundidad);
     //profundidad++;
@@ -530,8 +532,10 @@ void * execut(elnodo * p) {
         }
     
     
+/*
     if (p->tipo == asigna_vector)
         pausar();
+*/
     
 /*
      if (p->tipo == imprimir_varios)
@@ -553,6 +557,9 @@ void * execut(elnodo * p) {
             numlinea = p->nrolinea2-1;
         
     
+        //resalta la linea del editorgtk en ejecucion
+        if (ejecuta_desde_editor) {
+        
         //en desarrollo: resaltar en editorgtk la linea del nodo ejecutado
 
         //movernos a la linea del nodo
@@ -576,13 +583,16 @@ void * execut(elnodo * p) {
                            &end);
         
         sprintf(str_temp, "LINEA: %d", numlinea+1 );
-        if (numlinea==25) 
-            pausar();
+        
         gtk_label_set_label(label2, str_temp );
-        gtk_widget_queue_draw(label2);     
+        gtk_widget_queue_draw(label2); 
+        
+        
         pausar();
         
         while (gtk_events_pending ()) gtk_main_iteration();
+        
+        }
         
     }
     
@@ -1257,16 +1267,18 @@ void * execut(elnodo * p) {
 
 
         case llamar:
-            //printf("\nllamar un procedimiento\n");
-            if (procedimientos[(int) p->nodo1->num] == NULL) {
-                printf("procedimiento no encontrado en linea: \n");
-                getchar();
-                exit(1);
+            {
+                int procedimiento;
+                int indice_de_la_variable;
+                indice_de_la_variable = (int) p->nodo1->num  ;
+                procedimiento = array_variables[indice_de_la_variable].procedimiento;
+                if (procedimientos[procedimiento] == NULL) {
+                    printf("procedimiento no encontrado en linea: \n");
+                    getchar();
+                    exit(1);
+                }
+                else execut(procedimientos[ procedimiento ]);
             }
-
-            execut(procedimientos[ (int) (p->nodo1->num) ]);
-
-            //printf("volvemos del procedimiento\n\n");
             break;
 
         case asigna_num:
@@ -1321,7 +1333,7 @@ void * execut(elnodo * p) {
         case leer:
             //printf("leer var numerica\n");
         {
-            elnodo *pp; //se puso esto para depuracion (watch)
+            ast *pp; //se puso esto para depuracion (watch)
             int inum = 0;
             double fnum;
             pp = p;
@@ -1337,7 +1349,7 @@ void * execut(elnodo * p) {
             //printf("leer var numerica\n");
         {
             int indice;
-            elnodo * pp;
+            ast * pp;
 
             char texto[255];
             //pp = p;
@@ -1414,7 +1426,7 @@ void evalua_doble(elnodo * p, elnodo * q) {
 
 //static int prof = 0;
 
-double evalua(elnodo * p) {
+double evalua(ast * p) {
     double res;
     
     //printf("prof: %d \n", prof);

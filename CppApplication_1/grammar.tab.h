@@ -114,7 +114,7 @@ union YYSTYPE
 {
 #line 22 "grammar.y" /* yacc.c:1909  */
 
- elnodo * nodo;
+ ast * nodo;
 
 #line 120 "grammar.tab.h" /* yacc.c:1909  */
 };

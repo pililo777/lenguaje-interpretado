@@ -2,7 +2,9 @@
 #include <cairo.h>
 #include <gtk/gtk.h>
 #include "nodo.h"
+#include "vars.h"
 
+/*
 typedef struct  {
           char        tipo;
           char        nombre[18];
@@ -11,15 +13,18 @@ typedef struct  {
           
 } struct_variable;
 extern struct_variable   array_variables[256];
+ * */
 
-extern elnodo * procedimientos[127]; //cambiar esta forma
+
+
+extern ast * procedimientos[127]; //cambiar esta forma
 extern double var[127];  // 127 variables numericas e indices a variables alfa y literales
 
 static void do_drawing(cairo_t *, GdkEventExpose *);
- elnodo* nodografico;
- elnodo* nodografico2;
+ ast* nodografico;
+ ast* nodografico2;
 extern int flag_ventanas;
-extern double evalua(elnodo*);
+extern double evalua(ast*);
 
 struct {
   int count;

@@ -6,7 +6,12 @@
 #define linux
 //#define windows
 
-struct elnodo * nuevonodo(void);
+struct ast * nuevonodo(void);
+
+#include "vars.h"
+
+
+/*
 char constantes[127][127];
 char variables[127][127];
 typedef struct  {
@@ -17,7 +22,7 @@ typedef struct  {
 } struct_variable;
 
 struct_variable   array_variables[256];
-
+*/
 
 #include "nodo.h"
 #include "stdio.h"
@@ -225,12 +230,13 @@ yywrap() { return 1; }
    // return vector;
 //}
 
- elnodo * nuevonodo()  {
- elnodo * p;
-p = malloc(sizeof(struct elnodo));
+ ast * nuevonodo()  {
+ ast * p;
+p = malloc(sizeof(struct ast));
 
 extern long memoria;
-memoria += sizeof(struct elnodo);
+memoria += sizeof(struct ast);
+nodos++;
 //printf("nuevo nodo: %ld\n", memoria);
 
 p->num = 0;

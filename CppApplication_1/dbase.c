@@ -50,7 +50,7 @@ extern int interpretar();
 extern void cargar();
 extern void runall();
 extern void listaAST();
-extern elnodo * pila_programas[32];
+extern ast * pila_programas[32];
 
 
 int dbminit();
@@ -240,7 +240,7 @@ comandos() {
 
 
 
-
+/*
 
 typedef struct  {
           char        tipo;
@@ -249,10 +249,19 @@ typedef struct  {
           double     numero;
           
 } struct_variable;
+*/
 
+
+#include "vars.h"
+/*
 extern struct_variable   array_variables[256];
 extern char variables[127][127];
 extern char constantes[127][127];
+ * 
+ * 
+ * 
+ * */
+
 extern double var[127];  //en run.c
 
 
@@ -316,7 +325,7 @@ listavar() {
 
 
 
-extern void * execut(elnodo * a) ;
+extern void * execut(ast * a) ;
 extern int gtk_iniciado;
 
 int  

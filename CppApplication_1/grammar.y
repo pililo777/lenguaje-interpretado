@@ -2,10 +2,10 @@
 %{
 #include "nodo.h"
 
-extern elnodo * procedimientos[127]; //cambiar esta forma
+extern ast * procedimientos[127]; //cambiar esta forma
 extern int idx_prc;
 
-extern elnodo * pila_programas[32];
+extern ast * pila_programas[32];
  extern int idx_prg;
 
  extern int nro_decimales;
@@ -13,6 +13,7 @@ extern elnodo * pila_programas[32];
 
 
 #include "stdio.h"
+#include "vars.h"
  
 #define MSDOS
 //char constantes[127][127];
@@ -20,7 +21,7 @@ extern elnodo * pila_programas[32];
 %}
 
 %union {
- elnodo * nodo;
+ ast * nodo;
 }
 
 
@@ -195,7 +196,8 @@ procedimiento:
    PROC proc_designator stmtseq END { 
 			$$ = nodo2(procedimiento, $2, $3) ;/*un procedimiento*/
 //cambiamos a que el nodo sea el procedimiento entero para poder liberarlo con free()
-                        procedimientos[(int) $2->num] = $$   ;   /* revisar este metodo */
+                        procedimientos[idx_prc] = $$   ;   /* revisar este metodo */	
+			array_variables[(int) $2->num].procedimiento = idx_prc  ;
 			idx_prc++;
 			}
 %%

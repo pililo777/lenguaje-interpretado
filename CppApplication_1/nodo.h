@@ -9,16 +9,16 @@ typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable, dimensionar, a
             graficos, stop, abrir, cerrar, leer_archivo, mostrar, 
 			sumar_alfa, salir,  vaciar, and, or, continuar } tiponodo;
 
-typedef struct elnodo {
+typedef struct ast {
 	tiponodo tipo;
 	double num;
 	int    nrolinea1;
 	int    nrolinea2;
 	 
 	int subnodos;
-	struct elnodo * nodo1;
-	struct elnodo * nodo2;
-	struct elnodo * nodo3;
-	struct elnodo * nodo4;
-                struct elnodo * nodo5;
-} elnodo;
+	struct ast * nodo1;
+	struct ast * nodo2;
+	struct ast * nodo3;
+	struct ast * nodo4;
+        struct ast * nodo5;
+} ast;

@@ -4,16 +4,19 @@
 
 extern int contador;
 extern int contadorvar;
-
+/*
 typedef struct  {
           char        tipo;
           char        nombre[18];
           char        valor[127]; 
           double     numero;
 } struct_variable;
-
-extern struct_variable array_variables[256];
+*/
+#include "vars.h"
+/* extern struct_variable array_variables[256];
 extern char constantes[127][127];
+ * */
+
 
 const char * libreria = "libmyModule.so";
 void *el_handle;
