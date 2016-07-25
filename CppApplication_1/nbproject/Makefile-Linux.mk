@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/a43d82a7/myModule.o \
 	${OBJECTDIR}/bt.o \
 	${OBJECTDIR}/dbase.o \
 	${OBJECTDIR}/dinamic.o \
@@ -65,11 +66,16 @@ LDLIBSOPTIONS=`pkg-config --libs cairo` `pkg-config --libs gdk-2.0` `pkg-config 
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ../ejemplos/cppapplication_1
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1: ${OBJECTFILES}
-	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} -ldl
+../ejemplos/cppapplication_1: ${OBJECTFILES}
+	${MKDIR} -p ../ejemplos
+	${LINK.c} -o ../ejemplos/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} -ldl
+
+${OBJECTDIR}/_ext/a43d82a7/myModule.o: ../myModule/myModule.c 
+	${MKDIR} -p ${OBJECTDIR}/_ext/a43d82a7
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0` -std=c99  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a43d82a7/myModule.o ../myModule/myModule.c
 
 ${OBJECTDIR}/bt.o: bt.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -127,7 +133,7 @@ ${OBJECTDIR}/variables.o: variables.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
+	${RM} ../ejemplos/cppapplication_1
 
 # Subprojects
 .clean-subprojects:

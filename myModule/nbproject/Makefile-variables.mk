@@ -47,13 +47,21 @@ CND_PACKAGE_DIR_Windows_G=dist/Windows_G/GNU_Cygwin-Windows/package
 CND_PACKAGE_NAME_Windows_G=mymodule.tar
 CND_PACKAGE_PATH_Windows_G=dist/Windows_G/GNU_Cygwin-Windows/package/mymodule.tar
 # WindowsPC configuration
-CND_PLATFORM_WindowsPC=GNU_Cygwin-Windows
+CND_PLATFORM_WindowsPC=GNU-Linux
 CND_ARTIFACT_DIR_WindowsPC=
 CND_ARTIFACT_NAME_WindowsPC=libmyModule.so
 CND_ARTIFACT_PATH_WindowsPC=libmyModule.so
-CND_PACKAGE_DIR_WindowsPC=dist/WindowsPC/GNU_Cygwin-Windows/package
-CND_PACKAGE_NAME_WindowsPC=libmyModule.dll.tar
-CND_PACKAGE_PATH_WindowsPC=dist/WindowsPC/GNU_Cygwin-Windows/package/libmyModule.dll.tar
+CND_PACKAGE_DIR_WindowsPC=dist/WindowsPC/GNU-Linux/package
+CND_PACKAGE_NAME_WindowsPC=libmyModule.so.tar
+CND_PACKAGE_PATH_WindowsPC=dist/WindowsPC/GNU-Linux/package/libmyModule.so.tar
+# Linux configuration
+CND_PLATFORM_Linux=GNU-Linux
+CND_ARTIFACT_DIR_Linux=../ejemplos
+CND_ARTIFACT_NAME_Linux=libmyModule.so
+CND_ARTIFACT_PATH_Linux=../ejemplos/libmyModule.so
+CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Linux/package
+CND_PACKAGE_NAME_Linux=libmyModule.so.tar
+CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Linux/package/libmyModule.so.tar
 #
 # include compiler specific variables
 #
