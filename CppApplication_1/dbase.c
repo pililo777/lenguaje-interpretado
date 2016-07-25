@@ -39,7 +39,7 @@ char databuf1[DATASIZE];
 
 
 extern int testlib();
-extern int llamaCosine();
+extern int funcionDinamica();
 extern int cargaDinamica();
 extern int descargaDinamica();
 extern int main2();
@@ -203,8 +203,8 @@ init_comandos() {
     comando[23].pfuncion = editor;
     comando[24].nombre = "cargalib";
     comando[24].pfuncion = cargaDinamica;
-    comando[25].nombre = "cosine";
-    comando[25].pfuncion = llamaCosine;
+    comando[25].nombre = "vars";
+    comando[25].pfuncion = funcionDinamica;
     comando[26].nombre = "descargalib";
     comando[26].pfuncion = descargaDinamica;
     comando[27].nombre = "testlib";

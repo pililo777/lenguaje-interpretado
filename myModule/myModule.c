@@ -50,7 +50,7 @@ struct_variable   array_variables[256];
 */
  
 
-void pruebita(int * contador, int * contadorvar,  struct_variable  array_variables[256], char constantes[127][127] ) {
+void listarTDS(int * contador, int * contadorvar,  struct_variable  array_variables[256], char constantes[127][127] ) {
     int i;
     int cont, contvar;
     cont = (int) *contador;

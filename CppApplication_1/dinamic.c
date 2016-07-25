@@ -38,19 +38,23 @@ char *el_error;
   }
   
   
-int llamaCosine() {
-    void (*cosine)();
+int funcionDinamica() {
+    void (*ejemploFuncionDinamica)();
 /*
     void *el_handle;
     char *el_error;
 */
-    cosine = dlsym(el_handle, "pruebita");
+    if (el_handle == NULL) {
+        printf("debes cargar la libreria con el comando cargalib\n");
+        return -1;
+    }
+    ejemploFuncionDinamica = dlsym(el_handle, "listarTDS");
 
     if ((el_error = dlerror()) != NULL)  {
             fputs(el_error, stderr);
             return(1);
         }
-        (*cosine)(&contador, &contadorvar, array_variables, constantes);
+        (*ejemploFuncionDinamica)(&contador, &contadorvar, array_variables, constantes);
     }
 
     

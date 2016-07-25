@@ -73,12 +73,9 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="myModule.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -101,12 +98,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="myModule.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
     <conf name="Windows" type="1">
@@ -142,12 +136,9 @@
           <commandLine>-L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="myModule.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
     <conf name="Windows_E" type="1">
@@ -164,12 +155,9 @@
           <commandLine>-L/cygdrive/e/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="myModule.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
     <conf name="Windows_G" type="1">
@@ -186,12 +174,9 @@
           <commandLine>-L/cygdrive/g/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="myModule.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
     <conf name="WindowsPC" type="2">
@@ -231,12 +216,9 @@
           </linkerAddLib>
         </linkerTool>
       </compileType>
-      <item path="myModule.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
     <conf name="Linux" type="2">
@@ -250,12 +232,9 @@
           <output>../ejemplos/libmyModule.${CND_DLIB_EXT}</output>
         </linkerTool>
       </compileType>
-      <item path="myModule.c"
-            ex="false"
-            tool="0"
-            flavor2="0">
-      </item>
       <item path="leeme.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
   </confs>
