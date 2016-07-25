@@ -3,21 +3,14 @@
     <type>org.netbeans.modules.cnd.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>InterGit</name>
+            <name>myModule</name>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions>h</header-extensions>
+            <header-extensions/>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList>
-                <sourceRootElem>C:\Users\test\Documents\NetBeansProjects\lenguaje-interpretado\ejemplos</sourceRootElem>
-                <sourceRootElem>../myModule</sourceRootElem>
-            </sourceRootList>
+            <sourceRootList/>
             <confList>
-                <confElem>
-                    <name>WindowsPC</name>
-                    <type>1</type>
-                </confElem>
                 <confElem>
                     <name>Debug</name>
                     <type>1</type>
@@ -31,8 +24,16 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Linux</name>
+                    <name>Windows_E</name>
                     <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Windows_G</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>WindowsPC</name>
+                    <type>2</type>
                 </confElem>
             </confList>
             <formatting>

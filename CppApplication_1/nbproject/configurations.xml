@@ -17,10 +17,32 @@
       <itemPath>../ejemplos/si_anidado.pr</itemPath>
       <itemPath>../ejemplos/ventanas.pr</itemPath>
       <itemPath>../ejemplos/ventanas2.pr</itemPath>
+      <itemPath>../ejemplos/ventanas3.pr</itemPath>
+      <itemPath>../ejemplos/ventanas4.pr</itemPath>
     </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="myModule" displayName="myModule" projectFiles="true">
+      <logicalFolder name="dist" displayName="dist" projectFiles="true">
+        <logicalFolder name="Debug" displayName="Debug" projectFiles="true">
+          <logicalFolder name="GNU-Linux-x86"
+                         displayName="GNU-Linux-x86"
+                         projectFiles="true">
+            <itemPath>../myModule/dist/Debug/GNU-Linux-x86/buffer.pr</itemPath>
+            <itemPath>../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1</itemPath>
+            <itemPath>../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="WindowsPC" displayName="WindowsPC" projectFiles="true">
+          <logicalFolder name="Cygwin_4.x-Windows"
+                         displayName="Cygwin_4.x-Windows"
+                         projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
+      <itemPath>../myModule/myModule.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -60,6 +82,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>C:\Users\test\Documents\NetBeansProjects\lenguaje-interpretado\ejemplos</Elem>
+    <Elem>../myModule</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -123,6 +146,27 @@
       <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/myModule.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
             ex="false"
@@ -220,6 +264,27 @@
       </item>
       <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/myModule.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
             ex="false"
             tool="3"
@@ -299,6 +364,27 @@
       </item>
       <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/myModule.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
             ex="false"
             tool="3"
@@ -374,6 +460,27 @@
       </item>
       <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/myModule.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
             ex="false"
             tool="3"
@@ -429,6 +536,27 @@
           <commandLine>-ldl</commandLine>
         </linkerTool>
       </compileType>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/myModule.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="bt.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="dbase.c" ex="false" tool="0" flavor2="0">
