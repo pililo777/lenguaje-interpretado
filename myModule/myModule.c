@@ -1,4 +1,4 @@
-
+/*
 #include <python2.7/Python.h>
 
 static PyObject* py_myFunction(PyObject* self, PyObject* args) {
@@ -22,7 +22,7 @@ static PyMethodDef myModule_methods[] = {
 void initmyModule() {
     (void) Py_InitModule("myModule", myModule_methods);
 }
-
+*/
 
 
 
