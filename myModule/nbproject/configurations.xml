@@ -24,15 +24,7 @@
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
-      <itemPath>Propio.syn</itemPath>
-      <itemPath>grammar.y</itemPath>
-      <itemPath>numeroEuler2.pr</itemPath>
-      <itemPath>numerodeEuler.pr</itemPath>
-      <itemPath>raiz22.pr</itemPath>
-      <itemPath>tokens.l</itemPath>
-      <itemPath>ventanas.pr</itemPath>
     </logicalFolder>
-    <itemPath>leeme.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -73,8 +65,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
@@ -98,8 +88,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
@@ -136,8 +124,6 @@
           <commandLine>-L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
@@ -155,8 +141,6 @@
           <commandLine>-L/cygdrive/e/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
@@ -174,8 +158,6 @@
           <commandLine>-L/cygdrive/g/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
@@ -216,8 +198,6 @@
           </linkerAddLib>
         </linkerTool>
       </compileType>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
@@ -232,8 +212,6 @@
           <output>../ejemplos/libmyModule.${CND_DLIB_EXT}</output>
         </linkerTool>
       </compileType>
-      <item path="leeme.txt" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="myModule.c" ex="false" tool="0" flavor2="0">
       </item>
     </conf>
