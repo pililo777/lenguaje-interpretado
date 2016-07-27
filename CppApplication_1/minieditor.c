@@ -772,11 +772,13 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
                 int tamano;
                 int * vector;
                 idx_vec--;
+/*
                 
                 vector = arrayVectores[idx_vec];
                 tamano = malloc_usable_size(vector);
                 free(vector);
                 memoria -= tamano;
+*/
             }
             
             
