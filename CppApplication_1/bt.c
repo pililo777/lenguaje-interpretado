@@ -1,5 +1,7 @@
 //usando sublime como editor de texto alternativo a Netbeans
 
+
+
 #include "stdio.h"
 short  int tam_registro = 20;
 /*
@@ -39,6 +41,8 @@ typedef struct xnodo {
     char xllave[4][55];
     long int xrama[5];
 };
+
+ int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 
 struct xnodo primernodo;
 tipollave llave[55];
@@ -629,6 +633,8 @@ int exists(const char *fname) {
     return 0;
 }
 
+
+
 int main2() {
     short int abierto = 0;
     xapuntador nodoobjetivo;
@@ -694,12 +700,13 @@ int main2() {
         if (opcion == 4) {
             
           while ((strcmp(llave, "."))) {
+             // scanf("%s", llave);
             obtenerllave(llave);
             if (strcmp(llave, ".")) {
             posobjetivo = 0;
             nodoobjetivo = 0;
             encontrar = 0;
-            buscar(&llave, &xraiz, &encontrar, &nodoobjetivo, &posobjetivo);
+            buscar(llave, &xraiz, &encontrar, &nodoobjetivo, &posobjetivo);
             if (encontrar == 1) {
                 leenodo(&nodoobjetivo, &xnodoobjetivo, tam_registro);
                 fprintf(stdout, "Se ha encontrado: %s\n\n", xnodoobjetivo.xllave[posobjetivo - 1]);
@@ -758,10 +765,7 @@ int use() {
     xraiz = -1;
     leenodo(&xraiz, &primernodo, tam_registro);
     xraiz = primernodo.xrama[0];
-    /* fprintf(stdout, "La raiz se encuentra en %d\n", xraiz);  */
-    /*
-            dbminit("testfile");
-     */
+    printf("La raiz se encuentra en el nodo %li\n", xraiz);  
 }
 
 int t_close() {

@@ -121,7 +121,7 @@ int main(int argc, const char **argv)
     comandos();
 }
 
-
+void buscar_en_indice(int , char *) ;
 
 void 
 
@@ -197,11 +197,49 @@ init_comandos() {
     comando[29].pfuncion = listavar;
     comando[30].nombre = "prog";
     comando[30].pfuncion = runprog;
+    
     comando[31].nombre = "editorgtk";
     comando[31].pfuncion = main_anterior;
+    
+    comando[32].nombre = "buscar";           //28/07/2016
+    comando[32].pfuncion = buscar_en_indice;
 
 }
 
+typedef long int xapuntador;
+typedef short int posicion;
+typedef char tipollave;
+extern tipollave llave[55];
+extern xapuntador xraiz;
+
+extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
+int obtenerllave(tipollave *);
+
+
+void buscar_en_indice(int nro, char *buffer) {
+    //char claveBuscada[55];
+    int encontrar;
+    posicion posobjetivo;
+    xapuntador nodoobjetivo;
+    
+    
+    posobjetivo = 0;
+    nodoobjetivo = 0;
+    encontrar = 0;
+    
+    
+    //printf("Introduce la clave que buscas:\n"  );
+///    obtenerllave(llave);
+    
+    strcpy(llave, buff2[1]);
+
+    buscar(llave, &xraiz, &encontrar, &nodoobjetivo, &posobjetivo);
+    if (encontrar == 1) 
+        printf("%s: se ha encontrado\n", llave);
+    else
+        printf("%s: NO se ha encontrado\n", llave);
+
+}
 
 
 
@@ -218,20 +256,6 @@ comandos() {
 }
 
 
-
-
-
-
-/*
-
-typedef struct  {
-          char        tipo;
-          char        nombre[18];
-          char        valor[127]; 
-          double     numero;
-          
-} struct_variable;
-*/
 
 
 #include "vars.h"
@@ -262,30 +286,6 @@ listavar() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 extern void * execut(ast * a) ;
 extern int gtk_iniciado;
 
@@ -313,54 +313,12 @@ runprog() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 limpiar_buff1() {
 
     int i;
     for (i = 0; i<sizeof (buff1); i++)
         buff1[i] = '\0';
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -396,36 +354,27 @@ getstring2(char *s) {
         tcsetattr(1, TCSANOW, &new_tio);
     posicionRetrocedida = ultimaPosicion + 1;
     short break_presionado;
-    int i, k;  
+    int i, k, mm,  ultimo_i;
      
     error_getstring2 = 0;
-    /* Return NULL if no input is available */
-    /*
-        if (k == EOF)
-            return NULL;
-
-        if (k == 10) {
-            //k = getchar();
-            error_getstring2 = 1;
-            //printf("se leyo un caracter 10\n");
-            return NULL;
-        }
-       // Read and store characters until reaching a newline or end-of-file 
-       // printf("\nentro en bucle\n");
-         fflush(stdout);
-     */
+     
     break_presionado = 0;
     k = 0;
+    ultimo_i = 0;
     for (i = 0; k != EOF && k != '\n';) {
 
         k = getchar();  //recogemos un caracter del teclado
        
 
-        if (k == 65) 
+        if (k==27){  // tecla de funcion
+            
+             mm = getchar();
+             k = getchar();
+             if (k == 65) // tecla arriba
 
-        { // es tecla flecha arriba?
+            { // es tecla flecha arriba?
                                                             // printf("%d es 65\n", s[i]);
-            if (i > 0 && s[i - 1] == 91) {
+            if ( i>0 && mm == 91) { // funcion
                 if (posicionRetrocedida > (-1)) 
                 {
                     //printf("has apretado la tecla flecha arriba\n");
@@ -438,38 +387,75 @@ getstring2(char *s) {
                                                 putchar(8);
                                                 j--;
                     } while (j > 0);
-
-                    break_presionado = 1;
-                    //obtenemos la ultima palabra escrita en el array de buffers
-                    {
-                        posicionRetrocedida--;
-                        if (posicionRetrocedida < 0) posicionRetrocedida = 0;
-                        strcpy(s, arrayBuffers[posicionRetrocedida]);
-
-                        //   posicionRetrocedida--;
-                        i = strlen(s);
-                        printf("%s", s);
-
-                    }
-                    // coger la ultima letra que envía la pulsación de una tecla extendida
-                    k = getchar();
-                    //break;
                 } 
-                else {
-                    k = getchar();
-                }
-            }
-        } 
+            }  // i> 0
 
-        else 
+            break_presionado = 1;
+            //obtenemos la ultima palabra escrita en el array de buffers
 
-        if (k == 66) 
+            posicionRetrocedida--;
+            if (posicionRetrocedida < 0) posicionRetrocedida = 0;
+            strcpy(s, arrayBuffers[posicionRetrocedida]);
+
+            //   posicionRetrocedida--;
+            i = strlen(s);
+            printf("%s", s);
+            ultimo_i=i;
+ 
+            } // k == 65
+             
+        else
+             
+        if (k == 68) // tecla arriba
+
+            { // es tecla flecha izquierda?
+            if ( i>0 && mm == 91) { // funcion
+                if (posicionRetrocedida > (-1)) 
+                {
+// retrocedemos el cursor:
+                    putchar(8);
+                    i--;
+                } 
+            }  // i> 0
+
+            break_presionado = 1;
+            //obtenemos la ultima palabra escrita en el array de buffers
+ 
+ 
+            } // k == 68
+             
+        else
+             
+        if (k == 67) // tecla flecha derecha
+
+            { 
+            if (mm == 91) { // funcion?
+                if (posicionRetrocedida > (-1)) 
+                {
+// retrocedemos el cursor:
+                    if (i<ultimo_i) {
+                     putchar(s[i]);
+                     i++;
+                    }
+                    //if (i>ultimo_i) ultimo_i = i;
+                } 
+            }  // i> 0
+
+            break_presionado = 1;
+            //obtenemos la ultima palabra escrita en el array de buffers
+ 
+ 
+            } // k == 67
+             
+             
+             
+        else
+                
+              if (k == 66) 
 
         {   // es tecla flecha abajo?
                                                         // printf("%d es 65\n", s[i]);
-            if (i > 0 && s[i - 1] == 91) {
-
-
+            if (i>0 && mm == 91) {
                 if (posicionRetrocedida > (-1)) {
                     //printf("has apretado la tecla flecha arriba\n");
                     //borramos lo escrito hasta ahora:
@@ -481,35 +467,32 @@ getstring2(char *s) {
                         putchar(8);
                         j--;
                     } while (j > 0);
-
-                    break_presionado = 1;
-                    //obtenemos la ultima palabra escrita en el array de buffers
-                    {
-                        posicionRetrocedida++;
-                        if (posicionRetrocedida > (ultimaPosicion+1)) posicionRetrocedida--;
-                        if (posicionRetrocedida > (nro_bufers - 1)) posicionRetrocedida--;
-                        strcpy(s, arrayBuffers[posicionRetrocedida]);
-
-                        i = strlen(s);
-                        printf("%s", s);
-                    }
-                    // coger la ultima letra que envía la pulsación de una tecla extendida
-                    k = getchar();
-                    //break;
-                }
-
-                else {
-                    k = getchar();
                 }
             }
-        }
+
+            break_presionado = 1;
+            //obtenemos la ultima palabra escrita en el array de buffers
+            posicionRetrocedida++;
+            if (posicionRetrocedida > (ultimaPosicion+1)) posicionRetrocedida--;
+            if (posicionRetrocedida > (nro_bufers - 1)) posicionRetrocedida--;
+            strcpy(s, arrayBuffers[posicionRetrocedida]);
+            i = strlen(s);
+            printf("%s", s);
+            ultimo_i = i;
+        }  //k=66
+    } //k ==27
+        
+ else
+     // otras teclas que no son de funcion
 
         //fin teclas de cursor
 
-        if (k == 127) {   // tecla de retroceso
+        if (k == 127 && i>0) {   // tecla de retroceso
             putchar(8);
-            i--;
-
+            putchar(32);
+            putchar(8);
+            //i--;
+          
         } 
 
         else
@@ -519,12 +502,23 @@ getstring2(char *s) {
             printf("%c", k);
             s[i] = k;
             i++;
+            if (i>ultimo_i)  ultimo_i = i;
+        }
+        
+        // si es backspace
+        if (k==127) {
+                i--; 
+                ultimo_i-- ;
         }
      }
-     // fin del bucle de introducir teclas
+     // fin del bucle (for) de introducir teclas
 
     if (k == 10) {  // hemos presionado la tecla   E N T E R
-        s[i] = 0;
+        s[ultimo_i] = 0;
+        
+        //para depurar lo introducido en el buffer descomentar linea sigte.
+        //printf( "\nstring: %s  i:%d    ultimo_i: %d\n", s, i, ultimo_i );
+        
         printf("\n");
 
         if (strlen(s) > 0) {
@@ -555,41 +549,6 @@ getstring2(char *s) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*********************/
 introduzca_buff1() {
     do {
@@ -601,31 +560,6 @@ introduzca_buff1() {
 
     } while (puroespacios());
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -643,28 +577,6 @@ buscar_comando() {
     return (-1);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -693,36 +605,8 @@ int buscar_posicion() {
         return (-1);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  
 int 
-
 prompt() {
     int argc;
     int i, found;
@@ -769,43 +653,6 @@ prompt() {
     
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /****************     inicio de las funciones   **********************/
 display() {
     if (!strcmp(buff2[1], "memory")) {
@@ -826,34 +673,6 @@ display() {
     } else
         fprintf(stdout, "Syntax error\n");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
  
@@ -881,34 +700,6 @@ print() {
     }
     if (!j) fprintf(stdout, "%s: not found\n", buff2[1]);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 int
 
@@ -948,53 +739,15 @@ parse() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 help(char *param, char *param2) {
-    fprintf(stdout, "comandos:\n");
-    fprintf(stdout, " l\n ls\n lc\n help\n pwd\n clear\n quit\n buffer\n store\n ?\n display memory\n");
-    fprintf(stdout, " use\n save\n list\n do\n arbol\n close\n");
+    printf( "comandos:\n");
+    printf( " l ls lc help pwd clear quit buffer store ? display memory\n");
+    printf( " use buscar list close do arbol\n");
+    printf( " editorgtk cargar run  cargalib descargalib vars var n   prog n");
+    printf( " editor evalua ");
+    printf( " modify buscar_posicion strcmp ");
+    
 }
-
-
-
-
-
-
-
-
-
-
-
 
 buffer() {
     int i, erabuffer = 0;
@@ -1007,34 +760,12 @@ buffer() {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 puroespacios() {
     int i = 0, j = 1;
     while ((buff1[i] == ' ' || buff1[i] == '\t') && i < strlen(buff1)) i++;
     if (i < strlen(buff1)) j = 0;
     return (j);
 }
-
-
-
-
-
-
-
-
-
-
 
 dstore() {
     ///  int i;
@@ -1048,30 +779,10 @@ dstore() {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 dostore() {
     if (isdigit(buff2[1][0])) storenum();
     else storechar();
 }
-
-
-
-
-
-
-
-
-
 
 
 // busca la posicion en el vector de numeros del nombre de la variable
@@ -1090,22 +801,6 @@ storenum() {
     strcpy(var_n[j].nombre, buff2[3]);
     var_n[j].contenido = atof(buff2[1]);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //TODO: buscar la posicion del nombre de la variable, similar a storenum.
@@ -1178,11 +873,13 @@ doit() {
             {
                 char a;
                 i = strlen(buff1) - 1;
+                // pone  ceros desde el final de la linea hasta encontrar el return
                 do {
                     a = buff1[i];
                     buff1[i] = '\0';
                     i--;
-                } while (a!='\r' && i >=0);
+                } while (a!='\r' && a!='\n' && i >=0);
+                
 
                 //printf("linea leida del fichero: %s\n", buff1);
       
