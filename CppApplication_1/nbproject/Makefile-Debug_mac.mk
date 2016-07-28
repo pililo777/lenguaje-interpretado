@@ -42,8 +42,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/grammar.tab.o \
 	${OBJECTDIR}/lex.yy.o \
 	${OBJECTDIR}/err.o \
-	${OBJECTDIR}/dinamic.o \
-	${OBJECTDIR}/dbase.o
+	${OBJECTDIR}/dbase.o \
+	${OBJECTDIR}/dinamic.o
 
 
 # C Compiler Flags
@@ -110,15 +110,15 @@ ${OBJECTDIR}/err.o: err.c
 	${RM} $@.d
 	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
 
-${OBJECTDIR}/dinamic.o: dinamic.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/dinamic.o dinamic.c
-
 ${OBJECTDIR}/dbase.o: dbase.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/dbase.o dbase.c
+
+${OBJECTDIR}/dinamic.o: dinamic.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/dinamic.o dinamic.c
 
 # Subprojects
 .build-subprojects:

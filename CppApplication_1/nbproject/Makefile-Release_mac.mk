@@ -42,8 +42,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/grammar.tab.o \
 	${OBJECTDIR}/lex.yy.o \
 	${OBJECTDIR}/err.o \
-	${OBJECTDIR}/dinamic.o \
-	${OBJECTDIR}/dbase.o
+	${OBJECTDIR}/dbase.o \
+	${OBJECTDIR}/dinamic.o
 
 
 # C Compiler Flags
@@ -110,15 +110,15 @@ ${OBJECTDIR}/err.o: err.c
 	${RM} $@.d
 	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
 
-${OBJECTDIR}/dinamic.o: dinamic.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/dinamic.o dinamic.c
-
 ${OBJECTDIR}/dbase.o: dbase.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/dbase.o dbase.c
+
+${OBJECTDIR}/dinamic.o: dinamic.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/dinamic.o dinamic.c
 
 # Subprojects
 .build-subprojects:
