@@ -80,8 +80,6 @@ extern ast * pila_programas[32];
 #include "vars.h"
  
 #define MSDOS
-//char constantes[127][127];
-//char variables[127][127];
 
 #line 87 "grammar.tab.c" /* yacc.c:339  */
 

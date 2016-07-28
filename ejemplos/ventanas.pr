@@ -1,12 +1,12 @@
 imprimir 'hola, inicio del programa'
 imprimir 'Introduce tu nombre: '
-TUNOMBRE = ' '
-leer TUNOMBRE
+TUNOMBRE = 'dfdf '
+//leer TUNOMBRE
 imprimir 'Tu nombre es: ', TUNOMBRE
-evalua 'resultado = 3*8'
+//evalua 'resultado = 3*8'
 // queda pendiente evaluar una variable alfanumerica
 // y concatenar variables alfanumericas
-evalua 'imprimir resultado'
+//evalua 'imprimir resultado'
 x=0
 desde x = 1 hasta 5 
 	haz
@@ -38,15 +38,15 @@ mientras j < 7
 	fin-haz	
 imprimir 'vectores: ',  vec1[1], ' ',  vec1[2], ' ',  vec2[1]
 imprimir 'x=', x
-stop
+//stop
 NOMBRE = 'perico'
 APELLIDO = 'de los palotes'
 DIRECCION = ' vive en su casa'
 TELEFONO = ' 93123456'
 
-//p = 1
-imprimir 'introduce el valor de p'
-leer p
+p = 1
+//imprimir 'introduce el valor de p'
+//leer p
 imprimir 'p=', p
 
 //stop

@@ -46,12 +46,7 @@ typedef struct  {
 */
 
 #include "vars.h"
-/*
-extern struct_variable   array_variables[256];
-extern char variables[127][127];
-extern char constantes[127][127];
- * 
- * */
+
 
 double var[127]; // 127 variables numericas e indices a variables alfa y literales
 

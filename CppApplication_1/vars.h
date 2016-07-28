@@ -1,5 +1,8 @@
-char constantes[127][127];
-char variables[127][127];
+//#ifndef VARS_H
+//#define VARS_H
+
+extern  char constantes[127][127];
+extern  char variables[127][127];
 typedef struct  {
           char        tipo;
           char        nombre[18];
@@ -8,10 +11,12 @@ typedef struct  {
           int         procedimiento;
 } struct_variable;
 
-struct_variable   array_variables[256];
+extern struct_variable   array_variables[256];
 
 
 extern int idx_prc;
 extern int nodos;
 extern int idx_vec;
 extern int* arrayVectores [32];
+//#endif	// VARS_H
+

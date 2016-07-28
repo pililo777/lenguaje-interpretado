@@ -1,4 +1,8 @@
+// variables publicas
+// comunes a todo el programa y todos los fuentes.c
+
 #include "nodo.h"
+#include "vars.h"
 ast * procedimientos[127]; //cambiar esta forma
  int idx_prc = 0;
 
@@ -18,5 +22,7 @@ ast * pila_programas[32];
  
  int* arrayVectores [32];
  
+ char constantes[127][127];
+ char variables[127][127];
  
- 
+ struct_variable   array_variables[256];

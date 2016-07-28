@@ -132,6 +132,9 @@ static gboolean clicked(GtkWidget *widget, GdkEventButton *event,
     m = array_variables[n].numero;
 */
     
+   int procedimiento;
+   int indice_de_la_variable;
+    
    array_variables[ (int) nodografico->nodo3->num].numero = (double) event->x;  //ponemos x en el nodo  coordx
    array_variables[ (int) nodografico->nodo4->num].numero = (double) event->y;
     
@@ -151,11 +154,22 @@ static gboolean clicked(GtkWidget *widget, GdkEventButton *event,
         printf("boton3\n");
     }
    
-
-    
     //llamar al procedimiento 
+   
+      
+      indice_de_la_variable = (int) nodografico->nodo1->num  ;
+      procedimiento = array_variables[indice_de_la_variable].procedimiento;
+      if (procedimientos[procedimiento] == NULL) {
+                    printf("procedimiento no encontrado en linea: \n");
+                    getchar();
+                    exit(1);
+      }
+      else 
+      execut(procedimientos[ procedimiento ]);
     
+/*
     execut  ( procedimientos[ (int) (nodografico->nodo1->num) ]  );
+*/
 
     return TRUE;
 }

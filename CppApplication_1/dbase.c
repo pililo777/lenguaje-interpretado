@@ -13,31 +13,13 @@
 #endif
 
 
-
-
 #define MAXPALABRAS      10 /* maximo numero de palabras en el buffer */
 #define MAXLARGO        128 /* maximo largo de caracteres por palabra */
 #define BUFSIZE         128 /* tamano del buffer en caracteres */
 #define MAXCANTCOMANDOS 128 /* comandos programados en este fuente */
 #define MAXVARIABLES_NUM    120 /* cantidad de vars numericas */
 #define MAXVARIABLES_CHAR   120 /* cantidad de vars alfanumericas */
-
-
-
-
-/*
-#define KEYSIZE 5
-#define DATASIZE 35
- */
-/*
-char keybuf[KEYSIZE];
-char keybuf2[KEYSIZE];
-char databuf1[DATASIZE];
- */
-
-
-
-
+ 
 extern int testlib();
 extern int funcionDinamica();
 extern int cargaDinamica();
@@ -253,30 +235,9 @@ typedef struct  {
 
 
 #include "vars.h"
-/*
-extern struct_variable   array_variables[256];
-extern char variables[127][127];
-extern char constantes[127][127];
- * 
- * 
- * 
- * */
+
 
 extern double var[127];  //en run.c
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
