@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="80">
+<configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="ejemplos" displayName="Ejemplos" projectFiles="true">
+      <itemPath>../ejemplos/archivos.pr</itemPath>
+      <itemPath>../ejemplos/bat1</itemPath>
+      <itemPath>../ejemplos/bucles_anidados.pr</itemPath>
+      <itemPath>../ejemplos/buffer.pr</itemPath>
+      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr</itemPath>
+      <itemPath>../ejemplos/integracion.pr</itemPath>
+      <itemPath>../ejemplos/integracion2.pr</itemPath>
+      <itemPath>../ejemplos/integracion3.pr</itemPath>
+      <itemPath>../ejemplos/numeroEuler2.pr</itemPath>
+      <itemPath>../ejemplos/numerodeEuler.pr</itemPath>
+      <itemPath>../ejemplos/raiz_cuadrada.pr</itemPath>
+      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr</itemPath>
+      <itemPath>../ejemplos/si_anidado.pr</itemPath>
+      <itemPath>../ejemplos/ventanas.pr</itemPath>
+      <itemPath>../ejemplos/ventanas2.pr</itemPath>
+      <itemPath>../ejemplos/ventanas3.pr</itemPath>
+      <itemPath>../ejemplos/ventanas4.pr</itemPath>
+    </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="myModule" displayName="myModule" projectFiles="true">
+      <logicalFolder name="dist" displayName="dist" projectFiles="true">
+        <logicalFolder name="Debug" displayName="Debug" projectFiles="true">
+          <logicalFolder name="GNU-Linux-x86"
+                         displayName="GNU-Linux-x86"
+                         projectFiles="true">
+            <itemPath>../myModule/dist/Debug/GNU-Linux-x86/buffer.pr</itemPath>
+            <itemPath>../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1</itemPath>
+            <itemPath>../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="WindowsPC" displayName="WindowsPC" projectFiles="true">
+          <logicalFolder name="Cygwin_4.x-Windows"
+                         displayName="Cygwin_4.x-Windows"
+                         projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -36,10 +74,515 @@
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
+      <itemPath>Propio.syn</itemPath>
+      <itemPath>grammar.y</itemPath>
+      <itemPath>libmyModule.so</itemPath>
+      <itemPath>temp</itemPath>
+      <itemPath>tokens.l</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>C:\Users\test\Documents\NetBeansProjects\lenguaje-interpretado\ejemplos</Elem>
+    <Elem>../myModule</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
+    <conf name="WindowsPC" type="1">
+      <toolsSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <architecture>1</architecture>
+          <incDir>
+            <pElem>D:/GTK/lib/gtk-2.0/include</pElem>
+            <pElem>D:/GTK/include/gtk-2.0</pElem>
+            <pElem>c:/cygwin/usr/include/libgnomeui-2.0</pElem>
+            <pElem>c:/cygwin/usr/include</pElem>
+            <pElem>/usr/include/libgnomeui-2.0</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed</pElem>
+            <pElem>/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++</pElem>
+            <pElem>/usr/x86_64-pc-cygwin/sys-root/usr/include</pElem>
+            <pElem>c:/cygwin/usr/include/libgnomecanvas-2.0</pElem>
+            <pElem>c:/cygwin/usr/include/libgnomeui-2.0</pElem>
+            <pElem>c:/cygwin/usr/include/libgnome-2.0</pElem>
+            <pElem>C:/cygwin/usr/include/libbonobo-2.0</pElem>
+            <pElem>C:/cygwin/usr/include/libbonoboui-2.0</pElem>
+            <pElem>C:/cygwin/usr/include/libart-2.0</pElem>
+            <pElem>C:/cygwin/usr/include/gnome-vfs-2.0</pElem>
+            <pElem>c:/cygwin/usr/lib</pElem>
+          </incDir>
+          <commandLine>-mms-bitfields -I/cygdrive/d/gtk/include/gtk-2.0 -I/cygdrive/d/gtk/lib/gtk-2.0/include -I/cygdrive/d/gtk/include/atk-1.0 -I/cygdrive/d/gtk/include/cairo -I/cygdrive/d/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/d/gtk/include/pango-1.0 -I/cygdrive/d/gtk/include/glib-2.0 -I/cygdrive/d/gtk/lib/glib-2.0/include -I/cygdrive/d/gtk/include -I/cygdrive/d/gtk/include/freetype2 -I/cygdrive/d/gtk/include/libpng14 -std=c99 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -v -g -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -w</commandLine>
+        </cTool>
+        <linkerTool>
+          <output>cppapp1.exe</output>
+          <commandLine>-L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bat1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="bt.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="dbase.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lex.yy.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="nodo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="run.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="variables.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="vars.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>Cygwin_4.x|Cygwin_4.x</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <incDir>
+            <pElem>/usr/include/glib-2.0</pElem>
+            <pElem>/usr/include/cairo</pElem>
+            <pElem>/usr/include/atk-1.0</pElem>
+            <pElem>/usr/include/gtk-2.0</pElem>
+            <pElem>/usr/include/pango-1.0</pElem>
+            <pElem>/usr/include/libpng12</pElem>
+            <pElem>/usr/include/freetype2</pElem>
+            <pElem>/usr/lib/i386-linux-gnu/gtk-2.0/include</pElem>
+            <pElem>/usr/lib/i386-linux-gnu/glib-2.0/include</pElem>
+            <pElem>/lib/i386-linux-gnu</pElem>
+          </incDir>
+          <commandLine>`pkg-config --cflags gtk+-2.0 --libs`</commandLine>
+          <warningLevel>0</warningLevel>
+        </cTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1</output>
+          <linkerAddLib>
+            <pElem>/usr/lib/i386-linux-gnu</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>gtk-x11-2.0</linkerLibLibItem>
+            <linkerLibLibItem>gobject-2.0</linkerLibLibItem>
+            <linkerLibFileItem>/lib/i386-linux-gnu/glib-2.0.so.0</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bat1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="dbase.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="nodo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="run.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="variables.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="vars.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bat1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="dbase.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="nodo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="run.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="variables.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="vars.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Windows" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <architecture>1</architecture>
+          <standard>3</standard>
+          <commandLine>-mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14</commandLine>
+        </cTool>
+        <linkerTool>
+          <commandLine>-L/cygdrive/c/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bat1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas2.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="bt.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dbase.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="nodo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="run.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="variables.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="vars.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Linux" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <standard>3</standard>
+        </cTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs cairo`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gdk-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gtk+-2.0`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs gdk-2.0`</linkerOptionItem>
+          </linkerLibItems>
+          <commandLine>-ldl</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="../ejemplos/ventanas3.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/ventanas4.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/buffer.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/cppapplication_1"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../myModule/dist/Debug/GNU-Linux-x86/ventanas.pr"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="bt.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dbase.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="dinamic.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="err.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="graficos.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="grammar.tab.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lex.yy.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="minieditor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="nodo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="run.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="variables.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="vars.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
     <conf name="Debug_mac" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
@@ -88,5 +631,5 @@
         </asmTool>
       </compileType>
     </conf>
-  </confs>
+   </confs>
 </configurationDescriptor>
