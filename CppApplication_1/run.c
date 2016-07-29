@@ -278,8 +278,11 @@ int get_indice(int vnt_busq) {
 
 void callback(GtkWidget *entry, gpointer data) { // al clicar los botones ********************************
     int el_proc;
+    int indice;
+    
     el_proc = (int *) data;
-    execut(procedimientos[ el_proc ]);
+    indice = array_variables[el_proc].procedimiento;
+    execut(procedimientos[indice]);
 }
 
 
