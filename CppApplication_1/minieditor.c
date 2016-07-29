@@ -3,6 +3,7 @@
 
 #define xrun
 
+
 extern double var[127];
 extern char contadorvar;
 extern char contador;
@@ -772,13 +773,16 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
                 int tamano;
                 int * vector;
                 idx_vec--;
-/*
                 
                 vector = arrayVectores[idx_vec];
+#ifdef __APPLE__
+                tamano = malloc_size(vector);
+#else
                 tamano = malloc_usable_size(vector);
+#endif
+                
                 free(vector);
                 memoria -= tamano;
-*/
             }
             
             
