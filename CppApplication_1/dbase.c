@@ -633,8 +633,8 @@ prompt() {
 
     if (found) {
 
-        // aqui se llama al comando correspondiente  
-        resultado = (*comando[i].pfuncion) (argc, buff1);   
+        // aqui se llama al comando correspondiente, a veces es preferible pasar buff1, o buff2[n]
+        resultado = (int *) (*comando[i].pfuncion) (argc, buff2);   
 
         if (depurando) {
 
