@@ -10,7 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>C:\Users\test\Documents\NetBeansProjects\lenguaje-interpretado\ejemplos</sourceRootElem>
+                <sourceRootElem>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos</sourceRootElem>
                 <sourceRootElem>../myModule</sourceRootElem>
             </sourceRootList>
             <confList>
@@ -32,6 +32,14 @@
                 </confElem>
                 <confElem>
                     <name>Linux</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Debug_mac</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Release_mac</name>
                     <type>1</type>
                 </confElem>
             </confList>

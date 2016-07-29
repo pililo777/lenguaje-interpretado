@@ -759,6 +759,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
             
     //  printf("check9 liberando memoria\n");
             liberar_nodo(pila_programas[0], 0);
+            //liberar_nodo(pila_programas[31], 1);
 
             while (idx_prc>0)
             {
@@ -772,13 +773,17 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
                 int tamano;
                 int * vector;
                 idx_vec--;
-/*
-                
+
                 vector = arrayVectores[idx_vec];
+#ifdef __APPLE__
+#pragma message ("compilando en apple")
+                tamano = malloc__size(vector);
+#else
+#pragma message( "no es apple" )
                 tamano = malloc_usable_size(vector);
+#endif 
                 free(vector);
                 memoria -= tamano;
-*/
             }
             
             

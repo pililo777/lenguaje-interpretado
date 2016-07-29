@@ -846,7 +846,7 @@ void * execut(ast * p) {
                  */
 
                 execut(pila_programas[31]); // mejor hacer que el 1 sea el 31, es decir el último programa en el array de programas
-                
+                liberar_nodo(pila_programas[31], 1);
                 
                 //pendiente: liberar nodos de la memoria
                 
