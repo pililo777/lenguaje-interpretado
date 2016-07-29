@@ -777,11 +777,12 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
                 
                 vector = arrayVectores[idx_vec];
 #ifdef __APPLE__
-                tamano = malloc_size(vector);
+#pragma message ("compilando en apple")
+                tamano = malloc__size(vector);
 #else
+#pragma message( "no es apple" )
                 tamano = malloc_usable_size(vector);
 #endif
-                
                 free(vector);
                 memoria -= tamano;
             }
