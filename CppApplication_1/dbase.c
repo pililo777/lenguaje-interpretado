@@ -487,7 +487,7 @@ getstring2(char *s) {
 
         //fin teclas de cursor
 
-        if (k == 127 && i>0) {   // tecla de retroceso
+        if (((k == 127)|| (k==8)) && i>0) {   // tecla de retroceso
             putchar(8);
             putchar(32);
             putchar(8);
@@ -506,7 +506,7 @@ getstring2(char *s) {
         }
         
         // si es backspace
-        if (k==127) {
+        if ((k==127) || (k==8))  {
                 i--; 
                 ultimo_i-- ;
         }
@@ -625,7 +625,7 @@ prompt() {
     if (found) {
 
         // aqui se llama al comando correspondiente  
-        resultado = (*comando[i].pfuncion) (argc, buff2);   
+        resultado = (*comando[i].pfuncion) (argc, buff1);   
 
         if (depurando) {
 
@@ -673,8 +673,6 @@ display() {
     } else
         fprintf(stdout, "Syntax error\n");
 }
-
-
  
 quit() {
     mquit = 1;
@@ -751,8 +749,10 @@ help(char *param, char *param2) {
 
 buffer() {
     int i, erabuffer = 0;
-    for (i = 0; i < MAXPALABRAS; i++) {
-        if (!strcmp(buff2[0], "buffer") || erabuffer) {
+    for (i = 0; i < MAXPALABRAS; i++) 
+    {
+        if (!strcmp(buff2[0], "buffer") || erabuffer) 
+        {
             fprintf(stdout, "%2d: '%s'\n", i, buff2[i]);
             erabuffer = 1;
         };
@@ -812,15 +812,6 @@ storechar() {
 }
 
 
-
-
-
-
-
-
-
-
-
 message(mensaje)
 char *mensaje;
 {
@@ -829,31 +820,11 @@ char *mensaje;
 }
 
 
-
-
-
-
-
-
-
-
-
 editor() {
         char cmd[64];
         snprintf(cmd, sizeof cmd, "vi  %s", buff2[1]);
         system(cmd);
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 FILE *fd;

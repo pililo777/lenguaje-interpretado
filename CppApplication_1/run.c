@@ -365,10 +365,8 @@ int interpretar() {
     idx_prg_bak = idx_prg;
     char * input;
     input = buff1;
-    /*
-         printf ("el buff1 es : %s", buff1);
+         printf ("el buff1 es : %s\n", buff1);
         printf("idx prg 1: %d\n", idx_prg);
-     */
     //        yypush_buffer_state();
     //yy_scan_string(input);
     linenumber = 1;

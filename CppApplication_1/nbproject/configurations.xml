@@ -82,7 +82,7 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>C:\Users\test\Documents\NetBeansProjects\lenguaje-interpretado\ejemplos</Elem>
+    <Elem>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos</Elem>
     <Elem>../myModule</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
