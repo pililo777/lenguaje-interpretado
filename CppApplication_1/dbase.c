@@ -4,13 +4,19 @@
 #include "string.h"
 #include "ctype.h"
 #define UNIX
+
 #ifdef DOS
 #include "math.h"
-#else
+#endif
+// #else
 #ifdef UNIX
 #include "stdlib.h"
 #endif
-#endif
+
+
+
+#include "keywords.h"
+
 
 
 #define MAXPALABRAS      10 /* maximo numero de palabras en el buffer */
@@ -404,36 +410,36 @@ getstring2(char *s) {
  
             } // k == 65
              
-        else
+        sino
              
-        if (k == 68) // tecla arriba
+        si (k == 68) // tecla arriba
+        inicio // es tecla flecha izquierda?
+                si ( i>0 && mm == 91) 
+                inicio  // funcion
+                        si (posicionRetrocedida > (-1)) 
+                        inicio
+        // retrocedemos el cursor:
+                                putchar(8);
+                                i--;
+                        fin 
+                fin  // i> 0
 
-            { // es tecla flecha izquierda?
-            if ( i>0 && mm == 91) { // funcion
-                if (posicionRetrocedida > (-1)) 
-                {
-// retrocedemos el cursor:
-                    putchar(8);
-                    i--;
-                } 
-            }  // i> 0
-
-            break_presionado = 1;
+                        break_presionado = 1;
             //obtenemos la ultima palabra escrita en el array de buffers
  
  
-            } // k == 68
+        fin // k == 68
              
-        else
+        sino
              
-        if (k == 67) // tecla flecha derecha
+        si (k == 67) // tecla flecha derecha
 
             { 
-            if (mm == 91) { // funcion?
-                if (posicionRetrocedida > (-1)) 
+            si (mm == 91) { // funcion?
+                si (posicionRetrocedida > (-1)) 
                 {
 // retrocedemos el cursor:
-                    if (i<ultimo_i) {
+                    si (i<ultimo_i) {
                      putchar(s[i]);
                      i++;
                     }
@@ -449,24 +455,27 @@ getstring2(char *s) {
              
              
              
-        else
+        sino  //k==67
                 
-              if (k == 66) 
+              si (k == 66) 
 
         {   // es tecla flecha abajo?
                                                         // printf("%d es 65\n", s[i]);
-            if (i>0 && mm == 91) {
-                if (posicionRetrocedida > (-1)) {
+            si (i>0 && mm == 91) 
+            {
+                si (posicionRetrocedida > (-1)) 
+                {
                     //printf("has apretado la tecla flecha arriba\n");
                     //borramos lo escrito hasta ahora:
 
                     int j = i;
-                    do {
+                    haz 
+                    {
                         putchar(8);
                         putchar(32);
                         putchar(8);
                         j--;
-                    } while (j > 0);
+                    } mientras (j > 0);
                 }
             }
 
@@ -482,12 +491,12 @@ getstring2(char *s) {
         }  //k=66
     } //k ==27
         
- else
+    sino
      // otras teclas que no son de funcion
 
         //fin teclas de cursor
 
-        if (((k == 127)|| (k==8)) && i>0) {   // tecla de retroceso
+        si (((k == 127)|| (k==8)) && i>0) {   // tecla de retroceso
             putchar(8);
             putchar(32);
             putchar(8);
@@ -495,25 +504,25 @@ getstring2(char *s) {
           
         } 
 
-        else
+        sino
 
-        if (k >= ' ') {    
+        si (k >= ' ') {    
         //si es una tecla normal, la mostramos y metemos al buffer s
             printf("%c", k);
             s[i] = k;
             i++;
-            if (i>ultimo_i)  ultimo_i = i;
+            si (i>ultimo_i)  ultimo_i = i;
         }
         
         // si es backspace
-        if ((k==127) || (k==8))  {
+        si ((k==127) || (k==8))  {
                 i--; 
                 ultimo_i-- ;
         }
      }
      // fin del bucle (for) de introducir teclas
 
-    if (k == 10) {  // hemos presionado la tecla   E N T E R
+    si (k == 10) {  // hemos presionado la tecla   E N T E R
         s[ultimo_i] = 0;
         
         //para depurar lo introducido en el buffer descomentar linea sigte.
@@ -521,10 +530,10 @@ getstring2(char *s) {
         
         printf("\n");
 
-        if (strlen(s) > 0) {
+        si (strlen(s) > 0) {
             ultimaPosicion++;
 
-            if (ultimaPosicion > (nro_bufers - 1)) 
+            si (ultimaPosicion > (nro_bufers - 1)) 
                 ultimaPosicion--;
 
             // guardamos el comando en el historial en la ultima posicion
@@ -533,12 +542,12 @@ getstring2(char *s) {
 
     }
     //aqui continua despues de break
-    if (break_presionado) {
+    si (break_presionado) {
 
         //  printf("\n se ha presionado flecha arriba...., restauramos la ultima linea\n");
     } 
 
-    else {
+    sino {
 
         // printf("\nel buffer tiene: %s  --  %d caracteres\n", s, i);
     }
@@ -551,14 +560,14 @@ getstring2(char *s) {
 
 /*********************/
 introduzca_buff1() {
-    do {
+    haz {
         printf(". ");
 
         //   gets(buff1); //he probado con scanf pero no funciona, se recomienda  fgets en stackoverflow
         getstring2(buff1);
 
 
-    } while (puroespacios());
+    } mientras (puroespacios());
 }
 
 

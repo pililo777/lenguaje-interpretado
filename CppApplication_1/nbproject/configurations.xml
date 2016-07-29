@@ -57,6 +57,7 @@
       <itemPath>graficos.c</itemPath>
       <itemPath>grammar.tab.c</itemPath>
       <itemPath>grammar.tab.h</itemPath>
+      <itemPath>keywords.h</itemPath>
       <itemPath>lex.yy.c</itemPath>
       <itemPath>minieditor.c</itemPath>
       <itemPath>nodo.h</itemPath>
