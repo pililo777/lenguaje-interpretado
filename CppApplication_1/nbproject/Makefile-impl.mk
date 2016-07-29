@@ -31,7 +31,7 @@ DEFAULTCONF=WindowsPC
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=WindowsPC Debug Release Windows Linux 
+ALLCONFS=WindowsPC Debug Release Windows Linux Debug_mac Release_mac 
 
 
 # build

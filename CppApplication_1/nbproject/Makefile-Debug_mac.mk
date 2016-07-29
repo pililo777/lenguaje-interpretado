@@ -21,7 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-MacOSX
+CND_PLATFORM=GNU_Cygwin-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Debug_mac
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -34,16 +35,16 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/minieditor.o \
-	${OBJECTDIR}/variables.o \
-	${OBJECTDIR}/graficos.o \
-	${OBJECTDIR}/run.o \
 	${OBJECTDIR}/bt.o \
+	${OBJECTDIR}/dbase.o \
+	${OBJECTDIR}/dinamic.o \
+	${OBJECTDIR}/err.o \
+	${OBJECTDIR}/graficos.o \
 	${OBJECTDIR}/grammar.tab.o \
 	${OBJECTDIR}/lex.yy.o \
-	${OBJECTDIR}/err.o \
-	${OBJECTDIR}/dbase.o \
-	${OBJECTDIR}/dinamic.o
+	${OBJECTDIR}/minieditor.o \
+	${OBJECTDIR}/run.o \
+	${OBJECTDIR}/variables.o
 
 
 # C Compiler Flags
@@ -64,61 +65,61 @@ LDLIBSOPTIONS=`pkg-config --libs cairo` `pkg-config --libs cairo-quartz` `pkg-co
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/minieditor.o: minieditor.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/minieditor.o minieditor.c
-
-${OBJECTDIR}/variables.o: variables.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/variables.o variables.c
-
-${OBJECTDIR}/graficos.o: graficos.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/graficos.o graficos.c
-
-${OBJECTDIR}/run.o: run.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/run.o run.c
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/bt.o: bt.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/bt.o bt.c
-
-${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
-
-${OBJECTDIR}/lex.yy.o: lex.yy.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/lex.yy.o lex.yy.c
-
-${OBJECTDIR}/err.o: err.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bt.o bt.c
 
 ${OBJECTDIR}/dbase.o: dbase.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/dbase.o dbase.c
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dbase.o dbase.c
 
 ${OBJECTDIR}/dinamic.o: dinamic.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/dinamic.o dinamic.c
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dinamic.o dinamic.c
+
+${OBJECTDIR}/err.o: err.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/err.o err.c
+
+${OBJECTDIR}/graficos.o: graficos.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/graficos.o graficos.c
+
+${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
+
+${OBJECTDIR}/lex.yy.o: lex.yy.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lex.yy.o lex.yy.c
+
+${OBJECTDIR}/minieditor.o: minieditor.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/minieditor.o minieditor.c
+
+${OBJECTDIR}/run.o: run.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/run.o run.c
+
+${OBJECTDIR}/variables.o: variables.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/variables.o variables.c
 
 # Subprojects
 .build-subprojects:
@@ -126,7 +127,7 @@ ${OBJECTDIR}/dinamic.o: dinamic.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe
 
 # Subprojects
 .clean-subprojects:

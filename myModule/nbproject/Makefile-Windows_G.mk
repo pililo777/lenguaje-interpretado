@@ -35,7 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/25589fd2/myModule.o
+	${OBJECTDIR}/myModule.o
 
 
 # C Compiler Flags
@@ -62,10 +62,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mymodule.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mymodule ${OBJECTFILES} ${LDLIBSOPTIONS} -L/cygdrive/g/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl
 
-${OBJECTDIR}/_ext/25589fd2/myModule.o: /cygdrive/C/Users/test/Documents/NetBeansProjects/myModule/myModule.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/25589fd2
+${OBJECTDIR}/myModule.o: myModule.c 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/25589fd2/myModule.o /cygdrive/C/Users/test/Documents/NetBeansProjects/myModule/myModule.c
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/myModule.o myModule.c
 
 # Subprojects
 .build-subprojects:

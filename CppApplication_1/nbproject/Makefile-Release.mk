@@ -35,7 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/a43d82a7/myModule.o \
+	${OBJECTDIR}/bt.o \
 	${OBJECTDIR}/dbase.o \
 	${OBJECTDIR}/dinamic.o \
 	${OBJECTDIR}/err.o \
@@ -71,10 +71,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/_ext/a43d82a7/myModule.o: ../myModule/myModule.c 
-	${MKDIR} -p ${OBJECTDIR}/_ext/a43d82a7
+${OBJECTDIR}/bt.o: bt.c 
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/a43d82a7/myModule.o ../myModule/myModule.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bt.o bt.c
 
 ${OBJECTDIR}/dbase.o: dbase.c 
 	${MKDIR} -p ${OBJECTDIR}
