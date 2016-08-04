@@ -1,6 +1,6 @@
 //usando sublime como editor de texto alternativo a Netbeans
 
-
+extern int depurar;
 
 #include "stdio.h"
 short  int tam_registro = 20;
@@ -161,11 +161,31 @@ leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray) {
         xpnLocal.xrama[i-1] = rama;
         posicion+=sizeof(rama);
     }
+    // lee los datos enteros de cada rama
+    if (depurar) printf("leemos los datos INT\n");
+    for (int i=1;i<5;i++) {
+        if (depurar) printf("posicionmos en %d\n", posicion);
+        fseek(arch, posicion, SEEK_SET);
+        //antes se hacia UN SOLO READ del archivo, con un tamaño de llave 55
+        //ahora hacemos VARIOS READ del tamaño que hayamos definido la llave
+        fread(&datoInt, 1, sizeof(datoInt), arch);
+        if (depurar)
+        printf ("se ha leido: %li  en la posicion %d\n", datoInt, i);
+        xpnLocal.datoInt[i-1] = datoInt;
+        posicion+=sizeof(datoInt);
+    }
+    
     (*xpn).xconteo = xpnLocal.xconteo;
     strcpy(xpn->xllave[0], xpnLocal.xllave[0]);
     strcpy(xpn->xllave[1], xpnLocal.xllave[1]);
     strcpy(xpn->xllave[2], xpnLocal.xllave[2]);
     strcpy(xpn->xllave[3], xpnLocal.xllave[3]);
+    
+    xpn->datoInt[0] = xpnLocal.datoInt[0];
+    xpn->datoInt[1] = xpnLocal.datoInt[1];
+    xpn->datoInt[2] = xpnLocal.datoInt[2];
+    xpn->datoInt[3] = xpnLocal.datoInt[3];
+    
     xpn->xrama[0] = xpnLocal.xrama[0];
      xpn->xrama[1] = xpnLocal.xrama[1];
       xpn->xrama[2] = xpnLocal.xrama[2];
@@ -216,7 +236,7 @@ buscar(tipollave *objetivo, xapuntador *xraiz, int *encontrar,
     }
 }
 
-empujardentro(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion k) {
+empujardentro(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion k, long int *datoInt) {
     short int i;
     struct xnodo xpn;
 
@@ -224,15 +244,17 @@ empujardentro(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion k) {
     for (i = xpn.xconteo; i >= (k + 1); i--) {
         strcpy(xpn.xllave[i], xpn.xllave[i - 1]);
         xpn.xrama[i + 1] = xpn.xrama[i];
+        xpn.datoInt[i] = xpn.datoInt[i - 1];
     };
     strcpy(xpn.xllave[k], x);
     xpn.xrama[k + 1] = *xxder;
+    xpn.datoInt[k + 1] = *datoInt;
     xpn.xconteo = xpn.xconteo + 1;
     grabarnodo(xp, &xpn, tam_registro);
 }
 
 dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k,
-        tipollave *y, xapuntador *xyder) {
+        tipollave *y, xapuntador *xyder, long int *datoInt) {
     short int i;
     posicion mediana;
     struct xnodo xpn, xydern;
@@ -247,28 +269,30 @@ dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k,
     for (i = mediana + 1; i <= 4; i++) {
         strcpy(xydern.xllave[i - mediana - 1], xpn.xllave[i - 1]);
         xydern.xrama[i - mediana] = xpn.xrama[i];
+        xydern.datoInt[i - mediana] = xpn.datoInt[i];
     };
     xydern.xconteo = 4 - mediana;
     xpn.xconteo = mediana;
     grabarnodo(xp, &xpn, tam_registro);
     grabarnodo(xyder, &xydern, tam_registro);
     if (*k <= 2) {
-        empujardentro(x, xxder, xp, *k);
+        empujardentro(x, xxder, xp, *k, datoInt);
         leenodo(xp, &xpn, tam_registro);
     } else {
-        empujardentro(x, xxder, xyder, *k - mediana);
+        empujardentro(x, xxder, xyder, *k - mediana, datoInt);
         leenodo(xyder, &xydern, tam_registro);
     };
     leenodo(xyder, &xydern, tam_registro);
     strcpy(y, xpn.xllave[xpn.xconteo - 1]);
     xydern.xrama[0] = xpn.xrama[xpn.xconteo];
+    xydern.datoInt[0] = xpn.datoInt[xpn.xconteo];
     xpn.xconteo = xpn.xconteo - 1;
     grabarnodo(xp, &xpn, tam_registro);
     grabarnodo(xyder, &xydern, tam_registro);
 }
 
 empujarabajo(tipollave *nuevallave, xapuntador *xp,
-        int *empujararriba, tipollave *x, xapuntador *xxder)
+        int *empujararriba, tipollave *x, xapuntador *xxder, long int * datoInt)
  {
     posicion k;
     int encontrar;
@@ -288,16 +312,16 @@ empujarabajo(tipollave *nuevallave, xapuntador *xp,
         } else {
             leenodo(xp, &xpn, tam_registro);
             xxder1 = *xxder;
-            empujarabajo(nuevallave, &xpn.xrama[k], empujararriba, x, &xxder1);
+            empujarabajo(nuevallave, &xpn.xrama[k], empujararriba, x, &xxder1, datoInt);
             *xxder = xxder1;
             if (*empujararriba == 1) {
                 if (xpn.xconteo < 4) {
                     *empujararriba = 0;
-                    empujardentro(x, xxder, xp, k);
+                    empujardentro(x, xxder, xp, k, datoInt);
                 } else {
                     *empujararriba = 1;
                     xxder1 = *xxder;
-                    dividir(x, xxder, xp, &k, x, &xxder1);
+                    dividir(x, xxder, xp, &k, x, &xxder1, datoInt);
                     *xxder = xxder1;
                 }
             }
@@ -305,7 +329,7 @@ empujarabajo(tipollave *nuevallave, xapuntador *xp,
     }
 }
 
-inserta(tipollave *nuevallave, xapuntador *xraiz) {
+inserta(tipollave *nuevallave, xapuntador *xraiz, long int *datoInt) {
     int empujararriba;
     tipollave x[55];
     xapuntador xxder, xp;
@@ -313,7 +337,7 @@ inserta(tipollave *nuevallave, xapuntador *xraiz) {
 
     empujararriba = 0;
     xxder = 0;
-    empujarabajo(nuevallave, xraiz, &empujararriba, &x, &xxder);
+    empujarabajo(nuevallave, xraiz, &empujararriba, &x, &xxder, datoInt);
     if (empujararriba == 1) {
         nuevo(&xp, tam_registro);
         xpn.xconteo = 1;
@@ -504,7 +528,7 @@ eliminar(tipollave *objetivo, xapuntador *xraiz) {
     elimregtro(objetivo, xraiz, &encontrar);
     leenodo(xraiz, &xnodoraiz, tam_registro);
     if (encontrar == 0) {
-        fprintf(stdout, "llave no encontrada...");
+        fprintf(stdout, "clave no encontrada...\n");
 /*
         getchar();
 */
@@ -567,7 +591,10 @@ leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */ {
     int len;
     int c;
     char linea[55];
+    int cont = 0;
 
+    if (depurar)
+        printf("entramos en la funcion de leer el archio de datos temp\n");
     len = 0;
     while ((c = getc(datafile)) != EOF) {
         if (c != '\xA' && c!= '\xD') {
@@ -578,7 +605,18 @@ leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */ {
             len = 0;
             fprintf(stdout, "%3d  ", *xraiz);
             fprintf(stdout, "%s\n", linea);
-            inserta(&linea, xraiz);
+            if (strlen(linea)==0) {
+/*
+                printf("largo es cero\n");
+*/
+/*
+                getchar();
+*/
+            }
+            else {
+                if (depurar) printf("insertaremos la clave: %s\n ", linea);
+            inserta(&linea, xraiz, &cont);
+            cont++; }
         };
     };
 }
@@ -629,7 +667,7 @@ altas(xapuntador *xraiz) {
 
     obtenerllave(&llave);
     while (strcmp(llave, ".")) {
-        inserta(&llave, xraiz);
+//        inserta(&llave, xraiz);
         obtenerllave(&llave);
     }
 }
@@ -667,10 +705,14 @@ int main2() {
        abierto = 1;
     }
     
+    
+    extern int depurar;
+    
     do {
 
         /*   clrscr();   */
         opcion = 0;
+        depurar = 0;
     /*    fprintf(stdout, "La raiz se encuentra en el nodo: %d\n", xraiz); */
         fprintf(stdout, "MENU\n");
         fprintf(stdout, "\n");
@@ -737,6 +779,7 @@ int main2() {
             arch = fopen("text.dat", "r+b");
             datafile = fopen("temp", "r");
             xraiz = -1;
+            if (depurar) printf("creando el fichero de datos text.dat\n");
             leer(&xraiz);
             fclose(datafile);
             /*
@@ -760,6 +803,7 @@ int main2() {
 
 }
 
+//extern int depurar;
 
 
 /* EOF.: BT.C   */
@@ -771,11 +815,12 @@ int use() {
     xraiz = -1;
     
     leenodo(&xraiz, &primernodo, 10); //nos interesa leer el tamaño del registro solamente
-//    xraiz = primernodo.xrama[0];
+    xraiz = primernodo.xrama[0];
     tam_registro = primernodo.xconteo;
     xraiz = -1;
     leenodo(&xraiz, &primernodo, tam_registro);
     xraiz = primernodo.xrama[0];
+//    if (depurar)
     printf("La raiz se encuentra en el nodo %li\n", xraiz);  
 }
 
