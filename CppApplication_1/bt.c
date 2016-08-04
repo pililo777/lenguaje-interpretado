@@ -351,6 +351,7 @@ inserta(tipollave *nuevallave, xapuntador *xraiz, long int *datoInt) {
         strcpy(xpn.xllave[1], "");
         strcpy(xpn.xllave[2], "");
         strcpy(xpn.xllave[3], "");
+        xpn.datoInt[0] = *datoInt;
         grabarnodo(&xp, &xpn, tam_registro);
     }
 }
@@ -591,7 +592,7 @@ leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */ {
     int len;
     int c;
     char linea[55];
-    int cont = 0;
+    long int cont = 0;
 
     if (depurar)
         printf("entramos en la funcion de leer el archio de datos temp\n");
@@ -763,6 +764,7 @@ int main2() {
             if (encontrar == 1) {
                 leenodo(&nodoobjetivo, &xnodoobjetivo, tam_registro);
                 fprintf(stdout, "Se ha encontrado: %s\n\n", xnodoobjetivo.xllave[posobjetivo - 1]);
+                fprintf(stdout, "Dato: %li\n\n", xnodoobjetivo.datoInt[posobjetivo - 1]);
             } else {
                 fprintf(stdout, "Clave no existe.....\n\n");
             };
