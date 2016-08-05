@@ -174,10 +174,12 @@ leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray) {
         if (depurar)
         printf ("se ha leido: %li  en la posicion %d\n", datoInt, i);
         xpnLocal.datoInt[i-1] = datoInt;
+/*
          if (!strcmp(xpnLocal.xllave[i-1], "ruben")) {
             printf ("ruben, dato: %li\n", datoInt  );
             getchar();
         }
+*/
         posicion+=sizeof(datoInt);
     }
     
@@ -398,6 +400,7 @@ quitar(xapuntador *xp, posicion *k) {
     leenodo(xp, &xpn, tam_registro);
     for (i = *k + 1; i <= xpn.xconteo; i++) {
         strcpy(xpn.xllave[i - 2], xpn.xllave[i - 1]);
+        xpn.datoInt[i-2] = xpn.datoInt[i-1];
         xpn.xrama[i - 1] = xpn.xrama[i];
     };
     xpn.xconteo = xpn.xconteo - 1;
@@ -417,6 +420,7 @@ sucesor(xapuntador *xp, posicion *k) {
         leenodo(&xq, &xqn, tam_registro);
     };
     strcpy(xpn.xllave[*k - 1], xqn.xllave[0]);
+    xpn.datoInt[*k -1] = xqn.datoInt[0];
     grabarnodo(xp, &xpn, tam_registro);
 }
 
@@ -428,14 +432,20 @@ moverderecha(xapuntador *xp, posicion k) {
     leenodo(&xpn.xrama[k], &xnodorama, tam_registro);
     for (c = xnodorama.xconteo; c >= 1; c--) {
         strcpy(xnodorama.xllave[c], xnodorama.xllave[c - 1]);
+        xnodorama.datoInt[c] = xnodorama.datoInt[c-1];
         xnodorama.xrama[c + 1] = xnodorama.xrama[c];
     };
     xnodorama.xrama[1] = xnodorama.xrama[0];
     xnodorama.xconteo = xnodorama.xconteo + 1;
     strcpy(xnodorama.xllave[0], xpn.xllave[k - 1]);
+    xnodorama.datoInt[0] = xnodorama.datoInt[k-1];
+    
     grabarnodo(&xpn.xrama[k], &xnodorama, tam_registro);
     leenodo(&xpn.xrama[k - 1], &xnodorama, tam_registro);
+    
     strcpy(xpn.xllave[k - 1], xnodorama.xllave[xnodorama.xconteo - 1]);
+    xpn.datoInt[k - 1] = xnodorama.datoInt[xnodorama.xconteo - 1];
+    
     leenodo(&xpn.xrama[k], &xnodorama2, tam_registro);
     xnodorama2.xrama[0] = xnodorama.xrama[xnodorama.xconteo];
     grabarnodo(&xpn.xrama[k], &xnodorama2, tam_registro);
@@ -452,16 +462,21 @@ moverizquierda(xapuntador *xp, posicion k) {
     leenodo(&xpn.xrama[k - 1], &xno, tam_registro);
     xno.xconteo = xno.xconteo + 1;
     strcpy(xno.xllave[xno.xconteo - 1], xpn.xllave[k - 1]);
+    xno.datoInt[xno.xconteo-1] = xpn.datoInt[k-1];
+    
     grabarnodo(&xpn.xrama[k - 1], &xno, tam_registro);
     leenodo(&xpn.xrama[k], &xno2, tam_registro);
     xno.xrama[xno.xconteo] = xno2.xrama[0];
     grabarnodo(&xpn.xrama[k], &xno2, tam_registro);
     leenodo(&xpn.xrama[k], &xno, tam_registro);
     strcpy(xpn.xllave[k - 1], xno.xllave[0]);
+    xpn.datoInt[k-1] = xno.datoInt[0];
+    
     xno.xrama[0] = xno.xrama[1];
     xno.xconteo = xno.xconteo - 1;
     for (c = 1; c <= xno.xconteo; c++) { /* de c=1 hasta conteo */
         strcpy(xno.xllave[c - 1], xno.xllave[c]);
+        xno.datoInt[c-1] = xno.datoInt[c];
         xno.xrama[c] = xno.xrama[c + 1];
     };
     grabarnodo(&xpn.xrama[k], &xno, tam_registro);
@@ -477,15 +492,21 @@ combinar(xapuntador *xp, posicion k) {
     leenodo(&xpn.xrama[k - 1], &xno, tam_registro);
     xno.xconteo = xno.xconteo + 1;
     strcpy(xno.xllave[xno.xconteo - 1], xpn.xllave[k - 1]);
+    xno.datoInt[xno.xconteo-1] = xpn.datoInt[k-1];
+    
     xno.xrama[xno.xconteo] = xqn.xrama[0];
     for (c = 1; c <= xqn.xconteo; c++) { /* de c hasta conteo */
         xno.xconteo = xno.xconteo + 1;
         strcpy(xno.xllave[xno.xconteo - 1], xqn.xllave[c - 1]);
+        xno.datoInt[xno.xconteo-1] = xpn.datoInt[c-1];
+        
         xno.xrama[xno.xconteo] = xqn.xrama[c];
     };
     grabarnodo(&xpn.xrama[k - 1], &xno, tam_registro);
     for (c = k; c <= (xpn.xconteo - 1); c++) { /* de c=k hasta conteo-1 */
         strcpy(xpn.xllave[c - 1], xpn.xllave[c]);
+        xpn.datoInt[c-1] = xpn.datoInt[c];
+        
         xpn.xrama[c] = xpn.xrama[c + 1];
     };
     xpn.xconteo = xpn.xconteo - 1;
@@ -586,7 +607,7 @@ enorden(xapuntador xraiz, int *contador) {
         leenodo(&xraiz, &xraizn, tam_registro);
         enorden(xraizn.xrama[0], contador);
         if (xraizn.xconteo > 0) {
-            fprintf(stdout, "%4d -- %s\n", *contador, xraizn.xllave[0]);
+            fprintf(stdout, "%4d -- %s -- %4d\n", *contador, xraizn.xllave[0], xraizn.datoInt[0] );
             (*contador)++;
             if ( (*contador  % pagina)==0) {
                printf("presione una tecla para continuar....."); getchar();
@@ -595,7 +616,7 @@ enorden(xapuntador xraiz, int *contador) {
         };
 
         if (xraizn.xconteo > 1) {
-            fprintf(stdout, "%4d -- %s\n", *contador, xraizn.xllave[1]);
+            fprintf(stdout, "%4d -- %s -- %4d\n", *contador, xraizn.xllave[1], xraizn.datoInt[1]);
             (*contador)++;
             if ( (*contador  % pagina)==0) {
                printf("presione una tecla para continuar....."); getchar();
@@ -604,7 +625,7 @@ enorden(xapuntador xraiz, int *contador) {
         };
 
         if (xraizn.xconteo > 2) {
-            fprintf(stdout, "%4d -- %s\n", *contador, xraizn.xllave[2]);
+            fprintf(stdout, "%4d -- %s -- %4d\n", *contador, xraizn.xllave[2], xraizn.datoInt[2]);
             (*contador)++;
             if ( (*contador  % pagina)==0) {
                printf("presione una tecla para continuar....."); getchar();
@@ -613,7 +634,7 @@ enorden(xapuntador xraiz, int *contador) {
         };
 
         if (xraizn.xconteo > 3) {
-            fprintf(stdout, "%4d -- %s\n", *contador, xraizn.xllave[3]);
+            fprintf(stdout, "%4d -- %s -- %4d\n", *contador, xraizn.xllave[3], xraizn.datoInt[3]);
             (*contador)++;
             if ( (*contador  % pagina)==0) {
                printf("presione una tecla para continuar....."); getchar();
