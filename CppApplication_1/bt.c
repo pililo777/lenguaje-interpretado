@@ -263,7 +263,7 @@ empujardentro(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion k, long 
 }
 
 dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k,
-        tipollave *y_llave, xapuntador *xyder, long int * datoInt) {
+        tipollave *y_llave, xapuntador *xyder, long int * datoInt, long int * y_datoInt) {
     short int i;
     posicion mediana;
     struct xnodo xpn, xydern;
@@ -296,7 +296,7 @@ dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k,
     };
     leenodo(xyder, &xydern, tam_registro);
     strcpy(y_llave, xpn.xllave[xpn.xconteo - 1]);
-    //datoInt = xpn.datoInt[xpn.xconteo-1];
+    *y_datoInt = xpn.datoInt[xpn.xconteo-1];
     
     xydern.xrama[0] = xpn.xrama[xpn.xconteo];
     
@@ -306,13 +306,14 @@ dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k,
 }
 
 empujarabajo(tipollave *nuevallave, xapuntador *xp,
-        int *empujararriba, tipollave *x, xapuntador *xxder, xapuntador *datoInt)
+        int *empujararriba, tipollave *x, xapuntador *xxder, xapuntador *datoInt, xapuntador *datoInt2)
  {
     posicion k;
     int encontrar;
     struct xnodo xpn;
     xapuntador xxder1;
     long int datoInt1;
+    long int datoInt3;
     long int dato;
     
     dato = *datoInt;
@@ -321,6 +322,7 @@ empujarabajo(tipollave *nuevallave, xapuntador *xp,
     if (*xp == -1) {
         *empujararriba = 1;
         strcpy(x, nuevallave);
+        *datoInt2 = *datoInt; 
         *xxder = -1;
     } else {
         encontrar = 0;
@@ -332,18 +334,20 @@ empujarabajo(tipollave *nuevallave, xapuntador *xp,
             leenodo(xp, &xpn, tam_registro);
             xxder1 = *xxder;
             datoInt1 = *datoInt;
-            empujarabajo(nuevallave, &xpn.xrama[k], empujararriba, x, &xxder1, &datoInt1);
+            datoInt3 = *datoInt2;
+            empujarabajo(nuevallave, &xpn.xrama[k], empujararriba, x, &xxder1, &datoInt1, &datoInt3);
             *xxder = xxder1;
             *datoInt = datoInt1;
+            *datoInt2 = datoInt3;
             if (*empujararriba == 1) {
                 if (xpn.xconteo < 4) {
                     *empujararriba = 0;
-                    empujardentro(x, xxder, xp, k, datoInt);
+                    empujardentro(x, xxder, xp, k, datoInt2);
                 } else {
                     *empujararriba = 1;
                     xxder1 = *xxder;
                     datoInt1 = *datoInt;
-                    dividir(x, xxder, xp, &k, x, &xxder1, &datoInt1);
+                    dividir(x, xxder, xp, &k, x, &xxder1, datoInt2, datoInt2);
                     *xxder = xxder1;
                     *datoInt = datoInt1;
                 }
@@ -355,18 +359,20 @@ empujarabajo(tipollave *nuevallave, xapuntador *xp,
 inserta(tipollave *nuevallave, xapuntador *xraiz, xapuntador *datoEntero) {
     int empujararriba;
     tipollave x[55];
+    long int datoEntero2;
     xapuntador xxder, xp;
     struct xnodo xpn;
 
     empujararriba = 0;
     xxder = 0;
-    empujarabajo(nuevallave, xraiz, &empujararriba, &x, &xxder, datoEntero);
+    datoEntero2 = 0;
+    empujarabajo(nuevallave, xraiz, &empujararriba, &x, &xxder, datoEntero, &datoEntero2);
     if (empujararriba == 1) {
         nuevo(&xp, tam_registro);
         xpn.xconteo = 1;
 
         strcpy(&xpn.xllave[0], x);
-        xpn.datoInt[0] = *datoEntero;
+        xpn.datoInt[0] = datoEntero2;
         xpn.datoInt[1] = 0;
         xpn.datoInt[2] = 0;
         xpn.datoInt[3] = 0;
@@ -649,8 +655,11 @@ leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */ {
             else {
                 if (depurar) printf("insertaremos la clave: %s\n ", linea);
                 printf ("insertamos %s, con dato: %d\n", linea, cont);
-            inserta(&linea, xraiz, &cont);
-            cont++; }
+                if (cont==133) {
+                    pausar();
+                }
+                inserta(&linea, xraiz, &cont);
+                cont++; }
         };
     };
 }
