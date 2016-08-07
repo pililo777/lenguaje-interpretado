@@ -73,6 +73,7 @@ void nuevo(xapuntador * xp, int variableArray) /* en xp se pondra el numero de *
     if (*xp == -1) {
         *xp = 0;
     };
+    if (depurar)
     printf("el nuevo nodo sera %li\n", *xp);
 }
 
@@ -247,7 +248,7 @@ buscar(tipollave *objetivo, xapuntador *xraiz, int *encontrar,
 empujardentro(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion k, long int *datoInt) {
     short int i;
     struct xnodo xpn;
-
+    if(depurar)
       printf ("empujardentro: %d\n", *datoInt);
     leenodo(xp, &xpn, tam_registro);
     for (i = xpn.xconteo; i >= (k + 1); i--) {
@@ -269,6 +270,7 @@ dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k,
     short int i;
     posicion mediana;
     struct xnodo xpn, xydern;
+    if(depurar)
     printf("dividir: datoint: %li\n", *datoInt);
 
     leenodo(xp, &xpn, tam_registro);
@@ -319,7 +321,7 @@ empujarabajo(tipollave *nuevallave, xapuntador *xp,
     long int dato;
     
     dato = *datoInt;
-
+    if (depurar)
     printf ("empujarabajo: %li\n", dato);
     if (*xp == -1) {
         *empujararriba = 1;
@@ -601,7 +603,9 @@ eliminar(tipollave *objetivo, xapuntador *xraiz) {
 
 enorden(xapuntador xraiz, int *contador) {
     struct xnodo xraizn;
-    const int pagina = 150;
+    const int pagina = 10;
+    
+    
     
     if (xraiz != -1) {
         leenodo(&xraiz, &xraizn, tam_registro);
@@ -648,7 +652,7 @@ enorden(xapuntador xraiz, int *contador) {
 leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */ {
     int len;
     int c;
-    char linea[55];
+    char linea[255];
     int cont;
     
     cont =  1;
@@ -674,11 +678,10 @@ leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */ {
 */
             }
             else {
+                int i=0;
+                while (linea[i]!=' ') i++;
+                linea[i]='\0';
                 if (depurar) printf("insertaremos la clave: %s\n ", linea);
-                printf ("insertamos %s, con dato: %d\n", linea, cont);
-                if (cont==133) {
-                    pausar();
-                }
                 inserta(&linea, xraiz, &cont);
                 cont++; }
         };
@@ -746,6 +749,35 @@ int exists(const char *fname) {
     return 0;
 }
 
+FILE * handler2; 
+struct registro {
+    char clave[10];
+    char empresa[61];
+    char direccion[61];
+    char telefono[9];
+    char finlinea[1];
+} un_registro;
+
+
+void mostrar_registro(int nroreg) {
+    int tam;
+    int pos;
+    int sreg;
+     char * datafile = "contactos.dbf";
+     handler2 = fopen(datafile, "r");
+     tam = 10+61+61+9+1;
+     pos = (tam * (nroreg - 1) );
+     sreg = sizeof(un_registro);
+     fseek(handler2, pos, SEEK_SET);
+     fread(&un_registro, 1, sizeof(un_registro), handler2);
+     printf("%s\n", un_registro.clave);
+     printf("%s\n", un_registro.empresa);
+     printf("%s\n", un_registro.direccion);
+     printf("%s\n", un_registro.telefono);
+     fclose(handler2);
+     
+}
+
 
 
 int main2() {
@@ -757,6 +789,7 @@ int main2() {
     int contador;
     int encontrar;
     xraiz = -1;
+    int c;
     
     if (exists("text.dat")) {
 /*
@@ -790,6 +823,7 @@ int main2() {
         fprintf(stdout, "\n");
         fprintf(stdout, "Digite su opcion: ");
         scanf("%d", &opcion);
+        while ( (c = getchar()) != '\n' && c != EOF ) { };
         
         if (opcion == 8) {
             printf("Indique el tamaño del registro indice: ");
@@ -818,6 +852,7 @@ int main2() {
             
           while ((strcmp(llave, "."))) {
              // scanf("%s", llave);
+              int nro_reg;
             obtenerllave(llave);
             if (strcmp(llave, ".")) {
             posobjetivo = 0;
@@ -827,7 +862,9 @@ int main2() {
             if (encontrar == 1) {
                 leenodo(&nodoobjetivo, &xnodoobjetivo, tam_registro);
                 fprintf(stdout, "Se ha encontrado: %s\n\n", xnodoobjetivo.xllave[posobjetivo - 1]);
-                fprintf(stdout, "Dato: %li\n\n", xnodoobjetivo.datoInt[posobjetivo - 1]);
+                nro_reg = xnodoobjetivo.datoInt[posobjetivo - 1];
+                fprintf(stdout, "Dato: %li\n\n", nro_reg );
+                mostrar_registro(nro_reg);
             } else {
                 fprintf(stdout, "Clave no existe.....\n\n");
             };
@@ -842,7 +879,7 @@ int main2() {
             arch = fopen("text.dat", "w");
             fclose(arch);
             arch = fopen("text.dat", "r+b");
-            datafile = fopen("temp", "r");
+            datafile = fopen("contactos.dbf", "r");
             xraiz = -1;
             if (depurar) printf("creando el fichero de datos text.dat\n");
             leer(&xraiz);
