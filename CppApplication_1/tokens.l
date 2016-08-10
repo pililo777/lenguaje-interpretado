@@ -60,6 +60,7 @@ int x;
        constantes[x][i] = constantes[x][i+1]; i++;
     }
        	constantes[x][i-4] = '\0';
+if(depurar)
 	printf("CONSTANTE %d  --    %s\n", x, constantes[x]);  
    return x;
 }
@@ -80,6 +81,7 @@ int x;
    };
    strcpy (variables[x],  yytext);
    strcpy  (array_variables[x].nombre, yytext);
+if (depurar)
    printf("VARIABLE %d  --    %s\n", x, variables[x]);
   // insAST(yytext) ;
 /*   printf("%d  --    %s\n", x, variables[x]);  */
@@ -89,6 +91,7 @@ int x;
 lineaEjecucion2() {
     lineaAnterior = lineaEjecucion;
     lineaEjecucion = linenumber;
+if (depurar)
     printf("Linea Ejecucion: %d\n", lineaEjecucion);
 /*
     if (lineaEjecucion==12)
@@ -156,6 +159,15 @@ lineaEjecucion2() {
 "vaciar" { lineaEjecucion2(); return VACIAR; }
 "continuar" { lineaEjecucion2(); return CONTINUAR; }
 "salir" { lineaEjecucion2(); return SALIR; }
+"buscar" {lineaEjecucion2(); return BUSCAR;}
+"insertar" {lineaEjecucion2(); return INSERTAR;}
+"eliminar" {lineaEjecucion2(); return ELIMINAR;}
+"use"    {lineaEjecucion2(); return USE_INDICE;}
+"close"  {lineaEjecucion2(); return CLOSE_INDICE;}
+"actualizar" {lineaEjecucion2(); return ACTUALIZAR; }
+"registro" {lineaEjecucion2(); return REGISTRO; }
+"fin-registro" {lineaEjecucion2(); return FINREGISTRO; }
+
 
 '[^\']+'  {
         /* constantes literales contienen una serie de variados signos � simbolos */
@@ -163,6 +175,7 @@ lineaEjecucion2() {
 	yylval.nodo->tipo = constante_literal; 
 	yylval.nodo->subnodos = 0;
 	yylval.nodo->num  = instala(contador++);     //yylval.num  = instala(contador++)
+if (depurar)
         printf("constante literal: %s    indice %4.0f  en linea : %i \n", yytext, yylval.nodo->num, linenumber);
 	return LITERAL; 
 	}
@@ -189,6 +202,7 @@ lineaEjecucion2();
 	yylval.nodo->num  = instalavar(contadorvar++);   //yylval.num  = instalavar(contadorvar++)
                 //array_variables[(int)yylval.nodo->num].numero=0;  // esto debe ponerse en un bucle al inicio del programa
                 array_variables[(int)yylval.nodo->num].tipo = 'N';   //numero
+if (depurar)
 	printf("variable numerica: %s    indice %4.0f   en linea : %i \n", yytext, yylval.nodo->num, linenumber );
         yylval.nodo->nrolinea1 = yylval.nodo->nrolinea2 = linenumber;
 	return NAME; 
@@ -204,6 +218,7 @@ lineaEjecucion2();
 	yylval.nodo->num  = instalavar(contadorvar++);   //yylval.num  = instalavar(contadorvar++)
 	//strcpy(array_variables[(int)yylval.nodo->num].valor, "(null)");
                 array_variables[(int)yylval.nodo->num].tipo = 'S';   //string
+if (depurar)
                 printf("variable alfanumerica: %s    indice %4.0f   en linea : %i \n", yytext, yylval.nodo->num, linenumber );
 	return SNAME; 
 	}
@@ -237,7 +252,8 @@ p = malloc(sizeof(struct ast));
 extern long memoria;
 memoria += sizeof(struct ast);
 nodos++;
-//printf("nuevo nodo: %ld\n", memoria);
+if (depurar)
+printf("nuevo nodo: %ld\n", memoria);
 
 p->num = 0;
 p->tipo = 9999;
@@ -253,3 +269,4 @@ p->nodo5 = NULL;
 return p;
 
 }
+
