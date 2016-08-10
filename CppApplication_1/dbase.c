@@ -127,7 +127,10 @@ int main(int argc, const char **argv)
     comandos();
 }
 
-void buscar_en_indice(int , char *) ;
+void buscar_en_indice() ;
+void insertar_en_indice( );
+void eliminar_en_indice( );
+
 
 void 
 
@@ -209,20 +212,44 @@ init_comandos() {
     
     comando[32].nombre = "buscar";           //28/07/2016
     comando[32].pfuncion = buscar_en_indice;
+    
+    comando[33].nombre = "insertar";           //28/07/2016
+    comando[33].pfuncion = insertar_en_indice;
+    
+    comando[34].nombre = "eliminar";           //28/07/2016
+    comando[34].pfuncion = eliminar_en_indice;
 
 }
 
-typedef long int xapuntador;
-typedef short int posicion;
+#include "vars.h"
 typedef char tipollave;
 extern tipollave llave[55];
 extern xapuntador xraiz;
 
 extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
-int obtenerllave(tipollave *);
+//int obtenerllave(tipollave *);
 
 
-void buscar_en_indice(int nro, char *buffer) {
+void eliminar_en_indice() {
+     strcpy(llave, buff2[1]);
+     eliminar (llave, &xraiz);
+}
+
+
+extern int inserta(tipollave * , xapuntador * );
+
+void insertar_en_indice() {
+    
+    
+     strcpy(llave, buff2[1]);
+     inserta (llave, &xraiz);
+
+
+}
+
+
+
+void buscar_en_indice() {
     //char claveBuscada[55];
     int encontrar;
     posicion posobjetivo;
@@ -264,7 +291,7 @@ comandos() {
 
 
 
-#include "vars.h"
+// #include "vars.h"
 
 
 extern double var[127];  //en run.c
@@ -749,10 +776,10 @@ parse() {
 help(char *param, char *param2) {
     printf( "comandos:\n");
     printf( " l ls lc help pwd clear quit buffer store ? display memory\n");
-    printf( " use buscar list close do arbol\n");
-    printf( " editorgtk cargar run  cargalib descargalib vars var n   prog n");
-    printf( " editor evalua ");
-    printf( " modify buscar_posicion strcmp ");
+    printf( " use buscar list close do arbol buscar  insertar  eliminar\n");
+    printf( " editorgtk cargar run  cargalib descargalib vars var n   prog n\n");
+    printf( " editor evalua \n");
+    printf( " modify buscar_posicion strcmp \n");
     
 }
 

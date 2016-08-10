@@ -17,6 +17,12 @@
 
 FILE * ficheros[10];
 
+typedef struct xnodo {
+    short int xconteo;
+    char xllave[4][55];
+    long int xrama[5];
+    long int datoInt[4];
+};
 
 extern int ejecuta_desde_editor;
 extern int linenumber;
@@ -24,6 +30,9 @@ extern int LineaInicial[20];
 extern int contador_lineaInicial;
 extern struct ast* nodografico;
 extern struct ast* nodografico2;
+extern short  int tam_registro;
+
+
 int flag_ventanas = 0;
 
 
@@ -45,7 +54,12 @@ typedef struct  {
 } struct_variable;
 */
 
+extern ast * pila_records[32]; // pila de registros
+
 #include "vars.h"
+typedef char tipollave;
+extern tipollave llave[55];
+extern xapuntador xraiz;
 
 
 double var[127]; // 127 variables numericas e indices a variables alfa y literales
@@ -81,6 +95,32 @@ int * nuevoValorEnteros(int cantidad) {
     memoria += (sizeof (int) * cantidad);
     return vector;
 }
+
+
+GtkWidget*
+    find_child(GtkWidget* parent, const gchar* name)
+    {
+            if (g_strcasecmp(gtk_widget_get_name((GtkWidget*)parent), (gchar*)name) == 0) { 
+                    return parent;
+            }
+
+            if (GTK_IS_BIN(parent)) {
+                    GtkWidget *child = gtk_bin_get_child(GTK_BIN(parent));
+                    return find_child(child, name);
+            }
+
+            if (GTK_IS_CONTAINER(parent)) {
+                    GList *children = gtk_container_get_children(GTK_CONTAINER(parent));
+                    while ((children = g_list_next(children)) != NULL) {
+                            GtkWidget* widget = find_child(children->data, name);
+                            if (widget != NULL) {
+                                    return widget;
+                            }
+                    }
+            }
+
+            return NULL;
+    }
 
 char *getstring(char *s) {
     int i, k = getchar();
@@ -138,7 +178,7 @@ ast * nodo0(tiponodo Tipo, ast * a) {
         pausar();
     }
 */
-
+    if (depurar)
     printf("Tipo: %d\n", Tipo);
     return p;
 }
@@ -161,7 +201,7 @@ ast * nodo1(tiponodo Tipo, ast * a) {
     }
 */
 
-
+    if(depurar)
     printf("Tipo: %d\n", Tipo);
     return p;
 }
@@ -180,7 +220,7 @@ ast * nodo2(tiponodo Tipo, ast * a, ast * b)
     if (p->tipo == asigna_num)
         p->nrolinea2 = a->nrolinea1;
         //lineaAnterior = lineaEjecucion;
-    
+    if(depurar)
     printf("Tipo: %d\n", Tipo);
     return p;
 
@@ -203,7 +243,7 @@ ast * nodo3(tiponodo Tipo, ast * a, ast * b, ast * c) {
 
     if (p->tipo  == dibuja_circulo  )
         p->nrolinea2 = lineaAnterior;
-
+    if(depurar)
     printf("Tipo: %d\n", Tipo);
     return p;
 
@@ -224,7 +264,7 @@ ast * nodo4(tiponodo Tipo, ast * a, ast * b, ast * c, ast * d) {
     if (p->tipo == guardar_texto || p->tipo == dibuja_linea )
         p->nrolinea2 = lineaAnterior;
         //lineaAnterior = lineaEjecucion;
-    
+    if(depurar)
     printf("Tipo: %d\n", Tipo);
     return p;
 }
@@ -242,6 +282,7 @@ ast * nodo5(tiponodo Tipo, ast * a, ast * b, ast * c, ast * d, ast * e) {
     p->subnodos = 5;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
+    if(depurar)
     printf("Tipo: %d\n", Tipo);
     return p;
 }
@@ -261,10 +302,10 @@ struct cajaTexto {
 };
 
 
-struct widgets arrayWidgets[20]; //array de ventanas
+struct widgets arrayWidgets[100]; //array de ventanas
 int idx_win = 0; //indice de ventanas
-static int arrayIndices[20]; //almacena los handles de las ventanas
-struct widgets arrayBotones[20];
+static int arrayIndices[100]; //almacena los handles de las ventanas
+struct widgets arrayBotones[100];
 
 int get_indice(int vnt_busq) {
     int i;
@@ -285,13 +326,108 @@ void callback(GtkWidget *entry, gpointer data) { // al clicar los botones ******
     execut(procedimientos[indice]);
 }
 
+// actualiza un campo de texto caso haya cambiado de valor
+static void enter_callback(GtkWidget *widget, gpointer data) // al dar enter en la caja de texto
+{
+
+    GtkWidget *entry;
+    char * valor_entry;   // para saber si se ha modificado 
+    
+
+
+    entry = (GtkWidget *) data;
+
+    const gchar *entry_text;
+    char buffer[33];
+
+    int numero;
+    short int comparacion = 0;
+
+    sprintf(buffer, entry->name); //el nombre de la variable es en realidad un numero indice en 'var' y su value esta en 'constantes' (ver abajo)
+    sscanf(buffer, "%d", &numero); //coloca en numero el nombre
+    
+    //valor_entry = constantes [(int) var[numero]];
+    valor_entry = array_variables[numero].valor;
+
+
+    entry_text = gtk_entry_get_text(GTK_ENTRY(entry));
+    
+    comparacion = strcmp(valor_entry, entry_text);
+    if (comparacion != 0) {   //son distintos
+        gtk_entry_set_text( entry,  valor_entry);
+        gtk_widget_show (entry);
+        
+    }
+    
+/*
+    strcpy(constantes [(int) var[numero]], entry_text); // aplicamos el nombre del entry a la variable
+    strcpy(array_variables[numero].valor, entry_text);
+*/
+    
+    
+}
+
+
+
+
+
+void enter_button(GtkWidget *widget, gpointer data) {
+     
+  GdkColor col = {0, 27000, 30000, 35000};   
+  
+  gtk_widget_modify_bg(widget, GTK_STATE_PRELIGHT, &col);
+}
+
+
+
+void configure_callback(GtkWindow *window, 
+      GdkEvent *event, gpointer data) {
+          
+   int x, y;
+   GString *buf;
+   
+   x = event->configure.x;
+   y = event->configure.y;
+   
+   buf = g_string_new(NULL);   
+   g_string_printf(buf, "%d, %d", x, y);
+   
+   gtk_window_set_title(window, buf->str);
+   
+   g_string_free(buf, TRUE);
+}
+
+// actualiza las cajas de texto si han cambiado de valor....
+void set_focus(GtkWindow *window,  GdkEvent *event, gpointer data) {
+    
+    GtkWidget *widget;
+    gchar * nombre;
+    widget = (GtkWindow *) data;
+    
+       
+    if(GTK_IS_CONTAINER(widget)) {
+        GList *children = gtk_container_get_children(GTK_CONTAINER(widget));
+         while ((children = g_list_next(children)) != NULL) {
+                            GtkWidget* widget1 = (GtkWidget *) children->data;
+                            if (widget1 != NULL) {
+                                if (GTK_IS_ENTRY(widget1)) {
+                                    nombre = gtk_widget_get_name(widget1);
+                                    enter_callback(NULL, G_OBJECT(widget1) );
+                                }
+                            }
+                    }
+             
+      }
+   
+}
+
 
 // elimina la ventana que se cierra del indice de ventanas abiertas
 
 void cerrar_ventana(gpointer data) {
     int i, j;
     i = (int) data;
-    for (j = i; j < 20; j++) {
+    for (j = i; j < 100; j++) {
         arrayIndices[j] = arrayIndices[j + 1];
     }
     idx_win--;
@@ -326,11 +462,11 @@ struct entry_txt {
                 } entry_texto;
  */
 
-static void enter_callback(GtkWidget *widget, gpointer data) // al dar enter en la caja de texto
+static void change_entry_callback(GtkWidget *widget, gpointer data) // al dar enter en la caja de texto
 {
 
     GtkWidget *entry;
-
+    
     entry = (GtkWidget *) data;
 
     const gchar *entry_text;
@@ -339,8 +475,8 @@ static void enter_callback(GtkWidget *widget, gpointer data) // al dar enter en 
     int numero;
 
     sprintf(buffer, entry->name); //el nombre de la variable es en realidad un numero indice en 'var' y su value esta en 'constantes' (ver abajo)
-    sscanf(buffer, "%d", &numero);
-
+    sscanf(buffer, "%d", &numero); //coloca en numero el nombre
+    
 
     entry_text = gtk_entry_get_text(GTK_ENTRY(entry));
 
@@ -349,8 +485,11 @@ static void enter_callback(GtkWidget *widget, gpointer data) // al dar enter en 
 
 
     strcpy(constantes [(int) var[numero]], entry_text); // aplicamos el nombre del entry a la variable
-
+    strcpy(array_variables[numero].valor, entry_text);
+    gtk_entry_set_text( entry,  array_variables[numero].valor);
+    
 }
+
 
 
 extern char buff1[128];
@@ -513,8 +652,51 @@ int pausar()
         _start_timer(label2);
         return 0;
 */
-    gulong tiempo = 200000L;
+    gulong tiempo = 000001L;
     g_usleep (tiempo);
+}
+
+int tamanio = 0;
+
+void calcular_tamanio(ast * lista_de_campos) {
+    //int tamanio = 0;
+    int nnodos = 0;
+    if (lista_de_campos->tipo!=listacampos) return;
+    nnodos = lista_de_campos->subnodos;
+    if (nnodos == 3) {
+        tamanio = tamanio + lista_de_campos->nodo3->num;
+        calcular_tamanio(lista_de_campos->nodo1);
+        calcular_tamanio(lista_de_campos->nodo2);
+        }
+    else {
+        tamanio = tamanio + lista_de_campos->nodo2->num;
+    }
+}
+
+void leer_campos(ast * lista_de_campos, FILE * handler) {
+    int nnodos = 0;
+    int largo;
+    int indice;
+    char * nombre;
+    //char buff[100];
+    if (lista_de_campos->tipo!=listacampos) return;
+    nnodos = lista_de_campos->subnodos;
+    if (nnodos == 3) {
+        largo = lista_de_campos->nodo3->num;
+        indice = lista_de_campos->nodo2->num;
+        nombre = array_variables[indice].nombre;
+        fread(array_variables[indice].valor, 1, largo, handler);
+        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
+        leer_campos(lista_de_campos->nodo1, handler);
+        //leer_campos(lista_de_campos->nodo2);
+        }
+    else {
+        largo = lista_de_campos->nodo2->num;
+        indice = lista_de_campos->nodo1->num;
+        nombre = array_variables[indice].nombre;
+        fread(array_variables[indice].valor, 1, largo, handler);
+        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
+    }
 }
 
 
@@ -544,7 +726,8 @@ void * execut(ast * p) {
     if (p==NULL) {
         printf ("error en funcion execute\n");
         return;
-     }
+     } 
+
     
     if (p->tipo != secuencia) {
         int numlinea;
@@ -595,6 +778,171 @@ void * execut(ast * p) {
     }
     
     switch (p->tipo) {
+        
+        case buscar_registro:
+        {
+            int tam;
+            int pos;
+            int sreg;
+            int nroreg;
+            char * datafile;
+            FILE * handler2;
+            
+            ast * registro;
+            
+            int indice, indice2;
+            indice = array_variables[(int) p->nodo1->num].procedimiento ;
+            printf("buscaremos en el registro de %s \n", array_variables[(int) p->nodo1->num].nombre);
+            registro = pila_records[indice];
+            indice2 = registro->nodo2->num;
+            datafile = constantes[indice2];
+            nroreg = (int) array_variables[(int) p->nodo2->num].numero ;
+            printf("con numero de registro %d\n", nroreg );
+            //alla vamos....
+    
+            handler2 = fopen(datafile, "r");
+            //bucle de calculo de tamaño de registro
+            tamanio = 0;
+            calcular_tamanio(registro->nodo3);
+            tam = tamanio+1;  // temporalmente por el fin de linea
+            pos = (tam * (nroreg - 1) );
+            
+            fseek(handler2, pos, SEEK_SET);
+            leer_campos(registro->nodo3, handler2);
+            //bucle de lectura de campos:
+            //fread(&un_registro, 1, sizeof(un_registro), handler2);
+            
+            fclose(handler2);
+     
+            pausar();
+            
+        }
+        break;
+        
+        case definir_registro: 
+        {
+        // procedimiento se esta usando para registrar el numero consecutivo de record
+        int indice;
+        indice = (int) p->nodo1->num;
+        printf ("se ha encontrado la definicion del record: %d -- %s\n", array_variables[indice].procedimiento, array_variables[indice].nombre);
+        }
+        break;
+    
+        
+        
+        case actualizar:   // actualiza el box1 de la ventana
+        {
+            int i, j;
+            GtkWidget * w;
+            
+            
+            i = p->nodo1->num; // ventana que se desea actualizar
+            j = ( (int) array_variables[i].numero  - (int) 1); // indice en el array de ventanas
+            w = arrayWidgets[0].box1; // box1 de la ventana  (frame x,y)
+ 
+            set_focus(  NULL,  NULL, G_OBJECT( w ) );  // refresca los entry text
+
+        }
+            break;
+            
+        
+        case use_indice:
+        {
+            use();
+        }
+            break;
+            
+        case close_indice:
+        {
+            t_close();
+        }
+            break;
+            
+            
+            
+        
+        
+        case buscar_clave:
+        {
+            int var;
+            int indice;
+            int nro_reg;
+            char * llave;
+            xapuntador nodoobjetivo = 0;
+            posicion  posobjetivo = 0;
+            int encontrar = 0;
+            struct xnodo xnodoobjetivo;
+            
+            var = p->nodo1->num;
+            llave = (int) array_variables[var].valor;
+            buscar(llave, &xraiz, &encontrar, &nodoobjetivo, &posobjetivo);
+            var = p->nodo2->num;
+            array_variables[var].numero = encontrar;
+            if (encontrar) {
+                leenodo(&nodoobjetivo, &xnodoobjetivo, tam_registro);
+                nro_reg = xnodoobjetivo.datoInt[posobjetivo - 1];
+                var = p->nodo3->num;
+                array_variables[var].numero = nro_reg;
+                //fprintf(stdout, "Se ha encontrado: %s\n\n", xnodoobjetivo.xllave[posobjetivo - 1]);
+                fprintf(stdout, "Dato: %li\n\n", nro_reg );
+                //mostrar_registro(nro_reg);
+            }
+            
+            
+/*
+            if (encontrar) {
+                printf("%s encontrado\n", llave);
+                
+            }
+            
+                else
+                    printf("%s NO encontrado\n", llave);
+*/
+        }
+            break;
+            
+        case insertar_clave:
+        {
+            int var;
+ 
+            char * llave;
+            
+            int encontrar = 0;
+            var = p->nodo1->num;
+            llave = (int) array_variables[var].valor;
+            
+            inserta(llave, &xraiz) ;
+            
+/*
+                var = p->nodo2->num;
+                array_variables[var].numero = encontrar;
+*/
+        
+        
+        }
+            break;
+            
+        case eliminar_clave:
+        {
+            int var;
+ 
+            char * llave;
+            
+            int encontrar = 0;
+            var = p->nodo1->num;
+            llave = (int) array_variables[var].valor;
+            
+            eliminar(llave, &xraiz) ;
+            
+/*
+            var = p->nodo2->num;
+                array_variables[var].numero = encontrar;
+*/
+        
+        }
+            
+            break;
+            
         
         
         case procedimiento:
@@ -802,7 +1150,7 @@ void * execut(ast * p) {
             int idx_prg_bak;
             
             idx_prg_bak = idx_prg;
-            
+            if (depurar)
             printf("CASO NODO interpreta\n");
 
 
@@ -978,7 +1326,7 @@ void * execut(ast * p) {
 
             a = (int) p->nodo1->num; //ventana
             a = get_indice(a); //convierte a indice de ventanas
-            t = (int) p->nodo2->num; //variable alfa
+            t = (int) p->nodo2->num; // indice de variable alfa en var
 
             w = (int) evalua(p->nodo3); //ancho y alto
             h = (int) evalua(p->nodo4); //ancho y alto
@@ -997,7 +1345,9 @@ void * execut(ast * p) {
             gtk_widget_set_name(entry, buffer);
             gtk_entry_set_text(entry, constantes [(int) var[t]]);
 
-            g_signal_connect(entry, "changed", G_CALLBACK(enter_callback), entry);
+            g_signal_connect(entry, "changed", G_CALLBACK(change_entry_callback), entry);
+            //se activa con la tecla enter
+            g_signal_connect(entry, "activate", G_CALLBACK(enter_callback), entry);
 
             //  gtk_container_add (GTK_CONTAINER (arrayWidgets[a].box1), entry);
             gtk_fixed_put(GTK_FIXED(arrayWidgets[a].box1), entry, w, h);
@@ -1033,7 +1383,10 @@ void * execut(ast * p) {
             arrayWidgets[idx_win].box1 = box1;
             gtk_window_set_default_size(GTK_WINDOW(arrayWidgets[idx_win].nombre), width, heigh);
             gtk_container_add(GTK_CONTAINER(arrayWidgets[idx_win].nombre), box1);
+            gtk_widget_add_events(GTK_WIDGET(arrayWidgets[idx_win].nombre), GDK_CONFIGURE);
             if (idx_win == 0) {
+                g_signal_connect(G_OBJECT(arrayWidgets[idx_win].nombre), "set-focus",  G_CALLBACK(set_focus), G_OBJECT(box1)  );
+                //g_signal_connect(arrayWidgets[idx_win].nombre, "configure-event", G_CALLBACK(configure_callback), NULL);
                 g_signal_connect(arrayWidgets[idx_win].nombre, "destroy", G_CALLBACK(close_main_window), NULL);
             } else
                 // g_signal_connect (arrayWidgets[aa].nombre, "delete_event", G_CALLBACK (close_window), NULL);
@@ -1041,7 +1394,7 @@ void * execut(ast * p) {
 
             arrayWidgets[idx_win].indice = 1;
             
-            
+            if(depurar)
             printf("mostraremos la ventana %d\n", idx_win );
 
             gtk_widget_show(arrayWidgets[idx_win].nombre);
@@ -1102,11 +1455,12 @@ void * execut(ast * p) {
         {
             printf("mostrando las ventanas\n");
             int i = 0;
-            for (i = 0; i < 21; i++) {
+            for (i = 0; i < 101; i++) {
                 if (arrayWidgets[i].indice == 1) {
                     GtkWidget *nuevo;
                     nuevo = arrayWidgets[i].nombre;
                     // gtk_window_set_default_size (GTK_WINDOW (nuevo), 400, 350);
+                    if (nuevo != NULL)
                     gtk_widget_show(nuevo);
                 }
             }
@@ -1296,6 +1650,10 @@ void * execut(ast * p) {
             //printf("asignar alfanumerico\n");
             var[(int) p->nodo1->num] = p->nodo2->num;
             strcpy(array_variables[(int) p->nodo1->num].valor , constantes [ (int) var [(int) p->nodo1->num] ]);
+            break;
+            
+        case asigna_alfa_var:
+            strcpy(array_variables[(int) p->nodo1->num].valor , array_variables[(int) p->nodo2->num].valor);
             break;
 
         case continuar:

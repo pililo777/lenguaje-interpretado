@@ -382,7 +382,7 @@ main_anterior (int argc, char *argv[])
 //main_old()
 {
    memoria = 0;
-   ejecuta_desde_editor = 1;
+   ejecuta_desde_editor = 1; // true
         
     GtkWidget *window;
 

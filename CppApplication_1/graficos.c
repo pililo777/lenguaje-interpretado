@@ -182,6 +182,27 @@ void dibujarlinea() {
     //    gtk_widget_queue_draw(darea);
     cairo_t *cr;
   cr = gdk_cairo_create (gtk_widget_get_window (darea));
+
+/*
+    cairo_text_extents_t te;
+    cairo_set_source_rgb(cr, 0.0, 8.0, 5.0);
+    cairo_select_font_face(cr, "Georgia",
+            CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+    
+    cairo_set_font_size(cr, 12);
+
+   cairo_text_extents(cr, " ", &te);
+cairo_move_to(cr, 0, 0);
+    
+    cairo_show_text(cr, "ejemplo de texto");
+  
+  
+cairo_set_source_rgb (cr, 0, 8, 4);
+cairo_rectangle (cr, 0, 0, 100, 100);
+cairo_fill (cr);
+*/
+  
+  
 //  printf("A-do draw\n");
   
   //do_drawing(cr, event);
@@ -196,7 +217,8 @@ void dibujarlinea() {
     y1 = (double)   evalua( nodografico2->nodo4);
   //  printf ("%lf  %lf  %lf  %lf\n",  x, y, x1, y1);
     
-  cairo_set_source_rgb(cr, 1, 0, 1);  // color de pintado
+  cairo_set_source_rgb(cr, 0, 8, 0);  // color de pintado
+  cairo_show_text (cr, "ejemplo de texto");
   cairo_set_line_width(cr, 3.5);
 //   printf("inicio dodrawing");
    
@@ -252,8 +274,8 @@ int mainGraph()
   g_signal_connect(window, "button-press-event",    G_CALLBACK(clicked), NULL);
  
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-  gtk_window_set_default_size(GTK_WINDOW(window), 900, 700); 
-  gtk_window_set_title(GTK_WINDOW(window), "Graficos en GTK, by Pililo");
+  gtk_window_set_default_size(GTK_WINDOW(window), 800, 600); 
+  gtk_window_set_title(GTK_WINDOW(window), "Ventana Grafica");
 
   gtk_widget_show_all(window);
 

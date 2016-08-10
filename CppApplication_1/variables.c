@@ -7,6 +7,7 @@ ast * procedimientos[127]; //cambiar esta forma
  int idx_prc = 0;
 
 ast * pila_programas[32];
+ast * pila_records[32]; // pila de registros
  int idx_prg = 0;
  int idx_vec = 0;
 
@@ -26,3 +27,9 @@ ast * pila_programas[32];
  char variables[127][127];
  
  struct_variable   array_variables[256];
+ 
+ int depurar = 0;
+ 
+ int idx_rec = 0;  // indice de records (registros)
+ 
+ 

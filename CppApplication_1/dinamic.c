@@ -4,6 +4,7 @@
 
 extern int contador;
 extern int contadorvar;
+
 /*
 typedef struct  {
           char        tipo;
@@ -12,10 +13,13 @@ typedef struct  {
           double     numero;
 } struct_variable;
 */
+
 #include "vars.h"
-/* extern struct_variable array_variables[256];
+/*
+extern struct_variable array_variables[256];
 extern char constantes[127][127];
- * */
+*/
+ 
 
 
 const char * libreria = "libmyModule.so";

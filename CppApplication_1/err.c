@@ -1,5 +1,5 @@
 #include "stdio.h"
-//#include "run.c"
+#include "vars.h"
 extern int linenumber;
 extern int err_number;
 extern char letrita_mala;
@@ -31,7 +31,8 @@ char * c;
 nextline()
 {
    linenumber++;
-   //printf("\nNUEVA LINEA: %d\n", linenumber);
+   if (depurar)
+   printf("\nNUEVA LINEA: %d\n", linenumber);
 //   lineaAnterior = lineaEjecucion;
   
 }
