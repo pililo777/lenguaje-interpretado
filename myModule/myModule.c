@@ -33,12 +33,13 @@ extern   int variables_count ;
 extern char   variables[127][127];
 extern char   constantes[127][127];
  
-typedef struct  {
+struct struct_variable  {
           char        tipo;
           char        nombre[18];
           char        valor[127]; 
-          double     numero;
-} struct_variable;
+          double      numero;
+          int         procedimiento;
+} ;
 
 /*
 struct_variable   array_variables[256];
@@ -48,9 +49,9 @@ struct_variable   array_variables[256];
 /*
 struct_variable   array_variables[256];
 */
- 
+ //void SomeMethod(struct Coordinate (*coordinates)[10])
 
-void listarTDS(int * contador, int * contadorvar,  struct_variable  array_variables[256], char constantes[127][127] ) {
+void listarTDS(int * contador, int * contadorvar, struct  struct_variable  array_variablesx[256], char  constantes[127][127] ) {
     int i;
     int cont, contvar;
     cont = (int) *contador;
@@ -61,11 +62,11 @@ void listarTDS(int * contador, int * contadorvar,  struct_variable  array_variab
     printf("VARIABLES: %d\n", contvar);
  
     for (i=0; i<contvar;i++) {
-        printf("varalfa nombre %d    %s   %c ", i, array_variables[i].nombre, array_variables[i].tipo);
-        if (array_variables[i].tipo=='N') 
-            printf("%lf\n", array_variables[i].numero);
+        printf("varalfa nombre %d    %s   %c ", i, array_variablesx[i].nombre, array_variablesx[i].tipo);
+        if (array_variablesx[i].tipo=='N') 
+            printf("%lf\n", array_variablesx[i].numero);
         else
-            printf("%s\n", array_variables[i].valor);
+            printf("%s\n", array_variablesx[i].valor);
     }
      printf("CONSTANTES: %d\n", cont);
     for (i=0; i<cont;i++) {

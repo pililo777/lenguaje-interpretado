@@ -1,3 +1,5 @@
+//hacer un listado de los contactos.
+
 registro clientes 'contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
