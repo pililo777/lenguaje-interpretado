@@ -6,6 +6,7 @@ extern ast * procedimientos[127]; //cambiar esta forma
 extern int idx_prc;
 
 extern ast * pila_programas[32];
+extern ast * pila_records[32]; // pila de registros
  extern int idx_prg;
 
  extern int nro_decimales;
@@ -26,8 +27,8 @@ extern ast * pila_programas[32];
 
 
 %start ROOT
-
-%token STOP 
+%token BUSCAR INSERTAR ELIMINAR USE_INDICE CLOSE_INDICE
+%token STOP  REGISTRO FINREGISTRO
 %token ABRIR CERRAR MOSTRAR VACIAR
 %token LLAMAR PROC END PROCNAME GRAFICOS DIM LINEA CIRCULO CONVERTIR EVALUAR
 %token EQ
@@ -59,16 +60,20 @@ extern ast * pila_programas[32];
 %token LEER BORRAR
 %token NUMBER
 %token NAME SNAME 
-%token LITERAL DOBLECOMILLA OR AND CONTINUAR SALIR
+%token LITERAL DOBLECOMILLA OR AND CONTINUAR SALIR ACTUALIZAR
 %type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME defventana defcontroles lista_controles
-%type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND CONTINUAR SALIR
+%type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND CONTINUAR SALIR USE_INDICE
+%type <nodo> CLOSE_INDICE ACTUALIZAR lista_campos
 %%
 
 ROOT:
-   stmtseq    {  pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++ ; }
+   stmtseq    {  pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++ ; 
+if (depurar)
+  	printf("se ha reducido el programa por la primera regla de la linea 66 de grammar.y\n"); }
 |  stmtseq TERMINAR procedimientos {
-  	printf("se ha reducido el programa por la regla de la linea 66 de grammar.y\n");
+if (depurar)
+  	printf("se ha reducido el programa por la segunda regla de la linea 66 de grammar.y\n");
  	pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++; }
 ;
 
@@ -80,6 +85,7 @@ procedimientos:
 statement:
   designator EQ expression { $$ = nodo2(asigna_num, $1, $3); /*asignacion*/} 
 | sdesignator EQ LITERAL  { $$ = nodo2(asigna_alfa, $1, $3); /*asign literal*/} 
+| sdesignator EQ sdesignator  { $$ = nodo2(asigna_alfa_var, $1, $3); /*asign literal*/} 
 | sdesignator PLUS EQ sdesignator  { $$ = nodo2(sumar_alfa, $1, $4); /*suma alfa*/} 
 | DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
 | designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }
@@ -115,8 +121,24 @@ statement:
 | MOSTRAR sdesignator { $$=nodo1(mostrar, $2); }
 | VACIAR sdesignator { $$=nodo1(vaciar, $2); }
 | CONTINUAR { $$=nodo1(continuar, $1); }
-| SALIR { $$=nodo1(salir, $1); }
+| SALIR { $$=nodo1(salir, $1); }   //este deberia ser nodo0?
+| BUSCAR sdesignator designator designator { $$ = nodo3(buscar_clave,  $2, $3, $4); }  /* buscar en indce */
+| INSERTAR sdesignator    { $$ = nodo1(insertar_clave,  $2); }  /*  en indice */
+| ELIMINAR sdesignator    { $$ = nodo1(eliminar_clave,  $2); }  /*  en indice */
+| USE_INDICE { $$=nodo0(use_indice, $1); }
+| CLOSE_INDICE { $$=nodo0(close_indice, $1); }
+| ACTUALIZAR VENTANA designator { $$ = nodo1(actualizar, $3); } // actualiza los entry text
+| REGISTRO designator LITERAL lista_campos FINREGISTRO {printf("uno...\n"); $$ = nodo3(definir_registro, $2, $3, $4);
+                        pila_records[idx_rec] = $$   ; 
+			array_variables[(int) $2->num].procedimiento = idx_rec  ;
+			idx_rec++;
+ }
+| BUSCAR REGISTRO designator designator {printf("dos...\n"); $$=nodo2(buscar_registro, $3, $4); }
+
 ;
+lista_campos:
+ sdesignator NUMBER { $$ = nodo2(listacampos, $1, $2); }
+| sdesignator NUMBER lista_campos { $$ = nodo3(listacampos, $3, $1, $2); }
 
 defventana:
   LITERAL {  $$ = nodo1(ventana, $1) ;  } 
