@@ -1,3 +1,12 @@
+registro clientes 'contactos.dbf'
+  CCLAVE 10 
+  CNOMBRE 61
+  CDIRECCION 61
+  CTELEFONO 9
+fin-registro
+
+
+use  //trabajaremos con el indice
 imprimir 'hola, inicio del programa'
 imprimir 'Introduce tu nombre: '
 TUNOMBRE = 'dfdf '
@@ -39,10 +48,10 @@ mientras j < 7
 imprimir 'vectores: ',  vec1[1], ' ',  vec1[2], ' ',  vec2[1]
 imprimir 'x=', x
 //stop
-NOMBRE = 'perico'
-APELLIDO = 'de los palotes'
-DIRECCION = ' vive en su casa'
-TELEFONO = ' 93123456'
+NOMBRE = '10320'
+APELLIDO = 'nombre de la empresa'
+DIRECCION = 'direccion de la empresa'
+TELEFONO = ' 9999 '
 
 p = 1
 //imprimir 'introduce el valor de p'
@@ -55,20 +64,22 @@ abc = 2
 
 //leer j
 
-ventana xyz 600 500
-xyz ventana 'MENU PRINCIPAL DEL PROGRAMA'
-xyz etiqueta 'INTRODUZCA SUS DATOS:' 10 10 
-xyz etiqueta 'valor numerico: '   10 30
+ventana xyz 500 340
+xyz ventana 'DEMOSTRACION DE CONSULTA DE DATOS'
+xyz etiqueta 'INTRODUCE UN CODIGO Y HAZ CLIC EN BUSCAR:' 10 10 
+xyz etiqueta 'Código: '   10 30
 xyz texto NOMBRE           (x + 0), 30
-xyz etiqueta 'Apellidos:' 10 70
-xyz texto APELLIDO         (x + 5), 70
+xyz etiqueta 'Empresa:' 10 70
+xyz texto APELLIDO         (x + 0 ), 70
 xyz etiqueta 'Dirección:' 10 110
-xyz texto DIRECCION        (x + 10), 110
+xyz texto DIRECCION        (x + 0), 110
 xyz etiqueta 'Teléfonos:' 10 150
-xyz texto TELEFONO         (x + 15), 150
+xyz texto TELEFONO         (x + 0), 150
  // enlaza un boton con un evento que muestra un dialogo con un mensaje
-xyz boton 'clicame'       clicar_boton 270 250  
-xyz boton 'abrir ventana' abre_ventana 270 290
+xyz boton 'Buscar...'   buscar_en_indice   300 30  //anteriormente abre_ventana
+xyz boton 'Insertar...'   insertar_en_indice   300 50
+xyz boton 'Ventana Grafica'  mostrar_grafica   20 270   //clicar_boton
+xyz boton 'Graficar...'  clicar_boton   220 270   //clicar_boton
 
 
 imprimir 'llamando a la funcion graficos'
@@ -76,7 +87,7 @@ numero_boton = 0
 coordx = 0
 coordy = 0
 
-graficos     clicar_ventana_grafica     numero_boton coordx coordy
+
 imprimir 'se ha llamado a la funcion de graficos'
 
 // activa todas las ventanas creadas hasta que se cierra la primera
@@ -89,12 +100,53 @@ imprimir 'resultado = ', resultado
 llamar 'imprimir resultado'
 terminar  // ****************  finaliza  el programa *************
 
+proc mostrar_grafica
+	graficos     clicar_ventana_grafica     numero_boton coordx coordy
+fin
+
+
+
+
+proc buscar_en_indice
+
+         encontrado = 0
+         numeroreg = 0
+
+         buscar NOMBRE encontrado numeroreg
+
+         si encontrado = 1 entonces
+              
+                    imprimir 'el dato se encuentra en la posicion: ', numeroreg
+                    buscar registro clientes numeroreg
+                    DIRECCION =  CDIRECCION
+                    APELLIDO = CNOMBRE
+                    TELEFONO  =  CTELEFONO
+         sino
+                      APELLIDO = 'no se ha encontrado'
+         si-fin
+          
+	 actualizar ventana xyz
+fin
+
+proc insertar_en_indice
+         encontrado = 0
+         insertar NOMBRE
+         APELLIDO = 'Se ha insertado'
+	 actualizar ventana xyz
+fin
+
+
+
 procedimiento abre_ventana
+        // imprimir 'el nombre es: ', NOMBRE
+
+
 	 ventana abc 400 350
 	 abc ventana 'SEGUNDA VENTANA'
 	 abc etiqueta 'INTRODUZCA SU APELLIDO: ' 10 20 
-	 abc texto APELLIDO x, 30
+	 abc texto APELLIDO 200, 20
 	 abc boton 'por favor clic aqui' clicar_boton2  140 150
+         
 fin
 
 procedimiento clicar_boton2
@@ -153,7 +205,9 @@ procedimiento clicar_ventana_grafica
    			fin-haz
    			i=i+1
    		fin-haz
+		indice = 0
    si-fin
+
 fin
 
 
