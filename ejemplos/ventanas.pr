@@ -132,8 +132,10 @@ fin
 
 proc insertar_en_indice
          encontrado = 0
-         insertar NOMBRE
-         APELLIDO = 'Se ha insertado'
+         insertar NOMBRE encontrado
+         si encontrado = 1 entonces
+            mensaje 'YA EXISTE ESTA CLAVE, NO SE PUEDE INSERTAR'
+         si-fin
 	 actualizar ventana xyz
 fin
 
