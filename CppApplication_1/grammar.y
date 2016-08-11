@@ -123,7 +123,7 @@ statement:
 | CONTINUAR { $$=nodo1(continuar, $1); }
 | SALIR { $$=nodo1(salir, $1); }   //este deberia ser nodo0?
 | BUSCAR sdesignator designator designator { $$ = nodo3(buscar_clave,  $2, $3, $4); }  /* buscar en indce */
-| INSERTAR sdesignator    { $$ = nodo1(insertar_clave,  $2); }  /*  en indice */
+| INSERTAR sdesignator designator    { $$ = nodo2(insertar_clave,  $2, $3); }  /*  en indice */
 | ELIMINAR sdesignator    { $$ = nodo1(eliminar_clave,  $2); }  /*  en indice */
 | USE_INDICE { $$=nodo0(use_indice, $1); }
 | CLOSE_INDICE { $$=nodo0(close_indice, $1); }
