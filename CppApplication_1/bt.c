@@ -310,10 +310,11 @@ dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k,
 }
 
 empujarabajo(tipollave *nuevallave, xapuntador *xp,
-        int *empujararriba, tipollave *x, xapuntador *xxder, xapuntador *datoInt, xapuntador *datoInt2)
+        int *empujararriba, tipollave *x, xapuntador *xxder, 
+        xapuntador *datoInt, xapuntador *datoInt2, int *encontrar)
  {
     posicion k;
-    int encontrar;
+    int encontrar1 = *encontrar;
     struct xnodo xpn;
     xapuntador xxder1;
     long int datoInt1;
@@ -324,22 +325,24 @@ empujarabajo(tipollave *nuevallave, xapuntador *xp,
     if (depurar)
     printf ("empujarabajo: %li\n", dato);
     if (*xp == -1) {
+        *encontrar = 0;
         *empujararriba = 1;
         strcpy(x, nuevallave);
         *datoInt2 = *datoInt; 
         *xxder = -1;
     } else {
-        encontrar = 0;
+        encontrar1 = 0;
         k = 0;
-        buscarnodo(nuevallave, xp, &encontrar, &k);
-        if (encontrar == 1) {
+        buscarnodo(nuevallave, xp, &encontrar1, &k);
+        if (encontrar1 == 1) {
             fprintf(stdout, "error: llave duplicada\n");
+            *encontrar = 1;
         } else {
             leenodo(xp, &xpn, tam_registro);
             xxder1 = *xxder;
             datoInt1 = *datoInt;
             datoInt3 = *datoInt2;
-            empujarabajo(nuevallave, &xpn.xrama[k], empujararriba, x, &xxder1, &datoInt1, &datoInt3);
+            empujarabajo(nuevallave, &xpn.xrama[k], empujararriba, x, &xxder1, &datoInt1, &datoInt3, encontrar);
             *xxder = xxder1;
             *datoInt = datoInt1;
             *datoInt2 = datoInt3;
@@ -357,20 +360,24 @@ empujarabajo(tipollave *nuevallave, xapuntador *xp,
                 }
             }
         }
+        //
     }
 }
 
-inserta(tipollave *nuevallave, xapuntador *xraiz, xapuntador *datoEntero) {
+ 
+
+inserta(tipollave *nuevallave, xapuntador *xraiz, xapuntador *datoEntero, int *encontrar) {
     int empujararriba;
     tipollave x[55];
     long int datoEntero2;
     xapuntador xxder, xp;
     struct xnodo xpn;
+    *encontrar = 0;
 
     empujararriba = 0;
     xxder = 0;
     datoEntero2 = 0;
-    empujarabajo(nuevallave, xraiz, &empujararriba, &x, &xxder, datoEntero, &datoEntero2);
+    empujarabajo(nuevallave, xraiz, &empujararriba, &x, &xxder, datoEntero, &datoEntero2, encontrar);
     if (empujararriba == 1) {
         nuevo(&xp, tam_registro);
         xpn.xconteo = 1;
@@ -589,9 +596,7 @@ eliminar(tipollave *objetivo, xapuntador *xraiz) {
     leenodo(xraiz, &xnodoraiz, tam_registro);
     if (encontrar == 0) {
         fprintf(stdout, "clave no encontrada...\n");
-/*
-        getchar();
-*/
+        
     } else {
         if (xnodoraiz.xconteo == 0) {
             xp = *xraiz;
@@ -682,7 +687,7 @@ leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */ {
                 while (linea[i]!=' ') i++;
                 linea[i]='\0';
                 if (depurar) printf("insertaremos la clave: %s\n ", linea);
-                inserta(&linea, xraiz, &cont);
+                inserta(&linea, xraiz, &cont, 0);
                 cont++; }
         };
     };
