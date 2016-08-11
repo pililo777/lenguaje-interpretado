@@ -236,15 +236,13 @@ void eliminar_en_indice() {
 }
 
 
-extern int inserta(tipollave * , xapuntador * );
+extern int inserta(tipollave * , xapuntador * , int *, int * );
 
 void insertar_en_indice() {
     
     
      strcpy(llave, buff2[1]);
-     inserta (llave, &xraiz);
-
-
+     inserta (llave, &xraiz, 0, 0);
 }
 
 
