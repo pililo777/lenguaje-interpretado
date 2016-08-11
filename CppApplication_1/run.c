@@ -686,6 +686,7 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
         indice = lista_de_campos->nodo2->num;
         nombre = array_variables[indice].nombre;
         fread(array_variables[indice].valor, 1, largo, handler);
+        if (depurar)
         printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
         leer_campos(lista_de_campos->nodo1, handler);
         //leer_campos(lista_de_campos->nodo2);
@@ -695,6 +696,7 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
         indice = lista_de_campos->nodo1->num;
         nombre = array_variables[indice].nombre;
         fread(array_variables[indice].valor, 1, largo, handler);
+        if (depurar)
         printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
     }
 }
@@ -903,15 +905,26 @@ void * execut(ast * p) {
             
         case insertar_clave:
         {
+            int encontrar = 0;
             int var;
+            int dato = 0;
  
             char * llave;
             
-            int encontrar = 0;
+            xapuntador nodoobjetivo = 0;
+            posicion  posobjetivo = 0;
+            
+            
             var = p->nodo1->num;
             llave = (int) array_variables[var].valor;
             
-            inserta(llave, &xraiz) ;
+            
+            
+            inserta(llave, &xraiz, &dato, &encontrar) ;
+            if (encontrar)
+                var = p->nodo2->num;
+                array_variables[var].numero = 1;
+                printf("la clave ya existe, no se puede insertar......\n");
             
 /*
                 var = p->nodo2->num;
