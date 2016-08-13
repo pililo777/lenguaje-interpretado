@@ -703,6 +703,36 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
 
 
 
+void guardar_campos(ast * lista_de_campos, FILE * handler) {
+    int nnodos = 0;
+    int largo;
+    int indice;
+    char * nombre;
+    //char buff[100];
+    if (lista_de_campos->tipo!=listacampos) return;
+    nnodos = lista_de_campos->subnodos;
+    if (nnodos == 3) {
+        largo = lista_de_campos->nodo3->num;
+        indice = lista_de_campos->nodo2->num;
+        nombre = array_variables[indice].nombre;
+        fwrite(array_variables[indice].valor, 1, largo, handler);
+        if (depurar)
+        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
+        guardar_campos(lista_de_campos->nodo1, handler);
+        //leer_campos(lista_de_campos->nodo2);
+        }
+    else {
+        largo = lista_de_campos->nodo2->num;
+        indice = lista_de_campos->nodo1->num;
+        nombre = array_variables[indice].nombre;
+        fwrite(array_variables[indice].valor, 1, largo, handler);
+        if (depurar)
+        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
+    }
+}
+
+
+
 void * execut(ast * p) {
    
     //printf("profundidad: %d\n", profundidad);
@@ -789,8 +819,8 @@ void * execut(ast * p) {
             int nroreg;
             char * datafile;
             FILE * handler2;
-            
             ast * registro;
+            
             
             int indice, indice2;
             indice = array_variables[(int) p->nodo1->num].procedimiento ;
@@ -908,29 +938,54 @@ void * execut(ast * p) {
             int encontrar = 0;
             int var;
             int dato = 0;
+            int tam, pos, nroreg;
  
             char * llave;
+            ast * registro;
+             FILE * handler2;
+             char * datafile;  //fichero de datos dbf
+             
+             
+            int indice, indice2;
             
             xapuntador nodoobjetivo = 0;
             posicion  posobjetivo = 0;
             
+            indice = array_variables[(int) p->nodo3->num].procedimiento ;
+            printf("buscaremos en el registro de %s \n", array_variables[(int) p->nodo3->num].nombre);
+            registro = pila_records[indice];
             
+            //obtengo el nombre fisico del archivo en disco
+            indice2 = registro->nodo2->num;
+            datafile = constantes[indice2];
+            
+            // obtengo el nombre de la clave que se quiere agregar
             var = p->nodo1->num;
             llave = (int) array_variables[var].valor;
             
-            
-            
-            inserta(llave, &xraiz, &dato, &encontrar) ;
-            if (encontrar)
+            //calculamos el numero de registro para el nuevo registro
+            tamanio = 0;
+            calcular_tamanio(registro->nodo3);
+            tam = tamanio+1;  // temporalmente por el fin de linea
+            handler2 = fopen(datafile, "r+");
+            fseek(handler2, 0, SEEK_END);
+            pos = ftell(handler2);
+            nroreg = (pos / tam) + 1;   //sera el siguiente
+            inserta(llave, &xraiz, &nroreg, &encontrar) ;
+            if (encontrar) {
+                //encontrado = 1
                 var = p->nodo2->num;
                 array_variables[var].numero = 1;
                 printf("la clave ya existe, no se puede insertar......\n");
-            
-/*
-                var = p->nodo2->num;
-                array_variables[var].numero = encontrar;
-*/
-        
+            }
+            else
+            {
+            // la clave ya ha sido insertada con el numero de registro correspondiente
+            // solamente falta insertar el registro de datos en fichero dbf
+                guardar_campos(registro->nodo3, handler2);
+                fwrite("\n", 1, 1, handler2);  //quitar esto posteriormente
+            }
+            fclose(handler2);
         
         }
             break;

@@ -124,7 +124,8 @@ proc buscar_en_indice
                     APELLIDO = CNOMBRE
                     TELEFONO  =  CTELEFONO
          sino
-                      APELLIDO = 'no se ha encontrado'
+                    APELLIDO = 'no se ha encontrado'
+		    mensaje 'no se ha encontrado esa clave'
          si-fin
           
 	 actualizar ventana xyz
@@ -132,7 +133,13 @@ fin
 
 proc insertar_en_indice
          encontrado = 0
-         insertar NOMBRE encontrado
+	 CDIRECCION = DIRECCION
+	 CNOMBRE = APELLIDO   //pendiente arreglar esta confusion
+         CTELEFONO = TELEFONO
+         CCLAVE = NOMBRE   //esta tambien
+
+
+         insertar NOMBRE encontrado clientes
          si encontrado = 1 entonces
             mensaje 'YA EXISTE ESTA CLAVE, NO SE PUEDE INSERTAR'
          si-fin
