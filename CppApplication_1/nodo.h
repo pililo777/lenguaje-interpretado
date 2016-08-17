@@ -9,7 +9,8 @@ typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable, dimensionar, a
             graficos, stop, abrir, cerrar, leer_archivo, mostrar, 
 			sumar_alfa, salir,  vaciar, and, or, continuar, buscar_clave, insertar_clave, 
                         eliminar_clave, use_indice, close_indice, actualizar,
-            definir_registro, buscar_registro, listacampos, asigna_alfa_var} tiponodo;
+            definir_registro, buscar_registro, listacampos,
+            asigna_alfa_var, actualizar_registro, escribir_archivo} tiponodo;
 
 typedef struct ast {
 	tiponodo tipo;

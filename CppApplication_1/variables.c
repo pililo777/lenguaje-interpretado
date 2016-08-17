@@ -26,10 +26,18 @@ ast * pila_records[32]; // pila de registros
  char constantes[127][127];
  char variables[127][127];
  
- struct_variable   array_variables[256];
+ struct_variable   array_variables[256]; /*
+                                          * este array puede contener hasta 256 variables
+                                          * que pueden ser alfanumericas (valor)
+                                          * o numericas (numero)
+                                          * para eso necesitamos guardar en el nodo
+                                          * el numero indice de la variable en el array
+                                          * */
  
  int depurar = 0;
  
  int idx_rec = 0;  // indice de records (registros)
  
+ FILE  * pila_indices[10];   //ficheros indice
+ int idx_indices = 0;
  

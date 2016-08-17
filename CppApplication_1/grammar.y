@@ -27,6 +27,7 @@ extern ast * pila_records[32]; // pila de registros
 
 
 %start ROOT
+%token GUARDAR
 %token BUSCAR INSERTAR ELIMINAR USE_INDICE CLOSE_INDICE
 %token STOP  REGISTRO FINREGISTRO
 %token ABRIR CERRAR MOSTRAR VACIAR
@@ -62,7 +63,7 @@ extern ast * pila_records[32]; // pila de registros
 %token NAME SNAME 
 %token LITERAL DOBLECOMILLA OR AND CONTINUAR SALIR ACTUALIZAR
 %type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
-%type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME defventana defcontroles lista_controles
+%type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME   
 %type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND CONTINUAR SALIR USE_INDICE
 %type <nodo> CLOSE_INDICE ACTUALIZAR lista_campos
 %%
@@ -96,7 +97,6 @@ statement:
 | IF expression THEN stmtseq FI { $$ = nodo2(si, $2, $4); /*if sin else*/}
 | WHILE expression DO stmtseq OD { $$ = nodo2(mientras, $2, $4); /*while*/}
 | FOR designator EQ expression TO expression DO stmtseq OD {$$ = nodo4(desde, $2, $4, $6, $8); /*for*/}
-| VENTANA defventana END VENTANA { $$ = $2 ; }
 | VENTANA designator NUMBER NUMBER  { $$ = nodo3(crear_ventana, $2, $3, $4) ;  }
 | LEER VENTANA designator LITERAL { $$=nodo1(mostrar_ventana, $3) ;  } 
 | LLAMAR VENTANA designator { $$=nodo1(mostrar_ventanas, $3) ;  } 
@@ -117,6 +117,8 @@ statement:
 | CERRAR designator { $$=nodo1(cerrar, $2); }
 | LEER designator   { $$ = nodo1(leer,  $2) ; /*leer variable numerica*/}
 | LEER  '#' designator sdesignator designator { $$=nodo3(leer_archivo, $3, $4, $5); }
+| GUARDAR  '#' designator sdesignator { $$=nodo2(escribir_archivo, $3, $4); }
+| GUARDAR  '#' designator sdesignator NUMBER COMMA NUMBER { $$=nodo4(escribir_archivo, $3, $4, $5, $7); }
 | LEER sdesignator  { $$ = nodo1(leertexto,  $2) ; /*leer variable alfa*/}
 | MOSTRAR sdesignator { $$=nodo1(mostrar, $2); }
 | VACIAR sdesignator { $$=nodo1(vaciar, $2); }
@@ -125,8 +127,8 @@ statement:
 | BUSCAR sdesignator designator designator { $$ = nodo3(buscar_clave,  $2, $3, $4); }  /* buscar en indce */
 | INSERTAR sdesignator designator designator   { $$ = nodo3(insertar_clave,  $2, $3, $4); }  /*  en indice */
 | ELIMINAR sdesignator    { $$ = nodo1(eliminar_clave,  $2); }  /*  en indice */
-| USE_INDICE { $$=nodo0(use_indice, $1); }
-| CLOSE_INDICE { $$=nodo0(close_indice, $1); }
+| USE_INDICE sdesignator { $$=nodo1(use_indice, $2); }
+| CLOSE_INDICE  { $$=nodo0(close_indice, $1); }
 | ACTUALIZAR VENTANA designator { $$ = nodo1(actualizar, $3); } // actualiza los entry text
 | REGISTRO designator LITERAL lista_campos FINREGISTRO {printf("uno...\n"); $$ = nodo3(definir_registro, $2, $3, $4);
                         pila_records[idx_rec] = $$   ; 
@@ -134,24 +136,14 @@ statement:
 			idx_rec++;
  }
 | BUSCAR REGISTRO designator designator {printf("dos...\n"); $$=nodo2(buscar_registro, $3, $4); }
+| ACTUALIZAR REGISTRO designator designator {printf("tres...\n"); $$=nodo2(actualizar_registro, $3, $4); }
 
 ;
 lista_campos:
  sdesignator NUMBER { $$ = nodo2(listacampos, $1, $2); }
 | sdesignator NUMBER lista_campos { $$ = nodo3(listacampos, $3, $1, $2); }
 
-defventana:
-  LITERAL {  $$ = nodo1(ventana, $1) ;  } 
-| LITERAL defcontroles { $$=$2; } 
-;
 
-defcontroles:
-  lista_controles { $$=$1 ; } 
-| defcontroles COMMA lista_controles { $$ = nodo2( secuencia_controles, $1, $3); } 
-;
-
-lista_controles:
-  BOTON LITERAL { $$ = nodo1(guardar_boton, $2) ; } 
 
 lista_expr:
   lista_expr2  { $$=$1 ; /*lista expr*/ }

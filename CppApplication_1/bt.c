@@ -796,14 +796,14 @@ int main2() {
     xraiz = -1;
     int c;
     
-    if (exists("text.dat")) {
+    if (exists("contactos.ndx")) {
 /*
        arch = fopen("text.dat", "r+b");
        leenodo(&xraiz, &primernodo, tam_registro);
        xraiz = primernodo.xrama[0];
        tam_registro = primernodo.xconteo;
 */
-        use();
+        use("contactos.ndx");
        abierto = 1;
     }
     
@@ -866,8 +866,10 @@ int main2() {
             buscar(llave, &xraiz, &encontrar, &nodoobjetivo, &posobjetivo);
             if (encontrar == 1) {
                 leenodo(&nodoobjetivo, &xnodoobjetivo, tam_registro);
+                
                 fprintf(stdout, "Se ha encontrado: %s\n\n", xnodoobjetivo.xllave[posobjetivo - 1]);
                 nro_reg = xnodoobjetivo.datoInt[posobjetivo - 1];
+                
                 fprintf(stdout, "Dato: %li\n\n", nro_reg );
                 mostrar_registro(nro_reg);
             } else {
@@ -917,8 +919,17 @@ int main2() {
 
 /*-- rutinas de manejo de base de datos --------------------*/
 
-int use() {
-    arch = fopen("text.dat", "r+b");
+int use(char * nombre_indice) {
+    if (!exists(nombre_indice)) 
+     {
+        arch = fopen(nombre_indice, "w");
+        fclose(arch);
+        arch = fopen(nombre_indice, "r+b");
+        xraiz = -1;
+        return;
+    }
+    
+    arch = fopen(nombre_indice, "r+b");
     xraiz = -1;
     
     leenodo(&xraiz, &primernodo, 10); //nos interesa leer el tamaño del registro solamente
@@ -927,7 +938,7 @@ int use() {
     xraiz = -1;
     leenodo(&xraiz, &primernodo, tam_registro);
     xraiz = primernodo.xrama[0];
-//    if (depurar)
+    if (depurar)
     printf("La raiz se encuentra en el nodo %li\n", xraiz);  
 }
 

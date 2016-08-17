@@ -1,0 +1,6 @@
+ARCHIVO = 'nuevo.dbf'
+numarchivo = 1
+abrir ARCHIVO numarchivo
+NOMBRE='Ruben Rivero Roca'
+guardar # numarchivo  NOMBRE 20
+cerrar  numarchivo

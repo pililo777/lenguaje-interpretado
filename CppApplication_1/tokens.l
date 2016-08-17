@@ -167,6 +167,9 @@ if (depurar)
 "actualizar" {lineaEjecucion2(); return ACTUALIZAR; }
 "registro" {lineaEjecucion2(); return REGISTRO; }
 "fin-registro" {lineaEjecucion2(); return FINREGISTRO; }
+"guardar" {lineaEjecucion2(); return GUARDAR;}
+
+
 
 
 '[^\']+'  {

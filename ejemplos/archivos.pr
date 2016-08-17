@@ -1,35 +1,126 @@
 
-// se muestra en pantalla a sí mismo
+registro clientes 'nuevos contactos.dbf'
+  CCLAVE 10 
+  CNOMBRE 61
+  CDIRECCION 61
+  CTELEFONO 9
+fin-registro
 
+//creamos el indice por si no existe
+INDICE = 'nuevos contactos.ndx'
+use INDICE   //trabajaremos con el indice
+close
 
-ARCHIVO = '../ejemplos/archivos.pr'
+use INDICE   //abrimos el indice
+
+ARCHIVO = 'contactos.csv'
 num_archivo = 0
+
+ARCHIVODBF = 'nuevos contactos.dbf' 
+numarchivodbf = 1
+
 abrir ARCHIVO num_archivo
+
+// creamos el archivo de datos por si no existe
+// lo cerramos porque no es necesario que permanezca abierto
+abrir ARCHIVODBF numarchivodbf
+cerrar numarchivodbf
+
+
+CLAVE = ' '
+NOMBRE = ' '
+DIRECCION = ' '
+TELEFONO = ' '
+
+
 PALABRA = ' '
 LETRA = ' '
 vaciar PALABRA 
 letra = 0
 contador = 0
+col = 1
+lin = 10000
+LIN = ' '
+vaciar LIN
 // cuando se acaba de leer el archivo, esta variable se pone en 99
 
 mientras num_archivo <> 99
 {
     leer # num_archivo LETRA letra
 
-    si (letra = 32) oo (letra = 9) oo (letra=10) oo (letra=13) entonces
+    si (letra =59) oo (letra = 9) oo (letra=10) oo (letra=13) entonces
         si contador <> 0 entonces
-            imprimir   PALABRA
-            vaciar PALABRA
+            //imprimir   PALABRA
+            si col=1 entonces
+	        convertir lin LIN
+	        CLAVE = LIN
+	        //guardar # numarchivodbf  LIN 10, 0  //guarda la clave en dbf
+            si-fin
+	    //  llamar guardar_palabra
+
+            si col=1 entonces
+		NOMBRE = PALABRA
+             si-fin
+             
+	    si col=2 entonces
+		DIRECCION = PALABRA
+            si-fin
+       
+
+	    si col = 3 entonces
+		TELEFONO = PALABRA
+	    si-fin
+
+            col = col + 1
+	    
+            si col=4 entonces
+                    col = 1
+                    //imprimir lin
+                     lin = lin + 1
+		     llamar insertar_en_archivos
+             si-fin
+	     vaciar PALABRA
             contador = 0
+
         si-fin
+
     sino
             contador = contador + 1
             PALABRA += LETRA
     si-fin
 }
-imprimir PALABRA
+//imprimir PALABRA
 
 num_archivo = 0
 cerrar num_archivo
-// stop
+
+close //indice
+terminar
+
+proc guardar_palabra
+   si (col=1) oo (col=2) entonces
+      guardar # numarchivodbf  PALABRA 61, 0
+   sino
+      guardar # numarchivodbf  PALABRA 9, 1
+   si-fin
+fin
+
+proc insertar_en_archivos
+         encontrado = 0
+         CDIRECCION = DIRECCION
+         CNOMBRE = NOMBRE
+         CTELEFONO = TELEFONO
+         CCLAVE = CLAVE
+
+         insertar CCLAVE encontrado clientes
+
+         si encontrado = 1 entonces
+             imprimir 'YA EXISTE ESTA CLAVE: ', CCLAVE,  '   : NO SE PUEDE INSERTAR'
+         sino
+ 	    imprimir 'clave insertada: ', CCLAVE
+         si-fin
+fin
+
+
+
 

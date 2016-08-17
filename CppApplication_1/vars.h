@@ -1,3 +1,4 @@
+#include <stdio.h>
 extern  char constantes[127][127];
 extern  char variables[127][127];
 typedef struct  {
@@ -23,3 +24,5 @@ extern int depurar;
 typedef long int xapuntador;
 typedef short int posicion;
 
+extern FILE * pila_indices[10];
+extern int idx_indices;

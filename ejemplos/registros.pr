@@ -1,6 +1,6 @@
- 
+x=130
 
-registro clientes 'nuevos contactos.dbf'
+registro clientes 'contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
   CDIRECCION 61
@@ -8,57 +8,12 @@ registro clientes 'nuevos contactos.dbf'
 fin-registro
 
 
-//INDICE = 'nuevos contactos.ndx'
-//use INDICE   //trabajaremos con el indice
-//close
-
-INDICE = 'nuevos contactos.ndx'
-use INDICE   //trabajaremos con el indice
- 
-  
-evalua 'resultado = 3*8'
-// queda pendiente evaluar una variable alfanumerica
-// y concatenar variables alfanumericas
-evalua 'imprimir resultado'
-x=0
-desde x = 1 hasta 5 
-	haz
-		imprimir 'x=', x
-		//stop
-	fin-haz
-indice = 0  // variable para los vectores de coordenadas
-x=130
-dim vec1 7
-i=0
-mientras i < 7
-	haz
-		vec1[i]= i * 2
-		i = i + 1
-	fin-haz
-// probando a copiar un vector
-dim vec2 7
-i=0
-mientras i < 7
-	haz
-		vec2[i] = vec1[i] * 3
-		i=i+1
-	fin-haz
-j = 0
-mientras j < 7
-	haz
-		imprimir 'resultado: ', j, ' ',  vec2[j]
-		j = j + 1
-	fin-haz	
-imprimir 'vectores: ',  vec1[1], ' ',  vec1[2], ' ',  vec2[1]
-imprimir 'x=', x
-//stop
-NOMBRE = '10320'
-APELLIDO = 'nombre de la empresa'
+use   //trabajaremos con el indice
+CLAVE = '10000'
+EMPRESA = 'nombre de la empresa'
 DIRECCION = 'direccion de la empresa'
 TELEFONO = ' 9999 '
- 
 
-//stop
 xyz = 1
 abc = 2
 
@@ -68,11 +23,11 @@ ventana xyz 500 340
 xyz ventana 'DEMOSTRACION DE CONSULTA DE DATOS'
 xyz etiqueta 'INTRODUCE UN CODIGO Y HAZ CLIC EN BUSCAR:' 10 10 
 xyz etiqueta 'Código: '   10 30
-xyz texto NOMBRE           (x + 0), 30
+xyz texto CLAVE           (x + 5), 30
 xyz etiqueta 'Empresa:' 10 70
-xyz texto APELLIDO         (x + 0 ), 70
+xyz texto EMPRESA         (x + 10 ), 70
 xyz etiqueta 'Dirección:' 10 110
-xyz texto DIRECCION        (x + 0), 110
+xyz texto DIRECCION        (x + 15), 110
 xyz etiqueta 'Teléfonos:' 10 150
 xyz texto TELEFONO         (x + 0), 150
  // enlaza un boton con un evento que muestra un dialogo con un mensaje
@@ -82,23 +37,14 @@ xyz boton 'Actualizar...'   actualizar_en_indice   300 90
 xyz boton 'Ventana Grafica'  mostrar_grafica   20 270   //clicar_boton
 xyz boton 'Graficar...'  clicar_boton   220 270   //clicar_boton
 
-
-imprimir 'llamando a la funcion graficos'
 numero_boton = 0
 coordx = 0
 coordy = 0
 
-
-imprimir 'se ha llamado a la funcion de graficos'
-
 // activa todas las ventanas creadas hasta que se cierra la primera
 llamar ventana xyz   
 
-// despues de cerrar la primer ventana el flujo continua aqui:
 
-imprimir 'finalizando.....'
-imprimir 'resultado = ', resultado
-llamar 'imprimir resultado'
 terminar  // ****************  finaliza  el programa *************
 
 proc mostrar_grafica
@@ -113,18 +59,18 @@ proc buscar_en_indice
          encontrado = 0
          numeroreg = 0
 
-         buscar NOMBRE encontrado numeroreg
+         buscar CLAVE encontrado numeroreg
 
          si encontrado = 1 entonces
               
                     imprimir 'el dato se encuentra en la posicion: ', numeroreg
                     buscar registro clientes numeroreg
                     DIRECCION =  CDIRECCION
-                    APELLIDO = CNOMBRE
+                    EMPRESA = CNOMBRE
                     TELEFONO  =  CTELEFONO
-                     NOMBRE    =  CCLAVE
+                     CLAVE    =  CCLAVE
          sino
-                    APELLIDO = 'no se ha encontrado'
+                    EMPRESA = 'no se ha encontrado'
 		    mensaje 'no se ha encontrado esa clave'
          si-fin
           
@@ -137,22 +83,22 @@ proc  actualizar_en_indice
          encontrado = 0
          numeroreg = 0
 
-         buscar NOMBRE encontrado numeroreg
+         buscar CLAVE encontrado numeroreg
 
          si encontrado = 1 entonces
               
                     imprimir 'el dato se encuentra en la posicion: ', numeroreg
                     CDIRECCION =  DIRECCION
-                    CCLAVE = NOMBRE
+                    CCLAVE = CLAVE
                     CTELEFONO  =  TELEFONO
-		    CNOMBRE = APELLIDO
+		    CNOMBRE = EMPRESA
 
 		    imprimir 'cdireccion = ', CDIRECCION
 
                     actualizar registro clientes numeroreg
 
          sino
-                    APELLIDO = 'no se ha encontrado esa clave'
+                    EMPRESA = 'no se ha encontrado esa clave'
 		    mensaje 'no se ha encontrado esa clave'
          si-fin
           
@@ -163,13 +109,13 @@ fin
 
 proc insertar_en_indice
          encontrado = 0
-         CDIRECCION = DIRECCION
-         CNOMBRE = APELLIDO   //pendiente arreglar esta confusion
+	 CDIRECCION = DIRECCION
+	 CNOMBRE = EMPRESA   //pendiente arreglar esta confusion
          CTELEFONO = TELEFONO
-         CCLAVE = NOMBRE   //esta tambien
+         CCLAVE = CLAVE   //esta tambien
 
 
-         insertar NOMBRE encontrado clientes
+         insertar CLAVE encontrado clientes
          si encontrado = 1 entonces
             mensaje 'YA EXISTE ESTA CLAVE, NO SE PUEDE INSERTAR'
          si-fin

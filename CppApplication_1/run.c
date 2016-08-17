@@ -801,7 +801,9 @@ void * execut(ast * p) {
         gtk_widget_queue_draw(label2); 
         
         
+/*
         pausar();
+*/
         
         while (gtk_events_pending ()) gtk_main_iteration();
         
@@ -809,9 +811,106 @@ void * execut(ast * p) {
         
     }
     
+    /**
+     * @param p  el nodo  (ast) que contiene la variable a escribir en el archivo
+     * @return 
+     */
+    
     switch (p->tipo) {
+        case escribir_archivo:
+        {
+             struct rec
+                {
+                    char mydata;
+                };
+            struct rec my_record;
+            int n, n2; // numero de archivo y largo de la variable
+            int i; /* indice de la variable string que se desea escribir al archivo
+                    * en este sistema se usa un nodo para una variable
+                    * en este caso el nodo2 y num es un indice para
+                    * el array de variables:  array_variables[nnnn]
+                    *  */
+            char * s;
+            unsigned int nulo = '\0';
+            int n3; // largo del string
+            int n4; // bool, si añadimos fin de linea
+            
+            n = p->nodo1->num;
+            n = array_variables[n].numero;   // variable handle del numero de archivo
+            i = p->nodo2->num;
+            s = array_variables[i].valor;
+            
+            
+            if (p->subnodos == 2) {
+                n3 = strlen(s);
+                fwrite(s, 1, n3, ficheros[n] ); 
+            } else {
+                //OK pendiente, si n2 < strlen, guardar solo n2 bytes
+                n2 = p->nodo3->num;  // numero de bytes que se quieren guardar
+                n3 = strlen(s);         // tamaño del string
+                n4 = p->nodo4->num;
+                fwrite(s, 1, n3, ficheros[n] );  //guardamos el string
+                my_record.mydata=0;
+                if (n2 > n3) {                   // padding con 000000
+                    for (; n2 > n3; n3++) 
+                      {
+                        fwrite(&my_record, sizeof(struct rec), 1, ficheros[n]);
+                      } //for
+                    }  //if
+                
+                // añadimos fin de linea?
+                      if (n4!=0) {
+                            my_record.mydata = 10;
+                            fwrite(&my_record, sizeof(struct rec), 1, ficheros[n]);
+                      } //if
+                } //else
+            } // case
+        break;
         
         case buscar_registro:
+        {
+            int tam;
+            int pos;
+            int sreg;
+            int nroreg;
+            char * datafile;
+            FILE * handler2;
+            ast * registro;
+            
+            
+            int indice, indice2;
+            indice = array_variables[(int) p->nodo1->num].procedimiento ;
+            if (depurar)
+            printf("buscaremos en el registro de %s \n", array_variables[(int) p->nodo1->num].nombre);
+            registro = pila_records[indice];
+            indice2 = registro->nodo2->num;
+            datafile = constantes[indice2];
+            nroreg = (int) array_variables[(int) p->nodo2->num].numero ;
+            if (depurar)
+            printf("con numero de registro %d\n", nroreg );
+            //alla vamos....
+    
+            handler2 = fopen(datafile, "r");
+            //bucle de calculo de tamaño de registro
+            tamanio = 0;
+            calcular_tamanio(registro->nodo3);
+            tam = tamanio+1;  // temporalmente por el fin de linea
+            pos = (tam * (nroreg - 1) );
+            
+            fseek(handler2, pos, SEEK_SET);
+            leer_campos(registro->nodo3, handler2);
+            //bucle de lectura de campos:
+            //fread(&un_registro, 1, sizeof(un_registro), handler2);
+            
+            fclose(handler2);
+     
+            
+            
+        }
+        break;
+        
+        
+        case actualizar_registro:
         {
             int tam;
             int pos;
@@ -832,7 +931,7 @@ void * execut(ast * p) {
             printf("con numero de registro %d\n", nroreg );
             //alla vamos....
     
-            handler2 = fopen(datafile, "r");
+            handler2 = fopen(datafile, "r+");
             //bucle de calculo de tamaño de registro
             tamanio = 0;
             calcular_tamanio(registro->nodo3);
@@ -840,14 +939,11 @@ void * execut(ast * p) {
             pos = (tam * (nroreg - 1) );
             
             fseek(handler2, pos, SEEK_SET);
-            leer_campos(registro->nodo3, handler2);
+            guardar_campos(registro->nodo3, handler2);
             //bucle de lectura de campos:
             //fread(&un_registro, 1, sizeof(un_registro), handler2);
             
             fclose(handler2);
-     
-            pausar();
-            
         }
         break;
         
@@ -880,7 +976,12 @@ void * execut(ast * p) {
         
         case use_indice:
         {
-            use();
+            int n;  // indice de la variable string
+            n = p->nodo1->num;
+            char * filename;
+            //FILE * handle;
+            filename = array_variables[n].valor;
+            use(filename);
         }
             break;
             
@@ -952,6 +1053,7 @@ void * execut(ast * p) {
             posicion  posobjetivo = 0;
             
             indice = array_variables[(int) p->nodo3->num].procedimiento ;
+            if (depurar)
             printf("buscaremos en el registro de %s \n", array_variables[(int) p->nodo3->num].nombre);
             registro = pila_records[indice];
             
@@ -1063,13 +1165,23 @@ void * execut(ast * p) {
 
         case abrir:   //  abrir ARCHIVO
         {
+           
             int n;
+            char * s;
             n = (int) p->nodo2->num;
             n = (int) array_variables[n].numero;
+            s = constantes[(int) var[(int)   p->nodo1->num]];
             
 // pendiente  quitar VAR y poner array_variables
-            printf("abriremos el fichero:  %s\n", constantes[(int) var[(int)   p->nodo1->num]]) ;
-            ficheros[n] = fopen(constantes[(int) var[(int)   p->nodo1->num]], "r");
+            if (depurar)
+            printf("abriremos el fichero:  %s\n", s) ;
+            if (exists(s))
+                ficheros[n] = fopen(s, "r+");
+            else {
+                ficheros[n] = fopen(s, "w");
+                fclose(ficheros[n]);
+                ficheros[n] = fopen(s, "r+b");
+            }
 /*
             while (!feof(ficheros[n])) {
                 char c = getc(ficheros[n]);
@@ -1145,8 +1257,11 @@ void * execut(ast * p) {
         case convertir_numero_a_texto:
         {
             double numero;
+            int n ;
+            n = (int)  p->nodo2->num ;
             numero = array_variables[(int) p->nodo1->num].numero;
-            sprintf(constantes[(int) var[(int) p->nodo2->num ] ], "%lf", numero);
+            //sprintf(constantes[(int) var[(int) p->nodo2->num ] ], "%lf", numero);
+            sprintf(array_variables[n ].valor, "%.0lf", numero);
         }
             break;
 
