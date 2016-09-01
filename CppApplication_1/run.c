@@ -1,4 +1,4 @@
-//run.c
+//run.c github
 #include <stdio.h>
 
 /*
@@ -761,7 +761,7 @@ void * execut(ast * p) {
      } 
 
     
-    if (p->tipo != secuencia) {
+    if (p->tipo != secuencia && p->tipo !=procedimiento)  {
         int numlinea;
         
         if (p->tipo == si || p->tipo == mientras || p->tipo == desde  )
@@ -796,7 +796,7 @@ void * execut(ast * p) {
                            &end);
         
         sprintf(str_temp, "LINEA: %d", numlinea+1 );
-        
+       
         gtk_label_set_label(label2, str_temp );
         gtk_widget_queue_draw(label2); 
         

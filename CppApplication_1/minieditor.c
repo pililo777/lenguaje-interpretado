@@ -1,4 +1,4 @@
-/* minieditor.c */
+/* minieditor.c modificado */
 #include <malloc.h>
 
 #define xrun
@@ -216,16 +216,19 @@ extern int linenumber;
 void liberar_nodo( ast * p, int n)
 
 {
+    //printf("memoria: %d\n", memoria);
     //elnodo * p;
     //p=a;
 
         
         if (p==NULL) return;
         
+
 /*
         if (p->tipo == stop) 
             pausar();
 */
+
     
         if (p == pila_programas[n]) {
                 if (p->subnodos == 0) 

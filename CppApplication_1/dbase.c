@@ -1,4 +1,5 @@
 /*  dbase.c  Region de Includes */ 
+//version para github
 #include "nodo.h"
 #include "stdio.h"
 #include "string.h"

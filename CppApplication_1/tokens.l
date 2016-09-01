@@ -1,4 +1,4 @@
-/* IMPORTANTE:  no dejar espacios entre los | | | !!!!!1  */
+/* IMPORTANTE:  no dejar espacios entre los | | | !!!!!1   github */
 /* '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux */
 
 %{
@@ -7,6 +7,7 @@
 //#define windows
 
 struct ast * nuevonodo(void);
+void  cuentalineas(char * yytext);
 
 #include "vars.h"
 
@@ -231,9 +232,7 @@ if (depurar)
 \n      { nextline(); }
 \t      { ; }
 "//".*\n { nextline(); }
-
-
-
+"/*"([^*]|(\*+[^*/]))*\*+\/ {  cuentalineas( yytext  ) ; } /* comentarios multilinea  */
 
 .       { 
                yyerror2("caracter ilegal", yytext[0]); 
@@ -273,3 +272,9 @@ return p;
 
 }
 
+void  cuentalineas( char * texto ) {
+int i = 0;
+for (i=0; i < strlen(texto); i++ ) {
+        if  ( texto[i] == '\n' || texto [i] == '\r') linenumber++;
+    }
+}

@@ -1,3 +1,4 @@
+//version para github
 #include "stdio.h"
 #include "vars.h"
 extern int linenumber;

@@ -1,4 +1,4 @@
-// variables publicas
+// variables publicas --github--
 // comunes a todo el programa y todos los fuentes.c
 
 #include "nodo.h"

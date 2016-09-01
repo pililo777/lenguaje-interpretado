@@ -1,4 +1,4 @@
- 
+//version para github 
 #include <cairo.h>
 #include <gtk/gtk.h>
 #include "nodo.h"

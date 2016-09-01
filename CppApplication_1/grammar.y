@@ -1,4 +1,4 @@
-// compilar con la orden:     bison -d grammar.y      luego    flex tokens.l
+// compilar con la orden:     bison -d grammar.y      luego    flex tokens.l  //github
 %{
 #include "nodo.h"
 
@@ -71,10 +71,10 @@ extern ast * pila_records[32]; // pila de registros
 ROOT:
    stmtseq    {  pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++ ; 
 if (depurar)
-  	printf("se ha reducido el programa por la primera regla de la linea 66 de grammar.y\n"); }
+  	printf("se ha reducido el programa por la primera  grammar.y\n"); }
 |  stmtseq TERMINAR procedimientos {
 if (depurar)
-  	printf("se ha reducido el programa por la segunda regla de la linea 66 de grammar.y\n");
+  	printf("se ha reducido el programa por la segunda regla de grammar.y\n");
  	pila_programas[idx_prg] = ($1); /* stmtseq */ ;  idx_prg++; }
 ;
 
@@ -112,7 +112,7 @@ statement:
 | CONVERTIR sdesignator designator {$$=nodo2(convertir_texto_a_numero, $2, $3);}
 | CONVERTIR designator sdesignator {$$=nodo2(convertir_numero_a_texto, $2, $3);}
 | EVALUAR LITERAL  {  $$ = nodo1(interpreta, $2 );  } 
-| STOP { $$=nodo1(stop, $1); }
+| STOP { $$=nodo0(stop, $1); }
 | ABRIR sdesignator designator { $$=nodo2(abrir, $2, $3); }
 | CERRAR designator { $$=nodo1(cerrar, $2); }
 | LEER designator   { $$ = nodo1(leer,  $2) ; /*leer variable numerica*/}
@@ -122,8 +122,8 @@ statement:
 | LEER sdesignator  { $$ = nodo1(leertexto,  $2) ; /*leer variable alfa*/}
 | MOSTRAR sdesignator { $$=nodo1(mostrar, $2); }
 | VACIAR sdesignator { $$=nodo1(vaciar, $2); }
-| CONTINUAR { $$=nodo1(continuar, $1); }
-| SALIR { $$=nodo1(salir, $1); }   //este deberia ser nodo0?
+| CONTINUAR { $$=nodo0(continuar, $1); }
+| SALIR { $$=nodo0(salir, $1); }   //este deberia ser nodo0? si deberia ser, hay que buscar otros nodo1 con un solo param
 | BUSCAR sdesignator designator designator { $$ = nodo3(buscar_clave,  $2, $3, $4); }  /* buscar en indce */
 | INSERTAR sdesignator designator designator   { $$ = nodo3(insertar_clave,  $2, $3, $4); }  /*  en indice */
 | ELIMINAR sdesignator    { $$ = nodo1(eliminar_clave,  $2); }  /*  en indice */

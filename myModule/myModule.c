@@ -1,4 +1,4 @@
-/*
+/*  //github
 #include <python2.7/Python.h>
 
 static PyObject* py_myFunction(PyObject* self, PyObject* args) {
@@ -76,5 +76,32 @@ void listarTDS(int * contador, int * contadorvar, struct  struct_variable  array
     
      
 }
+
+extern struct struct_variable array_variablesx2[];
+extern int  contadorvar;
+
+
+void listarTDS2( ) {
+    int i;
+
+    printf("CANTIDAD DE VARIABLES EN EL ARRAY: %d\n", contadorvar);
+    
+    printf("VOLCADO DE VARIABLES:\n");
+ 
+    for (i=0; i<contadorvar;i++) {
+        printf("var %3d  %25s   %c ", i, array_variablesx2[i].nombre, array_variablesx2[i].tipo);
+        if (array_variablesx2[i].tipo=='N') 
+            printf("%lf\n", array_variablesx2[i].numero);
+        else
+            printf("%s\n", array_variablesx2[i].valor);
+    }
+}
+
+
+
+
+
+
+
 
 

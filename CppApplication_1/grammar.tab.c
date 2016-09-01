@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.0.4.   para  github*/
 
 /* Bison implementation for Yacc-like parsers in C
 
@@ -1741,7 +1741,7 @@ if (depurar)
 
   case 34:
 #line 115 "grammar.y" /* yacc.c:1646  */
-    { (yyval.nodo)=nodo1(stop, (yyvsp[0].nodo)); }
+    { (yyval.nodo)=nodo0(stop, (yyvsp[0].nodo)); }
 #line 1746 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1801,13 +1801,13 @@ if (depurar)
 
   case 44:
 #line 125 "grammar.y" /* yacc.c:1646  */
-    { (yyval.nodo)=nodo1(continuar, (yyvsp[0].nodo)); }
+    { (yyval.nodo)=nodo0(continuar, (yyvsp[0].nodo)); }
 #line 1806 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
 #line 126 "grammar.y" /* yacc.c:1646  */
-    { (yyval.nodo)=nodo1(salir, (yyvsp[0].nodo)); }
+    { (yyval.nodo)=nodo0(salir, (yyvsp[0].nodo)); }
 #line 1812 "grammar.tab.c" /* yacc.c:1646  */
     break;
 

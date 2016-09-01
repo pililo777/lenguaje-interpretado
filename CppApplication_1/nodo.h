@@ -1,5 +1,5 @@
 // especificar aqui los tipos de nodo que puede tener el arbol sintactico  abstracto  --  abstract syntax tree AST
-
+//github
 typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable, dimensionar, asigna_vector, evalua_vector, dibuja_linea, dibuja_circulo,
 			indice_strings, procedimiento, secuencia , imprimir, convertir_texto_a_numero, convertir_numero_a_texto,
 			suma, resta, multiplica, divide, si, mientras, asigna_num, asigna_alfa, evaluar,

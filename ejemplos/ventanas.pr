@@ -1,21 +1,14 @@
- 
-
+//github 
 registro clientes 'nuevos contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
   CDIRECCION 61
   CTELEFONO 9
 fin-registro
-
-
-//INDICE = 'nuevos contactos.ndx'
-//use INDICE   //trabajaremos con el indice
-//close
-
+ 
 INDICE = 'nuevos contactos.ndx'
 use INDICE   //trabajaremos con el indice
  
-  
 evalua 'resultado = 3*8'
 // queda pendiente evaluar una variable alfanumerica
 // y concatenar variables alfanumericas
@@ -27,7 +20,7 @@ desde x = 1 hasta 5
 		//stop
 	fin-haz
 indice = 0  // variable para los vectores de coordenadas
-x=130
+
 dim vec1 7
 i=0
 mientras i < 7
@@ -51,19 +44,16 @@ mientras j < 7
 	fin-haz	
 imprimir 'vectores: ',  vec1[1], ' ',  vec1[2], ' ',  vec2[1]
 imprimir 'x=', x
-//stop
+ 
 NOMBRE = '10320'
 APELLIDO = 'nombre de la empresa'
 DIRECCION = 'direccion de la empresa'
 TELEFONO = ' 9999 '
- 
-
-//stop
+  
 xyz = 1
 abc = 2
-
-//leer j
-
+ 
+x=130
 ventana xyz 500 340
 xyz ventana 'DEMOSTRACION DE CONSULTA DE DATOS'
 xyz etiqueta 'INTRODUCE UN CODIGO Y HAZ CLIC EN BUSCAR:' 10 10 
@@ -104,27 +94,22 @@ terminar  // ****************  finaliza  el programa *************
 proc mostrar_grafica
 	graficos     clicar_ventana_grafica     numero_boton coordx coordy
 fin
-
-
-
-
+ 
 proc buscar_en_indice
-
          encontrado = 0
          numeroreg = 0
 
          buscar NOMBRE encontrado numeroreg
 
          si encontrado = 1 entonces
-              
-                    imprimir 'el dato se encuentra en la posicion: ', numeroreg
-                    buscar registro clientes numeroreg
-                    DIRECCION =  CDIRECCION
-                    APELLIDO = CNOMBRE
-                    TELEFONO  =  CTELEFONO
-                     NOMBRE    =  CCLAVE
+            imprimir 'el dato se encuentra en la posicion: ', numeroreg
+            buscar registro clientes numeroreg
+            DIRECCION =  CDIRECCION
+            APELLIDO = CNOMBRE
+            TELEFONO  =  CTELEFONO
+            NOMBRE    =  CCLAVE
          sino
-                    APELLIDO = 'no se ha encontrado'
+            APELLIDO = 'no se ha encontrado'
 		    mensaje 'no se ha encontrado esa clave'
          si-fin
           
@@ -133,7 +118,6 @@ fin
 
 
 proc  actualizar_en_indice
-
          encontrado = 0
          numeroreg = 0
 
@@ -141,24 +125,23 @@ proc  actualizar_en_indice
 
          si encontrado = 1 entonces
               
-                    imprimir 'el dato se encuentra en la posicion: ', numeroreg
-                    CDIRECCION =  DIRECCION
-                    CCLAVE = NOMBRE
-                    CTELEFONO  =  TELEFONO
+            imprimir 'el dato se encuentra en la posicion: ', numeroreg
+            CDIRECCION =  DIRECCION
+            CCLAVE = NOMBRE
+            CTELEFONO  =  TELEFONO
 		    CNOMBRE = APELLIDO
 
 		    imprimir 'cdireccion = ', CDIRECCION
 
-                    actualizar registro clientes numeroreg
+            actualizar registro clientes numeroreg
 
          sino
-                    APELLIDO = 'no se ha encontrado esa clave'
+            APELLIDO = 'no se ha encontrado esa clave'
 		    mensaje 'no se ha encontrado esa clave'
          si-fin
           
 	 actualizar ventana xyz
 fin
-
 
 
 proc insertar_en_indice
@@ -168,7 +151,6 @@ proc insertar_en_indice
          CTELEFONO = TELEFONO
          CCLAVE = NOMBRE   //esta tambien
 
-
          insertar NOMBRE encontrado clientes
          si encontrado = 1 entonces
             mensaje 'YA EXISTE ESTA CLAVE, NO SE PUEDE INSERTAR'
@@ -177,17 +159,13 @@ proc insertar_en_indice
 fin
 
 
-
 procedimiento abre_ventana
         // imprimir 'el nombre es: ', NOMBRE
-
-
 	 ventana abc 400 350
 	 abc ventana 'SEGUNDA VENTANA'
 	 abc etiqueta 'INTRODUZCA SU APELLIDO: ' 10 20 
 	 abc texto APELLIDO 200, 20
 	 abc boton 'por favor clic aqui' clicar_boton2  140 150
-         
 fin
 
 procedimiento clicar_boton2
@@ -237,13 +215,13 @@ procedimiento clicar_ventana_grafica
    			
    			j=0
    			mientras j < indice
-   			haz
+   			{
    			   coordx_1 = vec1[j]
    			   coordy_1 = vec2[j]
    			   //imprimir 'linea desde ' , coordx, ' ', coordy, ' hasta ' , coordx1, ' ', coordy1
    			   linea coordx, coordy,  coordx_1, coordy_1
    			   j = j + 1
-   			fin-haz
+   			}
    			i=i+1
    		fin-haz
 		indice = 0
