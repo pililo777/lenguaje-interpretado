@@ -1,0 +1,14 @@
+dim REGLA 7
+// DATA "W=E",  "E=E+T",  "E=T",  "T=T*F",  "T=F", "F=(E)", "F=a"
+REGLA[0]= 'W=E'
+REGLA[1]= 'E=E+T'
+REGLA[2]= 'E=T'
+REGLA[3]= 'T=T*F'
+REGLA[4]= 'T=F'
+REGLA[5]= 'F=(E)'
+REGLA[6]= 'F=a'
+
+desde x = 0 hasta 6
+{
+	imprimir x, REGLA[x]
+}
