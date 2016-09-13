@@ -19,7 +19,9 @@ extern int idx_rec;
 extern int idx_prc;
 extern int nodos;
 extern int idx_vec;
+extern int idx_vec2;
 extern int* arrayVectores [32];
+extern char* arrayVectoresAlfa [32];
 extern int depurar;
 //#endif	// VARS_H
 

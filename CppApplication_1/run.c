@@ -12,6 +12,7 @@
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
+#include <string.h>
 //  #include <gdk/gdkkeysyms.h>
 
 
@@ -93,6 +94,14 @@ void * execut(ast *);
 int * nuevoValorEnteros(int cantidad) {
     int * vector = malloc(sizeof (int) *  cantidad);   // 4 * cantidad (el * no es puntero)
     memoria += (sizeof (int) * cantidad);
+    return vector;
+}
+
+char * nuevoValorAlfas(int cantidad) {
+    //strings de 127 caracteres cada una
+    char * vector = malloc(sizeof (char) *  cantidad * 127);   // 4 * cantidad (el * no es puntero)
+    memoria += (sizeof (char) * cantidad * 127);
+    printf ("lugar en memoria: %p\n", vector);
     return vector;
 }
 
@@ -1277,11 +1286,11 @@ void * execut(ast * p) {
 
         case dimensionar:
         {
-
+ // DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
             int * vector;
             int i;
             int j;
-            j = (int) p->nodo2->num;
+            j = (int) p->nodo2->num;  //NUMBER
             vector = nuevoValorEnteros(j); // cantidad
             for (i = 0; i < j; i++) vector [i] = 0;
             arrayVectores[idx_vec] = vector;
@@ -1290,16 +1299,79 @@ void * execut(ast * p) {
 
         }
             break;
-
+            
+          case dimensionar_alfa:
+        {
+ // DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
+            char * vector;
+            int i;
+            int j;
+            j = (int) p->nodo2->num;  //NUMBER
+            vector = nuevoValorAlfas(j); // cantidad
+            //for (i = 0; i < j; i++) vector [i] = 0;  //no inicializamos el vector
+            arrayVectoresAlfa[idx_vec2] = vector;
+            var[(int) p->nodo1->num] = idx_vec2;
+            idx_vec2++;
+        }
+            break;
         case asigna_vector:
         {
+// designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }            
             int * vector;
             int i;
-            i = var[(int) p->nodo1->num];
-            vector = arrayVectores[i];
-            vector[(int) evalua(p->nodo2)] = (int) evalua(p->nodo3);
+            i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            vector = arrayVectores[i];   // hasta 32 vectores
+            vector[(int) evalua(p->nodo2)] = (int) evalua(p->nodo3);   //expresion y expresion
         }
 
+            break;
+            
+            case asigna_vector_alfa:
+        {
+// designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }            
+            char * vector;
+            int i;
+            int j;
+            int k;
+            i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            j = (int) ( evalua(p->nodo2) * 127);
+            k = (int) p->nodo3->num;
+            vector = arrayVectoresAlfa[i];   // hasta 32 vectores
+            //printf ("situacion en memoria: %p\n", vector);
+           strcpy( &vector[j]  ,    constantes [ k ] ) ;   //expresion y expresion
+        }
+
+            break;
+            
+        case asigna_vector_alfa2:
+        {
+// sdesignator '[' expression ']' EQ sdesignator { $$ = nodo3(asigna_vector, $1, $3, $6 );  }            
+            char * vector;
+            int i;
+            int j;
+            int k;
+            i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            j = (int) ( evalua(p->nodo2) * 127);
+            k = (int) p->nodo3->num;
+            vector = arrayVectoresAlfa[i];   // hasta 32 vectores
+            
+           strcpy( &vector[j]  ,    array_variables[k].valor ) ;   
+        }
+            break;
+            
+        case asigna_vector_alfa3:
+        {
+// sdesignator EQ sdesignator  '[' expression ']'  { $$ = nodo3(asigna_vector, $1, $3, $5 );  }  
+            char * vector;
+            int i;
+            int j;
+            int k;
+            i = var[(int) p->nodo2->num];    // el indice de la variable vector (designator)
+            j = (int) ( evalua(p->nodo3) * 127);  // posicion en el vector
+            k = (int) p->nodo1->num;
+            vector = arrayVectoresAlfa[i];   // hasta 32 vectores
+            strcpy(array_variables[k].valor, &vector[j]) ;   
+        }
             break;
 
       //  pasar como parametros:  el indice del procedimiento que maneja el clic, el indice de la variable coordx, y el de coordy, un indice para cualBoton
@@ -1716,6 +1788,20 @@ void * execut(ast * p) {
             //msgbox[0] = 0;
         }
             break;
+            
+        case imprimir_var_vectoralfa:
+        {
+            char * vector;
+            int i;
+            int j;
+            i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            j = (int) ( evalua(p->nodo2) * 127) ;
+            vector = arrayVectoresAlfa[i];   // hasta 32 vectores
+            printf(" ( %d ) %s", j, &vector[j] );
+            
+            
+        }
+        break;
 
         case imprimir_expresion:
 

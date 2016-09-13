@@ -89,7 +89,11 @@ statement:
 | sdesignator EQ sdesignator  { $$ = nodo2(asigna_alfa_var, $1, $3); /*asign literal*/} 
 | sdesignator PLUS EQ sdesignator  { $$ = nodo2(sumar_alfa, $1, $4); /*suma alfa*/} 
 | DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
+| DIM sdesignator NUMBER  { $$ = nodo2(dimensionar_alfa, $2, $3); /*dimensionar un vector strings */ }
 | designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }
+| sdesignator '[' expression ']' EQ LITERAL { $$ = nodo3(asigna_vector_alfa, $1, $3, $6 );  }
+| sdesignator '[' expression ']' EQ sdesignator { $$ = nodo3(asigna_vector_alfa2, $1, $3, $6 );  }
+| sdesignator EQ sdesignator '[' expression ']' { $$ = nodo3(asigna_vector_alfa3, $1, $3, $5 );  }
 | LLAMAR proc_designator   {  $$ = nodo1(llamar, $2) ;/*llamar proced.*/} 
 | DECIMALES NUMBER  { $$ = nodo1(decimales, $2 ) ; } 
 | PRINT lista_expr  { $$ = nodo1(imprimir_varios,  $2); /*imprimir lista expr*/} 
@@ -154,6 +158,8 @@ lista_expr2:
   expression   { $$=nodo1(imprimir_expresion, $1); /*lista expresion2*/}
 | LITERAL      { $$=nodo1(imprimir_literal, $1 ); /* un literal*/}
 | sdesignator  { $$=nodo1(imprimir_var_alfa, $1); /* una variable literal*/}
+| sdesignator '[' expr2 ']'  { $$=nodo2(imprimir_var_vectoralfa, $1, $3); /* una variable literal*/}
+
 
 ;
 

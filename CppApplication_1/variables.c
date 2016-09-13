@@ -9,7 +9,8 @@ ast * procedimientos[127]; //cambiar esta forma
 ast * pila_programas[32];
 ast * pila_records[32]; // pila de registros
  int idx_prg = 0;
- int idx_vec = 0;
+ int idx_vec = 0;    //vectores numericos
+ int idx_vec2 = 0;  //vectores alfanumericos
 
  int nro_decimales = 0;
  long memoria = 0;
@@ -22,6 +23,7 @@ ast * pila_records[32]; // pila de registros
  int ejecuta_desde_editor = 0;
  
  int* arrayVectores [32];
+ char *arrayVectoresAlfa[32];
  
  char constantes[127][127];
  char variables[127][127];
