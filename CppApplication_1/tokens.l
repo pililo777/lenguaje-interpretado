@@ -169,8 +169,8 @@ if (depurar)
 "registro" {lineaEjecucion2(); return REGISTRO; }
 "fin-registro" {lineaEjecucion2(); return FINREGISTRO; }
 "guardar" {lineaEjecucion2(); return GUARDAR;}
-
-
+"push" {lineaEjecucion2(); return PUSH;}
+"pop" {lineaEjecucion2(); return POP;}
 
 
 '[^\']+'  {

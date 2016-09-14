@@ -27,7 +27,7 @@ extern ast * pila_records[32]; // pila de registros
 
 
 %start ROOT
-%token GUARDAR
+%token GUARDAR PUSH POP
 %token BUSCAR INSERTAR ELIMINAR USE_INDICE CLOSE_INDICE
 %token STOP  REGISTRO FINREGISTRO
 %token ABRIR CERRAR MOSTRAR VACIAR
@@ -133,6 +133,10 @@ statement:
 | ELIMINAR sdesignator    { $$ = nodo1(eliminar_clave,  $2); }  /*  en indice */
 | USE_INDICE sdesignator { $$=nodo1(use_indice, $2); }
 | CLOSE_INDICE  { $$=nodo0(close_indice, $1); }
+| PUSH     sdesignator    { $$ = nodo1(push,  $2); } 
+| PUSH     designator    { $$ = nodo1(push,  $2); } 
+| POP      sdesignator    { $$ = nodo1(pop ,  $2); } 
+| POP      designator    { $$ = nodo1(pop ,  $2); } 
 | ACTUALIZAR VENTANA designator { $$ = nodo1(actualizar, $3); } // actualiza los entry text
 | REGISTRO designator LITERAL lista_campos FINREGISTRO {printf("uno...\n"); $$ = nodo3(definir_registro, $2, $3, $4);
                         pila_records[idx_rec] = $$   ; 

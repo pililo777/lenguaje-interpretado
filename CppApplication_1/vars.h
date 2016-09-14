@@ -12,8 +12,10 @@ typedef struct  {
 } struct_variable;
 
 extern struct_variable   array_variables[256];
+extern struct_variable   pila[256];
 
 extern int idx_rec;
+extern int idx_pila;
 
 
 extern int idx_prc;

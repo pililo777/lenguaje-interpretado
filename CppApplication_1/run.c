@@ -826,6 +826,37 @@ void * execut(ast * p) {
      */
     
     switch (p->tipo) {
+        case push:
+        {
+            int i;
+            i = (int) p->nodo1->num;
+            pila[idx_pila].numero = array_variables[i].numero;
+            pila[idx_pila].procedimiento = array_variables[i].procedimiento;
+            pila[idx_pila].tipo = array_variables[i].tipo;
+            strcpy(pila[idx_pila].nombre , array_variables[i].nombre);
+            strcpy(pila[idx_pila].valor , array_variables[i].valor);
+            idx_pila++;
+        }
+            break;
+            
+        case pop:
+        {
+            int i;
+            i = (int) p->nodo1->num;
+            
+            if (idx_pila == 0) break;
+            idx_pila--;
+            
+            array_variables[i].numero = pila[idx_pila].numero;
+            array_variables[i].procedimiento = pila[idx_pila].procedimiento;
+            array_variables[i].tipo = pila[idx_pila].tipo;
+            
+            strcpy(array_variables[i].nombre, pila[idx_pila].nombre);
+            strcpy(array_variables[i].valor, pila[idx_pila].valor);
+            
+        }
+            break;
+            
         case escribir_archivo:
         {
              struct rec
