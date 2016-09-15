@@ -27,7 +27,7 @@ extern ast * pila_records[32]; // pila de registros
 
 
 %start ROOT
-%token GUARDAR PUSH POP
+%token GUARDAR PUSH POP FUNCION RETORNAR
 %token BUSCAR INSERTAR ELIMINAR USE_INDICE CLOSE_INDICE
 %token STOP  REGISTRO FINREGISTRO
 %token ABRIR CERRAR MOSTRAR VACIAR
@@ -65,7 +65,8 @@ extern ast * pila_records[32]; // pila de registros
 %type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME   
 %type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND CONTINUAR SALIR USE_INDICE
-%type <nodo> CLOSE_INDICE ACTUALIZAR lista_campos
+%type <nodo> CLOSE_INDICE ACTUALIZAR lista_campos funcion subprograma lista_argumentos variable lista_parametros
+
 %%
 
 ROOT:
@@ -79,9 +80,16 @@ if (depurar)
 ;
 
 procedimientos:
-   procedimiento   { $$ =  $1  ;  /* un procedimiento  */ }
-|  procedimientos procedimiento { $$ =  $2 ; /*varios procedim.*/ }
+   subprograma   { $$ =  $1  ;  /* un procedimiento  */ }
+|  procedimientos subprograma { $$ =  $2 ; /*varios procedim.*/ }
 ;
+
+
+subprograma:
+   procedimiento   { $$ =  $1  ;  /* un procedimiento  */ }
+|  funcion { $$ =  $1  ;  /* una funcion  */ }
+;
+
 
 statement:
   designator EQ expression { $$ = nodo2(asigna_num, $1, $3); /*asignacion*/} 
@@ -95,6 +103,8 @@ statement:
 | sdesignator '[' expression ']' EQ sdesignator { $$ = nodo3(asigna_vector_alfa2, $1, $3, $6 );  }
 | sdesignator EQ sdesignator '[' expression ']' { $$ = nodo3(asigna_vector_alfa3, $1, $3, $5 );  }
 | LLAMAR proc_designator   {  $$ = nodo1(llamar, $2) ;/*llamar proced.*/} 
+| proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo2(llamar, $1, $3) ;/*llamar proced.*/} 
+| RETORNAR expression { $$ = nodo1( retorno, $2);    }
 | DECIMALES NUMBER  { $$ = nodo1(decimales, $2 ) ; } 
 | PRINT lista_expr  { $$ = nodo1(imprimir_varios,  $2); /*imprimir lista expr*/} 
 | IF expression THEN stmtseq ELSE stmtseq FI { $$ = nodo3(si, $2, $4, $6); /*if con else */}
@@ -138,20 +148,38 @@ statement:
 | POP      sdesignator    { $$ = nodo1(pop ,  $2); } 
 | POP      designator    { $$ = nodo1(pop ,  $2); } 
 | ACTUALIZAR VENTANA designator { $$ = nodo1(actualizar, $3); } // actualiza los entry text
-| REGISTRO designator LITERAL lista_campos FINREGISTRO {printf("uno...\n"); $$ = nodo3(definir_registro, $2, $3, $4);
+| REGISTRO designator LITERAL lista_campos FINREGISTRO { $$ = nodo3(definir_registro, $2, $3, $4);
                         pila_records[idx_rec] = $$   ; 
 			array_variables[(int) $2->num].procedimiento = idx_rec  ;
 			idx_rec++;
  }
-| BUSCAR REGISTRO designator designator {printf("dos...\n"); $$=nodo2(buscar_registro, $3, $4); }
-| ACTUALIZAR REGISTRO designator designator {printf("tres...\n"); $$=nodo2(actualizar_registro, $3, $4); }
-
+| BUSCAR REGISTRO designator designator { $$=nodo2(buscar_registro, $3, $4); }
+| ACTUALIZAR REGISTRO designator designator { $$=nodo2(actualizar_registro, $3, $4); }
 ;
+
 lista_campos:
  sdesignator NUMBER { $$ = nodo2(listacampos, $1, $2); }
 | sdesignator NUMBER lista_campos { $$ = nodo3(listacampos, $3, $1, $2); }
+;
 
 
+lista_parametros:
+  expression { $$=nodo1(lista_parametros, $1); }
+| expression COMMA lista_parametros { $$=nodo2(lista_parametros, $1, $3); }
+;
+
+
+
+
+lista_argumentos:
+variable {$$ = nodo1(lista_argumentos, $1);}
+| variable COMMA lista_argumentos { $$ = nodo2(lista_argumentos, $1, $3); }
+;
+
+variable:
+  designator {$$ = $1;}
+|sdesignator {$$ = $1;}
+;
 
 lista_expr:
   lista_expr2  { $$=$1 ; /*lista expr*/ }
@@ -163,8 +191,6 @@ lista_expr2:
 | LITERAL      { $$=nodo1(imprimir_literal, $1 ); /* un literal*/}
 | sdesignator  { $$=nodo1(imprimir_var_alfa, $1); /* una variable literal*/}
 | sdesignator '[' expr2 ']'  { $$=nodo2(imprimir_var_vectoralfa, $1, $3); /* una variable literal*/}
-
-
 ;
 
 stmtseq:
@@ -204,6 +230,7 @@ expr4:
 | NUMBER { $$ =  $1; /*numero*/}
 | designator { $$ = $1; /*designador variable*/}
 | designator '[' expression ']' { $$ = nodo2(evalua_vector, $1, $3);   }
+| proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo2(llamar, $1, $3) ;/*llamar proced.*/} 
 ;
 
 sdesignator:
@@ -225,6 +252,17 @@ procedimiento:
                         array_variables[(int) $2->num].tipo = 'P'  ;
 			idx_prc++;
 			}
+
+funcion:
+   FUNCION proc_designator LPAREN lista_argumentos RPAREN stmtseq END { 
+			$$ = nodo3(funcion, $2, $4, $6) ;/*una funcion*/
+//cambiamos a que el nodo sea el procedimiento entero para poder liberarlo con free()
+                        procedimientos[idx_prc] = $$   ;   /* revisar este metodo */	
+			array_variables[(int) $2->num].procedimiento = idx_prc  ;
+                        array_variables[(int) $2->num].tipo = 'F'  ;
+			idx_prc++;
+			}
+
 %%
 
 

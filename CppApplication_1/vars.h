@@ -9,6 +9,7 @@ typedef struct  {
           char        valor[127]; 
           double      numero;
           int         procedimiento;
+          short       backup;
 } struct_variable;
 
 extern struct_variable   array_variables[256];

@@ -171,6 +171,8 @@ if (depurar)
 "guardar" {lineaEjecucion2(); return GUARDAR;}
 "push" {lineaEjecucion2(); return PUSH;}
 "pop" {lineaEjecucion2(); return POP;}
+"funcion" {lineaEjecucion2(); return FUNCION;}
+"retornar" {lineaEjecucion2(); return RETORNAR;}
 
 
 '[^\']+'  {

@@ -32,7 +32,7 @@ extern int contador_lineaInicial;
 extern struct ast* nodografico;
 extern struct ast* nodografico2;
 extern short  int tam_registro;
-
+extern struct ast * nuevonodo();
 
 int flag_ventanas = 0;
 
@@ -90,6 +90,85 @@ static int indice_ctr = 0;
 static int error_getstring = 0;
 
 void * execut(ast *);
+
+
+
+void push_param(int i) {
+            pila[idx_pila].numero = array_variables[i].numero;
+            pila[idx_pila].procedimiento = array_variables[i].procedimiento;
+            pila[idx_pila].tipo = array_variables[i].tipo;
+            strcpy(pila[idx_pila].nombre , array_variables[i].nombre);
+            strcpy(pila[idx_pila].valor , array_variables[i].valor);
+            pila[idx_pila].backup = i;
+            idx_pila++;
+}
+
+void pop_param(int i) {
+            if (idx_pila == 0) return;
+            idx_pila--;
+            array_variables[i].numero = pila[idx_pila].numero;
+            array_variables[i].procedimiento = pila[idx_pila].procedimiento;
+            array_variables[i].tipo = pila[idx_pila].tipo;
+            strcpy(array_variables[i].nombre, pila[idx_pila].nombre);
+            strcpy(array_variables[i].valor, pila[idx_pila].valor);
+}
+
+
+
+short push_argumentos(ast *f1, ast *g1) {
+    // en f tenemos el destino
+    // en g tenemos el origen
+    // en f son variables
+    // en g son variables y/o constantes
+    short cantidad = 0;
+    ast * p;
+    p = nuevonodo();
+    p->nodo1 = f1->nodo1;
+    p->nodo2 = g1->nodo1;
+    
+    if (f1->subnodos > 0) {
+        int i;
+        int j;
+        char t;
+        i = f1->nodo1->num; //designator del primer parametro
+        t = array_variables[i].tipo;
+        if (t == 'N') {
+            p->tipo = asigna_num;
+        }
+        else {
+            if (t == 'S') {
+                if (g1->nodo1->tipo == constante_literal) {
+                    p->tipo = asigna_alfa;
+                }
+                else {
+                    p->tipo = asigna_alfa_var;
+                }
+            }
+        }
+        push_param(p->nodo1->num);
+        cantidad++;
+        execut(p);
+        free(p);
+        memoria = memoria - sizeof(ast *);
+        if (g1->subnodos > 1)
+            push_argumentos(f1->nodo2, g1->nodo2);
+    }
+    return cantidad;
+}
+
+
+void pop_argumentos(short n) {
+    int i;
+    while (n>0)
+    {
+        idx_pila--;
+        i = pila[idx_pila].backup;
+        idx_pila++;
+        pop_param(i);
+        n--;
+    }
+}
+
 
 void initProcedimientos() {
     int i;
@@ -173,7 +252,7 @@ ast *nodo3(tiponodo, ast *, ast *, ast *);
 ast *nodo4(tiponodo, ast *, ast *, ast *, ast *);
 
 
-extern struct ast * nuevonodo();
+
 extern int lineaEjecucion ;
 extern int lineaAnterior ;
 
@@ -749,6 +828,8 @@ void guardar_campos(ast * lista_de_campos, FILE * handler) {
 
 
 void * execut(ast * p) {
+    
+    double return_value;
    
     //printf("profundidad: %d\n", profundidad);
     //profundidad++;
@@ -776,7 +857,7 @@ void * execut(ast * p) {
      } 
 
     
-    if (p->tipo != secuencia && p->tipo !=procedimiento)  {
+    if (p->tipo != secuencia && p->tipo !=procedimiento && p->tipo !=funcion)  {
         int numlinea;
         
         if (p->tipo == si || p->tipo == mientras || p->tipo == desde  )
@@ -836,12 +917,7 @@ void * execut(ast * p) {
         {
             int i;
             i = (int) p->nodo1->num;
-            pila[idx_pila].numero = array_variables[i].numero;
-            pila[idx_pila].procedimiento = array_variables[i].procedimiento;
-            pila[idx_pila].tipo = array_variables[i].tipo;
-            strcpy(pila[idx_pila].nombre , array_variables[i].nombre);
-            strcpy(pila[idx_pila].valor , array_variables[i].valor);
-            idx_pila++;
+            push_param(i);
         }
             break;
             
@@ -850,15 +926,7 @@ void * execut(ast * p) {
             int i;
             i = (int) p->nodo1->num;
             
-            if (idx_pila == 0) break;
-            idx_pila--;
-            
-            array_variables[i].numero = pila[idx_pila].numero;
-            array_variables[i].procedimiento = pila[idx_pila].procedimiento;
-            array_variables[i].tipo = pila[idx_pila].tipo;
-            
-            strcpy(array_variables[i].nombre, pila[idx_pila].nombre);
-            strcpy(array_variables[i].valor, pila[idx_pila].valor);
+            pop_param(i);
             
         }
             break;
@@ -942,16 +1010,11 @@ void * execut(ast * p) {
             calcular_tamanio(registro->nodo3);
             tam = tamanio+1;  // temporalmente por el fin de linea
             pos = (tam * (nroreg - 1) );
-            
             fseek(handler2, pos, SEEK_SET);
             leer_campos(registro->nodo3, handler2);
             //bucle de lectura de campos:
             //fread(&un_registro, 1, sizeof(un_registro), handler2);
-            
             fclose(handler2);
-     
-            
-            
         }
         break;
         
@@ -1037,9 +1100,6 @@ void * execut(ast * p) {
         }
             break;
             
-            
-            
-        
         
         case buscar_clave:
         {
@@ -1167,14 +1227,18 @@ void * execut(ast * p) {
         }
         break;
         
+        case funcion:
+        {
+            execut(p->nodo3);
+        }
+            break;
+        
         
         case  vaciar:
         {
             int  n;
             n = (int) p->nodo1->num;
-            
             array_variables[n].valor[0] = 0   ;
-            
         }
         break;
         
@@ -1203,7 +1267,6 @@ void * execut(ast * p) {
            fflush(stdout);
 	   printf ("%s", array_variables[n].valor);
            fflush(stdout);
-           
 	}
 	break;
 
@@ -1211,7 +1274,6 @@ void * execut(ast * p) {
 
         case abrir:   //  abrir ARCHIVO
         {
-           
             int n;
             char * s;
             n = (int) p->nodo2->num;
@@ -1925,6 +1987,9 @@ void * execut(ast * p) {
 
 
         case llamar:
+            // p->tipo = llamar
+            // p->nodo1->num = designator de la funcion a llamar
+            // p->nodo2  = argumentos para llamar a la funcion
             {
                 int procedimiento;
                 int indice_de_la_variable;
@@ -1932,14 +1997,50 @@ void * execut(ast * p) {
                 indice_de_la_variable = (int) p->nodo1->num  ;
                 tipo = array_variables[indice_de_la_variable].tipo;
                 procedimiento = array_variables[indice_de_la_variable].procedimiento;
-                if (tipo != 'P') {
+                if ((tipo != 'P') && (tipo!='F')) {
                     printf("procedimiento no encontrado en linea: %d \n",  p->nrolinea2 );
                     getchar();
                     exit(1);
                 }
-                else execut(procedimientos[ procedimiento ]);
+                else 
+                { if (tipo=='P')
+                    execut(procedimientos[ procedimiento ]); 
+                    else {
+                        short i;
+                        
+                        ast * g;
+                        ast * f = procedimientos[ procedimiento ];  // los argumentos
+                        i = f->nodo1->num;   //designator de la funcion que se llama
+                        
+                        g = p->nodo2;
+
+                        // en f tenemos una funcion
+                        // en f->nodo1 el designator de la funcion
+                        // en f->nodo2 los argumentos
+                        // en f->nodo3 el cuerpo de la funcion
+
+                        //push parametros
+                        i = push_argumentos(f->nodo2, g);
+                        //push_param(indice_de_la_variable);
+                        execut(f); 
+                        //pop_param(indice_de_la_variable);
+                        pop_argumentos(i);
+                        //pop parametros
+                    }
+                }
+                array_variables[indice_de_la_variable].numero = return_value;
             }
             break;
+            
+        case retorno:
+        {
+            double resul;
+            int i; 
+            resul = evalua(p->nodo1);
+            i = idx_pila - 1;
+            pila[i].numero = resul;
+        }
+        break;
 
         case asigna_num:
         {
@@ -2094,6 +2195,53 @@ double evalua(ast * p) {
     //prof++;
     
     switch (p->tipo) {
+        
+        case llamar:
+            // p->tipo = llamar
+            // p->nodo1->num = designator de la funcion a llamar
+            // p->nodo2  = argumentos para llamar a la funcion
+            {
+                int procedimiento;
+                int indice_de_la_variable;
+                char tipo;
+                indice_de_la_variable = (int) p->nodo1->num  ;
+                tipo = array_variables[indice_de_la_variable].tipo;
+                procedimiento = array_variables[indice_de_la_variable].procedimiento;
+                if ((tipo != 'P') && (tipo!='F')) {
+                    printf("procedimiento no encontrado en linea: %d \n",  p->nrolinea2 );
+                    getchar();
+                    exit(1);
+                }
+                else 
+                { if (tipo=='P')
+                    execut(procedimientos[ procedimiento ]); 
+                    else {
+                        short nargs;
+                        
+                        ast * g;
+                        ast * f = procedimientos[ procedimiento ];  // los argumentos
+                        //i = f->nodo1->num;   //designator de la funcion que se llama
+                        
+                        g = p->nodo2;
+
+                        // en f tenemos una funcion
+                        // en f->nodo1 el designator de la funcion
+                        // en f->nodo2 los argumentos
+                        // en f->nodo3 el cuerpo de la funcion
+
+                        //push parametros
+                        nargs = push_argumentos(f->nodo2, g);
+                        push_param(indice_de_la_variable);
+                        execut(f); 
+                        pop_param(indice_de_la_variable);
+                        pop_argumentos(nargs);
+                        res = array_variables[indice_de_la_variable].numero;
+                        //pop parametros
+                    }
+                }
+                //array_variables[indice_de_la_variable].numero = return_value;
+            }
+            break;
 
         case evalua_vector:
         {
