@@ -40,6 +40,7 @@ extern void cargar();
 extern void runall();
 extern void listaAST();
 extern ast * pila_programas[32];
+extern void initProcedimientos();
 
 
 int dbminit();
@@ -124,6 +125,7 @@ int *parametro2;
 
 int main(int argc, const char **argv)
 {
+    initProcedimientos();
     copyrigth();
     comandos();
 }

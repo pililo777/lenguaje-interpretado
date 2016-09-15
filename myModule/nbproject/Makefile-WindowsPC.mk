@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU_Cygwin-Windows
-CND_DLIB_EXT=dll
+CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=WindowsPC
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -52,19 +52,19 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/cygdrive/C/Users/test/Documents/NetBeansProjects/cppapp1
+LDLIBSOPTIONS=-L/C/Users/test/Documents/NetBeansProjects/cppapp1
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk libmyModule.so
 
 libmyModule.so: ${OBJECTFILES}
-	${LINK.c} -o libmyModule.so ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} -o libmyModule.so ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
 ${OBJECTDIR}/myModule.o: nbproject/Makefile-${CND_CONF}.mk myModule.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -I/cygdrive/D/GTK/lib/gtk-2.0/include -I/cygdrive/D/GTK/include/gtk-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -I/cygdrive/c/cygwin/usr/lib  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/myModule.o myModule.c
+	$(COMPILE.c) -g -I/D/GTK/lib/gtk-2.0/include -I/D/GTK/include/gtk-2.0 -I/c/cygwin/usr/include/libgnomeui-2.0 -I/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/c/cygwin/usr/include/libgnomecanvas-2.0 -I/c/cygwin/usr/include/libgnomeui-2.0 -I/c/cygwin/usr/include/libgnome-2.0 -I/C/cygwin/usr/include/libbonobo-2.0 -I/C/cygwin/usr/include/libbonoboui-2.0 -I/C/cygwin/usr/include/libart-2.0 -I/C/cygwin/usr/include/gnome-vfs-2.0 -I/c/cygwin/usr/lib -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/myModule.o myModule.c
 
 # Subprojects
 .build-subprojects:

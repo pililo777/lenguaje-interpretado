@@ -222,6 +222,7 @@ procedimiento:
 //cambiamos a que el nodo sea el procedimiento entero para poder liberarlo con free()
                         procedimientos[idx_prc] = $$   ;   /* revisar este metodo */	
 			array_variables[(int) $2->num].procedimiento = idx_prc  ;
+                        array_variables[(int) $2->num].tipo = 'P'  ;
 			idx_prc++;
 			}
 %%

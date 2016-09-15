@@ -1212,6 +1212,9 @@ extern char buff2[10][128];
      CARGA PROGRAMAS, EL NUMERO DE PROGRAMAS A CARGAR VA EN EL PARAMETRO ARGC
      LA POSICION EN LA PILA DE PROGRAMAS VIENE DADA POR IDX_PROG
 */
+
+extern void initProcedimientos();
+
 int cargar(int argc, const  char argv[][128])
 /*
 void xxmain (int argc, const char *argv)
@@ -1281,6 +1284,7 @@ void xxmain (int argc, const char *argv)
                 //printf("abierto.....\n");
                 {
                     printf("cargando en pila programas indice %d\n", idx_prg);
+                    //initProcedimientos();
                     yyparse();
                     linenumber  = 1;
                     fclose(yyin);
@@ -1321,6 +1325,7 @@ void xxmain (int argc, const char *argv)
 
 extern int mquit;
 extern int gtk_iniciado;
+extern void initProcedimientos();
 
 void runall() {
     int argc = 0;
@@ -1336,6 +1341,7 @@ void runall() {
     }
     
     gtk_iniciado = 1;
+    
 
     //  window = create_window ();
     //  gtk_widget_show_all (window);

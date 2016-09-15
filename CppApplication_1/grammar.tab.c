@@ -2151,13 +2151,14 @@ if (depurar)
 //cambiamos a que el nodo sea el procedimiento entero para poder liberarlo con free()
                         procedimientos[idx_prc] = (yyval.nodo)   ;   /* revisar este metodo */	
 			array_variables[(int) (yyvsp[-2].nodo)->num].procedimiento = idx_prc  ;
+                        array_variables[(int) (yyvsp[-2].nodo)->num].tipo = 'P'  ;
 			idx_prc++;
 			}
-#line 2157 "grammar.tab.c" /* yacc.c:1646  */
+#line 2158 "grammar.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2161 "grammar.tab.c" /* yacc.c:1646  */
+#line 2162 "grammar.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2385,7 +2386,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 227 "grammar.y" /* yacc.c:1906  */
+#line 228 "grammar.y" /* yacc.c:1906  */
 
 
 

@@ -91,6 +91,12 @@ static int error_getstring = 0;
 
 void * execut(ast *);
 
+void initProcedimientos() {
+    int i;
+    i = 0;
+    for (i=0; i < 127; i++) { procedimientos[i] = NULL ; };
+}
+
 int * nuevoValorEnteros(int cantidad) {
     int * vector = malloc(sizeof (int) *  cantidad);   // 4 * cantidad (el * no es puntero)
     memoria += (sizeof (int) * cantidad);
@@ -1922,10 +1928,12 @@ void * execut(ast * p) {
             {
                 int procedimiento;
                 int indice_de_la_variable;
+                char tipo;
                 indice_de_la_variable = (int) p->nodo1->num  ;
+                tipo = array_variables[indice_de_la_variable].tipo;
                 procedimiento = array_variables[indice_de_la_variable].procedimiento;
-                if (procedimientos[procedimiento] == NULL) {
-                    printf("procedimiento no encontrado en linea: \n");
+                if (tipo != 'P') {
+                    printf("procedimiento no encontrado en linea: %d \n",  p->nrolinea2 );
                     getchar();
                     exit(1);
                 }
@@ -1937,12 +1945,9 @@ void * execut(ast * p) {
         {
             int indice;
             indice = (int) p->nodo1->num;
-            
             var[indice] = evalua(p->nodo2);
             array_variables[indice].numero = evalua(p->nodo2);
-            
-         //   printf("asignar numerico var %d -- %.14f\n", indice, (double) var[indice]);
-            
+         // printf("asignar numerico var %d -- %.14f\n", indice, (double) var[indice]);
         }
             break;
 

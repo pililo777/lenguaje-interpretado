@@ -64,7 +64,7 @@ void listarTDS(int * contador, int * contadorvar, struct  struct_variable  array
     for (i=0; i<contvar;i++) {
         printf("var %3d  %25s   %c ", i, array_variablesx[i].nombre, array_variablesx[i].tipo);
         if (array_variablesx[i].tipo=='N') 
-            printf("%lf\n", array_variablesx[i].numero);
+            printf("%lf   %d\n", array_variablesx[i].numero, array_variablesx[i].procedimiento);
         else
             printf("%s\n", array_variablesx[i].valor);
     }
@@ -73,13 +73,11 @@ void listarTDS(int * contador, int * contadorvar, struct  struct_variable  array
         printf("const  %d    %-60s\n", i, constantes[i]);
     }
      printf("total: %d\n", cont + contvar );
-    
-     
 }
 
-extern struct struct_variable array_variablesx2[];
+/*
+extern struct struct_variable array_variables[];
 extern int  contadorvar;
-
 
 void listarTDS2( ) {
     int i;
@@ -96,12 +94,4 @@ void listarTDS2( ) {
             printf("%s\n", array_variablesx2[i].valor);
     }
 }
-
-
-
-
-
-
-
-
-
+*/
