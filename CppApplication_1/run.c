@@ -115,12 +115,12 @@ void pop_param(int i) {
 
 
 
-short push_argumentos(ast *f1, ast *g1) {
+short push_argumentos(ast *f1, ast *g1, short * cantidad) {
     // en f tenemos el destino
     // en g tenemos el origen
     // en f son variables
     // en g son variables y/o constantes
-    short cantidad = 0;
+    //short cantidad = 0;
     ast * p;
     p = nuevonodo();
     p->nodo1 = f1->nodo1;
@@ -146,14 +146,14 @@ short push_argumentos(ast *f1, ast *g1) {
             }
         }
         push_param(p->nodo1->num);
-        cantidad++;
+        (*cantidad)++;
         execut(p);
         free(p);
         memoria = memoria - sizeof(ast *);
         if (g1->subnodos > 1)
-            push_argumentos(f1->nodo2, g1->nodo2);
+            push_argumentos(f1->nodo2, g1->nodo2, cantidad);
     }
-    return cantidad;
+    return 1;
 }
 
 
@@ -2007,6 +2007,7 @@ void * execut(ast * p) {
                     execut(procedimientos[ procedimiento ]); 
                     else {
                         short i;
+                        short cantidad = 0;
                         
                         ast * g;
                         ast * f = procedimientos[ procedimiento ];  // los argumentos
@@ -2020,11 +2021,11 @@ void * execut(ast * p) {
                         // en f->nodo3 el cuerpo de la funcion
 
                         //push parametros
-                        i = push_argumentos(f->nodo2, g);
+                        i = push_argumentos(f->nodo2, g, &cantidad);
                         //push_param(indice_de_la_variable);
                         execut(f); 
                         //pop_param(indice_de_la_variable);
-                        pop_argumentos(i);
+                        pop_argumentos(cantidad);
                         //pop parametros
                     }
                 }
@@ -2216,7 +2217,8 @@ double evalua(ast * p) {
                 { if (tipo=='P')
                     execut(procedimientos[ procedimiento ]); 
                     else {
-                        short nargs;
+                        short i;
+                        short nargs = 0;
                         
                         ast * g;
                         ast * f = procedimientos[ procedimiento ];  // los argumentos
@@ -2230,7 +2232,7 @@ double evalua(ast * p) {
                         // en f->nodo3 el cuerpo de la funcion
 
                         //push parametros
-                        nargs = push_argumentos(f->nodo2, g);
+                        i = push_argumentos(f->nodo2, g, &nargs);
                         push_param(indice_de_la_variable);
                         execut(f); 
                         pop_param(indice_de_la_variable);

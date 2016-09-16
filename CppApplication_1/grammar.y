@@ -66,7 +66,7 @@ extern ast * pila_records[32]; // pila de registros
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME   
 %type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND CONTINUAR SALIR USE_INDICE
 %type <nodo> CLOSE_INDICE ACTUALIZAR lista_campos funcion subprograma lista_argumentos variable lista_parametros
-
+%type <nodo> parametro
 %%
 
 ROOT:
@@ -164,11 +164,15 @@ lista_campos:
 
 
 lista_parametros:
-  expression { $$=nodo1(lista_parametros, $1); }
-| expression COMMA lista_parametros { $$=nodo2(lista_parametros, $1, $3); }
+  parametro {$$ = nodo1(lista_parametros, $1);}
+| parametro COMMA lista_parametros { $$=nodo2(lista_parametros, $1, $3); }
 ;
 
-
+parametro:
+  expression { $$=$1; }
+| LITERAL { $$=$1; }
+| sdesignator { $$=$1; }
+;
 
 
 lista_argumentos:
