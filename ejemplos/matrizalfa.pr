@@ -1,3 +1,10 @@
+n = 6
+SALUDO = 'HOLA'
+MENSAJE = 'variable global'
+cerradura (SALUDO, 4)
+imprimir 'SALUDO despues: ', SALUDO
+imprimir 'MENSAJE despues: ', MENSAJE
+imprimir 'n = ', n
 dim REGLA 7
 // DATA "W=E",  "E=E+T",  "E=T",  "T=T*F",  "T=F", "F=(E)", "F=a"
 REGLA[0]= 'W=E'
@@ -8,7 +15,13 @@ REGLA[4]= 'T=F'
 REGLA[5]= 'F=(E)'
 REGLA[6]= 'F=a'
 
-desde x = 0 hasta 6
-{
-	imprimir x, REGLA[x]
-}
+
+terminar
+
+funcion cerradura (MENSAJE, n)
+  imprimir 'estoy en la cerradura: ', n
+  imprimir MENSAJE
+  SALUDO = 'que tal'
+  imprimir SALUDO
+fin
+
