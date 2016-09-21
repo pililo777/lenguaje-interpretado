@@ -169,6 +169,45 @@ void pop_argumentos(short n) {
     }
 }
 
+void subcadena(int i, ast * a, ast * b, int var) {
+    int aa, bb;
+    char * subc;
+    subc = malloc(127);
+    int k = 0;
+    aa = (int) evalua(a);
+    bb = (int) evalua(b);
+    for (int j=aa-1;j < (bb+aa-1);j++) {
+        subc[k] = array_variables[i].valor[j];
+        k++;
+    }
+    subc[k] = '\0';
+    strcpy (array_variables[var].valor, subc);
+    free(subc);
+}
+
+short instr(int i, int a) {
+    //i es la cadena en la cual buscar
+    //a es la cadena buscada
+    //var es el resultado
+    char * subc1;
+    char * subc2;
+    char * result;
+    short posicion;
+    short substringLen;
+    subc1 = malloc(127);
+    subc2 = malloc(127);
+    strcpy(subc1, array_variables[i].valor);
+    strcpy(subc2, array_variables[a].valor);
+    result = strstr(subc1 ,subc2);
+    
+    posicion = 0;
+    if (result)
+    posicion = result - subc1 + 1;
+    free(subc1);
+    free(subc2);
+    return posicion;
+}
+
 
 void initProcedimientos() {
     int i;
@@ -186,7 +225,7 @@ char * nuevoValorAlfas(int cantidad) {
     //strings de 127 caracteres cada una
     char * vector = malloc(sizeof (char) *  cantidad * 127);   // 4 * cantidad (el * no es puntero)
     memoria += (sizeof (char) * cantidad * 127);
-    printf ("lugar en memoria: %p\n", vector);
+    //printf ("lugar en memoria: %p\n", vector);
     return vector;
 }
 
@@ -1994,7 +2033,19 @@ void * execut(ast * p) {
                 int procedimiento;
                 int indice_de_la_variable;
                 char tipo;
+                
+                
                 indice_de_la_variable = (int) p->nodo1->num  ;
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "subcadena")) {
+                    
+                    subcadena((int) p->nodo2->nodo1->num, 
+                                         p->nodo2->nodo2->nodo1,
+                                         p->nodo2->nodo2->nodo2->nodo1,
+                                   (int) p->nodo3->num );
+                    
+                    return;
+                }
+                
                 tipo = array_variables[indice_de_la_variable].tipo;
                 procedimiento = array_variables[indice_de_la_variable].procedimiento;
                 if ((tipo != 'P') && (tipo!='F')) {
@@ -2047,7 +2098,7 @@ void * execut(ast * p) {
         {
             int indice;
             indice = (int) p->nodo1->num;
-            var[indice] = evalua(p->nodo2);
+            //var[indice] = evalua(p->nodo2);
             array_variables[indice].numero = evalua(p->nodo2);
          // printf("asignar numerico var %d -- %.14f\n", indice, (double) var[indice]);
         }
@@ -2206,6 +2257,22 @@ double evalua(ast * p) {
                 int indice_de_la_variable;
                 char tipo;
                 indice_de_la_variable = (int) p->nodo1->num  ;
+
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "instr")) {
+                    short i;
+                    i = instr((int) p->nodo2->nodo1->num, p->nodo2->nodo2->nodo1->num );
+                    res =  (double) i;
+                    return res;
+                }
+                
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "largo")) {
+                    short i;
+                    i = (int) p->nodo2->nodo1->num;
+                    i = strlen(array_variables[i].valor);
+                    res =  (double) i;
+                    return res;
+                }
+
                 tipo = array_variables[indice_de_la_variable].tipo;
                 procedimiento = array_variables[indice_de_la_variable].procedimiento;
                 if ((tipo != 'P') && (tipo!='F')) {
@@ -2217,6 +2284,9 @@ double evalua(ast * p) {
                 { if (tipo=='P')
                     execut(procedimientos[ procedimiento ]); 
                     else {
+                    // ver si es una funcion de Inter, o una funcion integrada
+
+                    
                         short i;
                         short nargs = 0;
                         

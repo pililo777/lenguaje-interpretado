@@ -103,6 +103,7 @@ statement:
 | sdesignator '[' expression ']' EQ sdesignator { $$ = nodo3(asigna_vector_alfa2, $1, $3, $6 );  }
 | sdesignator EQ sdesignator '[' expression ']' { $$ = nodo3(asigna_vector_alfa3, $1, $3, $5 );  }
 | LLAMAR proc_designator   {  $$ = nodo1(llamar, $2) ;/*llamar proced.*/} 
+| sdesignator EQ proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo3(llamar, $3, $5, $1) ;/*llamar proced.*/} 
 | proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo2(llamar, $1, $3) ;/*llamar proced.*/} 
 | RETORNAR expression { $$ = nodo1( retorno, $2);    }
 | DECIMALES NUMBER  { $$ = nodo1(decimales, $2 ) ; } 
