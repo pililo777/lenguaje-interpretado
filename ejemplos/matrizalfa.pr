@@ -1,6 +1,26 @@
 n = 6
 SALUDO = 'HOLA'
 MENSAJE = 'variable global'
+
+i = 1
+j = 1
+SUBC = 'ble'
+k = instr(MENSAJE,  SUBC)
+IZQ = ' '
+DER = ' '
+IZQ = izquierda(MENSAJE, 3)
+DER = derecha(MENSAJE, 8)
+IZQ += DER
+
+imprimir 'izq: ', IZQ  , '  DER: ', DER
+imprimir 'el texto se encuentra en la posicion: ', k
+k = largo(MENSAJE)
+imprimir MENSAJE, ' tiene ', k, ' caracteres'
+desde i=1 hasta k
+{
+	SUBC = subcadena(MENSAJE, i, j)
+        imprimir i, ' ', SUBC
+}
 cerradura (SALUDO, 4)
 imprimir 'SALUDO despues: ', SALUDO
 imprimir 'MENSAJE despues: ', MENSAJE
