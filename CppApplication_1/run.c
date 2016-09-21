@@ -185,6 +185,42 @@ void subcadena(int i, ast * a, ast * b, int var) {
     free(subc);
 }
 
+void izquierda(int i, ast * a,  int var) {
+    int aa, bb;
+    char * subc;
+    subc = malloc(127);
+    int k = 0;
+    aa = (int) 1;
+    bb = (int) evalua(a);
+    for (int j=aa-1;j < (bb+aa-1);j++) {
+        subc[k] = array_variables[i].valor[j];
+        k++;
+    }
+    subc[k] = '\0';
+    strcpy (array_variables[var].valor, subc);
+    free(subc);
+}
+
+void derecha(int i, ast * a,  int var) {
+    //i es la variable que se recorta
+    //a es la variable que tiene la cantidad
+    //var es la que recibe el recorte
+    int aa, bb;
+    char * subc;
+    subc = malloc(127);
+    int k = 0;
+    aa = (int) evalua(a);
+    bb = strlen(array_variables[i].valor);
+    aa = bb - aa;
+    for (int j=aa;j < (bb+aa-1);j++) {
+        subc[k] = array_variables[i].valor[j];
+        k++;
+    }
+    subc[k] = '\0';
+    strcpy (array_variables[var].valor, subc);
+    free(subc);
+}
+
 short instr(int i, int a) {
     //i es la cadena en la cual buscar
     //a es la cadena buscada
@@ -2037,12 +2073,24 @@ void * execut(ast * p) {
                 
                 indice_de_la_variable = (int) p->nodo1->num  ;
                 if (!strcmp(array_variables[indice_de_la_variable].nombre, "subcadena")) {
-                    
                     subcadena((int) p->nodo2->nodo1->num, 
                                          p->nodo2->nodo2->nodo1,
                                          p->nodo2->nodo2->nodo2->nodo1,
                                    (int) p->nodo3->num );
-                    
+                    return;
+                }
+                
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "izquierda")) {
+                    izquierda((int) p->nodo2->nodo1->num, 
+                                         p->nodo2->nodo2->nodo1,
+                                   (int) p->nodo3->num );
+                    return;
+                }
+                
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "derecha")) {
+                    derecha((int) p->nodo2->nodo1->num, 
+                                         p->nodo2->nodo2->nodo1,
+                                   (int) p->nodo3->num );
                     return;
                 }
                 
