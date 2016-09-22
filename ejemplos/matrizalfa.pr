@@ -1,9 +1,26 @@
 n = 6
 SALUDO = 'HOLA'
-MENSAJE = 'variable global'
+MENSAJE = 'variable global 1234  456 '
+REGEX = '[[:digit:]]+'
+dim resp 2
+resp[0]=0
+resp[1]=0
+hallado = 0
+hallado = chkregex(MENSAJE, REGEX, resp)
+
+si hallado = 1 entonces
+    imprimir  MENSAJE , ' contiene la expresion regular:  ',  REGEX
+    imprimir resp[0], ' ',  resp[1]
+    i = resp[0]   j = resp[1]
+    SUBC = subcadena(MENSAJE, i, j-i+1)
+    imprimir 'resultado: ', SUBC
+sino
+    imprimir '!!no se encuentra!!'
+si-fin
 
 i = 1
 j = 1
+
 SUBC = 'ble'
 k = instr(MENSAJE,  SUBC)
 IZQ = ' '
