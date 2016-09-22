@@ -1,22 +1,15 @@
 n = 6
 SALUDO = 'HOLA'
 MENSAJE = 'variable global 1234  456 '
-REGEX = '[[:digit:]]+'
+REGEX = '[[:alnum:]]+'  //'[[:digit:]]+'
+//https://en.wikibooks.org/wiki/Regular_Expressions/POSIX_Basic_Regular_Expressions
+//https://www.gnu.org/software/grep/manual/html_node/Character-Classes-and-Bracket-Expressions.html
 dim resp 2
 resp[0]=0
 resp[1]=0
-hallado = 0
-hallado = chkregex(MENSAJE, REGEX, resp)
+hallado = 1
 
-si hallado = 1 entonces
-    imprimir  MENSAJE , ' contiene la expresion regular:  ',  REGEX
-    imprimir resp[0], ' ',  resp[1]
-    i = resp[0]   j = resp[1]
-    SUBC = subcadena(MENSAJE, i, j-i+1)
-    imprimir 'resultado: ', SUBC
-sino
-    imprimir '!!no se encuentra!!'
-si-fin
+trozea(MENSAJE, REGEX)
 
 i = 1
 j = 1
@@ -61,4 +54,24 @@ funcion cerradura (MENSAJE, n)
   SALUDO = 'que tal'
   imprimir SALUDO
 fin
+
+funcion trozea(MENSAJE, REGEX) 
+mientras hallado = 1
+{
+  hallado = chkregex(MENSAJE, REGEX, resp)
+  si hallado = 1 entonces
+    //imprimir  MENSAJE , ' contiene la expresion regular:  ',  REGEX
+    //imprimir resp[0], ' ',  resp[1]
+    i = resp[0]  
+	j = resp[1]
+    SUBC = subcadena(MENSAJE, i, j-i+1)
+    imprimir  SUBC
+	MENSAJE = subcadena(MENSAJE, j+1, largo(MENSAJE)-j-1)
+	//stop
+  //sino
+    //imprimir '!!no se encuentra!!'
+  si-fin
+ }
+ fin
+
 
