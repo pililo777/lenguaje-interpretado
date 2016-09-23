@@ -67,16 +67,18 @@ if(depurar)
 }
 
 int variables_count = 0;
+short myflag = 0;
 
 char instalavar(x) 
 int x;
 {
 
-   int i=0;
+   int i=0; myflag = 0;
    for (i=0; i<=contadorvar; i++) {
        if (!strcmp(yytext, variables[i])) {
                                 contadorvar--;
                                 variables_count++;
+                                myflag = 1;
  		 return i ; }
            /* else printf("%d no igual...", i);   */
    };
@@ -207,6 +209,7 @@ lineaEjecucion2();
 	yylval.nodo->subnodos = 0;
 	yylval.nodo->num  = instalavar(contadorvar++);   //yylval.num  = instalavar(contadorvar++)
                 //array_variables[(int)yylval.nodo->num].numero=0;  // esto debe ponerse en un bucle al inicio del programa
+                if (!myflag)
                 array_variables[(int)yylval.nodo->num].tipo = 'N';   //numero
 if (depurar)
 	printf("variable numerica: %s    indice %4.0f   en linea : %i \n", yytext, yylval.nodo->num, linenumber );

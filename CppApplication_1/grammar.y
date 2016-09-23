@@ -106,6 +106,7 @@ statement:
 | sdesignator EQ proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo3(llamar, $3, $5, $1) ;/*llamar proced.*/} 
 | proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo2(llamar, $1, $3) ;/*llamar proced.*/} 
 | RETORNAR expression { $$ = nodo1( retorno, $2);    }
+| RETORNAR sdesignator { $$ = nodo1( retorno, $2);    }
 | DECIMALES NUMBER  { $$ = nodo1(decimales, $2 ) ; } 
 | PRINT lista_expr  { $$ = nodo1(imprimir_varios,  $2); /*imprimir lista expr*/} 
 | IF expression THEN stmtseq ELSE stmtseq FI { $$ = nodo3(si, $2, $4, $6); /*if con else */}
@@ -212,6 +213,7 @@ expression:
 | expr2 GT expr2 { $$ = nodo2(mayorque,      $1, $3); /*mayor que*/}
 | expr2 GE expr2 { $$ = nodo2(mayorigualque, $1, $3); /*mayor o igual que*/}
 | sdesignator EQ LITERAL { $$ = nodo2(comparaliteral, $1, $3) ; /*asigna literal*/}
+| sdesignator EQ sdesignator { $$ = nodo2(comparaliteral, $1, $3) ; /*asigna literal*/}
 ;
 
 expr2:
@@ -255,6 +257,7 @@ procedimiento:
                         procedimientos[idx_prc] = $$   ;   /* revisar este metodo */	
 			array_variables[(int) $2->num].procedimiento = idx_prc  ;
                         array_variables[(int) $2->num].tipo = 'P'  ;
+                        printf("P: %s\n", array_variables[(int) $2->num].nombre);
 			idx_prc++;
 			}
 
@@ -265,6 +268,7 @@ funcion:
                         procedimientos[idx_prc] = $$   ;   /* revisar este metodo */	
 			array_variables[(int) $2->num].procedimiento = idx_prc  ;
                         array_variables[(int) $2->num].tipo = 'F'  ;
+                        printf("F: %s\n", array_variables[(int) $2->num].nombre);
 			idx_prc++;
 			}
 

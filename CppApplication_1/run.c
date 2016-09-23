@@ -1972,9 +1972,7 @@ void * execut(ast * p) {
             i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
             j = (int) ( evalua(p->nodo2) * 127) ;
             vector = arrayVectoresAlfa[i];   // hasta 32 vectores
-            printf(" ( %d ) %s", j, &vector[j] );
-            
-            
+            printf("%s", &vector[j] );
         }
         break;
 
@@ -2122,24 +2120,52 @@ void * execut(ast * p) {
 
                         //push parametros
                         i = push_argumentos(f->nodo2, g, &cantidad);
-                        //push_param(indice_de_la_variable);
+                        push_param(indice_de_la_variable);
                         execut(f); 
-                        //pop_param(indice_de_la_variable);
+                        pop_param(indice_de_la_variable);
                         pop_argumentos(cantidad);
+                        g = p->nodo3;
+                        if (g!=NULL) {
+                            i = (int) p->nodo3->num;
+                            push_param(indice_de_la_variable);
+                            pop_param(i);
+                        }
+                        
+                        
                         //pop parametros
                     }
                 }
-                array_variables[indice_de_la_variable].numero = return_value;
+                //array_variables[indice_de_la_variable].numero = return_value;
             }
             break;
             
         case retorno:
         {
             double resul;
-            int i; 
-            resul = evalua(p->nodo1);
-            i = idx_pila - 1;
-            pila[i].numero = resul;
+            int i, k; 
+            int t;
+            
+            t = p->nodo1->tipo;
+            if (t==nombre_de_variable) {
+                char tipo;
+                k = p->nodo1->num;
+                tipo = array_variables[k].tipo;
+                if (tipo=='S') {  //string
+                    i = idx_pila - 1;
+                    k = p->nodo1->num;
+                    strcpy(pila[i].valor,  array_variables[k].valor);
+                    return;
+                }
+            }
+            
+            else
+                
+            {
+                resul = evalua(p->nodo1);
+                i = idx_pila - 1;
+                pila[i].numero = resul;
+            }
+            
         }
         break;
 
@@ -2149,6 +2175,7 @@ void * execut(ast * p) {
             indice = (int) p->nodo1->num;
             //var[indice] = evalua(p->nodo2);
             array_variables[indice].numero = evalua(p->nodo2);
+            indice = 0;  //para breakpoint
          // printf("asignar numerico var %d -- %.14f\n", indice, (double) var[indice]);
         }
             break;
@@ -2254,12 +2281,17 @@ void * execut(ast * p) {
             //int y = evalua(p->nodo3);
             indice_ctr++;
             counter1[indice_ctr] = var[x] = evalua(p->nodo2);
-
+            retornar = 0;
             for (counter1[indice_ctr]; counter1[indice_ctr] <= (int) evalua(p->nodo3); counter1[indice_ctr]++) {
                 //y = evalua(p->nodo3);
                 var[x] = counter1[indice_ctr];
                 array_variables[ x ].numero = counter1[indice_ctr];
                 execut(p->nodo4);
+                if (retornar == 1) 
+                { 
+                    retornar = 0;
+                    break;
+                }
             }
 
             indice_ctr--;
@@ -2344,7 +2376,7 @@ double evalua(ast * p) {
                         
                 }
 
-                tipo = array_variables[indice_de_la_variable].tipo;
+                tipo = array_variables[indice_de_la_variable].tipo; //evalua
                 procedimiento = array_variables[indice_de_la_variable].procedimiento;
                 if ((tipo != 'P') && (tipo!='F')) {
                     printf("procedimiento no encontrado en linea: %d \n",  p->nrolinea2 );
@@ -2474,11 +2506,20 @@ double evalua(ast * p) {
         {
             char string1[255];
             char string2[255];
-
-            strcpy(string1, array_variables[(int) p->nodo1->num].valor);
-            strcpy(string2, constantes[(int) p->nodo2->num]);
-            res = (double) !strcmp(string1, string2);
-
+            int tipo;
+            tipo = (int) p->nodo2->tipo;
+            if (tipo==constante_literal) {
+                strcpy(string1, array_variables[(int) p->nodo1->num].valor);
+                strcpy(string2, constantes[(int) p->nodo2->num]);
+                res = (double) !strcmp(string1, string2);
+            }
+            else {
+                int i;
+                i = (int) p->nodo2->num;
+                strcpy(string1, array_variables[(int) p->nodo1->num].valor);
+                strcpy(string2, array_variables[i].valor);
+                res = (double) !strcmp(string1, string2);
+            }
         }
         break;
         
