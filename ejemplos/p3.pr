@@ -1,0 +1,1146 @@
+/*
+
+Analizador sintactico (parser)
+Calcula las tablas ACCION y GOTO 
+los resultados están en la pagina 225 del libro del dragón
+> traducido de P3.BAS <
+Autor: Ruben Rivero Roca
+Fecha: 23 Septiembre 2016
+Lugar: Sabadell, España.
+
+*/
+
+
+nsym = 7
+nsym2 = nsym-1
+LISTA_SIMBOLOS = 'ETF(a+*)'
+LISTA_TERMINALES = 'a+*()$'
+LISTA_NO_TERMINALES = 'ETF'
+SIMBOLOS_ANADIDOS = ' '
+vaciar SIMBOLOS_ANADIDOS
+
+dim R 7
+dim R1 7
+dim r 7   //para saber si hemos añadido la regla N
+dim I 140  //20*7 guarda los estados (hasta 20 de momento)
+dim C 100
+dim TABLA_ACCION 72      //(LEN(lista.terminales$), ic)
+
+II = ' '
+CC = ' '
+
+// iniciar matrices en blanco
+vaciar CC
+desde i=0 hasta 139
+{
+	I[i] = CC
+}
+desde i=0 hasta 99
+{
+	C[i] = CC
+}
+
+c = 1   //indexa al array cerradura C
+k = 0
+r = 0
+ic = 0
+existe = 0
+nivel = 0
+
+//https://en.wikibooks.org/wiki/Regular_Expressions/POSIX_Basic_Regular_Expressions
+//https://www.gnu.org/software/grep/manual/html_node/Character-Classes-and-Bracket-Expressions.html
+
+/*
+
+//dim resp 2
+//resp[0]=0
+//resp[1]=0
+//hallado = 1
+//trozea(MENSAJE, REGEX)
+
+*/
+
+imprimir 'simbolos: ', LISTA_SIMBOLOS
+
+dim REGLA 7
+// DATA "W=E",  "E=E+T",  "E=T",  "T=T*F",  "T=F", "F=(E)", "F=a"
+REGLA[0]= 'W=E'
+REGLA[1]= 'E=E+T'
+REGLA[2]= 'E=T'
+REGLA[3]= 'T=T*F'
+REGLA[4]= 'T=F'
+REGLA[5]= 'F=(E)'
+REGLA[6]= 'F=a'
+
+PUNTO = '.'
+
+
+
+llamar crear_puntos
+
+TEMP = R[0]
+C[0] = TEMP
+k = nsym-1
+linea1 = 0
+
+//imprimir 'vamos a closure'
+closure2(0)
+//imprimir 'venimos de closure'
+
+llamar imprimir_array_c
+copiar_c_a_i(0)
+llamar vaciar_c
+
+jj1 = 0
+
+//inicio.bucle:
+bucle = 1
+
+mientras bucle = 1
+{
+	//imprimir 'entramos en bucle'
+	ii = 0
+	ll1 = largo(LISTA_SIMBOLOS)
+	//imprimir 'll1=', ll1
+	desde ii=1 hasta ll1
+	{
+		//imprimir 'entramos en bucle interior'
+		II = ' '
+		II = subcadena(LISTA_SIMBOLOS, ii, 1)
+		//imprimir 'II=' , II
+		//stop
+	    //procesamos las funciones.......
+	    push ii
+	    push ll1
+	    push II
+	    //imprimir '4-------llamada a ira---------->'
+	    n = ira(jj1, II)
+	    
+	    pop II
+	    pop ll1
+	    pop ii
+	    
+	    imprimir 'n=', n, '   ii = ', ii, '   ic=', ic
+
+	    si ic>12 entonces
+	    	imprimir '!! se ha sobrepasado!!'
+	    	stop
+	    si-fin
+	}
+	//imprimir '6----------------->'
+	jj1 = jj1 + 1
+	//stop
+
+	si  jj1 > ic entonces 
+		bucle = 0
+		//GOTO inicio.bucle
+	si-fin
+}
+Z = ' '
+imprimir 'VAMOS A IR MOSTRAR LOS CONJUNTOS: ', ic
+	leer Z
+
+	desde x = 0 hasta ic
+	{
+		mostrar_i(x)
+		//stop
+		imprimir ' '
+	}
+
+	llamar  mostrar_tabla_accion
+	llamar  calcular_tabla_goto
+
+	imprimir 'END RUN'
+	
+
+	//'ahora imprimimos la tabla
+	
+
+
+
+	//'CALL imprimir.array.c 'C$ muestra en pantalla el array C$
+					 
+	imprimir 'fin del programa---------------------------'
+
+terminar
+
+//esta funcion no se utiliza pero se deja como ejemplo
+funcion trozea(MENSAJE, REGEX) 
+mientras hallado = 1
+{
+  hallado = chkregex(MENSAJE, REGEX, resp)
+  si hallado = 1 entonces
+    //imprimir  MENSAJE , ' contiene la expresion regular:  ',  REGEX
+    //imprimir resp[0], ' ',  resp[1]
+    i = resp[0]  
+	j = resp[1]
+    SUBC = subcadena(MENSAJE, i+1, j-i+1)
+    imprimir  SUBC
+	MENSAJE = subcadena(MENSAJE, j+1)
+	//stop
+  //sino
+    //imprimir '!!no se encuentra!!'
+  si-fin
+ }
+ fin
+
+
+
+proc crear_puntos
+//crea los puntos iniciales
+	imprimir 'Creando los puntos iniciales en R$'
+	desde x = 0 hasta nsym - 1
+	{
+	    REGLAX = REGLA[x]
+	    l = largo(REGLAX)
+	    LL = izquierda(REGLAX, 2)   //la parte izquierda
+	    RR = subcadena(REGLAX, 3)    //la parte derecha
+	    TEMP = ' '
+	    vaciar TEMP
+        TEMP += LL
+        TEMP += PUNTO
+        TEMP += RR
+	    R[x] = TEMP
+	    imprimir R[x]  //la regla con un punto insertado
+	    TEMP = R[x]
+	    R1[x] = TEMP //el auxiliar
+	}
+fin
+
+
+
+
+funcion closure2(linea1)
+/*
+si I es un conjunto de elementos para una gramatica G
+entonces cerradura(I) es el conjunto de elementos construido a partir de I
+mediante 2 reglas:
+
+1. inicialmente se añade todo elemento de I a cerradura(I)
+2. si hay un elemento con un "." en su izquierda en cerradura(I) ej A->a.Bxx
+  y existe una produccion en G de ese elemento, ej B->xxx,
+  entonces se añade esa produccion (B->.xxx) a cerradura(I).
+ (con un punto)
+  Se aplica la regla 2 hasta que no se puedan a¤adir mas producciones.
+
+ Al entrar en esta funcion, ya se ha añadido el conjunto I a C$
+ es decir, ya se ha aplicado la regla 1.
+ La funcion es recursiva, el parametro linea es la posicion en C
+ que vamos a comprobar la regla 2.
+*/
+
+/*
+linea1 es externa
+C$ es el resultado de la funcion cerradura
+R1$ tiene las producciones de la gramatica G con un punto al inicio.
+R$ es I, o sea, el conjunto al que aplicar la funcion cerradura
+en C$(linea) entra la primer regla a analizar
+anadidos = 0, externa
+*/
+	linea_bk = linea1
+	A1 = C[linea1]
+	p1 = instr(A1, PUNTO)
+	p1 = p1 + 1
+	
+	K = subcadena(A1, p1, 1 ) //la inicial
+	LISTA = '*+()a'
+	kk = instr(LISTA, K)
+
+	si  kk > 0 entonces 
+		anadidos = 0
+	sino
+		kk = instr(SIMBOLOS_ANADIDOS, K)
+		si  kk > 0 entonces 
+			anadidos = 0
+		sino
+			//buscamos en G las producciones de B  (K$)
+			desde x = 0 hasta nsym2
+			{
+				TEMP = R1[x]
+				TEMP1 = subcadena(TEMP, 1, 1)
+			    si TEMP1 = K entonces
+					linea1 = linea1 + 1
+					TEMP = R1[x]
+					C[linea1] = TEMP  //añadimos esa produccion a Closure
+					//imprimir 'añadimos: ', TEMP, '  en linea: ', linea1
+					//stop
+			    si-fin
+			}
+
+			si linea1 > linea_bk entonces 
+				SIMBOLOS_ANADIDOS += K
+				anadidos = 1 
+			si-fin
+
+			si anadidos > 0 entonces
+			   mientras linea_bk < linea1
+			   {
+
+			   	  temp1 = linea_bk
+			   	  push temp1
+			   	  push linea1
+				  closure2(linea_bk+1)
+				  pop linea1
+				  pop temp1
+				  linea_bk = temp1
+				  linea_bk = linea_bk + 1
+				  //imprimir linea_bk
+			   }
+			si-fin
+
+		si-fin
+	si-fin
+	//retornar 0
+	//imprimir 'simbolos añadidos: ', SIMBOLOS_ANADIDOS
+fin
+
+
+
+proc imprimir_array_c
+    //MUESTRA EL ARRAY C$
+	imprimir 'ARRAY C$: '
+	desde x = 0 hasta 9
+	{
+		 imprimir x, ' --> ', C[x]
+	}
+fin
+
+
+funcion mostrar_i(x)
+	imprimir 'ENTRAMOS EN MOSTRAR: ', x
+    desde j = 0 hasta nsym2
+    {
+    	REGLA = I[(x*nsym) + j]
+		kk = largo (REGLA)
+		si  kk=0 entonces 
+			salir
+		sino
+			imprimir 'I$(', x*nsym, ', ', j, '): ', REGLA 
+			TEMP = derecha (REGLA, 1)
+			si TEMP = '.' entonces
+			    
+			    SIG = ' '
+			    TEMP = izquierda(REGLA, 1)
+			    //imprimir 'vamos a siguiente: ', TEMP
+				//Z = ' '
+				//leer Z
+				push j
+				push x
+				//imprimir 'aqui se cuelga: ', TEMP
+				//stop
+				
+			    SIG = siguiente(TEMP)
+			    pop x
+			    pop j
+				imprimir ' reducir SIG= ', SIG
+				
+				temp = largo(SIG)
+				si temp > 0 entonces
+				    imprimir 'vamos a rellena tabla accion'
+				    //Z = ' '
+				    //leer Z
+					rellena_tabla_accion(x, SIG, REGLA)  //pendiente de implementar'
+				sino
+					DOLAR = '$'
+					posic = instr(LISTA_TERMINALES, DOLAR) - 1
+					TABLA_ACCION[(x*nsym) + posic] = 'acep'  //pendiente calcular el 5
+					imprimir 'aceptar: ', x, ' ,  ', posic, '  acep    ', (posic*nsym)+x
+					//stop
+				si-fin
+			sino
+
+				//ver si hay que desplazar'
+				//cogemos el simbolo a la derecha del punto .'
+				//si el simbolo es un terminal t'
+				//vemos si ir_a(x, t) devuelve un numero
+				//si devuelve, hay que colocar desplazar-numero en la TABLA.ACCION$(x,t)
+
+				pospunto = instr(REGLA, PUNTO)
+				SYM = ' '
+				SYM = subcadena(REGLA, pospunto + 1, 1)
+				//preguntamos si este simbolo es un terminal'
+				
+				col = instr(LISTA_TERMINALES, SYM) 
+
+				si SYM = '(' entonces
+					imprimir '(', REGLA, x, j
+					//INPUT Z$
+				si-fin
+
+				si col > 0 entonces
+					imprimir 'VAMOS A BUSCAR IRA_(X, SYM)', x, SYM
+
+					push x
+					push j
+					push col
+					ir = ira(x, SYM)
+					pop col
+					pop j
+					pop x
+
+					imprimir '5----------------->', existe
+					si existe <> 0 entonces
+						imprimir 'd', existe
+						TEMP = 'd'
+						TEMP1 = ' '
+						convertir existe TEMP1
+						TEMP += TEMP1
+						TABLA_ACCION [(x*nsym)+col-1] = TEMP
+						imprimir 'desplazar: ', x, ' ,  ', col-1, ' ---  ', TEMP
+						//stop
+						//tabla.accion$(col - 1, x) = "d" + STR$(existe)
+					sino
+						imprimir ' '
+					si-fin
+				si-fin
+				//imprimir ' '
+			si-fin
+		si-fin
+	}
+//FIN.MOSTRAR
+fin
+
+
+proc vaciar_c
+	desde x = 1 hasta nsym2
+	{
+		TEMP = ' '
+		vaciar TEMP
+		C[x] = TEMP
+	}
+fin
+
+
+funcion  ira(i, J)
+//PRINT "i-------->"; i
+//STOP
+//segun la pagina 230 del libro del dragon,
+//esta funcion coje un conjunto de elementos I$() ...
+//(i) nos dice el indice de I$() para el conjunto
+//y un simbolo j$
+//se extraen del conjunto I$() todas las producciones
+//en los que se encuentra un punto justo a la izquierda de j$, ejemplo (.X)
+//y se forma otro conjunto, pero colocando el punto a la derecha de j$ (X.)
+//luego a este ultimo conjunto se le aplica la funcion cerradura
+
+	m = 0
+	cnt = 0
+	resul_ira = -1
+	existe = 0
+
+
+	
+	PAR = '.' 
+	PAR += J
+	
+	desde kk=0 hasta nsym2    // elementos del array "I$()"
+	{
+		TEMP = ' '
+		TEMP = I [ (i*nsym) + kk]
+		//imprimir 'fila: ', i*nsym, ', col: ', kk, '  TEMP=', TEMP
+		temp = instr(TEMP, PAR)
+
+		si temp > 0 entonces
+		   //r$(cnt) = i$(i, kk)
+		   //TEMP =  I [ i * kk ]
+		   //r$(cnt) = avanzar.punto$(r$(cnt))
+		   TEMP2 = ' '
+		   TEMP2 = avanzar_punto(TEMP)
+		   R[cnt] = TEMP2
+		   m = m + 1
+		   cnt = cnt + 1
+		si-fin
+	}
+
+	
+
+	si cnt > 0 entonces
+		
+		desde ii = 0 hasta cnt - 1
+		{
+			TEMP = R [ii]
+			C [ii] = TEMP
+		}
+		
+		TEMP = ' '
+		vaciar TEMP
+		SIMBOLOS_ANADIDOS = TEMP
+		
+		push cnt
+		//imprimir 'llamamos a closure desde ira'
+		closure2(cnt - 1)  //luego calcular el closure
+		//imprimir 'regresamos de closure en ira'
+		pop cnt
+		
+		//desde kkkk=0 hasta 5
+		//{
+		//	TEMP = C[kkkk]
+		//	imprimir kkkk, ' -> ', TEMP
+		//}
+		//stop
+		
+		//CALL imprimir.array.c
+		dummy = 0
+		//imprimir '3a-----------------> existe: ', existe
+		existe = buscar_c_en_i(dummy)    //vemos si ya tenemos ese conjunto
+		
+		// IF existe <> (-1) THEN
+		//	IF DBGFF THEN
+		//		PRINT "existe: "; existe, "   cnt="; cnt
+		//	END IF
+		//	'kkk$ = INPUT$(1)
+		// END IF
+
+		//imprimir '3b-----------------> existe: ', existe
+
+		si existe = (-1) entonces   //no existe, lo añadimos
+			
+			ic = ic + 1
+			//imprimir 'vamos a copiar'
+			copiar_c_a_i(ic)
+			//imprimir 'venimos de copiar'
+		si-fin
+		
+
+		llamar vaciar_c
+		resul_ira = cnt - 1
+		
+	sino
+		llamar vaciar_c
+		
+	si-fin
+
+	//imprimir 'ira - simbolo: ', J, '  RESUL_IRA----> ',  resul_ira
+	
+	//Z = ' '
+	//leer Z
+	retornar resul_ira
+
+fin
+
+
+funcion  avanzar_punto (CADENA)
+
+	posic = instr(CADENA, PUNTO)
+	TEMP1 = ' '
+
+	LL = ' '
+	RR = ' '
+	
+	ll = largo (CADENA)
+
+	LL = izquierda (CADENA, posic-1)
+	RR = subcadena (CADENA, posic+1)
+
+	//L$ = LEFT$(cadena$, posic - 1) //la parte izquierda
+	//r$ = MID$(cadena$, posic + 1)  //la parte derecha
+
+	MM = izquierda(RR, 1)
+
+	//m$ = LEFT$(r$, 1)
+	//r$ = MID$(r$, 2)
+
+	RR = subcadena(RR, 2)
+
+	TEMP1 = LL
+	TEMP1 += MM
+	TEMP1 += PUNTO
+	TEMP1 += RR
+
+	//cadena$ = L$ + m$ + "." + r$
+
+	//avanzar.punto$ = cadena$
+
+	retornar TEMP1
+fin
+
+
+funcion buscar_c_en_i(dummy)
+//copiaremos C a I despues de asegurarnos
+//de que C no esta en I, I tiene indices desde 0 hasta IC
+//con este algoritmo buscamos desde 0 hasta IC
+
+temp = -1          //significa que no son iguales
+
+desde i=0 hasta ic
+{
+
+	identico = comparar_c_con_ix(i)
+	si  identico = 1 entonces
+		temp = i
+		salir
+	si-fin
+}
+//fin.comparar:
+
+retornar temp
+
+fin
+
+funcion comparar_c_con_ix (x)
+
+//IF c$(i) <> i$(x, i) THEN iguales = -1: GOTO end.comparar
+
+	iguales = 1
+	desde i1 = 0 hasta nsym2
+	{
+	
+		TEMP = I[(x*nsym)+i1]
+		TEMP2 = C[i1]
+		si TEMP2 = TEMP entonces
+		    iguales = 1
+		sino
+	
+			iguales = -1
+			salir
+		si-fin
+	}
+	
+//end.comparar:
+
+	retornar iguales
+fin
+
+
+funcion copiar_c_a_i (x)
+	
+	desde j=0 hasta nsym2
+	{
+		TEMP = C[j]
+		I[(x*nsym)+j] = TEMP
+		//imprimir 'copiamos: ', TEMP, '   en fila: ', x*nsym, ', col: ', j
+		//i$(x, j) = c$(j)
+	}
+	
+fin
+
+
+
+funcion siguiente(SIMBOLO)
+//El simbolo$ en estas reglas es la letra B
+//Las reglas de esta funcion segun la pagina 194 del libro del dragon:
+//(1) se añade el simbolo delimitador derecho de producciones "$" al simbolo de inicio S
+//(2) Si hay una produccion A-> alfa-B-beta, entonces todo lo que este en PRIMERO(beta), excepto epsilon,
+//                                                                            ,se coloca en SIGUIENTE(B) 
+//(3) Si hay una produccion A-> alfa-B, todo lo que este en SIGUIENTE(A) se añade a SIGUIENTE(B)
+//(4) Si hay una produccion A-> alfa-B-beta y PRIMERO(beta) contiene a epsilon,
+//                                      todo lo que este en SIGUIENTE(A) se añade a SIGUIENTE(B)
+//COLOR 15
+//IF DBGFF THEN
+//PRINT "buscando siguiente de : "; simbolo$; " en el nivel de recursion: "; nivel%: nivel% = nivel% + 1
+//END IF
+    
+	RESUL = ' '
+	vaciar RESUL
+
+    //regla (1)
+    TEMP1 = REGLA[1]
+    TEMP = izquierda(TEMP1, 1)
+    
+    DOLAR = '$'
+    temp2 = instr(RESUL, DOLAR)
+
+	si (SIMBOLO = TEMP) yy (temp2 = 0) entonces
+		//resul$ = resul$ + "$"
+		RESUL = DOLAR
+		//imprimir 'resul = dolar'
+		//stop
+	si-fin
+	
+	//reglas (2,3 y 4)
+    //---------------------inicio bucle para reglas gramaticales------
+    desde x = 1 hasta nsym2
+    {
+	//FOR x = 1 TO nsym - 1    //reglas
+	//	IF DBGFF THEN
+	//	    PRINT "regla: "; regla$(x)
+	//	END IF
+	    TEMP = REGLA[x]
+		K = izquierda(TEMP, 1)  //parte izquierda de la regla
+		ll = largo(TEMP)
+
+		ALFA = subcadena(TEMP, 3)  //el cuerpo de la produccion
+		RK = derecha (ALFA, 1)
+
+		//si el lado izquierdo de la produccion es igual al ultimo simbolo del lado derecho,
+	    //caemos en recursion, asi que por ahora, las reglas recursivas las ignoro.
+	    //vamos a la siguiente regla, sino, caemos en recursion infinita
+		si (K = RK) yy (largo(ALFA) = 1) entonces
+			continuar
+			 //GOTO next.xx 
+		si-fin
+		//Si el simbolo de la parte izquierda de la regla es igual al ultimo simbolo de la parte derecha
+		//nos saltamos esta regla para no caer en bucle infinito
+
+		si (K = RK) yy (SIMBOLO = K) entonces
+		    //IF DBGFF THEN
+		    //PRINT "TE PILLAMOS PILLIN"
+		    //END IF
+			//GOTO next.xx
+			continuar
+		si-fin
+
+
+		//si el simbolo buscado es identico a la parte derecha,
+		//paso a la siguiente regla, PENDIENTE REVISAR, ya que entra en bucle de recursividad si no se
+		//pone esta condicion
+		si (SIMBOLO = ALFA) entonces
+		    //IF DBGFF THEN
+			//PRINT "la parte izquierda de la regla: "; k$; ", es igual al simbolo buscado: "; simbolo$
+		    //END IF
+		     
+		    //INPUT Z$
+			//GOTO next.xx //una especie de recursion, pasamos a la siguiente regla'
+			continuar
+		si-fin
+
+
+		//buscamos el no terminal (simbolo$) en la parte derecha de la produccion
+		ii = instr(ALFA, SIMBOLO)
+
+		si ii = 0 entonces  //el no terminal no se ha encontrado en esta produccion
+			continuar
+			//GOTO next.xx   //vamos a por la siguiente   
+		si-fin
+
+		
+		//comprobamos si esta produccion cumple con la regla (3)
+		si ii = (largo(ALFA)) entonces //B esta al final de alfa
+		    //regla 3
+		    push K
+		    push x
+		    push RESUL
+		    push SIMBOLO
+		    FK = siguiente(K)
+		    pop SIMBOLO
+		    pop RESUL
+		    pop x
+		    pop K
+
+			//fk$ = siguiente(k$)    //<<<<<<<<<< LLAMADA RECURSIVA >>>>>>>>>>>
+			//IF DBGFF THEN
+			//	PRINT "VOLVIMOS : "; simbolo$; " en el nivel de recursion: "; nivel
+			//END IF
+			//resul$ = resul$ + fk$  //añadimos siguiente(A) a siguiente(B)
+			RESUL += FK
+		sino
+		    //reglas 2 y 4
+		   //el caso es A=>aBb    (donde a es alfa y b es beta) B es el simbolo buscado
+		   //en este caso, segun pagina 194 del libro de dragon, obtenemos PRIMERO(beta) y si contiene epsilon
+			//entonces también se le añade siguiente de (A)
+			//ll = largo(ALFA)-(ii+1)
+			BETA = subcadena(ALFA, ii+1)
+			//imprimir 'BETA=', BETA
+			//beta$ = MID$(ALFA$, ii + 1)
+			//ref: /1/
+			
+			push K
+			push x
+			push RESUL
+			push SIMBOLO
+			FB = primero_xxx(BETA)
+			pop SIMBOLO
+			pop RESUL
+			pop x
+			pop K
+			//imprimir 'FB=', FB
+			//stop
+			//fb$ = primero.xxx$(beta$)
+			E = 'e'
+			ie = instr(FB, E)  //vemos si contiene epsilon
+			si ie > 0 entonces
+				//quitamos epsilon, preparamos para regla (2)
+				TEMP = izquierda(FB, ie-1)
+				//ll = largo (FB)-(ie+1)
+				TEMP2 = subcadena(FB, ie+1)
+				//fb$ = LEFT$(fb$, ie - 1) + MID$(fb$, ie + 1)
+				FB = TEMP
+				FB += TEMP2
+				//aplicamos regla (4)  añadir  siguiente(A) a siguiente(B)
+				push K
+				push x
+				push RESUL
+				push SIMBOLO
+				push FB
+				FK = siguiente(K)
+				pop FB
+				pop SIMBOLO
+				pop RESUL
+				pop x
+				pop K
+				//fk$ = siguiente(k$)  //<<<<<<<<<< LLAMADA RECURSIVA >>>>>>>>>>>
+				//IF DBGFF THEN
+				//	PRINT "VOLVIMOS : "; simbolo$; " en el nivel de recursion: "; nivel%
+				//END IF
+				//resul$ = resul$ + fk$
+				RESUL += FK
+			si-fin
+			// regla (2)
+			// añadimos PRIMERO(beta) - epsilon   (calculado en /1/)
+			RESUL += FB
+			//resul$ = resul$ + fb$
+		si-fin
+//next.xx:
+	}
+	//NEXT x
+
+
+	//IF DBGFF THEN
+	//	PRINT "SE HAN COMPROBADO TODAS LAS REGLAS DEL SIMBOLO: "; simbolo$
+	//	PRINT "el resultado es: "; resul$
+	//END IF
+	//INPUT Z$
+	//'---------------------- fin del bucle reglas gramaticales----------
+	
+//fin.siguiente:
+	//siguiente$ = resul$
+	//IF DBGFF THEN
+	//	PRINT "siguiente...:"; resul$
+	//	INPUT z$
+	//END IF
+	
+	nivel = nivel - 1
+	//'>>>>>>>---------------->'
+
+	retornar RESUL
+
+//'FUNCTION siguiente$  '
+fin
+
+
+funcion primero_xxx (ALFA)
+//Esta funcion calcula los simbolos terminales de otra cadena de simbolos segun la grmatica dada 
+//las reglas han sido obtenidas de la pagina 194 del libro del dragon
+//Ahora se puede calcular cualquier PRIMERO para cualquier cadena X1 X2 X3 X4......Xn de la siguente forma:
+//añadanse a PRIMERO(X1 X2 X3 ...Xn) todos los simbolos distintos de epsilon de PRIMERO(X1).
+//luego, si epsilon esta en PRIMERO(X1) tambien se añaden los simbolos distintos de epsilon de  PRIMERO(X2)....
+//y asi sucesivamente.
+//Por ultimo si, en todas las PRIMERO(Xn) estube presente epsilon, se añade tambien epsilon
+
+//resul$ = ""
+RESUL = ' '
+E =  'e'
+vaciar RESUL
+
+//COLOR 9
+//IF DBGFF THEN
+//	PRINT "Vamos a primero.xxxx de "; ALFA$
+//END IF
+
+			hubo_e = 0
+
+
+			i = 1 //para recorrer caracteres de alfa$
+
+//el bucle esta mas abajo
+
+		    //c$ = MID$(ALFA$, i, 1)  //Y
+		    CC = subcadena(ALFA, i, 1)
+
+		    //i$ = primero$(c$)       //FIRST(Y1)
+		    
+		    // ALGUNOS PUSH AQUI ?????
+
+		    //II = primero(CC)
+		    push i
+		    push hubo_e
+		    push RESUL
+
+		    II = primero(CC)
+
+		    pop RESUL
+		    pop hubo_e
+		    pop i
+
+		    //COLOR 9
+		    j = instr(II, E)
+		 
+		    si j > 0 entonces
+			    hubo_e = 1
+			    //quitamos epsilon
+			    //i$ = LEFT$(i$, j - 1) + MID$(i$, j + 1)
+			    TEMP = izquierda(II, j-1)
+			    TEMP2 = subcadena(II, j+1)
+			    II=TEMP
+			    II+=TEMP2
+		    si-fin
+		 
+		    //añadimos a PRIMERO( Xn )
+		 	RESUL += II
+
+		    si hubo_e = 0 THEN
+			  //finalizamos ya que no hay epsilon
+				//GOTO fin.xxx
+				i = 0  //por poner algo
+		    sino 
+			    //pero si hubo epsilon:
+			    //IF DBGFF THEN
+				//PRINT i, ALFA$, LEN(ALFA$)
+			    //END IF
+
+			    i = i + 1
+
+			    mientras i <= largo(ALFA)
+				{
+					CC = subcadena(ALFA, i, 1)
+				    //c$ = MID$(ALFA$, i, 1)  //Y
+
+				    push i
+				    push hubo_e
+				    push RESUL
+
+				    II = primero(CC)
+
+				    pop RESUL
+				    pop hubo_e
+				    pop i
+
+				    //i$ = primero$(c$)       //FIRST(Y1)
+
+				    //COLOR 9
+				    j = instr(II, E)
+				
+				    si j > 0 entonces
+					    hubo_e = 1
+					    TEMP = izquierda(II, j-1)
+					    TEMP2 = subcadena(II, j+1)
+					    II=TEMP
+					    II+=TEMP2
+					    //i$ = LEFT$(i$, j - 1) + MID$(i$, j + 1)
+				    si-fin
+				
+				    RESUL += II
+				}
+			si-fin
+//fin.xxx:
+		si hubo_e > 0 entonces
+			RESUL += E
+		si-fin
+		retornar RESUL
+		//primero.xxx$ = resul$
+		//IF DBGFF THEN
+		//	PRINT "primero xxxx:"; resul$
+		//END IF
+//IF DBGFF THEN
+// INPUT z$
+//END IF
+//COLOR 15
+//function primero.xxx'
+
+fin
+
+
+
+
+
+
+funcion primero(SIMBOLO)
+//Se calcula PRIMERO(SIMBOLO)
+//(en las reglas: X es SIMBOLO)
+//Las reglas estan en la pagina 194 del libro del dragon
+//(1) Si X es terminal, entonces PRIMERO(X)  es {X}
+//(2) Si X->epsilon es una produccion, entonces se añade epsilon a PRIMERO(X)
+//(3) Si X es un NO Terminal, se buscan todas las producciones tipo X-> Y1 Y2....Yn
+//    si un terminal esta en algun PRIMERO(Yn) y ademas epsilon esta en todos los
+//    PRIMERO(Y1).....PRIMERO(Yn),  se añade a PRIMERO(X).
+//(4) Si epsilon esta en todos los PRIMERO(Yn), se añade epsilon a PRIMERO(X)
+//fin de las reglas//
+
+//COLOR 8
+//IF DBGFF THEN
+//	PRINT "vamos a buscar primero de "; SIMBOLO
+//END IF
+
+RESUL = ' '
+vaciar RESUL
+hubo_e = 0
+E = 'e'
+
+	//REGLAS 1 Y 2//
+	si  (instr(LISTA_TERMINALES, SIMBOLO)) > 0  entonces
+	    RESUL = SIMBOLO
+	    //GOTO fin.primero
+	sino
+		//para simbolos no terminales:
+		//buscamos todas las producciones con SIMBOLO en el lado
+		//izquierdo
+		desde x = 1 hasta  nsym2   //bucle de las reglas gramaticales
+		{
+			TEMP=REGLA[x]
+			K = izquierda(TEMP, 1)
+			//k$ = LEFT$(regla$(x), 1) //parte izquierda de la regla
+
+			si  K = SIMBOLO entonces 
+			    //GOTO next.x //si son diferentes, no es una produccion q interesa
+
+				ALFA = subcadena(TEMP, 3)  //el cuerpo de la produccion
+				//IF DBGFF THEN
+				//	PRINT k$, SIMBOLO
+				//	PRINT regla$(x)
+				//END IF
+				//PRINT alfa$
+
+				desde  i = 1 hasta largo(ALFA)
+				{
+					CC = subcadena(ALFA, i, 1)
+				    //c$ = MID$(ALFA$, i, 1)  //Y
+				   
+				    si CC = SIMBOLO entonces
+				    	 i = i + 1
+				    	 CC = subcadena(ALFA, i, 1)
+				    	 //c$ = MID$(ALFA$, i, 1)
+				    si-fin
+					//  GOTO next.x
+				    //END IF
+				    push RESUL
+				    push ALFA
+				    push hubo_e
+				    push x
+				    push i
+				    II = primero(CC)       //FIRST(Y1)  >>>>>>>RECUSIVO<<<<<<<<
+				    pop i
+				    pop x
+				    pop hubo_e
+				    pop ALFA
+				    pop RESUL
+				    //COLOR 8
+				    j = instr(II, E)
+				   
+				    si j > 0 entonces
+					    hubo_e = 1
+					    TEMP = izquierda(II, j-1)
+						TEMP2 = subcadena(II, j+1)
+						II=TEMP
+						II+=TEMP2
+					    //i$ = LEFT$(i$, j - 1) + MID$(i$, j + 1)
+					    //GOTO next.i
+					    //continuar
+					sino 
+						RESUL += II
+
+					    si hubo_e = 0 entonces
+					    	i = largo(ALFA) //para terminar el desde (interior)
+							//GOTO next.x
+							salir
+					    si-fin
+				    si-fin
+		//next.i:
+				//NEXT i
+				}
+			si-fin
+	//next.x:
+		//NEXT x
+		}
+	si-fin
+//fin.primero:
+	si hubo_e entonces
+		RESUL += E
+	si-fin
+	retornar RESUL
+		//IF DBGFF THEN
+		//	PRINT "primero, hemos encontrado: ", RESUL
+		//END IF
+			//IF DBGFF THEN
+			 //INPUT z$
+			//END IF
+		//COLOR 9
+		//STOP
+		//primero
+fin
+
+
+funcion rellena_tabla_accion (x, SIG, REGLA)
+//calcula las reducciones
+//x es el numero de estado
+//sig$ es el conjunto de terminales a las que se le va a rellenar
+//regla$ es la regla por la que hay que reducir
+
+posic = 0
+
+desde col = 1 hasta largo(SIG)
+{
+	ELEMENTO = subcadena(SIG, col, 1)
+	posic = instr(LISTA_TERMINALES, ELEMENTO)
+	fil = x*nsym
+	TEMP = 'r'
+	TEMP2 = buscar_numero_regla(REGLA)
+	TEMP += TEMP2
+	TABLA_ACCION[fil + posic -1] = TEMP
+	imprimir 'reducir: ', x, '  ,  ', posic-1, '    ', TEMP
+	//stop
+	//tabla.accion$(posic - 1, x) = "r" + STR$(buscar.numero.regla(regla$))
+}
+fin
+
+
+
+
+funcion  buscar_numero_regla (REGLA)
+pausa
+n = largo (REGLA) - 1
+REGLA1 = izquierda (REGLA, n)
+TEMP4 = ' '
+vaciar TEMP4
+
+desde i = 1 hasta nsym2
+{
+	TEMP3 = REGLA[i]
+	si TEMP3 = REGLA1 entonces
+		//buscar.numero.regla = i
+		salir
+	si-fin
+}
+convertir i TEMP4
+//imprimir TEMP4
+pausa
+retornar TEMP4
+
+fin
+
+
+
+proc mostrar_tabla_accion
+   desde x = 0 hasta ic
+   {
+   	desde i = 0 hasta largo(LISTA_TERMINALES) - 1
+   	{
+   		TEMP = TABLA_ACCION[(x*nsym)+i]
+   		TEMP1 = subcadena(LISTA_TERMINALES, i+1, 1)
+   		imprimir 'accion ', x, ' ', i, ' ---- ', TEMP1, '   ', TEMP  //, '  ::  ', (x*nsym)+i
+	 //PRINT "accion "; STR$(x); ", "; STR$(i); " = "; MID$(lista.terminales$, i + 1, 1); "   ";
+	 //PRINT tabla.accion$(i, x)
+    }
+    imprimir '----------------------------'
+    Z = ' '
+    leer Z
+}
+fin
+
+
+
+proc calcular_tabla_goto
+
+desde x = 0  hasta ic
+{
+	desde posic = 1 hasta largo (LISTA_NO_TERMINALES)
+	{
+		ELEMENTO = subcadena (LISTA_NO_TERMINALES, posic, 1)
+		push posic
+		push x
+		n = ira(x, ELEMENTO)
+		pop x
+		pop posic
+		
+		si (n = 0) oo (n = 1) entonces
+		    imprimir ELEMENTO, ' ', x, '   --->   ', existe
+		si-fin
+	}
+}
+fin
+
+
+
+
+
+
+

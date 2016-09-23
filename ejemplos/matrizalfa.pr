@@ -1,3 +1,9 @@
+/*
+
+Se demuestran funciones de cadena y expresiones regulares.
+
+*/
+
 n = 6
 SALUDO = 'HOLA'
 MENSAJE = 'variable global 1234  456 '
@@ -29,7 +35,7 @@ imprimir MENSAJE, ' tiene ', k, ' caracteres'
 desde i=1 hasta k
 {
 	SUBC = subcadena(MENSAJE, i, j)
-        imprimir i, ' ', SUBC
+    imprimir i, ' ', SUBC
 }
 cerradura (SALUDO, 4)
 imprimir 'SALUDO despues: ', SALUDO
@@ -64,9 +70,9 @@ mientras hallado = 1
     //imprimir resp[0], ' ',  resp[1]
     i = resp[0]  
 	j = resp[1]
-    SUBC = subcadena(MENSAJE, i, j-i+1)
+    SUBC = subcadena(MENSAJE, i+1, j-i+1)
     imprimir  SUBC
-	MENSAJE = subcadena(MENSAJE, j+1, largo(MENSAJE)-j-1)
+	MENSAJE = subcadena(MENSAJE, j+1, largo(MENSAJE)-j)
 	//stop
   //sino
     //imprimir '!!no se encuentra!!'
