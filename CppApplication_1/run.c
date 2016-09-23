@@ -1,6 +1,8 @@
 //run.c github
 #include <stdio.h>
 #include <regex.h>
+//#include <ncurses.h>
+
 
 /*
 #include <time.h>
@@ -79,6 +81,8 @@ extern int nro_decimales;
 
 char msgbox[2550];
 char mensaje2[255];
+char modo_pausa = '0';
+char en_pausa = '0';
 
 
 extern long memoria;
@@ -177,6 +181,23 @@ void subcadena(int i, ast * a, ast * b, int var) {
     int k = 0;
     aa = (int) evalua(a);
     bb = (int) evalua(b);
+    for (int j=aa-1;j < (bb+aa-1);j++) {
+        subc[k] = array_variables[i].valor[j];
+        k++;
+    }
+    subc[k] = '\0';
+    strcpy (array_variables[var].valor, subc);
+    free(subc);
+}
+
+void subcadena2(int i, ast * a, int var) {
+    int aa, bb;
+    char * subc;
+    subc = malloc(127);
+    int k = 0;
+    aa = (int) evalua(a);
+    //bb = (int) evalua(b);
+    bb = (strlen(array_variables[i].valor) - aa)+1;
     for (int j=aa-1;j < (bb+aa-1);j++) {
         subc[k] = array_variables[i].valor[j];
         k++;
@@ -822,8 +843,10 @@ int pausar()
         _start_timer(label2);
         return 0;
 */
-    gulong tiempo = 000001L;
-    g_usleep (tiempo);
+    if (en_pausa == '0') {
+        gulong tiempo = 200001L;
+        g_usleep (tiempo);
+    }
 }
 
 int tamanio = 0;
@@ -902,10 +925,14 @@ void guardar_campos(ast * lista_de_campos, FILE * handler) {
 }
 
 
+const gchar *mark_name = "lineaActual";
+GtkTextMark *marca1;
+gboolean * left_gravity = TRUE;
+gboolean marca_creada = FALSE;
 
 void * execut(ast * p) {
     
-    double return_value;
+    double return_value; //sin uso
    
     //printf("profundidad: %d\n", profundidad);
     //profundidad++;
@@ -950,6 +977,10 @@ void * execut(ast * p) {
         //movernos a la linea del nodo
         gtk_text_buffer_get_start_iter (buffer2, &start);
         gtk_text_iter_set_line (&start, numlinea);
+        
+        
+        
+    
 
         //obtener un iter y posicionarlo en la posicion 0
         //gtk_text_iter_set_line_offset( &start,  (gint) 0 );
@@ -957,7 +988,7 @@ void * execut(ast * p) {
         // movernos al final de la linea
 
         end = start;
-
+        
         gtk_text_iter_forward_to_line_end (&end);
 
         //seleccionar el texto
@@ -967,15 +998,39 @@ void * execut(ast * p) {
         gtk_text_buffer_apply_tag_by_name (buffer2, "color", &start,
                            &end);
         
+        if (marca_creada == FALSE) {
+            marca1 = gtk_text_buffer_create_mark (buffer2,
+                             mark_name,
+                             &start,
+                             left_gravity);
+            marca_creada = TRUE;
+        }
+        else
+        {
+            gtk_text_buffer_move_mark (buffer2,
+                           marca1,
+                           &start);
+        }
+        
+        gtk_text_view_scroll_to_mark (textview2, marca1, 0.0, TRUE, 0.0, 0.17);
+
+        
+        
         sprintf(str_temp, "LINEA: %d", numlinea+1 );
        
         gtk_label_set_label(label2, str_temp );
         gtk_widget_queue_draw(label2); 
         
-        
-/*
+        if (modo_pausa == '1' ) {
+            
+            en_pausa = '1';
+            while (en_pausa == '1') {
+                while (gtk_events_pending ()) gtk_main_iteration();
+            }
+        }
+
         pausar();
-*/
+
         
         while (gtk_events_pending ()) gtk_main_iteration();
         
@@ -989,6 +1044,13 @@ void * execut(ast * p) {
      */
     
     switch (p->tipo) {
+        case pausa:
+        { if(modo_pausa=='0')
+            modo_pausa = '1';
+        else
+            modo_pausa = '0';
+        }
+        break;
         case push:
         {
             int i;
@@ -2068,15 +2130,26 @@ void * execut(ast * p) {
                 int procedimiento;
                 int indice_de_la_variable;
                 char tipo;
+                ast * g;
                 
                 
                 indice_de_la_variable = (int) p->nodo1->num  ;
                 if (!strcmp(array_variables[indice_de_la_variable].nombre, "subcadena")) {
-                    subcadena((int) p->nodo2->nodo1->num, 
-                                         p->nodo2->nodo2->nodo1,
-                                         p->nodo2->nodo2->nodo2->nodo1,
-                                   (int) p->nodo3->num );
+                    g = p->nodo2->nodo2->nodo2;
+                    if (g!=NULL) {
+                        subcadena((int) p->nodo2->nodo1->num, 
+                                            p->nodo2->nodo2->nodo1,
+                                            g->nodo1,
+                                       (int) p->nodo3->num );
                     return;
+                    }
+                    else
+                    {
+                        subcadena2((int) p->nodo2->nodo1->num, 
+                                            p->nodo2->nodo2->nodo1,
+                                       (int) p->nodo3->num );
+                    return;
+                    }
                 }
                 
                 if (!strcmp(array_variables[indice_de_la_variable].nombre, "izquierda")) {
@@ -2193,6 +2266,7 @@ void * execut(ast * p) {
         case continuar:
                 {
                     retornar = 1;
+                    salir1 = 0;
                 }
                 break;
                 
@@ -2210,10 +2284,14 @@ void * execut(ast * p) {
                 while (evalua(p->nodo1)) {
                     retornar = 0;
                     execut(p->nodo2);
-                    retornar = 0;
-                    if (salir1 == 1) {
-                        salir1 = 0;
-                        break;
+                    //retornar = 0;
+                    if (retornar == 1) 
+                    { 
+                        retornar = 0;
+                        if (salir1 == 1) {
+                            salir1 = 0;
+                            break;
+                        }
                     }
                 }
             }
@@ -2290,7 +2368,10 @@ void * execut(ast * p) {
                 if (retornar == 1) 
                 { 
                     retornar = 0;
-                    break;
+                    if (salir1 == 1) {
+                        salir1 = 0;
+                        break;
+                    }
                 }
             }
 

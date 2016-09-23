@@ -175,6 +175,7 @@ if (depurar)
 "pop" {lineaEjecucion2(); return POP;}
 "funcion" {lineaEjecucion2(); return FUNCION;}
 "retornar" {lineaEjecucion2(); return RETORNAR;}
+"pausa" {lineaEjecucion2(); return PAUSA; }
 
 
 '[^\']+'  {

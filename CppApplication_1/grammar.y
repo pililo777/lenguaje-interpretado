@@ -60,13 +60,13 @@ extern ast * pila_records[32]; // pila de registros
 %token PRINT
 %token LEER BORRAR
 %token NUMBER
-%token NAME SNAME 
+%token NAME SNAME PAUSA
 %token LITERAL DOBLECOMILLA OR AND CONTINUAR SALIR ACTUALIZAR
 %type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME   
 %type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND CONTINUAR SALIR USE_INDICE
 %type <nodo> CLOSE_INDICE ACTUALIZAR lista_campos funcion subprograma lista_argumentos variable lista_parametros
-%type <nodo> parametro
+%type <nodo> parametro PAUSA
 %%
 
 ROOT:
@@ -157,6 +157,7 @@ statement:
  }
 | BUSCAR REGISTRO designator designator { $$=nodo2(buscar_registro, $3, $4); }
 | ACTUALIZAR REGISTRO designator designator { $$=nodo2(actualizar_registro, $3, $4); }
+| PAUSA { $$ = nodo0(pausa, $1); }
 ;
 
 lista_campos:

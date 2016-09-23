@@ -19,6 +19,7 @@ extern int nodos;
 #include "stdlib.h"
 #include <string.h>
 #include <gtk/gtk.h> 
+#include <gdk/gdkkeysyms.h>
 #include <cairo.h>
 
 #ifndef xrun
@@ -376,6 +377,8 @@ void on_button_bold_clicked (GtkButton * button, gpointer user_data);
 void on_button_underline_clicked (GtkButton * button, gpointer user_data);
 void on_button_strike_clicked (GtkButton * button, gpointer user_data);
 void on_button_color_clicked (GtkButton * button, gpointer user_data);
+gboolean
+on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
 extern int gtk_iniciado;
 extern int ejecuta_desde_editor;
@@ -635,6 +638,9 @@ create_window() {
 
   g_signal_connect_object(buffer, "mark_set", 
         G_CALLBACK(mark_set_callback), statusbar, 0);
+  
+  g_signal_connect (G_OBJECT (window), "key_press_event", G_CALLBACK (on_key_press), NULL);
+
     
     
     return window;
@@ -1046,6 +1052,67 @@ on_button_strike_clicked (GtkButton * button, gpointer user_data)
 
     gtk_text_buffer_apply_tag_by_name (textbuffer, "strike", &start,
                        &end);
+}
+
+extern char modo_pausa;
+extern char en_pausa;
+
+gboolean
+on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+
+{
+switch (event->keyval)
+  {
+    case GDK_p:
+        if (event->state & GDK_CONTROL_MASK)
+        {
+            if (en_pausa == '1') {
+                en_pausa = '0';
+                modo_pausa = '0';
+            }
+            else {
+                en_pausa = '1';
+                modo_pausa = '1';
+            }
+        }
+      //printf("key pressed: %s\n", "p");
+      break;
+    case GDK_s:
+      if (event->state & GDK_SHIFT_MASK)
+      {
+       // printf("key pressed: %s\n", "shift + s");
+        
+      }
+      else if (event->state & GDK_CONTROL_MASK)
+      {
+        //printf("key pressed: %s\n", "ctrl + s");
+        en_pausa = '0';
+      }
+      else
+      {
+        //printf("key pressed: %s\n", "s");
+      }
+      break;
+    case GDK_m:
+      if (event->state & GDK_SHIFT_MASK)
+      {
+        //printf("key pressed: %s\n", "shift + m");
+      }
+      else if (event->state & GDK_CONTROL_MASK)
+      {
+        //printf("key pressed: %s\n", "ctrl + m");
+      }
+      else
+      {
+        //printf("key pressed: %s\n", "m");
+      }
+      break;
+
+    default:
+      return FALSE; 
+  }
+
+  return FALSE; 
 }
 
 void
