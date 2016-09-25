@@ -2,34 +2,40 @@
 
 Analizador sintactico (parser)
 Calcula las tablas ACCION y GOTO 
-los resultados están en la pagina 225 del libro del dragón
-> traducido de P3.BAS <
+los resultados estan en la pagina 225 del libro del dragon
+ traducido de P3.BAS 
 Autor: Ruben Rivero Roca
 Fecha: 23 Septiembre 2016
-Lugar: Sabadell, España.
+Lugar: Sabadell, Espana.
 
 */
 
 
-nsym = 7
-nsym2 = nsym-1
-LISTA_SIMBOLOS = 'ETF(a+*)'
-LISTA_TERMINALES = 'a+*()$'
-LISTA_NO_TERMINALES = 'ETF'
 SIMBOLOS_ANADIDOS = ' '
 vaciar SIMBOLOS_ANADIDOS
 
+
+II = ' '
+CC = ' '
+c = 1   //indexa al array cerradura C
+k = 0
+r = 0
+ic = 0
+existe = 0
+nivel = 0
+PUNTO = '.'
+
+// iniciar matrices en blanco
+
+
+/*
 dim R 7
 dim R1 7
-dim r 7   //para saber si hemos añadido la regla N
+dim r 7   //para saber si hemos aniadido la regla N
 dim I 140  //20*7 guarda los estados (hasta 20 de momento)
 dim C 100
 dim TABLA_ACCION 72      //(LEN(lista.terminales$), ic)
 
-II = ' '
-CC = ' '
-
-// iniciar matrices en blanco
 vaciar CC
 desde i=0 hasta 139
 {
@@ -39,13 +45,30 @@ desde i=0 hasta 99
 {
 	C[i] = CC
 }
+desde i=0 hasta 72
+{
+	TABLA_ACCION[i] = CC
+}
+imprimir 'simbolos: ', LISTA_SIMBOLOS
 
-c = 1   //indexa al array cerradura C
-k = 0
-r = 0
-ic = 0
-existe = 0
-nivel = 0
+dim REGLA 7
+// DATA "W=E",  "E=E+T",  "E=T",  "T=T*F",  "T=F", "F=(E)", "F=a"
+REGLA[0]= 'W=E'
+REGLA[1]= 'E=E+T'
+REGLA[2]= 'E=T'
+REGLA[3]= 'T=T*F'
+REGLA[4]= 'T=F'
+REGLA[5]= 'F=(E)'
+REGLA[6]= 'F=a'
+
+nsym = 7
+nsym2 = nsym-1
+LISTA_SIMBOLOS = 'ETF(a+*)'
+LISTA_TERMINALES = 'a+*()$'
+LISTA_NO_TERMINALES = 'ETF'
+
+*/
+
 
 //https://en.wikibooks.org/wiki/Regular_Expressions/POSIX_Basic_Regular_Expressions
 //https://www.gnu.org/software/grep/manual/html_node/Character-Classes-and-Bracket-Expressions.html
@@ -60,22 +83,61 @@ nivel = 0
 
 */
 
-imprimir 'simbolos: ', LISTA_SIMBOLOS
+//ejemplo 4.17 (pagina 195, libro del dragon)
+//e es epsilon
 
-dim REGLA 7
-// DATA "W=E",  "E=E+T",  "E=T",  "T=T*F",  "T=F", "F=(E)", "F=a"
+//nsym = 9    'numero de reglas (no es gramatica aumentada)
+
+
+//lista.simbolos$ = "ETXFZ(a+*)e" 'orden de columna
+//lista.terminales$ = "(a+*)e$"
+
+dim R 9
+dim R1 9
+dim r 9   //para saber si hemos aniadido la regla N
+dim I 180  //20*9 guarda los estados (hasta 20 de momento)
+dim C 140
+dim TABLA_ACCION 140      //(LEN(lista.terminales$), ic)
+
+vaciar CC
+desde i=0 hasta 179
+{
+	I[i] = CC
+}
+desde i=0 hasta 139
+{
+	C[i] = CC
+}
+desde i=0 hasta 139
+{
+	TABLA_ACCION[i] = CC
+}
+
+
+dim REGLA 9
+//DATA "W=E", "E=TX", "X=+TX",  "X=e",  "T=FZ",   "Z=*FZ", "Z=e", "F=(E)", "F=a"
 REGLA[0]= 'W=E'
-REGLA[1]= 'E=E+T'
-REGLA[2]= 'E=T'
-REGLA[3]= 'T=T*F'
-REGLA[4]= 'T=F'
-REGLA[5]= 'F=(E)'
-REGLA[6]= 'F=a'
+REGLA[1]= 'E=TX'
+REGLA[2]= 'X=+TX'
+REGLA[3]= 'X=e'
+REGLA[4]= 'T=FZ'
+REGLA[5]= 'Z=*FZ'
+REGLA[6]= 'Z=e'
+REGLA[7]= 'F=(E)'
+REGLA[8]= 'F=a'
 
-PUNTO = '.'
+
+nsym = 9
+nsym2 = nsym-1
+LISTA_SIMBOLOS = 'ETXFZ(a+*)e'
+LISTA_TERMINALES = '(a+*)e$'
+LISTA_NO_TERMINALES = 'ETXFZ'
 
 
 
+
+
+imprimir 'simbolos: ', LISTA_SIMBOLOS
 llamar crear_puntos
 
 TEMP = R[0]
@@ -122,10 +184,13 @@ mientras bucle = 1
 	    
 	    imprimir 'n=', n, '   ii = ', ii, '   ic=', ic
 
+/*
 	    si ic>12 entonces
 	    	imprimir '!! se ha sobrepasado!!'
 	    	stop
 	    si-fin
+*/
+
 	}
 	//imprimir '6----------------->'
 	jj1 = jj1 + 1
@@ -136,6 +201,7 @@ mientras bucle = 1
 		//GOTO inicio.bucle
 	si-fin
 }
+stop
 Z = ' '
 imprimir 'VAMOS A IR MOSTRAR LOS CONJUNTOS: ', ic
 	leer Z
@@ -243,7 +309,10 @@ anadidos = 0, externa
 	p1 = p1 + 1
 	
 	K = subcadena(A1, p1, 1 ) //la inicial
-	LISTA = '*+()a'
+	//LISTA = '*+()a'  sin el dolar
+	ll = largo(LISTA_TERMINALES)-1
+	LISTA = izquierda(LISTA_TERMINALES, ll)
+	imprimir 'LISTA=', LISTA
 	kk = instr(LISTA, K)
 
 	si  kk > 0 entonces 
@@ -308,6 +377,9 @@ fin
 
 funcion mostrar_i(x)
 	imprimir 'ENTRAMOS EN MOSTRAR: ', x
+	si x = 11 entonces
+		pausa
+	si-fin
     desde j = 0 hasta nsym2
     {
     	REGLA = I[(x*nsym) + j]
@@ -812,10 +884,10 @@ funcion primero_xxx (ALFA)
 //Esta funcion calcula los simbolos terminales de otra cadena de simbolos segun la grmatica dada 
 //las reglas han sido obtenidas de la pagina 194 del libro del dragon
 //Ahora se puede calcular cualquier PRIMERO para cualquier cadena X1 X2 X3 X4......Xn de la siguente forma:
-//añadanse a PRIMERO(X1 X2 X3 ...Xn) todos los simbolos distintos de epsilon de PRIMERO(X1).
-//luego, si epsilon esta en PRIMERO(X1) tambien se añaden los simbolos distintos de epsilon de  PRIMERO(X2)....
+//anadanse a PRIMERO(X1 X2 X3 ...Xn) todos los simbolos distintos de epsilon de PRIMERO(X1).
+//luego, si epsilon esta en PRIMERO(X1) tambien se aniaden los simbolos distintos de epsilon de  PRIMERO(X2)....
 //y asi sucesivamente.
-//Por ultimo si, en todas las PRIMERO(Xn) estube presente epsilon, se añade tambien epsilon
+//Por ultimo si, en todas las PRIMERO(Xn) estube presente epsilon, se aniade tambien epsilon
 
 //resul$ = ""
 RESUL = ' '
@@ -845,9 +917,11 @@ vaciar RESUL
 		    push i
 		    push hubo_e
 		    push RESUL
+		    push ALFA
 
 		    II = primero(CC)
 
+		    pop ALFA
 		    pop RESUL
 		    pop hubo_e
 		    pop i
@@ -888,9 +962,11 @@ vaciar RESUL
 				    push i
 				    push hubo_e
 				    push RESUL
+				    push ALFA
 
 				    II = primero(CC)
 
+				    pop ALFA
 				    pop RESUL
 				    pop hubo_e
 				    pop i
@@ -973,27 +1049,27 @@ E = 'e'
 			si  K = SIMBOLO entonces 
 			    //GOTO next.x //si son diferentes, no es una produccion q interesa
 
-				ALFA = subcadena(TEMP, 3)  //el cuerpo de la produccion
+				ALFAZZ = subcadena(TEMP, 3)  //el cuerpo de la produccion
 				//IF DBGFF THEN
 				//	PRINT k$, SIMBOLO
 				//	PRINT regla$(x)
 				//END IF
 				//PRINT alfa$
 
-				desde  i = 1 hasta largo(ALFA)
+				desde  i = 1 hasta largo(ALFAZZ)
 				{
-					CC = subcadena(ALFA, i, 1)
+					CC = subcadena(ALFAZZ, i, 1)
 				    //c$ = MID$(ALFA$, i, 1)  //Y
 				   
 				    si CC = SIMBOLO entonces
 				    	 i = i + 1
-				    	 CC = subcadena(ALFA, i, 1)
+				    	 CC = subcadena(ALFAZZ, i, 1)
 				    	 //c$ = MID$(ALFA$, i, 1)
 				    si-fin
 					//  GOTO next.x
 				    //END IF
 				    push RESUL
-				    push ALFA
+				    push ALFAZZ
 				    push hubo_e
 				    push x
 				    push i
@@ -1001,7 +1077,7 @@ E = 'e'
 				    pop i
 				    pop x
 				    pop hubo_e
-				    pop ALFA
+				    pop ALFAZZ
 				    pop RESUL
 				    //COLOR 8
 				    j = instr(II, E)
@@ -1019,7 +1095,7 @@ E = 'e'
 						RESUL += II
 
 					    si hubo_e = 0 entonces
-					    	i = largo(ALFA) //para terminar el desde (interior)
+					    	i = largo(ALFAZZ) //para terminar el desde (interior)
 							//GOTO next.x
 							salir
 					    si-fin
@@ -1076,7 +1152,7 @@ fin
 
 
 funcion  buscar_numero_regla (REGLA)
-pausa
+//pausa
 n = largo (REGLA) - 1
 REGLA1 = izquierda (REGLA, n)
 TEMP4 = ' '
@@ -1092,7 +1168,7 @@ desde i = 1 hasta nsym2
 }
 convertir i TEMP4
 //imprimir TEMP4
-pausa
+//pausa
 retornar TEMP4
 
 fin
@@ -1137,7 +1213,6 @@ desde x = 0  hasta ic
 	}
 }
 fin
-
 
 
 
