@@ -1,5 +1,7 @@
 /* minieditor.c modificado */
 #include <malloc.h>
+#include <regex.h>
+#include <strings.h>
 
 #define xrun
 
@@ -212,6 +214,8 @@ extern ast * procedimientos[127];
 extern int idx_prg;
 extern  long memoria;
 extern int linenumber;
+
+
 
 
 void liberar_nodo( ast * p, int n)
@@ -437,6 +441,87 @@ update_statusbar(GtkTextBuffer *buffer,
   g_free(msg);
 }
 
+ GdkColor color;
+
+
+void select_font(GtkWidget *widget, gpointer label) {
+
+  GtkResponseType result;
+  GtkColorSelection *colorsel;
+
+  GtkWidget *dialog = gtk_color_selection_dialog_new("Font Color");
+
+  result = gtk_dialog_run(GTK_DIALOG(dialog));
+
+  if (result == GTK_RESPONSE_OK) {
+
+    //GdkColor color;
+
+    colorsel = GTK_COLOR_SELECTION(
+                   GTK_COLOR_SELECTION_DIALOG(dialog)->colorsel);
+    gtk_color_selection_get_current_color(colorsel,
+                                &color);
+
+    gtk_widget_modify_fg(GTK_WIDGET(label),
+                             GTK_STATE_NORMAL,
+                             &color);
+  } 
+
+  gtk_widget_destroy(dialog);
+}
+
+int colorDialog() {
+ 
+  GtkWidget *window;
+  GtkWidget *widget;
+  GtkWidget *label;
+  GtkWidget *vbox;
+
+  GtkWidget *toolbar;
+  GtkToolItem *font;
+
+    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+  gtk_window_set_default_size(GTK_WINDOW(window), 280, 200);
+  gtk_window_set_title(GTK_WINDOW(window), "Color Selection Dialog");
+
+  vbox = gtk_vbox_new(FALSE, 0);
+  gtk_container_add(GTK_CONTAINER(window), vbox);
+
+  toolbar = gtk_toolbar_new();
+  gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+
+  gtk_container_set_border_width(GTK_CONTAINER(toolbar), 2);
+
+  font = gtk_tool_button_new_from_stock(GTK_STOCK_SELECT_COLOR);
+  gtk_toolbar_insert(GTK_TOOLBAR(toolbar), font, -1);
+
+  gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, FALSE, 5);
+
+  label = gtk_label_new("ZetCode");
+  gtk_label_set_justify(GTK_LABEL(label), GTK_JUSTIFY_CENTER);
+  gtk_box_pack_start(GTK_BOX(vbox), label, TRUE, FALSE, 5);
+
+  g_signal_connect(G_OBJECT(font), "clicked", 
+        G_CALLBACK(select_font), label);
+
+/*
+  g_signal_connect(G_OBJECT(window), "destroy",
+        G_CALLBACK(gtk_main_quit), NULL);
+*/
+
+
+  gtk_widget_show_all(window);
+  
+/*
+  gtk_main();
+*/
+
+  return 0;
+}
+
+
+
 void mark_set_callback(GtkTextBuffer *buffer, 
     const GtkTextIter *new_location, GtkTextMark *mark, gpointer data) {
                        
@@ -459,16 +544,111 @@ velocidad2 (GtkButton * button, gpointer user_data)
     printf("%lu\n", tiempo);
 }
 
+extern short comprobar_regex(char * , char * );
+extern regmatch_t captures[2];
 
-
-
-
- GtkWidget *window;
+GtkWidget *window;
  GtkWidget *label1, *label2, *label3, *label4;
  GtkWidget *statusbar;
  gchar * str_status;
  GtkWidget *textview2;
  GtkTextBuffer *buffer2;
+ gboolean buscando = FALSE;
+ GtkTextIter start_find, end_find;
+ GtkTextIter start_sel, end_sel;
+ gint offset = 0;                            // (/\\*([^*]|(\\*+[^*/]))*\\*+/)   comentarios
+ 
+ const int numelem = 6;
+ const char * RegExps[10] = { "[0-9]+|[0-9]+\".\"[0-9]+",   "\]|['{}<>,=+*()\\[]",  "[A-Z][A-Z_0-9]*",  "[a-z][a-z_0-9]*",  "llamar|desde|hasta|imprimir|si|sino|si-fin|funcion|proc|procedimiento|entonces|mientras|haz|fin-haz|leer|decimales|terminar|ventana|dim|convertir|stop|continuar|salir|push|pop|retornar|pausa",  "(/\\*([^*]|(\\*+[^*/]))*\\*+/)|//[^\n]*",  "(/\\*([^*]|(\\*+[^*/]))*\\*+/)|//[^\n]*" };
+ const char * colorTags[10] = {"numeros",  "signos", "alfanum", "varnumerica", "reservadas", "comentarios", "comentario2"  };
+ const char * colores[10] = {"#DB30DD", "yellow", "#5A56DC" , "#CFC63E",  "#7E9C32" ,   "lightgray", "gray" };
+ const char  fore_back[] = {'F', 'F', 'F', 'F', 'F', 'F', 'B'};
+ 
+
+void
+resaltarAlfanum (GtkButton * button, gpointer user_data)
+{
+    //he visto un codigo que tiene la funcion debug para imprimir lineas donde
+    //suceden errores pero no recuerdo donde era.
+    //creo que era en el proyecto Solid.
+    //por ahora no acepta EÑES ni caracteres acentuados.
+    
+    short i;
+    
+    
+    //GtkTextIter start_match, end_match;
+    gboolean selected;    
+    gchar *text; 
+    gint j, k;
+    int idx;
+    
+    char * regex;
+    
+    for (idx=0; idx<numelem; idx++){
+        
+        regex = RegExps[idx];
+        printf ("%s\n", RegExps[idx]);
+        buscando = FALSE;
+        offset  = 0;
+        
+    
+    while (1) {
+        //inicializa los iteradores:
+        if (!buscando) 
+            //primera vez
+           gtk_text_buffer_get_start_iter(buffer2, &start_find);
+        else
+            //cogemos el ultimo final
+            start_find = end_sel;
+        gtk_text_buffer_get_end_iter(buffer2, &end_find);
+
+        //apuntamos el texto
+        text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_find,
+                  &end_find, FALSE);
+        
+        //printf("%d\n", strlen(text));
+        
+        //if (strlen(text)==0) break;
+
+        i = comprobar_regex(regex, text);
+        
+        if (i==0) break;
+
+        j = captures[0].rm_so+offset;
+        k = captures[0].rm_eo+offset;
+        //printf("%d -- %d\n", j, k);
+
+        //colocar el principio
+
+        gtk_text_buffer_get_iter_at_offset (buffer2, &start_sel, j);
+        gtk_text_buffer_get_iter_at_offset (buffer2, &end_sel, k);
+
+        //borrar tags
+/*
+        if (idx==1)
+        gtk_text_buffer_remove_tag_by_name(buffer2, "test_fg", 
+            &start_find, &end_find);  
+*/
+
+        
+        //printf("%s\n", colorTags[idx]  );
+        gtk_text_buffer_apply_tag_by_name(buffer2, colorTags[idx], 
+            &start_sel, &end_sel);
+
+        offset = gtk_text_iter_get_offset(&end_sel);
+        //printf ("offset %d\n", offset);
+
+         buscando = TRUE;
+    }}
+    
+}
+
+
+
+
+void interpretarEditor();
+
+ 
   
  
 
@@ -489,7 +669,7 @@ create_window() {
     GtkWidget *button_strike;
     GtkWidget *button_color;
     GtkWidget *scrolledwindow;
-    GtkWidget *textview;
+    GtkTextView *textview;
     GtkTextBuffer * buffer;
     
     GtkWidget *balign;
@@ -497,6 +677,9 @@ create_window() {
     
     //menu
     GtkWidget *menubar;
+    GtkWidget *resaltarMenu;
+    GtkWidget *runMenu;
+    GtkWidget *resaltarMi;
     GtkWidget *fileMenu;
     GtkWidget *editMenu;
     GtkWidget *opcionesMenu;
@@ -504,8 +687,11 @@ create_window() {
     GtkWidget *quitMi;
     GtkWidget *editMi;
     GtkWidget *optMi;
+    GtkWidget *runMi;
+    GtkWidget *interpretarMi;
     GtkWidget *velocidadMi;
     GtkWidget *velocidad2Mi;
+    GtkWidget *alfanumericasMi;
 
        
     
@@ -534,24 +720,37 @@ create_window() {
   fileMenu = gtk_menu_new();
   editMenu = gtk_menu_new();
   opcionesMenu = gtk_menu_new();
+  resaltarMenu = gtk_menu_new();
+  runMenu = gtk_menu_new();
 
   fileMi = gtk_menu_item_new_with_label("Archivo");
+  runMi = gtk_menu_item_new_with_label("Run");
+  resaltarMi = gtk_menu_item_new_with_label("Resaltado");
   editMi = gtk_menu_item_new_with_label("Edición");
   quitMi = gtk_menu_item_new_with_label("Salir");
   optMi = gtk_menu_item_new_with_label("Opciones");
+  interpretarMi = gtk_menu_item_new_with_label("Interpretar");
   velocidadMi = gtk_menu_item_new_with_label("Velocidad+");
   velocidad2Mi = gtk_menu_item_new_with_label("Velocidad-");
+  alfanumericasMi = gtk_menu_item_new_with_label("Alfanuméricas");
 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(fileMi), fileMenu);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(runMi), runMenu);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(resaltarMi), resaltarMenu);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(editMi), editMenu);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(optMi), opcionesMenu);
   
+  gtk_menu_shell_append(GTK_MENU_SHELL(runMenu), interpretarMi);
   gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), quitMi);
   gtk_menu_shell_append(GTK_MENU_SHELL(opcionesMenu), velocidadMi);
   gtk_menu_shell_append(GTK_MENU_SHELL(opcionesMenu), velocidad2Mi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(resaltarMenu), alfanumericasMi);
+  
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), fileMi);
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), editMi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), runMi);
   gtk_menu_shell_append(GTK_MENU_SHELL(menubar), optMi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), resaltarMi);
   
     gtk_box_pack_start(GTK_BOX(vbox_main), menubar, FALSE, FALSE, 0);
     
@@ -564,6 +763,12 @@ create_window() {
     
     g_signal_connect(G_OBJECT(velocidad2Mi), "activate",
                     G_CALLBACK(velocidad2), NULL);
+    
+    g_signal_connect(G_OBJECT(alfanumericasMi), "activate",
+                    G_CALLBACK(resaltarAlfanum), NULL);
+    
+    g_signal_connect(G_OBJECT(interpretarMi), "activate",
+                    G_CALLBACK(interpretarEditor), NULL);
    
     
     
@@ -707,14 +912,86 @@ create_window() {
   
   g_signal_connect (G_OBJECT (window), "key_press_event", G_CALLBACK (on_key_press), NULL);
 
-    
+    //color de fondo del editor
+    gtk_widget_modify_base (textview, GTK_STATE_NORMAL, "#030303");
     
     return window;
 }
 
 
 
+void liberar_mem() {
+//  printf("check9 liberando memoria\n");
+            liberar_nodo(pila_programas[0], 0);
+            //liberar_nodo(pila_programas[31], 1);
 
+            while (idx_prc>0)
+            {
+                idx_prc--;
+                liberar_nodo(procedimientos[idx_prc], idx_prc);
+            }
+            
+            //liberar vectores:
+            while (idx_vec>0)
+            {
+                int tamano;
+                int * vector;
+                idx_vec--;
+                
+                vector = arrayVectores[idx_vec];
+#ifdef __APPLE__
+#pragma message ("compilando en apple")
+                tamano = malloc__size(vector);
+#else
+#pragma message( "no es apple" )
+                tamano = malloc_usable_size(vector);
+#endif
+                free(vector);
+                memoria -= tamano;
+            }
+            
+            
+           // free ( procedimientos[6]->nodo1);
+           // free (procedimientos[6]);
+
+            
+/*descomentar
+            sprintf(str1, "Constantes: %d", (int) contador );
+            gtk_label_set_text( label3, str1 );
+                 
+            sprintf(str1, "Variables: %d", (int) contadorvar );
+            gtk_label_set_text( label2, str1 );
+                 
+             sprintf(str1, "Memoria: %d -- nodos: %d", (long) memoria, nodos );
+            gtk_label_set_text( label1, (gpointer) str1 );
+*/
+            
+            
+         //   liberar_nodo(pila_programas[31], 31);
+      //      printf("memoria: %ld \n", memoria);
+
+        //   g_free(input);
+           
+           
+         //  yy_delete_buffer(input); /* free up memory */ 
+            
+      //  yy_delete_buffer(YY_CURRENT_BUFFER);   
+             
+
+            /*Analyze the string*/
+            //    yylex();
+            //   yyparse();
+
+            /*Delete the new buffer*/
+            //  liberar_buffer();
+            
+            
+         // descomentar   g_free(input);
+            
+  //  printf("fin clicked\n");
+
+
+}
 
 
 //extern int contador, contadorvar;
@@ -773,6 +1050,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
         //  yypush_buffer_state(yy_scan_string(input));
        
           yy_scan_string(input);
+          g_free(input);
            
 /*
 
@@ -833,71 +1111,10 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
       //      printf("memoria: %ld \n", memoria);
          
             
-    //  printf("check9 liberando memoria\n");
-            liberar_nodo(pila_programas[0], 0);
-            //liberar_nodo(pila_programas[31], 1);
-
-            while (idx_prc>0)
-            {
-                idx_prc--;
-                liberar_nodo(procedimientos[idx_prc], idx_prc);
-            }
-            
-            //liberar vectores:
-            while (idx_vec>0)
-            {
-                int tamano;
-                int * vector;
-                idx_vec--;
-                
-                vector = arrayVectores[idx_vec];
-#ifdef __APPLE__
-#pragma message ("compilando en apple")
-                tamano = malloc__size(vector);
-#else
-#pragma message( "no es apple" )
-                tamano = malloc_usable_size(vector);
-#endif
-                free(vector);
-                memoria -= tamano;
-            }
-            
-            
-           // free ( procedimientos[6]->nodo1);
-           // free (procedimientos[6]);
-
-            
-            sprintf(str1, "Constantes: %d", (int) contador );
-            gtk_label_set_text( label3, str1 );
-                 
-            sprintf(str1, "Variables: %d", (int) contadorvar );
-            gtk_label_set_text( label2, str1 );
-                 
-             sprintf(str1, "Memoria: %d -- nodos: %d", (long) memoria, nodos );
-            gtk_label_set_text( label1, (gpointer) str1 );
-            
-            
-         //   liberar_nodo(pila_programas[31], 31);
-      //      printf("memoria: %ld \n", memoria);
-
-        //   g_free(input);
-           
-           
-         //  yy_delete_buffer(input); /* free up memory */ 
-            
-      //  yy_delete_buffer(YY_CURRENT_BUFFER);   
-             
-
-            /*Analyze the string*/
-            //    yylex();
-            //   yyparse();
-
-            /*Delete the new buffer*/
-            //  liberar_buffer();
-             g_free(input);
-            
-  //  printf("fin clicked\n");
+    
 }
+
+
 
 void
 on_button_load_clicked(GtkButton * button, gpointer user_data) {
@@ -1125,6 +1342,39 @@ extern char en_pausa;
 extern char buff1[128];
 
 
+void interpretarEditor() {
+    
+GtkTextIter start_sel, end_sel;
+GtkTextIter start_find, end_find;
+//GtkTextIter start_match, end_match;
+gboolean selected;    
+gchar *text;     
+extern int interpretar();
+    
+
+selected = gtk_text_buffer_get_selection_bounds(buffer2, 
+                &start_sel, &end_sel);
+            
+            if (selected) {
+                gtk_text_buffer_get_start_iter(buffer2, &start_find);
+                gtk_text_buffer_get_end_iter(buffer2, &end_find);
+
+                
+                text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_sel,
+                   &end_sel, FALSE);
+            
+                   printf("%s\n", buff1);
+                   strcpy(buff1, "evalua \" ");
+                   strcat(buff1, text);
+                   strcat(buff1, "\" ");
+                   interpretar();
+                   fflush(stdout);
+                   printf("volvemos de interpretar\n");
+                   fflush(stdout);
+
+}
+}
+
 gboolean
 on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 
@@ -1281,6 +1531,9 @@ on_button_color_clicked (GtkButton * button, gpointer user_data)
 
     gtk_text_buffer_apply_tag_by_name (textbuffer, "color", &start,
                        &end);
+    
+    colorDialog();
+    
 }
 
 void
@@ -1297,6 +1550,31 @@ create_tags (GtkTextBuffer * buffer)
                     TRUE, NULL);
     gtk_text_buffer_create_tag (buffer, "color", "foreground", "blue",
                     NULL);
+    // creamos el tag   - colocar esto al crear la ventana y el buffer
+    gtk_text_buffer_create_tag(buffer, "gray_bg", 
+                            "background", "lightgray", NULL); 
+    
+    gtk_text_buffer_create_tag(buffer, "lblue_fg", 
+                            "foreground", "lightblue", NULL); 
+    
+    //colorDialog();
+    //"#5A56DC"
+    //printf("estamos en color dialog\n");
+    
+    // creamos tags para el resaltado de sintaxis
+    for (int i=0; i<numelem;i++) {
+        if (fore_back[i]=='F')
+            gtk_text_buffer_create_tag(buffer, colorTags[i], 
+                            "foreground", colores[i], NULL); 
+        else
+            gtk_text_buffer_create_tag(buffer, colorTags[i], 
+                            "background", colores[i], NULL); 
+    }
+    
+    //gtk_text_buffer_create_tag(buffer, colorTags[1], 
+      //                      "background", colores[1], NULL); 
+            
+            
 }
   
 

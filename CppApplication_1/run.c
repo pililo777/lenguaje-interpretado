@@ -126,37 +126,47 @@ short push_argumentos(ast *f1, ast *g1, short * cantidad) {
     // en f son variables
     // en g son variables y/o constantes
     //short cantidad = 0;
-    ast * p;
-    p = nuevonodo();
-    p->nodo1 = f1->nodo1;
-    p->nodo2 = g1->nodo1;
+    
     
     if (f1->subnodos > 0) {
         int i;
         int j;
         char t;
+        ast * p1;
         i = f1->nodo1->num; //designator del primer parametro
         t = array_variables[i].tipo;
-        if (t == 'N') {
-            p->tipo = asigna_num;
-        }
-        else {
-            if (t == 'S') {
-                if (g1->nodo1->tipo == constante_literal) {
-                    p->tipo = asigna_alfa;
+        
+        if (t=='S' || t=='N') 
+        {
+                p1 = nuevonodo();
+                p1->nodo1 = f1->nodo1;
+                p1->nodo2 = g1->nodo1;
+                
+                if (t == 'N') {
+                    p1->tipo = asigna_num;
                 }
                 else {
-                    p->tipo = asigna_alfa_var;
+                    if (t == 'S') {
+                        if (g1->nodo1->tipo == constante_literal) {
+                            p1->tipo = asigna_alfa;
+                        }
+                        else {
+                            p1->tipo = asigna_alfa_var;
+                        }
+                    }
+                    else {
+                        p1->tipo = 'I';
+                    }
                 }
-            }
+                push_param(p1->nodo1->num);
+                (*cantidad)++;
+                execut(p1);
+                free(p1);
+                memoria = memoria - sizeof(ast *);
         }
-        push_param(p->nodo1->num);
-        (*cantidad)++;
-        execut(p);
-        free(p);
-        memoria = memoria - sizeof(ast *);
+        
         if (g1->subnodos > 1)
-            push_argumentos(f1->nodo2, g1->nodo2, cantidad);
+                    push_argumentos(f1->nodo2, g1->nodo2, cantidad);
     }
     return 1;
 }
@@ -749,7 +759,7 @@ int salir1;
 
 // variables para el resaltado
 GtkTextIter start, end;
-extern GtkWidget *textview2;
+extern GtkTextView *textview2;
 extern GtkTextBuffer * buffer2;
 GtkTextMark *cursor;
 extern  GtkWidget *label1, *label2, *label3, *label4;
@@ -931,6 +941,7 @@ const gchar *mark_name = "lineaActual";
 GtkTextMark *marca1;
 gboolean * left_gravity = TRUE;
 gboolean marca_creada = FALSE;
+char nombrefuncion[50];
 
 void * execut(ast * p) {
     
@@ -973,11 +984,13 @@ void * execut(ast * p) {
     
         //resalta la linea del editorgtk en ejecucion
         //si no estamos interpretando buff1
-        if (ejecuta_desde_editor && (idx_prg!=31+1)) {
+        if (ejecuta_desde_editor ) {
         
         //en desarrollo: resaltar en editorgtk la linea del nodo ejecutado
 
         //movernos a la linea del nodo
+        //if ( (numlinea>0 && numlinea<20000) ) {}
+            
         gtk_text_buffer_get_start_iter (buffer2, &start);
         gtk_text_iter_set_line (&start, numlinea);
         
@@ -1015,27 +1028,31 @@ void * execut(ast * p) {
                            &start);
         }
         
+        //ir a la linea de ejecucion
+        if (idx_prg!=31+1) //el ultimo indice de programa
         gtk_text_view_scroll_to_mark (textview2, marca1, 0.0, TRUE, 0.0, 0.17);
 
+        sprintf(str_temp, "LINEA: %d   funcion: ", numlinea+1 );
+        strcat (str_temp, nombrefuncion );
         
-        
-        sprintf(str_temp, "LINEA: %d", numlinea+1 );
        
         gtk_label_set_label(label2, str_temp );
         gtk_widget_queue_draw(label2); 
         
-        if (modo_pausa == '1' ) {
-            
-            en_pausa = '1';
-            while (en_pausa == '1') {
-                while (gtk_events_pending ()) gtk_main_iteration();
-            }
-        }
+         if (idx_prg!=31+1) //el ultimo indice de programa 
+         {
+                if (modo_pausa == '1' ) {
 
-        pausar();
+                    en_pausa = '1';
+                    while (en_pausa == '1') {
+                        while (gtk_events_pending ()) gtk_main_iteration();
+                    }
+                }
 
+                pausar();
+         }
         
-        while (gtk_events_pending ()) gtk_main_iteration();
+       // while (gtk_events_pending ()) gtk_main_iteration();
         
         }
         
@@ -2125,7 +2142,7 @@ void * execut(ast * p) {
             break;
 
 
-        case llamar:
+        case llamar:     //execut
             // p->tipo = llamar
             // p->nodo1->num = designator de la funcion a llamar
             // p->nodo2  = argumentos para llamar a la funcion
@@ -2177,8 +2194,25 @@ void * execut(ast * p) {
                     exit(1);
                 }
                 else 
-                { if (tipo=='P')
-                    execut(procedimientos[ procedimiento ]); 
+                {
+                    //escribir el nombre del proc o funcio en un buffer
+                    
+                    //array_variables[indice_de_la_variable].nombre
+                    
+                    //push
+                    strcpy(array_variables[255].nombre, nombrefuncion) ;
+                    push_param(255); 
+                  
+                    strcpy(nombrefuncion, array_variables[indice_de_la_variable].nombre) ;
+                    strcpy(array_variables[255].nombre, nombrefuncion) ;
+                    
+                    
+                    if (tipo=='P') {
+                        push_param(255);
+                        execut(procedimientos[ procedimiento ]); 
+                        pop_param(255);
+                        strcpy(nombrefuncion, array_variables[255].nombre) ;
+                    }
                     else {
                         short i;
                         short cantidad = 0;
@@ -2195,11 +2229,14 @@ void * execut(ast * p) {
                         // en f->nodo3 el cuerpo de la funcion
 
                         //push parametros
+                        push_param(255);
                         i = push_argumentos(f->nodo2, g, &cantidad);
                         push_param(indice_de_la_variable);
                         execut(f); 
                         pop_param(indice_de_la_variable);
                         pop_argumentos(cantidad);
+                        pop_param(255);
+                        strcpy(nombrefuncion, array_variables[255].nombre) ;
                         g = p->nodo3;
                         if (g!=NULL) {
                             i = (int) p->nodo3->num;
@@ -2210,7 +2247,11 @@ void * execut(ast * p) {
                         
                         //pop parametros
                     }
+                    pop_param(255); 
+                    strcpy(nombrefuncion, array_variables[255].nombre) ;
+                    
                 }
+                
                 //array_variables[indice_de_la_variable].numero = return_value;
             }
             break;
@@ -2468,8 +2509,21 @@ double evalua(ast * p) {
                     exit(1);
                 }
                 else 
-                { if (tipo=='P')
-                    execut(procedimientos[ procedimiento ]); 
+                {
+                    //push
+                    strcpy(array_variables[255].nombre, nombrefuncion) ;
+                    push_param(255); 
+                    
+                    strcpy(nombrefuncion, array_variables[indice_de_la_variable].nombre) ;
+                    strcpy(array_variables[255].nombre, nombrefuncion) ;
+                    
+                    if (tipo=='P') {
+                         push_param(255);
+                         execut(procedimientos[ procedimiento ]); 
+                         pop_param(255);
+                         strcpy(nombrefuncion, array_variables[255].nombre) ;
+                         
+                    }
                     else {
                     // ver si es una funcion de Inter, o una funcion integrada
 
@@ -2489,14 +2543,28 @@ double evalua(ast * p) {
                         // en f->nodo3 el cuerpo de la funcion
 
                         //push parametros
+                        push_param(255);
                         i = push_argumentos(f->nodo2, g, &nargs);
                         push_param(indice_de_la_variable);
                         execut(f); 
                         pop_param(indice_de_la_variable);
                         pop_argumentos(nargs);
+                        //restaura el nombre de la funcion actualmente en ejecucion
+                        pop_param(255);
+                        strcpy(nombrefuncion, array_variables[255].nombre) ;
                         res = array_variables[indice_de_la_variable].numero;
                         //pop parametros
                     }
+                    pop_param(255); 
+                    strcpy(nombrefuncion, array_variables[255].nombre) ;
+                    
+                    //pop
+/*
+                    if (ejecuta_desde_editor) {
+                        sprintf(str_temp, "LINEA: %d   funcion: ", numlinea+1 );
+                        strcat (str_temp, nombrefuncion );
+                    }
+*/
                 }
                 //array_variables[indice_de_la_variable].numero = return_value;
             }
