@@ -61,12 +61,12 @@ extern ast * pila_records[32]; // pila de registros
 %token LEER BORRAR
 %token NUMBER
 %token NAME SNAME PAUSA
-%token LITERAL DOBLECOMILLA OR AND CONTINUAR SALIR ACTUALIZAR
+%token LITERAL STRING DOBLECOMILLA OR AND CONTINUAR SALIR ACTUALIZAR
 %type <nodo> stmtseq statement  expr2 expr3 expr4 expression   procedimiento  procedimientos  lista_expr lista_expr2 GRAFICOS DIM LINEA CIRCULO
 %type <nodo> designator LITERAL sdesignator SNAME NUMBER NAME proc_designator PROCNAME   
 %type <nodo> CONVERTIR EVALUAR STOP ABRIR  CERRAR MOSTRAR OR AND CONTINUAR SALIR USE_INDICE
 %type <nodo> CLOSE_INDICE ACTUALIZAR lista_campos funcion subprograma lista_argumentos variable lista_parametros
-%type <nodo> parametro PAUSA
+%type <nodo> parametro PAUSA STRING
 %%
 
 ROOT:
@@ -127,7 +127,7 @@ statement:
 | CIRCULO expr2 COMMA expr2 COMMA expr2 { $$ = nodo3(dibuja_circulo, $2, $4, $6) ; } 
 | CONVERTIR sdesignator designator {$$=nodo2(convertir_texto_a_numero, $2, $3);}
 | CONVERTIR designator sdesignator {$$=nodo2(convertir_numero_a_texto, $2, $3);}
-| EVALUAR LITERAL  {  $$ = nodo1(interpreta, $2 );  } 
+| EVALUAR  STRING  {  $$ = nodo1(interpreta, $2 );  } 
 | STOP { $$=nodo0(stop, $1); }
 | ABRIR sdesignator designator { $$=nodo2(abrir, $2, $3); }
 | CERRAR designator { $$=nodo1(cerrar, $2); }

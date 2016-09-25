@@ -443,6 +443,24 @@ void mark_set_callback(GtkTextBuffer *buffer,
   update_statusbar(buffer, GTK_STATUSBAR(data));
 }
 
+extern gulong tiempo ;
+
+void
+velocidad (GtkButton * button, gpointer user_data)
+{
+    tiempo = tiempo + 200000L;
+    printf("%lu\n", tiempo);
+}
+
+void
+velocidad2 (GtkButton * button, gpointer user_data)
+{
+    tiempo = tiempo - 200000L;
+    printf("%lu\n", tiempo);
+}
+
+
+
 
 
  GtkWidget *window;
@@ -477,6 +495,19 @@ create_window() {
     GtkWidget *balign;
     
     
+    //menu
+    GtkWidget *menubar;
+    GtkWidget *fileMenu;
+    GtkWidget *editMenu;
+    GtkWidget *opcionesMenu;
+    GtkWidget *fileMi;
+    GtkWidget *quitMi;
+    GtkWidget *editMi;
+    GtkWidget *optMi;
+    GtkWidget *velocidadMi;
+    GtkWidget *velocidad2Mi;
+
+       
     
     
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -497,7 +528,42 @@ create_window() {
     
     label3 = gtk_label_new("CONSTANTES");
     gtk_box_pack_start (GTK_BOX (vbox_main), label3, FALSE, FALSE, 0);
+  
+    //menu
+  menubar = gtk_menu_bar_new();
+  fileMenu = gtk_menu_new();
+  editMenu = gtk_menu_new();
+  opcionesMenu = gtk_menu_new();
+
+  fileMi = gtk_menu_item_new_with_label("Archivo");
+  editMi = gtk_menu_item_new_with_label("Edición");
+  quitMi = gtk_menu_item_new_with_label("Salir");
+  optMi = gtk_menu_item_new_with_label("Opciones");
+  velocidadMi = gtk_menu_item_new_with_label("Velocidad+");
+  velocidad2Mi = gtk_menu_item_new_with_label("Velocidad-");
+
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(fileMi), fileMenu);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(editMi), editMenu);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(optMi), opcionesMenu);
+  
+  gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), quitMi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(opcionesMenu), velocidadMi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(opcionesMenu), velocidad2Mi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), fileMi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), editMi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(menubar), optMi);
+  
+    gtk_box_pack_start(GTK_BOX(vbox_main), menubar, FALSE, FALSE, 0);
     
+   
+    g_signal_connect(G_OBJECT(quitMi), "activate",
+                    G_CALLBACK(gtk_main_quit), NULL);
+    
+    g_signal_connect(G_OBJECT(velocidadMi), "activate",
+                    G_CALLBACK(velocidad), NULL);
+    
+    g_signal_connect(G_OBJECT(velocidad2Mi), "activate",
+                    G_CALLBACK(velocidad2), NULL);
    
     
     
@@ -1056,11 +1122,20 @@ on_button_strike_clicked (GtkButton * button, gpointer user_data)
 
 extern char modo_pausa;
 extern char en_pausa;
+extern char buff1[128];
+
 
 gboolean
 on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 
 {
+GtkTextIter start_sel, end_sel;
+GtkTextIter start_find, end_find;
+//GtkTextIter start_match, end_match;
+gboolean selected;    
+gchar *text;     
+extern int interpretar();
+    
 switch (event->keyval)
   {
     case GDK_p:
@@ -1077,6 +1152,82 @@ switch (event->keyval)
         }
       //printf("key pressed: %s\n", "p");
       break;
+    case GDK_i:
+    case GDK_I:
+        if (event->state & GDK_CONTROL_MASK)
+        {
+            
+            selected = gtk_text_buffer_get_selection_bounds(buffer2, 
+                &start_sel, &end_sel);
+            
+            if (selected) {
+                gtk_text_buffer_get_start_iter(buffer2, &start_find);
+                gtk_text_buffer_get_end_iter(buffer2, &end_find);
+
+                
+            text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_sel,
+                &end_sel, FALSE);
+            
+            if (strstr(text, "[")) {
+                   printf("%s\n", buff1);
+                   strcpy(buff1, "evalua \"imprimir ");
+                   strcat(buff1, text);
+                   strcat(buff1, "\" ");
+                   printf("%s\n", buff1);
+                   interpretar();
+                   fflush(stdout);
+                   printf("volvemos de interpretar\n");
+                   fflush(stdout);
+            }
+            else {
+            
+                printf("%s: \n", text);
+                for (int i=0; i<255; i++) 
+                {
+                    if (!strcmp(text, array_variables[i].nombre)) {
+                        if (array_variables[i].tipo == 'S') 
+                          printf("%s\n", array_variables[i].valor);
+                        else
+                          printf("%lf\n", array_variables[i].numero);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+      //printf("key pressed: %s\n", "p");
+      break;
+      
+    case GDK_o:
+    case GDK_O:
+        if (event->state & GDK_CONTROL_MASK)
+        {
+            
+            selected = gtk_text_buffer_get_selection_bounds(buffer2, 
+                &start_sel, &end_sel);
+            
+            if (selected) {
+                gtk_text_buffer_get_start_iter(buffer2, &start_find);
+                gtk_text_buffer_get_end_iter(buffer2, &end_find);
+
+                
+                text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_sel,
+                   &end_sel, FALSE);
+            
+                   printf("%s\n", buff1);
+                   strcpy(buff1, "evalua \" ");
+                   strcat(buff1, text);
+                   strcat(buff1, "\" ");
+                   interpretar();
+                   fflush(stdout);
+                   printf("volvemos de interpretar\n");
+                   fflush(stdout);
+            
+        }
+    }
+      //printf("key pressed: %s\n", "p");
+      break;
+      
     case GDK_s:
       if (event->state & GDK_SHIFT_MASK)
       {
@@ -1093,6 +1244,7 @@ switch (event->keyval)
         //printf("key pressed: %s\n", "s");
       }
       break;
+      
     case GDK_m:
       if (event->state & GDK_SHIFT_MASK)
       {

@@ -178,7 +178,7 @@ if (depurar)
 "pausa" {lineaEjecucion2(); return PAUSA; }
 
 
-'[^\']+'  {
+\'(\\.|[^'])*\'  {  // '[.]+'
         /* constantes literales contienen una serie de variados signos � simbolos */
 	yylval.nodo = nuevonodo();
 	yylval.nodo->tipo = constante_literal; 
@@ -187,6 +187,17 @@ if (depurar)
 if (depurar)
         printf("constante literal: %s    indice %4.0f  en linea : %i \n", yytext, yylval.nodo->num, linenumber);
 	return LITERAL; 
+	}
+
+\"(\\.|[^"])*\"  { 
+        /* constantes literales con commillas */
+	yylval.nodo = nuevonodo();
+	yylval.nodo->tipo = constante_literal; 
+	yylval.nodo->subnodos = 0;
+	yylval.nodo->num  = instala(contador++);     //yylval.num  = instala(contador++)
+if (depurar)
+        printf("constante literal: %s    indice %4.0f  en linea : %i \n", yytext, yylval.nodo->num, linenumber);
+	return STRING; 
 	}
 
 [0-9]+|[0-9]+"."[0-9]+ { double numdbl = 0;

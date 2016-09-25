@@ -112,12 +112,13 @@ extern int yydebug;
     SNAME = 322,
     PAUSA = 323,
     LITERAL = 324,
-    DOBLECOMILLA = 325,
-    OR = 326,
-    AND = 327,
-    CONTINUAR = 328,
-    SALIR = 329,
-    ACTUALIZAR = 330
+    STRING = 325,
+    DOBLECOMILLA = 326,
+    OR = 327,
+    AND = 328,
+    CONTINUAR = 329,
+    SALIR = 330,
+    ACTUALIZAR = 331
   };
 #endif
 
@@ -130,7 +131,7 @@ union YYSTYPE
 
  ast * nodo;
 
-#line 134 "grammar.tab.h" /* yacc.c:1909  */
+#line 135 "grammar.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

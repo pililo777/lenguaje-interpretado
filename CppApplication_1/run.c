@@ -691,7 +691,7 @@ extern int err_number;
 //extern pila_programas[32];
 
 int interpretar() {
-    
+    err_number = 0;
     printf("entrammos en la funcion interpretar\n");
     
     int idx_prg_bak;
@@ -701,7 +701,7 @@ int interpretar() {
 /*
          printf ("el buff2 es : %s\n", buff1);
 */
-        printf("idx prg 1: %d\n", idx_prg);
+        //printf("idx prg 1: %d\n", idx_prg);
     //        yypush_buffer_state();
     //yy_scan_string(input);
     linenumber = 1;
@@ -832,6 +832,8 @@ _reset_timer ( gpointer data)
     start_timer = FALSE;
 }
 
+gulong tiempo = 200000L;
+
 int pausar()
 {
 /*
@@ -844,7 +846,7 @@ int pausar()
         return 0;
 */
     if (en_pausa == '0') {
-        gulong tiempo = 200001L;
+        //gulong tiempo = 200001L;
         g_usleep (tiempo);
     }
 }
@@ -970,7 +972,8 @@ void * execut(ast * p) {
         
     
         //resalta la linea del editorgtk en ejecucion
-        if (ejecuta_desde_editor) {
+        //si no estamos interpretando buff1
+        if (ejecuta_desde_editor && (idx_prg!=31+1)) {
         
         //en desarrollo: resaltar en editorgtk la linea del nodo ejecutado
 
