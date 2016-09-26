@@ -1,7 +1,7 @@
 /*
 
 Analizador sintactico (parser)
-Calcula las tablas ACCION y GOTO 
+Calcula las tablas ACCION y GOTO según el analisis sintactico SLR  (single left to right)
 los resultados estan en la pagina 225 del libro del dragon
  traducido de P3.BAS 
 Autor: Ruben Rivero Roca
@@ -28,13 +28,13 @@ PUNTO = '.'
 // iniciar matrices en blanco
 
 
-/*
+
 dim R 7
 dim R1 7
 dim r 7   //para saber si hemos aniadido la regla N
 dim I 140  //20*7 guarda los estados (hasta 20 de momento)
 dim C 100
-dim TABLA_ACCION 72      //(LEN(lista.terminales$), ic)
+dim TABLA_ACCION 100      //(LEN(lista.terminales$), ic)
 
 vaciar CC
 desde i=0 hasta 139
@@ -45,7 +45,7 @@ desde i=0 hasta 99
 {
 	C[i] = CC
 }
-desde i=0 hasta 72
+desde i=0 hasta 99
 {
 	TABLA_ACCION[i] = CC
 }
@@ -67,7 +67,7 @@ LISTA_SIMBOLOS = 'ETF(a+*)'
 LISTA_TERMINALES = 'a+*()$'
 LISTA_NO_TERMINALES = 'ETF'
 
-*/
+
 
 
 //https://en.wikibooks.org/wiki/Regular_Expressions/POSIX_Basic_Regular_Expressions
@@ -91,6 +91,8 @@ LISTA_NO_TERMINALES = 'ETF'
 
 //lista.simbolos$ = "ETXFZ(a+*)e" 'orden de columna
 //lista.terminales$ = "(a+*)e$"
+
+/*
 
 dim R 9
 dim R1 9
@@ -133,12 +135,56 @@ LISTA_SIMBOLOS = 'ETXFZ(a+*)e'
 LISTA_TERMINALES = '(a+*)e$'
 LISTA_NO_TERMINALES = 'ETXFZ'
 
+*/
 
 
+// tercer ejemplo (tomado de http://lambda.uta.edu)
+/*
+
+dim R 4
+dim R1 4
+dim r 4   //para saber si hemos aniadido la regla N
+dim I 180  //20*9 guarda los estados (hasta 20 de momento)
+dim C 140
+dim TABLA_ACCION 140      //(LEN(lista.terminales$), ic)
+
+vaciar CC
+desde i=0 hasta 179
+{
+	I[i] = CC
+}
+desde i=0 hasta 139
+{
+	C[i] = CC
+}
+desde i=0 hasta 139
+{
+	TABLA_ACCION[i] = CC
+}
+
+
+dim REGLA 4
+//DATA  "W=S" "S=R", "R=Rb", "R=a"
+REGLA[0]= 'W=S'
+REGLA[1]= 'S=R'
+REGLA[2]= 'R=Rb'
+REGLA[3]= 'R=a'
+
+nsym = 4
+nsym2 = nsym-1
+LISTA_SIMBOLOS = 'SRab'                    //se excluye W siempre
+LISTA_TERMINALES = 'ab$'
+LISTA_NO_TERMINALES = 'SR'
+
+*/
 
 
 imprimir 'simbolos: ', LISTA_SIMBOLOS
 llamar crear_puntos
+
+// a partir de aqui ya se pueden comprobar las funciones siguiente y primero
+pausa
+
 
 TEMP = R[0]
 C[0] = TEMP
@@ -258,7 +304,6 @@ proc crear_puntos
 	desde x = 0 hasta nsym - 1
 	{
 	    REGLAX = REGLA[x]
-	    l = largo(REGLAX)
 	    LL = izquierda(REGLAX, 2)   //la parte izquierda
 	    RR = subcadena(REGLAX, 3)    //la parte derecha
 	    TEMP = ' '
@@ -312,7 +357,7 @@ anadidos = 0, externa
 	//LISTA = '*+()a'  sin el dolar
 	ll = largo(LISTA_TERMINALES)-1
 	LISTA = izquierda(LISTA_TERMINALES, ll)
-	imprimir 'LISTA=', LISTA
+	//imprimir 'LISTA=', LISTA
 	kk = instr(LISTA, K)
 
 	si  kk > 0 entonces 
@@ -728,8 +773,13 @@ funcion siguiente(SIMBOLO)
 	//	    PRINT "regla: "; regla$(x)
 	//	END IF
 	    TEMP = REGLA[x]
+
+	    si SIMBOLO = 'F' entonces
+	    	imprimir ' bucle ', x, TEMP
+	   	si-fin
+
 		K = izquierda(TEMP, 1)  //parte izquierda de la regla
-		ll = largo(TEMP)
+		//ll = largo(TEMP)
 
 		ALFA = subcadena(TEMP, 3)  //el cuerpo de la produccion
 		RK = derecha (ALFA, 1)
@@ -794,7 +844,12 @@ funcion siguiente(SIMBOLO)
 			//	PRINT "VOLVIMOS : "; simbolo$; " en el nivel de recursion: "; nivel
 			//END IF
 			//resul$ = resul$ + fk$  //añadimos siguiente(A) a siguiente(B)
-			RESUL += FK
+			
+			ii2 = instr(RESUL , FK)
+			si ii2 = 0 entonces
+				imprimir 'añadimos FK1 ', FK, ' a sig: ', SIMBOLO
+				RESUL += FK
+			si-fin
 		sino
 		    //reglas 2 y 4
 		   //el caso es A=>aBb    (donde a es alfa y b es beta) B es el simbolo buscado
@@ -834,7 +889,9 @@ funcion siguiente(SIMBOLO)
 				push RESUL
 				push SIMBOLO
 				push FB
+				push BETA
 				FK = siguiente(K)
+				pop BETA
 				pop FB
 				pop SIMBOLO
 				pop RESUL
@@ -845,11 +902,19 @@ funcion siguiente(SIMBOLO)
 				//	PRINT "VOLVIMOS : "; simbolo$; " en el nivel de recursion: "; nivel%
 				//END IF
 				//resul$ = resul$ + fk$
-				RESUL += FK
+				ii2 = instr(RESUL , FK)
+				si ii2 = 0 entonces
+					RESUL += FK
+					imprimir 'añadimos FK2 ', FK, ' a sig: ', SIMBOLO
+				si-fin
 			si-fin
 			// regla (2)
 			// añadimos PRIMERO(beta) - epsilon   (calculado en /1/)
-			RESUL += FB
+			ii2 = instr(RESUL , FB)
+			si ii2 = 0 entonces
+				RESUL += FB
+				imprimir 'añadimos FB de ', BETA,  ' : ', FB, ' a sig: ', SIMBOLO
+			si-fin
 			//resul$ = resul$ + fb$
 		si-fin
 //next.xx:
@@ -873,7 +938,7 @@ funcion siguiente(SIMBOLO)
 	
 	nivel = nivel - 1
 	//'>>>>>>>---------------->'
-
+    imprimir 'SIG ', SIMBOLO, ' ---- ',  RESUL
 	retornar RESUL
 
 //'FUNCTION siguiente$  '
@@ -992,6 +1057,7 @@ vaciar RESUL
 		si hubo_e > 0 entonces
 			RESUL += E
 		si-fin
+		imprimir 'PRIXXX ', ALFA, '  -----   ', RESUL
 		retornar RESUL
 		//primero.xxx$ = resul$
 		//IF DBGFF THEN
