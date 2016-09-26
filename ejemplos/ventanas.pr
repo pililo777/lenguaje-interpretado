@@ -1,4 +1,10 @@
-//github 
+/*
+
+Ejemplo de acceso a ficheros indice y de datos. También muestra cómo crear y usar ventanas tipo form.
+
+*/
+
+
 registro clientes 'nuevos contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
@@ -9,10 +15,10 @@ fin-registro
 INDICE = 'nuevos contactos.ndx'
 use INDICE   //trabajaremos con el indice
  
-evalua 'resultado = 3*8'
+evalua "resultado = 3*8"
 // queda pendiente evaluar una variable alfanumerica
 // y concatenar variables alfanumericas
-evalua 'imprimir resultado'
+evalua "imprimir resultado"
 x=0
 desde x = 1 hasta 5 
 	haz
