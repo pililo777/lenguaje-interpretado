@@ -1047,13 +1047,17 @@ void * execut(ast * p) {
                     while (en_pausa == '1') {
                         while (gtk_events_pending ()) gtk_main_iteration();
                     }
+                    pausar();
                 }
 
-                pausar();
+                
          }
         
-       // while (gtk_events_pending ()) gtk_main_iteration();
-        
+        while (gtk_events_pending ())
+            {
+                gtk_main_iteration();
+                //gtk_main_iteration();
+            }
         }
         
     }

@@ -593,6 +593,11 @@ resaltarAlfanum (GtkButton * button, gpointer user_data)
         
     
     while (1) {
+        while (gtk_events_pending()) {
+             gtk_main_iteration();
+             gtk_main_iteration();
+        }
+        
         //inicializa los iteradores:
         if (!buscando) 
             //primera vez
