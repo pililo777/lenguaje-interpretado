@@ -215,7 +215,7 @@ extern int idx_prg;
 extern  long memoria;
 extern int linenumber;
 
-
+void liberar_mem();
 
 
 void liberar_nodo( ast * p, int n)
@@ -558,8 +558,8 @@ GtkWidget *window;
  GtkTextIter start_sel, end_sel;
  gint offset = 0;                            // (/\\*([^*]|(\\*+[^*/]))*\\*+/)   comentarios
  
- const int numelem = 6;
- const char * RegExps[10] = { "[0-9]+|[0-9]+\".\"[0-9]+",   "\]|['{}<>,=+*()\\[]",  "[A-Z][A-Z_0-9]*",  "[a-z][a-z_0-9]*",  "llamar|desde|hasta|imprimir|si|sino|si-fin|funcion|proc|procedimiento|entonces|mientras|haz|fin-haz|leer|decimales|terminar|ventana|dim|convertir|stop|continuar|salir|push|pop|retornar|pausa",  "(/\\*([^*]|(\\*+[^*/]))*\\*+/)|//[^\n]*",  "(/\\*([^*]|(\\*+[^*/]))*\\*+/)|//[^\n]*" };
+ const int numelem = 7;
+ const char * RegExps[10] = { "[0-9]+|[0-9]+\".\"[0-9]+",   "\]|['{}<>,=+*()\\[]",  "[A-Z][A-Z_0-9]*",  "[a-z][a-z_0-9]*",  "llamar|desde|hasta|imprimir|si|sino|si-fin|funcion|proc|procedimiento|entonces|mientras|haz|fin-haz|leer|decimales|terminar|ventana|dim|convertir|stop|continuar|salir|push|pop|retornar|pausa|use|close|abrir|cerrar|vaciar|registro|fin-registro|insertar|evalua|etiqueta|texto|boton|buscar|mensaje|actualizar|linea|circulo",  "(/\\*([^*]|(\\*+[^*/]))*\\*+/)|//[^\n]*",  "(/\\*([^*]|(\\*+[^*/]))*\\*+/)|//[^\n]*" };
  const char * colorTags[10] = {"numeros",  "signos", "alfanum", "varnumerica", "reservadas", "comentarios", "comentario2"  };
  const char * colores[10] = {"#DB30DD", "yellow", "#5A56DC" , "#CFC63E",  "#7E9C32" ,   "lightgray", "gray" };
  const char  fore_back[] = {'F', 'F', 'F', 'F', 'F', 'F', 'B'};
@@ -650,6 +650,14 @@ resaltarAlfanum (GtkButton * button, gpointer user_data)
 
 
 
+int random() {
+  unsigned int limit = 6;
+  srand((unsigned int)**random + (unsigned int)time(NULL));
+  srand(rand());
+  for (int i = 0; i < 10; i++) {
+    printf("%d\n", rand() % limit);
+  }
+}
 
 void interpretarEditor();
 
@@ -697,6 +705,7 @@ create_window() {
     GtkWidget *velocidadMi;
     GtkWidget *velocidad2Mi;
     GtkWidget *alfanumericasMi;
+    GtkWidget *liberarmemMi;
 
        
     
@@ -735,6 +744,7 @@ create_window() {
   quitMi = gtk_menu_item_new_with_label("Salir");
   optMi = gtk_menu_item_new_with_label("Opciones");
   interpretarMi = gtk_menu_item_new_with_label("Interpretar");
+  liberarmemMi = gtk_menu_item_new_with_label("Liberar memoria");
   velocidadMi = gtk_menu_item_new_with_label("Velocidad+");
   velocidad2Mi = gtk_menu_item_new_with_label("Velocidad-");
   alfanumericasMi = gtk_menu_item_new_with_label("Alfanuméricas");
@@ -746,6 +756,7 @@ create_window() {
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(optMi), opcionesMenu);
   
   gtk_menu_shell_append(GTK_MENU_SHELL(runMenu), interpretarMi);
+  gtk_menu_shell_append(GTK_MENU_SHELL(runMenu), liberarmemMi);
   gtk_menu_shell_append(GTK_MENU_SHELL(fileMenu), quitMi);
   gtk_menu_shell_append(GTK_MENU_SHELL(opcionesMenu), velocidadMi);
   gtk_menu_shell_append(GTK_MENU_SHELL(opcionesMenu), velocidad2Mi);
@@ -774,6 +785,10 @@ create_window() {
     
     g_signal_connect(G_OBJECT(interpretarMi), "activate",
                     G_CALLBACK(interpretarEditor), NULL);
+            //G_CALLBACK(random), NULL);
+    
+    g_signal_connect(G_OBJECT(liberarmemMi), "activate",
+                    G_CALLBACK(liberar_mem), NULL);
    
     
     
@@ -926,6 +941,7 @@ create_window() {
 
 
 void liberar_mem() {
+    char str1 [100];
 //  printf("check9 liberando memoria\n");
             liberar_nodo(pila_programas[0], 0);
             //liberar_nodo(pila_programas[31], 1);
@@ -960,7 +976,7 @@ void liberar_mem() {
            // free (procedimientos[6]);
 
             
-/*descomentar
+
             sprintf(str1, "Constantes: %d", (int) contador );
             gtk_label_set_text( label3, str1 );
                  
@@ -969,7 +985,7 @@ void liberar_mem() {
                  
              sprintf(str1, "Memoria: %d -- nodos: %d", (long) memoria, nodos );
             gtk_label_set_text( label1, (gpointer) str1 );
-*/
+
             
             
          //   liberar_nodo(pila_programas[31], 31);
@@ -1553,7 +1569,7 @@ create_tags (GtkTextBuffer * buffer)
                     NULL);
     gtk_text_buffer_create_tag (buffer, "strike", "strikethrough",
                     TRUE, NULL);
-    gtk_text_buffer_create_tag (buffer, "color", "foreground", "blue",
+    gtk_text_buffer_create_tag (buffer, "color", "foreground", "yellow",
                     NULL);
     // creamos el tag   - colocar esto al crear la ventana y el buffer
     gtk_text_buffer_create_tag(buffer, "gray_bg", 

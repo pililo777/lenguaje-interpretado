@@ -81,7 +81,7 @@ extern int nro_decimales;
 
 char msgbox[2550];
 char mensaje2[255];
-char modo_pausa = '0';
+char modo_pausa = '1';
 char en_pausa = '0';
 
 
@@ -162,7 +162,9 @@ short push_argumentos(ast *f1, ast *g1, short * cantidad) {
                 (*cantidad)++;
                 execut(p1);
                 free(p1);
-                memoria = memoria - sizeof(ast *);
+                nodos--;
+                //memoria = memoria - sizeof(ast *);
+                memoria -= sizeof(struct ast);
         }
         
         if (g1->subnodos > 1)
@@ -729,7 +731,7 @@ int interpretar() {
         /*
                 printf("ejecutando programa 31\n");
          */
-        execut(pila_programas[31]);
+        execut(pila_programas[31]); liberar_nodo(pila_programas[31], 31);
         /*
                 printf("fin programa 31\n");
          */
@@ -842,7 +844,7 @@ _reset_timer ( gpointer data)
     start_timer = FALSE;
 }
 
-gulong tiempo = 200000L;
+gulong tiempo = 1200000L;
 
 int pausar()
 {
@@ -1047,7 +1049,7 @@ void * execut(ast * p) {
                     while (en_pausa == '1') {
                         while (gtk_events_pending ()) gtk_main_iteration();
                     }
-                    pausar();
+                    
                 }
 
                 
@@ -1059,6 +1061,8 @@ void * execut(ast * p) {
                 //gtk_main_iteration();
             }
         }
+        
+        pausar();
         
     }
     
@@ -1679,7 +1683,7 @@ void * execut(ast * p) {
             yypush_buffer_state(yy_scan_string(input));
 
 
-            idx_prg = 31;
+            idx_prg = 30;
             /*
                         printf("parse programa 1 %s \n", input);
              */
@@ -1709,8 +1713,8 @@ void * execut(ast * p) {
                             printf("ejecutando programa 1\n");
                  */
 
-                execut(pila_programas[31]); // mejor hacer que el 1 sea el 31, es decir el último programa en el array de programas
-                liberar_nodo(pila_programas[31], 1);
+                execut(pila_programas[30]); // mejor hacer que el 1 sea el 31, es decir el último programa en el array de programas
+                liberar_nodo(pila_programas[30], 30);
                 
                 //pendiente: liberar nodos de la memoria
                 
@@ -2742,5 +2746,4 @@ short comprobar_regex(char * expregular, char * texto) {
     regfree(&regex);
 
 }
-
 
