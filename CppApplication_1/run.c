@@ -1640,7 +1640,8 @@ void * execut(ast * p) {
         case convertir_texto_a_numero:
         {
             double numero;
-            numero = atof(constantes[(int) var[(int) p->nodo1->num ] ]); //constantes [(int)p->nodo1->num]
+            numero = atof(array_variables[(int) p->nodo1->num].string);
+                    //constantes[(int) var[ ] ]); //constantes [(int)p->nodo1->num]
             array_variables[(int) p->nodo2->num].numero = numero;
 
         }
