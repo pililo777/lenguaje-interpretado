@@ -81,7 +81,7 @@ extern int nro_decimales;
 
 char msgbox[2550];
 char mensaje2[255];
-char modo_pausa = '1';
+char modo_pausa = '0';
 char en_pausa = '0';
 
 
@@ -103,19 +103,43 @@ void push_param(int i) {
             pila[idx_pila].procedimiento = array_variables[i].procedimiento;
             pila[idx_pila].tipo = array_variables[i].tipo;
             strcpy(pila[idx_pila].nombre , array_variables[i].nombre);
-            strcpy(pila[idx_pila].valor , array_variables[i].valor);
+            
+            //strcpy(pila[idx_pila].valor , array_variables[i].valor); 
+            if (pila[idx_pila].tipo=='S') {
+                char * str1;
+                int j;
+                if (array_variables[i].string!=NULL) {
+                    j = strlen(array_variables[i].string)+1;
+                    str1 = (char *) malloc (j);
+                    memoria+=j;
+                    strcpy(str1 , array_variables[i].string);
+                    pila[idx_pila].string = str1;
+                }
+            }
             pila[idx_pila].backup = i;
             idx_pila++;
 }
 
 void pop_param(int i) {
+            int j;
             if (idx_pila == 0) return;
+    
             idx_pila--;
             array_variables[i].numero = pila[idx_pila].numero;
             array_variables[i].procedimiento = pila[idx_pila].procedimiento;
             array_variables[i].tipo = pila[idx_pila].tipo;
             strcpy(array_variables[i].nombre, pila[idx_pila].nombre);
-            strcpy(array_variables[i].valor, pila[idx_pila].valor);
+            if (array_variables[i].tipo=='S' || array_variables[i].tipo=='F' ) {
+                if (pila[idx_pila].string!=NULL) {
+                    j = strlen(pila[idx_pila].string)+1;
+                    array_variables[i].string = (char *) malloc(j);
+                    memoria += j;
+                    strcpy(array_variables[i].string, pila[idx_pila].string);
+                    free(pila[idx_pila].string);
+                    pila[idx_pila].string = NULL;
+                    memoria -= j;
+                }
+            }
 }
 
 
@@ -162,6 +186,7 @@ short push_argumentos(ast *f1, ast *g1, short * cantidad) {
                 (*cantidad)++;
                 execut(p1);
                 free(p1);
+                p1=NULL;
                 nodos--;
                 //memoria = memoria - sizeof(ast *);
                 memoria -= sizeof(struct ast);
@@ -189,50 +214,84 @@ void pop_argumentos(short n) {
 void subcadena(int i, ast * a, ast * b, int var) {
     int aa, bb;
     char * subc;
-    subc = malloc(127);
+    char * subc2;
+    //subc = malloc(127);
     int k = 0;
     aa = (int) evalua(a);
     bb = (int) evalua(b);
+    subc = (char * ) malloc(bb+1);
+    memoria+=bb;
     for (int j=aa-1;j < (bb+aa-1);j++) {
-        subc[k] = array_variables[i].valor[j];
+        //subc[k] = array_variables[i].valor[j];
+        subc[k] = (char *) array_variables[i].string[j];
         k++;
     }
     subc[k] = '\0';
-    strcpy (array_variables[var].valor, subc);
-    free(subc);
+    //strcpy (array_variables[var].valor, subc);
+    subc2 = array_variables[var].string;
+    if (subc2!=NULL) {
+        free(array_variables[var].string);
+        array_variables[var].string = NULL;
+    }
+        
+    array_variables[var].string = subc;
+    
+    
+    //free(subc);
 }
 
 void subcadena2(int i, ast * a, int var) {
     int aa, bb;
-    char * subc;
-    subc = malloc(127);
+    char * subc, *subc2 ;
+    //subc = malloc(127);
     int k = 0;
     aa = (int) evalua(a);
     //bb = (int) evalua(b);
-    bb = (strlen(array_variables[i].valor) - aa)+1;
+    bb = (strlen(array_variables[i].string) - aa)+1;
+    subc = (char * ) malloc(bb+1);
+    memoria+=bb;
     for (int j=aa-1;j < (bb+aa-1);j++) {
-        subc[k] = array_variables[i].valor[j];
+        subc[k] = array_variables[i].string[j];
         k++;
     }
+    if (subc==NULL) {
+        pausar(); //error
+        }
     subc[k] = '\0';
-    strcpy (array_variables[var].valor, subc);
-    free(subc);
+    
+    subc2 = array_variables[var].string;
+    if (subc2!=NULL) {
+        free(array_variables[var].string);
+        array_variables[var].string = NULL;
+    }
+    
+    //strcpy (array_variables[var].valor, subc);
+    array_variables[var].string = subc;
+    //free(subc);
 }
 
 void izquierda(int i, ast * a,  int var) {
     int aa, bb;
-    char * subc;
-    subc = malloc(127);
+    char * subc, *subc2;
+    //subc = malloc(127);
     int k = 0;
     aa = (int) 1;
     bb = (int) evalua(a);
+    subc = (char * ) malloc(bb+1);
+    memoria+=bb;
     for (int j=aa-1;j < (bb+aa-1);j++) {
-        subc[k] = array_variables[i].valor[j];
+        subc[k] = array_variables[i].string[j];
         k++;
     }
     subc[k] = '\0';
-    strcpy (array_variables[var].valor, subc);
-    free(subc);
+    //strcpy (array_variables[var].valor, subc);
+    subc2 = array_variables[var].string;
+    if (subc2!=NULL) {
+        free(array_variables[var].string);
+        array_variables[var].string = NULL;
+    }
+    array_variables[var].string = subc;
+    //free(subc);
 }
 
 void derecha(int i, ast * a,  int var) {
@@ -240,19 +299,30 @@ void derecha(int i, ast * a,  int var) {
     //a es la variable que tiene la cantidad
     //var es la que recibe el recorte
     int aa, bb;
-    char * subc;
-    subc = malloc(127);
+    char * subc, *subc2;
+    //subc = malloc(127);
     int k = 0;
     aa = (int) evalua(a);
-    bb = strlen(array_variables[i].valor);
+    
+    bb = strlen(array_variables[i].string);
+    subc = (char * ) malloc(bb+1);
+    memoria+=bb;
     aa = bb - aa;
     for (int j=aa;j < (bb+aa-1);j++) {
-        subc[k] = array_variables[i].valor[j];
+        subc[k] = array_variables[i].string[j];
+    
         k++;
     }
     subc[k] = '\0';
-    strcpy (array_variables[var].valor, subc);
-    free(subc);
+    //strcpy (array_variables[var].valor, subc);
+    subc2 = array_variables[var].string;
+    if (subc2!=NULL) {
+        free(array_variables[var].string);
+        array_variables[var].string = NULL;
+    }
+    array_variables[var].string = subc;
+    
+    //free(subc);
 }
 
 short instr(int i, int a) {
@@ -263,18 +333,18 @@ short instr(int i, int a) {
     char * subc2;
     char * result;
     short posicion;
-    short substringLen;
-    subc1 = malloc(127);
-    subc2 = malloc(127);
-    strcpy(subc1, array_variables[i].valor);
-    strcpy(subc2, array_variables[a].valor);
+    //short substringLen;
+    //subc1 = malloc(127);
+    //subc2 = malloc(127);
+    subc1 = array_variables[i].string;
+    subc2 = array_variables[a].string;
     result = strstr(subc1 ,subc2);
     
     posicion = 0;
     if (result)
     posicion = result - subc1 + 1;
-    free(subc1);
-    free(subc2);
+    //free(subc1);
+    //free(subc2);
     return posicion;
 }
 
@@ -407,6 +477,33 @@ ast * nodo1(tiponodo Tipo, ast * a) {
     if(depurar)
     printf("Tipo: %d\n", Tipo);
     return p;
+}
+
+
+extern char buff1[128];
+
+void freevar(int i) {
+    if (array_variables[i].string!=NULL) {
+        free(array_variables[i].string);
+        array_variables[i].string=NULL;
+    }
+}
+
+void reservamem(int i, int j) {
+    array_variables[i].string = (char *) malloc (j);
+    memoria += j;
+    array_variables[i].string[0]= 0;
+}
+
+void freevar2(int i, char * buff3 ) {
+    char * input;
+    int j;
+    printf ("%d\n", i);
+    input = buff1;
+    sscanf( buff3, "%d", &j);
+    printf ("%d\n", j);
+    free(array_variables[j].string);
+    array_variables[j].string=NULL;
 }
 
 ast * nodo2(tiponodo Tipo, ast * a, ast * b)
@@ -550,7 +647,7 @@ static void enter_callback(GtkWidget *widget, gpointer data) // al dar enter en 
     sscanf(buffer, "%d", &numero); //coloca en numero el nombre
     
     //valor_entry = constantes [(int) var[numero]];
-    valor_entry = array_variables[numero].valor;
+    valor_entry = array_variables[numero].string;
 
 
     entry_text = gtk_entry_get_text(GTK_ENTRY(entry));
@@ -686,10 +783,12 @@ static void change_entry_callback(GtkWidget *widget, gpointer data) // al dar en
     /*printf ("Entry contents: %s\n", entry_text);
     printf("variable  %d\n", numero);*/
 
-
-    strcpy(constantes [(int) var[numero]], entry_text); // aplicamos el nombre del entry a la variable
-    strcpy(array_variables[numero].valor, entry_text);
-    gtk_entry_set_text( entry,  array_variables[numero].valor);
+    freevar(numero);
+    reservamem(numero, (int) strlen(entry_text)+1);
+    strcpy(array_variables[numero].string, entry_text); // aplicamos el nombre del entry a la variable
+    //freevar(numero);
+    //strcpy(array_variables[numero].string, entry_text);
+    gtk_entry_set_text( entry,  array_variables[numero].string);
     
 }
 
@@ -704,7 +803,7 @@ extern int err_number;
 
 int interpretar() {
     err_number = 0;
-    printf("entrammos en la funcion interpretar\n");
+    //printf("entrammos en la funcion interpretar\n");
     
     int idx_prg_bak;
     idx_prg_bak = idx_prg;
@@ -844,7 +943,7 @@ _reset_timer ( gpointer data)
     start_timer = FALSE;
 }
 
-gulong tiempo = 1200000L;
+gulong tiempo = 0L;
 
 int pausar()
 {
@@ -885,6 +984,7 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
     int largo;
     int indice;
     char * nombre;
+    //char * str1;
     //char buff[100];
     if (lista_de_campos->tipo!=listacampos) return;
     nnodos = lista_de_campos->subnodos;
@@ -892,9 +992,13 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
         largo = lista_de_campos->nodo3->num;
         indice = lista_de_campos->nodo2->num;
         nombre = array_variables[indice].nombre;
-        fread(array_variables[indice].valor, 1, largo, handler);
+        reservamem(indice, largo+1);
+        //str1 = (char *) malloc (largo+1);
+        //memoria+=largo;
+        fread(array_variables[indice].string, 1, largo, handler);
+        //array_variables[indice].string = str1;
         if (depurar)
-        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
+        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].string );
         leer_campos(lista_de_campos->nodo1, handler);
         //leer_campos(lista_de_campos->nodo2);
         }
@@ -902,9 +1006,14 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
         largo = lista_de_campos->nodo2->num;
         indice = lista_de_campos->nodo1->num;
         nombre = array_variables[indice].nombre;
-        fread(array_variables[indice].valor, 1, largo, handler);
+        reservamem(indice, largo+1);
+        //str1 = (char *) malloc (largo+1);
+        //memoria+=largo;
+        fread(array_variables[indice].string, 1, largo, handler);
+        //array_variables[indice].string = str1;
+       
         if (depurar)
-        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
+        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].string );
     }
 }
 
@@ -922,9 +1031,9 @@ void guardar_campos(ast * lista_de_campos, FILE * handler) {
         largo = lista_de_campos->nodo3->num;
         indice = lista_de_campos->nodo2->num;
         nombre = array_variables[indice].nombre;
-        fwrite(array_variables[indice].valor, 1, largo, handler);
+        fwrite(array_variables[indice].string, 1, largo, handler);
         if (depurar)
-        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
+        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].string );
         guardar_campos(lista_de_campos->nodo1, handler);
         //leer_campos(lista_de_campos->nodo2);
         }
@@ -932,9 +1041,9 @@ void guardar_campos(ast * lista_de_campos, FILE * handler) {
         largo = lista_de_campos->nodo2->num;
         indice = lista_de_campos->nodo1->num;
         nombre = array_variables[indice].nombre;
-        fwrite(array_variables[indice].valor, 1, largo, handler);
+        fwrite(array_variables[indice].string, 1, largo, handler);
         if (depurar)
-        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].valor );
+        printf("el campo se llama %s y contiene: %s\n", nombre, array_variables[indice].string );
     }
 }
 
@@ -983,6 +1092,7 @@ void * execut(ast * p) {
         else
             numlinea = p->nrolinea2-1;
         
+        //printf ("Ejec linea: %d\n", numlinea+1);
     
         //resalta la linea del editorgtk en ejecucion
         //si no estamos interpretando buff1
@@ -1031,7 +1141,7 @@ void * execut(ast * p) {
         }
         
         //ir a la linea de ejecucion
-        if (idx_prg!=31+1) //el ultimo indice de programa
+        if (idx_prg!=39+1) //el ultimo indice de programa
         gtk_text_view_scroll_to_mark (textview2, marca1, 0.0, TRUE, 0.0, 0.17);
 
         sprintf(str_temp, "LINEA: %d   funcion: ", numlinea+1 );
@@ -1041,7 +1151,7 @@ void * execut(ast * p) {
         gtk_label_set_label(label2, str_temp );
         gtk_widget_queue_draw(label2); 
         
-         if (idx_prg!=31+1) //el ultimo indice de programa 
+         if (idx_prg!=39+1) //el ultimo indice de programa  VOLVER EL 39 A 31 DESPUES DE DEPURAR
          {
                 if (modo_pausa == '1' ) {
 
@@ -1118,7 +1228,7 @@ void * execut(ast * p) {
             n = p->nodo1->num;
             n = array_variables[n].numero;   // variable handle del numero de archivo
             i = p->nodo2->num;
-            s = array_variables[i].valor;
+            s = array_variables[i].string;
             
             
             if (p->subnodos == 2) {
@@ -1255,7 +1365,7 @@ void * execut(ast * p) {
             n = p->nodo1->num;
             char * filename;
             //FILE * handle;
-            filename = array_variables[n].valor;
+            filename = array_variables[n].string;
             use(filename);
         }
             break;
@@ -1279,7 +1389,7 @@ void * execut(ast * p) {
             struct xnodo xnodoobjetivo;
             
             var = p->nodo1->num;
-            llave = (int) array_variables[var].valor;
+            llave = (int) array_variables[var].string;
             buscar(llave, &xraiz, &encontrar, &nodoobjetivo, &posobjetivo);
             var = p->nodo2->num;
             array_variables[var].numero = encontrar;
@@ -1335,7 +1445,7 @@ void * execut(ast * p) {
             
             // obtengo el nombre de la clave que se quiere agregar
             var = p->nodo1->num;
-            llave = (int) array_variables[var].valor;
+            llave = (int) array_variables[var].string;
             
             //calculamos el numero de registro para el nuevo registro
             tamanio = 0;
@@ -1372,7 +1482,7 @@ void * execut(ast * p) {
             
             int encontrar = 0;
             var = p->nodo1->num;
-            llave = (int) array_variables[var].valor;
+            llave = (int) array_variables[var].string;
             
             eliminar(llave, &xraiz) ;
             
@@ -1404,23 +1514,32 @@ void * execut(ast * p) {
         {
             int  n;
             n = (int) p->nodo1->num;
-            array_variables[n].valor[0] = 0   ;
+            array_variables[n].string[0] = 0   ;
         }
         break;
         
         case sumar_alfa:
         {
-            int n, m, x, y;
+            int n, m, x, y; char * str1;
             n = (int) p->nodo1->num;
             m = (int) p->nodo2->num;
-            x = strlen(array_variables[n].valor);
-            y = strlen(array_variables[m].valor) + x;
+            x = strlen(array_variables[n].string)+1;
+            y = strlen(array_variables[m].string) + x+1;
 /*
             printf("%d\n", y );
 */
-            if (y<=127)
-            strcat(array_variables[n].valor, array_variables[m].valor);
-            else printf("error concatenando...\n");
+            //if (y<=127)
+            
+            str1 = (char *) malloc (y);
+            memoria+=y;
+            strcpy(str1, array_variables[n].string);
+            free(array_variables[n].string);
+            array_variables[n].string=NULL;
+            memoria-=x;
+            
+            strcat(str1, array_variables[m].string);
+            array_variables[n].string = str1;
+            //else printf("error concatenando...\n");
             
         }
         break;
@@ -1431,7 +1550,7 @@ void * execut(ast * p) {
 	   int n;
 	   n = (int) p->nodo1->num;
            fflush(stdout);
-	   printf ("%s", array_variables[n].valor);
+	   printf ("%s", array_variables[n].string);
            fflush(stdout);
 	}
 	break;
@@ -1444,7 +1563,7 @@ void * execut(ast * p) {
             char * s;
             n = (int) p->nodo2->num;
             n = (int) array_variables[n].numero;
-            s = constantes[(int) var[(int)   p->nodo1->num]];
+            s = array_variables[(int)   p->nodo1->num].string;
             
 // pendiente  quitar VAR y poner array_variables
             if (depurar)
@@ -1486,8 +1605,8 @@ void * execut(ast * p) {
             
             if (c!=EOF) {
             
-                array_variables[x].valor[0] = c ;
-                array_variables[x].valor[1] = 0 ;
+                array_variables[x].string[0] = c ;
+                array_variables[x].string[1] = 0 ;
                 array_variables[m].numero = (double) c ;
                 
                 } else {
@@ -1531,11 +1650,16 @@ void * execut(ast * p) {
         case convertir_numero_a_texto:
         {
             double numero;
-            int n ;
+            int i, n ;
+            char buf[20];
             n = (int)  p->nodo2->num ;
             numero = array_variables[(int) p->nodo1->num].numero;
             //sprintf(constantes[(int) var[(int) p->nodo2->num ] ], "%lf", numero);
-            sprintf(array_variables[n ].valor, "%.0lf", numero);
+            sprintf(buf, "%.0lf", numero);
+            i = strlen(buf)+1;
+            reservamem(n, i);
+            strcpy(array_variables[n ].string, buf);
+            //sprintf(array_variables[n ].string, "%.0lf", numero);
         }
             break;
 
@@ -1559,7 +1683,8 @@ void * execut(ast * p) {
             vector = nuevoValorEnteros(j); // cantidad
             for (i = 0; i < j; i++) vector [i] = 0;
             arrayVectores[idx_vec] = vector;
-            var[(int) p->nodo1->num] = idx_vec;
+            //var[(int) p->nodo1->num] = idx_vec;
+            array_variables[(int) p->nodo1->num].numero = idx_vec;
             idx_vec++;
 
         }
@@ -1567,7 +1692,7 @@ void * execut(ast * p) {
             
           case dimensionar_alfa:
         {
- // DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
+ // DIM sdesignator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
             char * vector;
             int i;
             int j;
@@ -1575,7 +1700,8 @@ void * execut(ast * p) {
             vector = nuevoValorAlfas(j); // cantidad
             //for (i = 0; i < j; i++) vector [i] = 0;  //no inicializamos el vector
             arrayVectoresAlfa[idx_vec2] = vector;
-            var[(int) p->nodo1->num] = idx_vec2;
+            array_variables[(int) p->nodo1->num].numero = idx_vec2;
+            //var[(int) p->nodo1->num] = idx_vec2;
             idx_vec2++;
         }
             break;
@@ -1584,7 +1710,8 @@ void * execut(ast * p) {
 // designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }            
             int * vector;
             int i;
-            i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            i = (int) p->nodo1->num;    // el indice de la variable (designator)
+            i = (int) array_variables[i].numero;
             vector = arrayVectores[i];   // hasta 32 vectores
             vector[(int) evalua(p->nodo2)] = (int) evalua(p->nodo3);   //expresion y expresion
         }
@@ -1598,7 +1725,8 @@ void * execut(ast * p) {
             int i;
             int j;
             int k;
-            i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            //i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            i = (int) array_variables[(int) p->nodo1->num].numero;    // el indice de la variable (designator)
             j = (int) ( evalua(p->nodo2) * 127);
             k = (int) p->nodo3->num;
             vector = arrayVectoresAlfa[i];   // hasta 32 vectores
@@ -1615,27 +1743,39 @@ void * execut(ast * p) {
             int i;
             int j;
             int k;
-            i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            //i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            i = (int) array_variables[(int) p->nodo1->num].numero  ;    // el indice de la variable (designator)
             j = (int) ( evalua(p->nodo2) * 127);
             k = (int) p->nodo3->num;
             vector = arrayVectoresAlfa[i];   // hasta 32 vectores
             
-           strcpy( &vector[j]  ,    array_variables[k].valor ) ;   
+           strcpy( &vector[j]  ,    array_variables[k].string ) ;   
         }
             break;
             
         case asigna_vector_alfa3:
         {
 // sdesignator EQ sdesignator  '[' expression ']'  { $$ = nodo3(asigna_vector, $1, $3, $5 );  }  
-            char * vector;
+            char * vector, *str1;
             int i;
             int j;
             int k;
-            i = var[(int) p->nodo2->num];    // el indice de la variable vector (designator)
+            //i = var[(int) p->nodo2->num];    // el indice de la variable vector (designator)
+            i = (int) array_variables[(int) p->nodo2->num].numero;    // el indice de la variable vector (designator)
             j = (int) ( evalua(p->nodo3) * 127);  // posicion en el vector
             k = (int) p->nodo1->num;
             vector = arrayVectoresAlfa[i];   // hasta 32 vectores
-            strcpy(array_variables[k].valor, &vector[j]) ;   
+            //i = strlen(&vector[j]);
+            //str1 = (char *) malloc (i); memoria+=i;
+            //strcpy(str1,  ;   
+            str1 = array_variables[k].string;
+            if (str1!=NULL) {
+                free(array_variables[k].string);
+                array_variables[k].string=NULL;
+            }
+            i = strlen(&vector[j])+1;
+            array_variables[k].string = (char *) malloc(i);
+            strcpy (array_variables[k].string, &vector[j]);
         }
             break;
 
@@ -1863,7 +2003,7 @@ void * execut(ast * p) {
             sprintf(buffer, "%d", t); //le doy el nombre numerico
 
             gtk_widget_set_name(entry, buffer);
-            gtk_entry_set_text(entry, constantes [(int) var[t]]);
+            gtk_entry_set_text(entry, array_variables[t].string);
 
             g_signal_connect(entry, "changed", G_CALLBACK(change_entry_callback), entry);
             //se activa con la tecla enter
@@ -2045,10 +2185,13 @@ void * execut(ast * p) {
             int n;
             n = (int) p->nodo1->num;   // indice
             fflush(stdout);
-            printf("%s", array_variables [ n  ].valor);
-            sprintf(mensaje2, "%s", array_variables [ n ].valor);
-            strcat(msgbox, mensaje2);
-            strcat(msgbox, " ");
+            if (array_variables [ n  ].tipo!='S') return;
+            printf("%s", array_variables [ n  ].string);
+            if (ejecuta_desde_editor) {
+                sprintf(mensaje2, "%s", array_variables [ n ].string);
+                strcat(msgbox, mensaje2);
+                strcat(msgbox, " ");
+            }
             //printf("MSGBOX inicio---> %s   fin <-----", msgbox ) ;
             //msgbox[0] = 0;
         }
@@ -2059,7 +2202,8 @@ void * execut(ast * p) {
             char * vector;
             int i;
             int j;
-            i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            //i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+            i =  (int) array_variables[(int) p->nodo1->num].numero;    // el indice de la variable (designator)
             j = (int) ( evalua(p->nodo2) * 127) ;
             vector = arrayVectoresAlfa[i];   // hasta 32 vectores
             printf("%s", &vector[j] );
@@ -2207,7 +2351,7 @@ void * execut(ast * p) {
                     
                     //array_variables[indice_de_la_variable].nombre
                     
-                    //push
+                    //execut      funcion
                     strcpy(array_variables[255].nombre, nombrefuncion) ;
                     push_param(255); 
                   
@@ -2248,8 +2392,16 @@ void * execut(ast * p) {
                         g = p->nodo3;
                         if (g!=NULL) {
                             i = (int) p->nodo3->num;
+                            if (array_variables[i].tipo='S') {
+                                array_variables[i].string = array_variables[indice_de_la_variable].string;
+                            }
+                            else {
+                                array_variables[i].numero = array_variables[indice_de_la_variable].numero;
+                            }
+/*
                             push_param(indice_de_la_variable);
                             pop_param(i);
+*/
                         }
                         
                         
@@ -2267,8 +2419,9 @@ void * execut(ast * p) {
         case retorno:
         {
             double resul;
-            int i, k; 
+            int i, j, k; 
             int t;
+            char * str1;
             
             t = p->nodo1->tipo;
             if (t==nombre_de_variable) {
@@ -2277,8 +2430,21 @@ void * execut(ast * p) {
                 tipo = array_variables[k].tipo;
                 if (tipo=='S') {  //string
                     i = idx_pila - 1;
-                    k = p->nodo1->num;
-                    strcpy(pila[i].valor,  array_variables[k].valor);
+                    //k = p->nodo1->num;
+                    if (pila[i].string!=NULL) {
+                        str1 = pila[i].string;
+                        if ((j = strlen(str1)) > 0) {
+                            free(str1);
+                            str1 = NULL;
+                            memoria-=j;
+                        }
+                    }
+
+                    j = strlen (array_variables[k].string)+1;
+                    str1 = (char *) malloc(j);
+                    memoria+=j;
+                    strcpy (str1, array_variables[k].string );
+                    pila[i].string = str1;
                     return;
                 }
             }
@@ -2306,13 +2472,73 @@ void * execut(ast * p) {
             break;
 
         case asigna_alfa:
+        {
+            char * str1;
+            int i;
+            str1 = array_variables[(int) p->nodo1->num].string;
+            
+            if (str1!=NULL) {
+                i=strlen(str1);
+                if (i>0) {
+                    //printf ("liberamos memoria de la  variable destino %s\n", 
+              //          array_variables[(int) p->nodo1->num].nombre );
+                    fflush(stdout);
+                    free(array_variables[(int) p->nodo1->num].string);
+                    array_variables[(int) p->nodo1->num].string = NULL;
+                    memoria -= i;
+                }
+            }
+            i=strlen(constantes [(int) p->nodo2->num])+1;
             //printf("asignar alfanumerico\n");
-            var[(int) p->nodo1->num] = p->nodo2->num;
-            strcpy(array_variables[(int) p->nodo1->num].valor , constantes [ (int) var [(int) p->nodo1->num] ]);
+            //var[(int) p->nodo1->num] = p->nodo2->num;
+            //strcpy(array_variables[(int) p->nodo1->num].valor , constantes [ (int) var [(int) p->nodo1->num] ]);
+            array_variables[(int) p->nodo1->num].string = (char*) calloc(i, sizeof(char));
+            memoria+=i;
+            //printf ("asignamos memoria a la variable %s\n", array_variables[(int) p->nodo1->num].nombre );
+            fflush(stdout);
+            strcpy (array_variables[(int) p->nodo1->num].string,  constantes [(int) p->nodo2->num]);
+            
+        }
             break;
             
         case asigna_alfa_var:
-            strcpy(array_variables[(int) p->nodo1->num].valor , array_variables[(int) p->nodo2->num].valor);
+        {
+            int i, j, k;
+            char * str1;
+            char * str2;
+            i = (int) p->nodo1->num; // var destino
+            j = (int) p->nodo2->num; // var origen
+            if (i==j) {
+                return;
+            }
+                
+            if (array_variables[i].string==NULL) {
+                //nada
+            } else {   //eliminamos el antiguo valor string de la variable
+                str1 = (char *) array_variables[i].string;
+                k = strlen(str1);
+                if (k>0) {
+                    //printf ("liberamos memoria de la  variable destino %s\n", array_variables[i].nombre );
+                    fflush(stdout);
+                    free (array_variables[i].string);
+                    array_variables[i].string = NULL;
+                    memoria-=k;
+                }
+            }
+            
+            if (array_variables[j].string==NULL) {
+                // la variable origen es nula
+                // habria que hacer que la destino sea nula
+                fflush(stdout);
+            } else
+            {
+                k = strlen(array_variables[j].string)+1;
+                //printf ("asignamos memoria a la variable %s\n", array_variables[i].nombre );
+                array_variables[i].string = (char * ) calloc (k, sizeof(char)); 
+                memoria+=k;
+                strcpy(array_variables[i].string, array_variables[j].string );
+            }       
+        }
             break;
 
         case continuar:
@@ -2360,7 +2586,7 @@ void * execut(ast * p) {
             inum = (int) p->nodo1->num;
             //printf("i = %d\n", inum);
             scanf("%lf", &fnum);
-            var[inum] = fnum;
+            //var[inum] = fnum;
             array_variables[inum].numero = fnum;  //tabla de simbolos
         }
             break;
@@ -2369,7 +2595,9 @@ void * execut(ast * p) {
             //printf("leer var numerica\n");
         {
             int indice;
-            ast * pp;
+            //ast * pp;
+            int k;
+            //char * str1;
 
             char texto[255];
             //pp = p;
@@ -2383,10 +2611,15 @@ void * execut(ast * p) {
 
             //fflush(stdin);
             indice = (int) p->nodo1->num;
-            
-            strcpy(constantes [(int) var[indice]], texto);   //espacio de constantes para almacenar variables alfanumericas
-            
-            strcpy(array_variables[indice].valor , texto);  //tabla de simbolos
+            k = strlen(texto)+1;
+            if (k>0) {
+                reservamem(indice, k);
+                //str1 = (char *) malloc (k);
+                //memoria+=k;
+                //strcpy (str1, texto);
+                strcpy ( array_variables[indice].string , texto) ;   // = str1 ;
+            }
+            //strcpy(constantes [(int) var[indice]], texto);   //espacio de constantes para almacenar variables alfanumericas
             
         }
             break;
@@ -2410,11 +2643,12 @@ void * execut(ast * p) {
             int x = p->nodo1->num;
             //int y = evalua(p->nodo3);
             indice_ctr++;
-            counter1[indice_ctr] = var[x] = evalua(p->nodo2);
+            array_variables[x].numero = evalua(p->nodo2);
+            counter1[indice_ctr] = (int) array_variables[x].numero;
             retornar = 0;
             for (counter1[indice_ctr]; counter1[indice_ctr] <= (int) evalua(p->nodo3); counter1[indice_ctr]++) {
                 //y = evalua(p->nodo3);
-                var[x] = counter1[indice_ctr];
+                //var[x] = counter1[indice_ctr];
                 array_variables[ x ].numero = counter1[indice_ctr];
                 execut(p->nodo4);
                 if (retornar == 1) 
@@ -2463,7 +2697,7 @@ double evalua(ast * p) {
     
     switch (p->tipo) {
         
-        case llamar:
+        case llamar:      //evalua
             // p->tipo = llamar
             // p->nodo1->num = designator de la funcion a llamar
             // p->nodo2  = argumentos para llamar a la funcion
@@ -2483,7 +2717,7 @@ double evalua(ast * p) {
                 if (!strcmp(array_variables[indice_de_la_variable].nombre, "largo")) {
                     short i;
                     i = (int) p->nodo2->nodo1->num;
-                    i = strlen(array_variables[i].valor);
+                    i = strlen(array_variables[i].string);
                     res =  (double) i;
                     return res;
                 }
@@ -2498,8 +2732,8 @@ double evalua(ast * p) {
                         i = p->nodo2->nodo2->nodo1->num;
                         m = p->nodo2->nodo2->nodo2->nodo1->num;
                         m = array_variables[m].numero;
-                        a = array_variables[i].valor;
-                        b = array_variables[j].valor;
+                        a = array_variables[i].string;
+                        b = array_variables[j].string;
                         k = comprobar_regex(a, b);
                         vector = arrayVectores[m];
                         vector[0] = (int) captures[0].rm_so;
@@ -2518,7 +2752,7 @@ double evalua(ast * p) {
                 }
                 else 
                 {
-                    //push
+                    //  evalua   funcion
                     strcpy(array_variables[255].nombre, nombrefuncion) ;
                     push_param(255); 
                     
@@ -2584,7 +2818,7 @@ double evalua(ast * p) {
             int i;
             int j;
             i = (int) p->nodo1->num;
-            vector = arrayVectores [ (int) var[i] ];
+            vector = arrayVectores [ (int) array_variables[i].numero ];
             j = vector[(int) evalua(p->nodo2) ];
             res =  (double) j;
         }
@@ -2664,21 +2898,22 @@ double evalua(ast * p) {
         case comparaliteral:   //compara una variable a un literal
 
         {
-            char string1[255];
+            char *string1, *string3;
             char string2[255];
             int tipo;
+            int i;
+            i = (int) p->nodo2->num;
+            string1 = array_variables[(int) p->nodo1->num].string;
             tipo = (int) p->nodo2->tipo;
             if (tipo==constante_literal) {
-                strcpy(string1, array_variables[(int) p->nodo1->num].valor);
+                //strcpy(string1, array_variables[(int) p->nodo1->num].valor);
+                //printf("comparacion con un literal\n");
                 strcpy(string2, constantes[(int) p->nodo2->num]);
                 res = (double) !strcmp(string1, string2);
             }
             else {
-                int i;
-                i = (int) p->nodo2->num;
-                strcpy(string1, array_variables[(int) p->nodo1->num].valor);
-                strcpy(string2, array_variables[i].valor);
-                res = (double) !strcmp(string1, string2);
+                string3 = array_variables[i].string;
+                res = (double) !strcmp(string1, string3);
             }
         }
         break;

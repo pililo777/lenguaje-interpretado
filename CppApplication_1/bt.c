@@ -938,7 +938,7 @@ int use(char * nombre_indice) {
     xraiz = -1;
     leenodo(&xraiz, &primernodo, tam_registro);
     xraiz = primernodo.xrama[0];
-    if (depurar)
+    // if (depurar)
     printf("La raiz se encuentra en el nodo %li\n", xraiz);  
 }
 

@@ -41,6 +41,10 @@ extern void runall();
 extern void listaAST();
 extern ast * pila_programas[32];
 extern void initProcedimientos();
+extern void velocidad();
+extern void velocidad2();
+extern void liberar_mem();
+extern void freevar();
 
 
 int dbminit();
@@ -77,6 +81,7 @@ int t_close();
 int runprog();
 extern int main_anterior(int argc, char *argv[]);
 
+void inter();
 
 
 struct rvar_n { /* vars numericas */
@@ -133,6 +138,8 @@ int main(int argc, const char **argv)
 void buscar_en_indice() ;
 void insertar_en_indice( );
 void eliminar_en_indice( );
+
+
 
 
 void 
@@ -221,6 +228,21 @@ init_comandos() {
     
     comando[34].nombre = "eliminar";           //28/07/2016
     comando[34].pfuncion = eliminar_en_indice;
+    
+    comando[35].nombre = "inter";           //30/09/2016
+    comando[35].pfuncion = inter;
+    
+    comando[36].nombre = "vel+";           //30/09/2016
+    comando[36].pfuncion = velocidad;
+    
+    comando[37].nombre = "vel-";           //30/09/2016
+    comando[37].pfuncion = velocidad2;
+    
+   comando[38].nombre = "freemem";           //30/09/2016
+   comando[38].pfuncion = liberar_mem;
+   
+   comando[39].nombre = "free";           //30/09/2016
+   comando[39].pfuncion = freevar;
 
 }
 
@@ -642,7 +664,8 @@ int buscar_posicion() {
         return (-1);
 }
 
- 
+short inter_flag = 0;
+
 int 
 prompt() {
     int argc;
@@ -683,11 +706,20 @@ prompt() {
     /* else */
 
     if (!found)
+        if (!inter_flag)
         fprintf(stdout, "Comando %s: No encontrado.\n", buff2[0]);
+        else
+            interpretar();
     
     buffer();
     return resultado;
     
+}
+
+
+
+void inter() {
+    inter_flag = !inter_flag;
 }
 
 /****************     inicio de las funciones   **********************/

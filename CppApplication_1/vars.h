@@ -7,6 +7,7 @@ typedef struct  {
           char        tipo;
           char        nombre[18];
           char        valor[127]; 
+          char *      string;
           double      numero;
           int         procedimiento;
           short       backup;

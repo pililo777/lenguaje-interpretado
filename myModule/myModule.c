@@ -32,18 +32,29 @@ extern   int variables_count ;
  
 extern char   variables[127][127];
 extern char   constantes[127][127];
- 
-struct struct_variable  {
+
+typedef struct struct_variable  {
           char        tipo;
           char        nombre[18];
           char        valor[127]; 
+          char *      string;
           double      numero;
           int         procedimiento;
+          short       backup;
 } ;
+ 
+/*struct struct_variable  {
+          char        tipo;
+          char        nombre[18];
+          char      * string;
+          char        valor[127]; 
+          double      numero;
+          int         procedimiento;
+} ;  */
 
-/*
-struct_variable   array_variables[256];
-*/
+
+/*struct_variable   array_variables[256]; */
+
 
 
 /*
@@ -51,7 +62,7 @@ struct_variable   array_variables[256];
 */
  //void SomeMethod(struct Coordinate (*coordinates)[10])
 
-void listarTDS(int * contador, int * contadorvar, struct  struct_variable  array_variablesx[256], char  constantes[127][127] ) {
+void listarTDS(int * contador, int * contadorvar, struct struct_variable array_variables[256], char  constantes[127][127] ) {
     int i;
     int cont, contvar;
     cont = (int) *contador;
@@ -60,13 +71,28 @@ void listarTDS(int * contador, int * contadorvar, struct  struct_variable  array
     array_variables = (struct_variable) *array_var;
 */
     printf("VARIABLES: %d\n", contvar);
- 
+    
     for (i=0; i<contvar;i++) {
-        printf("var %3d  %25s   %c ", i, array_variablesx[i].nombre, array_variablesx[i].tipo);
-        if (array_variablesx[i].tipo=='N') 
-            printf("%lf   %d\n", array_variablesx[i].numero, array_variablesx[i].procedimiento);
-        else
-            printf("%s\n", array_variablesx[i].valor);
+        char tipo;
+        tipo  = array_variables[i].tipo  ;
+        printf("var %3d  %25s   %c ", i, array_variables[i].nombre, tipo);
+        switch (tipo) {
+            case 'N':
+            {
+                printf("%lf   %d\n", array_variables[i].numero, array_variables[i].procedimiento);
+            }
+                break;
+        
+            case 'S':
+            {
+                printf("%s\n", array_variables[i].valor);
+            }
+                break;
+            
+            default:
+                printf("\n");
+                break;
+        }
     }
      printf("CONSTANTES: %d\n", cont);
     for (i=0; i<cont;i++) {

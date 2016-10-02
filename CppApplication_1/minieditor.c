@@ -361,11 +361,13 @@ void liberar_nodo( ast * p, int n)
            free(p);
            memoria -= (long) sizeof (struct ast);
            nodos--;
+           
        //    printf("librando el nodo: %ld\n", memoria);
            return;
 
     }
     //return
+        
 }
  
 
@@ -558,7 +560,7 @@ GtkWidget *window;
  GtkTextIter start_sel, end_sel;
  gint offset = 0;                            // (/\\*([^*]|(\\*+[^*/]))*\\*+/)   comentarios
  
- const int numelem = 7;
+ const int numelem = 6;
  const char * RegExps[10] = { "[0-9]+|[0-9]+\".\"[0-9]+",   "\]|['{}<>,=+*()\\[]",  "[A-Z][A-Z_0-9]*",  "[a-z][a-z_0-9]*",  "llamar|desde|hasta|imprimir|si|sino|si-fin|funcion|proc|procedimiento|entonces|mientras|haz|fin-haz|leer|decimales|terminar|ventana|dim|convertir|stop|continuar|salir|push|pop|retornar|pausa|use|close|abrir|cerrar|vaciar|registro|fin-registro|insertar|evalua|etiqueta|texto|boton|buscar|mensaje|actualizar|linea|circulo",  "(/\\*([^*]|(\\*+[^*/]))*\\*+/)|//[^\n]*",  "(/\\*([^*]|(\\*+[^*/]))*\\*+/)|//[^\n]*" };
  const char * colorTags[10] = {"numeros",  "signos", "alfanum", "varnumerica", "reservadas", "comentarios", "comentario2"  };
  const char * colores[10] = {"#DB30DD", "yellow", "#5A56DC" , "#CFC63E",  "#7E9C32" ,   "lightgray", "gray" };
@@ -662,7 +664,7 @@ int random() {
 void interpretarEditor();
 
  
-  
+extern short inter_flag;
  
 
 GtkWidget *
@@ -942,6 +944,8 @@ create_window() {
 
 void liberar_mem() {
     char str1 [100];
+    char str2 [100];
+    char str3 [100];
 //  printf("check9 liberando memoria\n");
             liberar_nodo(pila_programas[0], 0);
             //liberar_nodo(pila_programas[31], 1);
@@ -974,18 +978,20 @@ void liberar_mem() {
             
            // free ( procedimientos[6]->nodo1);
            // free (procedimientos[6]);
-
+             sprintf(str1, "Constantes: %d", (int) contador );
+             sprintf(str2, "Variables: %d", (int) contadorvar );
+             sprintf(str3, "Memoria: %li -- nodos: %d", (long) memoria, nodos );
             
-
-            sprintf(str1, "Constantes: %d", (int) contador );
+            if (ejecuta_desde_editor) {
             gtk_label_set_text( label3, str1 );
-                 
-            sprintf(str1, "Variables: %d", (int) contadorvar );
-            gtk_label_set_text( label2, str1 );
-                 
-             sprintf(str1, "Memoria: %d -- nodos: %d", (long) memoria, nodos );
-            gtk_label_set_text( label1, (gpointer) str1 );
-
+            gtk_label_set_text( label2, str2 );
+            gtk_label_set_text( label1, (gpointer) str3 );
+            }
+            else {
+                printf("%s\n", str1);
+                printf("%s\n", str2);
+                printf("%s\n", str3);
+            }
             
             
          //   liberar_nodo(pila_programas[31], 31);
@@ -1103,12 +1109,15 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
                  //actualizamos valores en la ventana del editor (provenientes del parsing)
                  
                  snprintf(str1, 100, "Constantes: %d", (int) contador );
+                 printf("%s\n", str1);
                  gtk_label_set_text( label3, str1 );
                  
                  snprintf(str1, 100,  "Variables: %d", (int) contadorvar );
+                 printf("%s\n", str1);
                  gtk_label_set_text( label2, str1 );
                  
                  snprintf(str1, 100, "Memoria: %d -- nodos: %d", (long) memoria, nodos );
+                 printf("%s\n", str1);
                  gtk_label_set_text( label1, (gpointer) str1 );
                  
                  
@@ -1128,6 +1137,10 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
           //  printf("check7 ejecutando....\n");
             if (err_number == 0)
                 execut(pila_programas[0]);
+            else
+                {
+                printf("error en compilacion: ");
+            }
        //     printf("check8\n");
       //      printf("memoria: %ld \n", memoria);
          
@@ -1456,8 +1469,9 @@ switch (event->keyval)
                 for (int i=0; i<255; i++) 
                 {
                     if (!strcmp(text, array_variables[i].nombre)) {
+                        printf("variable indice: %d\n", i);
                         if (array_variables[i].tipo == 'S') 
-                          printf("%s\n", array_variables[i].valor);
+                          printf("%s\n", array_variables[i].string);
                         else
                           printf("%lf\n", array_variables[i].numero);
                         break;
@@ -1706,22 +1720,7 @@ void old_main(int argc, const char **argv) {
         printf("usar: inter.exe nombreprograma [nombreprograma....]\n");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
@@ -1804,6 +1803,7 @@ void xxmain (int argc, const char *argv)
                     printf("cargando en pila programas indice %d\n", idx_prg);
                     //initProcedimientos();
                     yyparse();
+                    printf("memoria: %li\n", (long) memoria);
                     linenumber  = 1;
                     fclose(yyin);
                     i++;
