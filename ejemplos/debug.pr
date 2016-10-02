@@ -1,0 +1,21 @@
+i = 0
+A = 'esto no debe cambiar'
+
+imprimir 1
+E = 'esto tampoco'
+imprimir 2
+B = 'hola'
+imprimir 3
+D = 'a'
+imprimir 4
+stop
+i = buscarposicion(B, D)
+imprimir i
+
+terminar
+
+funcion buscarposicion(A, E)
+j = instr(A, E)
+retornar j
+fin
+

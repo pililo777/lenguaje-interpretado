@@ -49,7 +49,6 @@ desde i=0 hasta 99
 {
 	TABLA_ACCION[i] = CC
 }
-imprimir 'simbolos: ', LISTA_SIMBOLOS
 
 dim REGLA 7
 // DATA "W=E",  "E=E+T",  "E=T",  "T=T*F",  "T=F", "F=(E)", "F=a"
@@ -67,7 +66,7 @@ LISTA_SIMBOLOS = 'ETF(a+*)'
 LISTA_TERMINALES = 'a+*()$'
 LISTA_NO_TERMINALES = 'ETF'
 
-
+imprimir 'simbolos: ', LISTA_SIMBOLOS
 
 
 //https://en.wikibooks.org/wiki/Regular_Expressions/POSIX_Basic_Regular_Expressions
@@ -183,8 +182,8 @@ imprimir 'simbolos: ', LISTA_SIMBOLOS
 llamar crear_puntos
 
 // a partir de aqui ya se pueden comprobar las funciones siguiente y primero
-pausa
 
+//  Z=primero('F')   imprimir Z   pausa              Z=siguiente('F')   imprimir Z
 
 TEMP = R[0]
 C[0] = TEMP
@@ -247,7 +246,7 @@ mientras bucle = 1
 		//GOTO inicio.bucle
 	si-fin
 }
-stop
+
 Z = ' '
 imprimir 'VAMOS A IR MOSTRAR LOS CONJUNTOS: ', ic
 	leer Z
@@ -313,7 +312,7 @@ proc crear_puntos
         TEMP += RR
 	    R[x] = TEMP
 	    imprimir R[x]  //la regla con un punto insertado
-	    TEMP = R[x]
+	    //TEMP = R[x]
 	    R1[x] = TEMP //el auxiliar
 	}
 fin
@@ -422,9 +421,6 @@ fin
 
 funcion mostrar_i(x)
 	imprimir 'ENTRAMOS EN MOSTRAR: ', x
-	si x = 11 entonces
-		pausa
-	si-fin
     desde j = 0 hasta nsym2
     {
     	REGLA = I[(x*nsym) + j]
@@ -476,7 +472,7 @@ funcion mostrar_i(x)
 				SYM = ' '
 				SYM = subcadena(REGLA, pospunto + 1, 1)
 				//preguntamos si este simbolo es un terminal'
-				
+
 				col = instr(LISTA_TERMINALES, SYM) 
 
 				si SYM = '(' entonces
@@ -667,7 +663,7 @@ funcion  avanzar_punto (CADENA)
 	//cadena$ = L$ + m$ + "." + r$
 
 	//avanzar.punto$ = cadena$
-
+        
 	retornar TEMP1
 fin
 
@@ -1139,6 +1135,7 @@ E = 'e'
 				    push hubo_e
 				    push x
 				    push i
+                                    II = ' '   //probar sin esto
 				    II = primero(CC)       //FIRST(Y1)  >>>>>>>RECUSIVO<<<<<<<<
 				    pop i
 				    pop x
