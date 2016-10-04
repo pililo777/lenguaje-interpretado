@@ -1,6 +1,28 @@
-ARCHIVO = 'nuevo.dbf'
+/*
+
+Ejemplo de guardar datos en un fichero sin indexar
+
+*/
+
+
+ARCHIVO = 'nuevo.txt'
 numarchivo = 1
 abrir ARCHIVO numarchivo
-NOMBRE='Ruben Rivero Roca'
-guardar # numarchivo  NOMBRE 20
+LETRA = ' '
+mientras numarchivo <> 99
+{
+    leer # numarchivo LETRA letra
+    si numarchivo <> 99 entonces
+        imprimir LETRA
+    si-fin
+}
+stop
+NOMBRE='añadir al final'
+
+//guardar # numarchivo  NOMBRE 20, 0     //formato con width
+numarchivo = 1
+n = 0
+n = largo(NOMBRE)
+//guardar # numarchivo  NOMBRE             //formato sin width
+guardar # numarchivo  NOMBRE n, 1          //metodo de guardar una linea con salto de linea
 cerrar  numarchivo

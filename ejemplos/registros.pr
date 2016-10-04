@@ -1,14 +1,14 @@
 x=130
 
-registro clientes 'contactos.dbf'
+registro clientes 'nuevos contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
   CDIRECCION 61
   CTELEFONO 9
 fin-registro
 
-
-use   //trabajaremos con el indice
+FICH_INDICE = 'nuevos contactos.ndx'
+use  FICH_INDICE  //trabajaremos con el indice
 CLAVE = '10000'
 EMPRESA = 'nombre de la empresa'
 DIRECCION = 'direccion de la empresa'
