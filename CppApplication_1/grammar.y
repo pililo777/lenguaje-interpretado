@@ -134,7 +134,7 @@ statement:
 | LEER designator   { $$ = nodo1(leer,  $2) ; /*leer variable numerica*/}
 | LEER  '#' designator sdesignator designator { $$=nodo3(leer_archivo, $3, $4, $5); }
 | GUARDAR  '#' designator sdesignator { $$=nodo2(escribir_archivo, $3, $4); }
-| GUARDAR  '#' designator sdesignator NUMBER COMMA NUMBER { $$=nodo4(escribir_archivo, $3, $4, $5, $7); }
+| GUARDAR  '#' designator sdesignator expression COMMA NUMBER { $$=nodo4(escribir_archivo, $3, $4, $5, $7); }
 | LEER sdesignator  { $$ = nodo1(leertexto,  $2) ; /*leer variable alfa*/}
 | MOSTRAR sdesignator { $$=nodo1(mostrar, $2); }
 | VACIAR sdesignator { $$=nodo1(vaciar, $2); }
@@ -145,10 +145,8 @@ statement:
 | ELIMINAR sdesignator    { $$ = nodo1(eliminar_clave,  $2); }  /*  en indice */
 | USE_INDICE sdesignator { $$=nodo1(use_indice, $2); }
 | CLOSE_INDICE  { $$=nodo0(close_indice, $1); }
-| PUSH     sdesignator    { $$ = nodo1(push,  $2); } 
-| PUSH     designator    { $$ = nodo1(push,  $2); } 
-| POP      sdesignator    { $$ = nodo1(pop ,  $2); } 
-| POP      designator    { $$ = nodo1(pop ,  $2); } 
+| PUSH     variable    { $$ = nodo1(push,  $2); } 
+| POP      variable    { $$ = nodo1(pop ,  $2); } 
 | ACTUALIZAR VENTANA designator { $$ = nodo1(actualizar, $3); } // actualiza los entry text
 | REGISTRO designator LITERAL lista_campos FINREGISTRO { $$ = nodo3(definir_registro, $2, $3, $4);
                         pila_records[idx_rec] = $$   ; 

@@ -30,13 +30,13 @@ void initmyModule() {
 
 extern   int variables_count ;
  
-extern char   variables[127][127];
+//extern char   variables[127][127];
 extern char   constantes[127][127];
 
 typedef struct struct_variable  {
           char        tipo;
-          char        nombre[18];
-          char        valor[127]; 
+          char        nombre[48];
+          //char        valor[127]; 
           char *      string;
           double      numero;
           int         procedimiento;
@@ -85,7 +85,10 @@ void listarTDS(int * contador, int * contadorvar, struct struct_variable array_v
         
             case 'S':
             {
-                printf("%s\n", array_variables[i].valor);
+                if (array_variables[i].string!=NULL)
+                    printf("%s\n", array_variables[i].string);
+                else
+                    printf("\n");
             }
                 break;
             

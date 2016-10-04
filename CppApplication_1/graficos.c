@@ -52,17 +52,17 @@ scribble_expose_event (GtkWidget      *widget,
 }
 */
 
-
+// en este evento programar el redibujado de la ventana grafica
 static gboolean on_draw_event(GtkWidget *widget, GdkEventExpose *event,   gpointer user_data)
 {
   cairo_t *cr;
   cr = gdk_cairo_create (gtk_widget_get_window (widget));
-  printf("A-do draw\n");
+  printf("Antes-do draw\n");
   
   do_drawing(cr, event);
   
   cairo_destroy (cr);
-  printf("D-do draw\n");
+  printf("Despues-do draw\n");
 
   return FALSE;
 }
@@ -82,8 +82,10 @@ static void do_drawing(cairo_t *cr, GdkEventExpose *event)
     
   cairo_set_source_rgb(cr, 0, 0, 1);
   cairo_set_line_width(cr, 2.0);
+ */
+  
    printf("inicio dodrawing");
-*/
+
 /*
 
   int i, j;
@@ -268,7 +270,7 @@ int mainGraph()
  
   gtk_widget_add_events(window, GDK_BUTTON_PRESS_MASK);
 
- // g_signal_connect(darea, "expose-event",   G_CALLBACK(on_draw_event), NULL); 
+  g_signal_connect(darea, "expose-event",   G_CALLBACK(on_draw_event), NULL); 
   //  g_signal_connect(window, "destroy",   G_CALLBACK(destroy), NULL);  
     
   g_signal_connect(window, "button-press-event",    G_CALLBACK(clicked), NULL);

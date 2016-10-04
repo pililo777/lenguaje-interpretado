@@ -26,7 +26,7 @@ ast * pila_records[32]; // pila de registros
  char *arrayVectoresAlfa[32];
  
  char constantes[127][127];
- char variables[127][127];
+ //char variables[127][127];
  
  struct_variable  pila[256];
  

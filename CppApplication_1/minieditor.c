@@ -72,10 +72,10 @@ static PyObject* py_createPythonObject(PyObject* self, PyObject* args) {
     for (i = 0; i < contadorvar; i++) {
         // PyObject *op = PyString_FromString(constantes[i]);
         char letra;
-        letra = variables[i][0]; //primera letra del nombre de la variable
+        letra = array_variables[i].nombre[0]; //primera letra del nombre de la variable
         if (letra > 'Z') { //variable numerica
             PyObject *item = PyFloat_FromDouble((double) var[i]);
-            PyDict_SetItemString(dict, variables[i], item);
+            PyDict_SetItemString(dict, variables[i], item);  //array variables
         } else { //variable alfanumerica---
             PyObject *item = PyString_FromString(constantes[(int) var[(int) i]]);
             PyDict_SetItemString(dict, variables[i], item);
@@ -881,6 +881,7 @@ create_window() {
     create_tags (buffer);
     
     buffer2 = buffer;
+    //resaltarAlfanum(NULL, NULL);
     textview2 = textview;
     
 
@@ -1179,8 +1180,7 @@ if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
     gchar *text;
 
     filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-    
-    
+
       GError                  *err=NULL;   
       gboolean                result;
             
@@ -1192,26 +1192,21 @@ if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
       
        if (result == FALSE)
         {
-                /* error loading file, show message to user */
-              //  error_message (err->message);
-                g_error_free (err);
-                g_free (filename);
-        }
-      
-      gtk_widget_set_sensitive (user_data, FALSE);
-        textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (user_data ));
-        gtk_text_buffer_set_text (textbuffer, text, -1);
-        gtk_text_buffer_set_modified (textbuffer, FALSE);
-        gtk_widget_set_sensitive (user_data, TRUE);
-        g_free (text); 
-    
-    g_free (filename);
+            /* error loading file, show message to user */
+            //error_message (err->message);   //da error al compilar
+            g_error_free (err);
+            g_free (filename);
+       } else {
+           gtk_widget_set_sensitive (user_data, FALSE);
+            textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (user_data ));
+            gtk_text_buffer_set_text (textbuffer, text, -1);       
+            gtk_text_buffer_set_modified (textbuffer, FALSE);
+            gtk_widget_set_sensitive (user_data, TRUE);
+            g_free (text); 
+            g_free (filename);
+       }
   }
-
 gtk_widget_destroy (dialog);
-    
-    
-    
 }
 
 void

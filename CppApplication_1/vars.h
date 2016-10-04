@@ -2,11 +2,11 @@
 
 #include <stdio.h>    
 extern  char constantes[127][127];
-extern  char variables[127][127];
+//extern  char variables[127][127];
 typedef struct  {
           char        tipo;
-          char        nombre[18];
-          char        valor[127]; 
+          char        nombre[48];
+         // char        valor[127]; 
           char *      string;
           double      numero;
           int         procedimiento;

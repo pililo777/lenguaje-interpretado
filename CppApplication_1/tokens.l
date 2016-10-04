@@ -14,7 +14,7 @@ void  cuentalineas(char * yytext);
 
 /*
 char constantes[127][127];
-char variables[127][127];
+//char variables[127][127];
 typedef struct  {
           char        tipo;
           char        nombre[18];
@@ -75,14 +75,14 @@ int x;
 
    int i=0; myflag = 0;
    for (i=0; i<=contadorvar; i++) {
-       if (!strcmp(yytext, variables[i])) {
+       if (!strcmp(yytext, array_variables[i].nombre)) {
                                 contadorvar--;
                                 variables_count++;
                                 myflag = 1;
  		 return i ; }
            /* else printf("%d no igual...", i);   */
    };
-   strcpy (variables[x],  yytext);
+   //strcpy (variables[x],  yytext);
    strcpy  (array_variables[x].nombre, yytext);
 if (depurar)
    printf("VARIABLE %d  --    %s\n", x, variables[x]);

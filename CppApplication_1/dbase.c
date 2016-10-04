@@ -332,12 +332,12 @@ listavar() {
         
         printf ("%.14f\n", array_variables[indice].numero);
     else
-        printf ("\"%s\"\n", array_variables[indice].valor);
+        printf ("\"%s\"\n", array_variables[indice].string);
     
-    printf("array de variables: %s\n", variables[indice]);
+    //printf("array de variables: %s\n", variables[indice]);
     printf("array de constantes: %s\n", constantes[indice]);
-    printf("array de var[%d]: %.14f\n", indice,  var[indice]);
-    printf("constante[var[indice]]: %s  [%d]\n", constantes [ (int) var [indice] ], (int) var[indice]);
+    //printf("array de var[%d]: %.14f\n", indice,  var[indice]);
+    //printf("constante[var[indice]]: %s  [%d]\n", constantes [ (int) var [indice] ], (int) var[indice]);
     return 0;
 }
 

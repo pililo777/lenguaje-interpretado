@@ -66,7 +66,7 @@ extern tipollave llave[55];
 extern xapuntador xraiz;
 
 
-double var[127]; // 127 variables numericas e indices a variables alfa y literales
+// double var[127]; // 127 variables numericas e indices a variables alfa y literales
 
 
 extern int idx_vec;
@@ -130,8 +130,11 @@ void pop_param(int i) {
             array_variables[i].tipo = pila[idx_pila].tipo;
             strcpy(array_variables[i].nombre, pila[idx_pila].nombre);
             if (array_variables[i].tipo=='S' || array_variables[i].tipo=='F' ) {
-                if (pila[idx_pila].string!=NULL) {
+                if (pila[idx_pila].string!=NULL) {     //   pila[9].nombre
+                    if (pila[idx_pila].string!=NULL)
                     j = strlen(pila[idx_pila].string)+1;
+                    else
+                        pausar();
                     array_variables[i].string = (char *) malloc(j);
                     memoria += j;
                     strcpy(array_variables[i].string, pila[idx_pila].string);
@@ -353,6 +356,8 @@ void initProcedimientos() {
     int i;
     i = 0;
     for (i=0; i < 127; i++) { procedimientos[i] = NULL ; };
+    for (i=0; i < 256; i++) { array_variables[i].string = NULL ; };
+    
 }
 
 int * nuevoValorEnteros(int cantidad) {
@@ -1236,7 +1241,7 @@ void * execut(ast * p) {
                 fwrite(s, 1, n3, ficheros[n] ); 
             } else {
                 //OK pendiente, si n2 < strlen, guardar solo n2 bytes
-                n2 = p->nodo3->num;  // numero de bytes que se quieren guardar
+                n2 = (int) evalua (p->nodo3);  // numero de bytes que se quieren guardar
                 n3 = strlen(s);         // tamaño del string
                 n4 = p->nodo4->num;
                 fwrite(s, 1, n3, ficheros[n] );  //guardamos el string
@@ -1666,6 +1671,8 @@ void * execut(ast * p) {
 
         case dibuja_circulo:
         {
+            // el redibujado de la ventana grafica se tiene programar
+            // en el fichero graficos.c
             flag_ventanas = 1; // hemos iniciado las ventanas
             //   nodografico2 = nuevonodo();
             nodografico2 = p;
