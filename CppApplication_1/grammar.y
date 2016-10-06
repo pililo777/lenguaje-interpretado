@@ -102,6 +102,7 @@ statement:
 | sdesignator '[' expression ']' EQ LITERAL { $$ = nodo3(asigna_vector_alfa, $1, $3, $6 );  }
 | sdesignator '[' expression ']' EQ sdesignator { $$ = nodo3(asigna_vector_alfa2, $1, $3, $6 );  }
 | sdesignator EQ sdesignator '[' expression ']' { $$ = nodo3(asigna_vector_alfa3, $1, $3, $5 );  }
+| sdesignator '[' expression ']' EQ sdesignator  '['  expr2 ']' { $$ = nodo4(asigna_vector_alfa4, $1, $3, $6, $8 );  }
 | LLAMAR proc_designator   {  $$ = nodo1(llamar, $2) ;/*llamar proced.*/} 
 | sdesignator EQ proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo3(llamar, $3, $5, $1) ;/*llamar proced.*/} 
 | proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo2(llamar, $1, $3) ;/*llamar proced.*/} 
@@ -134,7 +135,7 @@ statement:
 | LEER designator   { $$ = nodo1(leer,  $2) ; /*leer variable numerica*/}
 | LEER  '#' designator sdesignator designator { $$=nodo3(leer_archivo, $3, $4, $5); }
 | GUARDAR  '#' designator sdesignator { $$=nodo2(escribir_archivo, $3, $4); }
-| GUARDAR  '#' designator sdesignator expression COMMA NUMBER { $$=nodo4(escribir_archivo, $3, $4, $5, $7); }
+| GUARDAR  '#' designator sdesignator COMMA expr2 COMMA NUMBER { $$=nodo4(escribir_archivo, $3, $4, $6, $8); }
 | LEER sdesignator  { $$ = nodo1(leertexto,  $2) ; /*leer variable alfa*/}
 | MOSTRAR sdesignator { $$=nodo1(mostrar, $2); }
 | VACIAR sdesignator { $$=nodo1(vaciar, $2); }

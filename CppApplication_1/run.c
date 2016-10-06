@@ -1786,6 +1786,25 @@ void * execut(ast * p) {
             strcpy (array_variables[k].string, &vector[j]);
         }
             break;
+            
+        case asigna_vector_alfa4: 
+        {
+            // pausar();
+             char * vector, *vector2;
+            int i, i2;
+            int j, j2;
+            
+            i = (int) array_variables[(int) p->nodo3->num].numero;    //variable origen
+            j = (int) ( evalua(p->nodo4) * 127);  // posicion en el vector
+            vector = arrayVectoresAlfa[i];   // base del vector
+
+            i2 = (int) array_variables[(int) p->nodo1->num].numero;   //variable destino
+            j2 = (int) ( evalua(p->nodo2) * 127);  // posicion en el vector
+            vector2 = arrayVectoresAlfa[i2];   // hasta 32 vectores
+            strcpy (&vector2[j2], &vector[j]);
+        }
+        
+        break;
 
       //  pasar como parametros:  el indice del procedimiento que maneja el clic, el indice de la variable coordx, y el de coordy, un indice para cualBoton
         case graficos:

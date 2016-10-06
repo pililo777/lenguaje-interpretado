@@ -1820,22 +1820,6 @@ void xxmain (int argc, const char *argv)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 extern int mquit;
 extern int gtk_iniciado;
 extern void initProcedimientos();
