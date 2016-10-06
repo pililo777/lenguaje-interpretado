@@ -185,8 +185,8 @@ llamar crear_puntos
 
 //  Z=primero('F')   imprimir Z   pausa              Z=siguiente('F')   imprimir Z
 
-TEMP = R[0]
-C[0] = TEMP
+C[0] = R[0]
+
 k = nsym-1
 linea1 = 0
 
@@ -275,6 +275,28 @@ imprimir 'VAMOS A IR MOSTRAR LOS CONJUNTOS: ', ic
 
 terminar
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //esta funcion no se utiliza pero se deja como ejemplo
 funcion trozea(MENSAJE, REGEX) 
 mientras hallado = 1
@@ -297,6 +319,24 @@ mientras hallado = 1
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 proc crear_puntos
 //crea los puntos iniciales
 	imprimir 'Creando los puntos iniciales en R$'
@@ -310,12 +350,33 @@ proc crear_puntos
         TEMP += LL
         TEMP += PUNTO
         TEMP += RR
+        //R[x] = concatenar(LL, '.', RR)
+         
 	    R[x] = TEMP
 	    imprimir R[x]  //la regla con un punto insertado
-	    //TEMP = R[x]
+	    
 	    R1[x] = TEMP //el auxiliar
 	}
 fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -373,10 +434,10 @@ anadidos = 0, externa
 				TEMP1 = subcadena(TEMP, 1, 1)
 			    si TEMP1 = K entonces
 					linea1 = linea1 + 1
-					TEMP = R1[x]
-					C[linea1] = TEMP  //añadimos esa produccion a Closure
-					//imprimir 'añadimos: ', TEMP, '  en linea: ', linea1
-					//stop
+					
+					C[linea1] = R1[x]   //añadimos esa produccion a Closure
+					
+					
 			    si-fin
 			}
 
@@ -409,6 +470,30 @@ fin
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 proc imprimir_array_c
     //MUESTRA EL ARRAY C$
 	imprimir 'ARRAY C$: '
@@ -417,6 +502,17 @@ proc imprimir_array_c
 		 imprimir x, ' --> ', C[x]
 	}
 fin
+
+
+
+
+
+
+
+
+
+
+
 
 
 funcion mostrar_i(x)
@@ -514,14 +610,56 @@ funcion mostrar_i(x)
 fin
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 proc vaciar_c
+	TEMP = ' '
+	vaciar TEMP
 	desde x = 1 hasta nsym2
 	{
-		TEMP = ' '
-		vaciar TEMP
 		C[x] = TEMP
 	}
 fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 funcion  ira(i, J)
@@ -571,8 +709,7 @@ funcion  ira(i, J)
 		
 		desde ii = 0 hasta cnt - 1
 		{
-			TEMP = R [ii]
-			C [ii] = TEMP
+			C [ii] = R [ii] 
 		}
 		
 		TEMP = ' '
@@ -632,6 +769,25 @@ funcion  ira(i, J)
 fin
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 funcion  avanzar_punto (CADENA)
 
 	posic = instr(CADENA, PUNTO)
@@ -668,6 +824,14 @@ funcion  avanzar_punto (CADENA)
 fin
 
 
+
+
+
+
+
+
+
+
 funcion buscar_c_en_i(dummy)
 //copiaremos C a I despues de asegurarnos
 //de que C no esta en I, I tiene indices desde 0 hasta IC
@@ -689,6 +853,14 @@ desde i=0 hasta ic
 retornar temp
 
 fin
+
+
+
+
+
+
+
+
 
 funcion comparar_c_con_ix (x)
 
@@ -715,17 +887,32 @@ funcion comparar_c_con_ix (x)
 fin
 
 
+
+
+
+
+
+
+
+
 funcion copiar_c_a_i (x)
 	
 	desde j=0 hasta nsym2
 	{
-		TEMP = C[j]
-		I[(x*nsym)+j] = TEMP
-		//imprimir 'copiamos: ', TEMP, '   en fila: ', x*nsym, ', col: ', j
-		//i$(x, j) = c$(j)
+		
+		I[(x*nsym)+j] =  C[j]  
+		
+		
 	}
 	
 fin
+
+
+
+
+
+
+
 
 
 
@@ -825,15 +1012,15 @@ funcion siguiente(SIMBOLO)
 		//comprobamos si esta produccion cumple con la regla (3)
 		si ii = (largo(ALFA)) entonces //B esta al final de alfa
 		    //regla 3
-		    push K
+		    //push K
 		    push x
 		    push RESUL
-		    push SIMBOLO
+		    //push SIMBOLO
 		    FK = siguiente(K)
-		    pop SIMBOLO
+		    //pop SIMBOLO
 		    pop RESUL
 		    pop x
-		    pop K
+		    //pop K
 
 			//fk$ = siguiente(k$)    //<<<<<<<<<< LLAMADA RECURSIVA >>>>>>>>>>>
 			//IF DBGFF THEN
@@ -857,15 +1044,15 @@ funcion siguiente(SIMBOLO)
 			//beta$ = MID$(ALFA$, ii + 1)
 			//ref: /1/
 			
-			push K
+			//push K
 			push x
 			push RESUL
-			push SIMBOLO
+			//push SIMBOLO
 			FB = primero_xxx(BETA)
-			pop SIMBOLO
+			//pop SIMBOLO
 			pop RESUL
 			pop x
-			pop K
+			//pop K
 			//imprimir 'FB=', FB
 			//stop
 			//fb$ = primero.xxx$(beta$)
@@ -880,19 +1067,19 @@ funcion siguiente(SIMBOLO)
 				FB = TEMP
 				FB += TEMP2
 				//aplicamos regla (4)  añadir  siguiente(A) a siguiente(B)
-				push K
+				//push K
 				push x
 				push RESUL
-				push SIMBOLO
+				//push SIMBOLO
 				push FB
-				push BETA
+				//push BETA
 				FK = siguiente(K)
-				pop BETA
+				//pop BETA
 				pop FB
-				pop SIMBOLO
+				//pop SIMBOLO
 				pop RESUL
 				pop x
-				pop K
+				//pop K
 				//fk$ = siguiente(k$)  //<<<<<<<<<< LLAMADA RECURSIVA >>>>>>>>>>>
 				//IF DBGFF THEN
 				//	PRINT "VOLVIMOS : "; simbolo$; " en el nivel de recursion: "; nivel%
@@ -939,6 +1126,22 @@ funcion siguiente(SIMBOLO)
 
 //'FUNCTION siguiente$  '
 fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 funcion primero_xxx (ALFA)
@@ -1072,6 +1275,18 @@ fin
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 funcion primero(SIMBOLO)
 //Se calcula PRIMERO(SIMBOLO)
 //(en las reglas: X es SIMBOLO)
@@ -1188,6 +1403,27 @@ E = 'e'
 fin
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 funcion rellena_tabla_accion (x, SIG, REGLA)
 //calcula las reducciones
 //x es el numero de estado
@@ -1210,6 +1446,19 @@ desde col = 1 hasta largo(SIG)
 	//tabla.accion$(posic - 1, x) = "r" + STR$(buscar.numero.regla(regla$))
 }
 fin
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1238,6 +1487,19 @@ fin
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 proc mostrar_tabla_accion
    desde x = 0 hasta ic
    {
@@ -1254,6 +1516,19 @@ proc mostrar_tabla_accion
     leer Z
 }
 fin
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
