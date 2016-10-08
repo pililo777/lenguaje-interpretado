@@ -133,9 +133,8 @@ void pop_param(int i) {
             if (array_variables[i].tipo=='S' || array_variables[i].tipo=='F' ) {
                 if (pila[idx_pila].string!=NULL) {     //   pila[9].nombre
                     if (pila[idx_pila].string!=NULL)
-                    j = strlen(pila[idx_pila].string)+1;
-                    else
-                        pausar();
+                        j = strlen(pila[idx_pila].string)+1;
+
                     array_variables[i].string = (char *) malloc(j);
                     memoria += j;
                     strcpy(array_variables[i].string, pila[idx_pila].string);
@@ -219,7 +218,7 @@ void subcadena(int i, ast * a, ast * b, int var) {
     int aa, bb;
     char * subc;
     char * subc2;
-    //subc = malloc(127);
+    //subc = (127);
     int k = 0;
     aa = (int) evalua(a);
     bb = (int) evalua(b);
@@ -234,19 +233,11 @@ void subcadena(int i, ast * a, ast * b, int var) {
     //strcpy (array_variables[var].valor, subc);
     subc2 = array_variables[var].string;
     if (subc2!=NULL) {
-        i = strlen(subc);
-        realloc (array_variables[var].string, i);
-        //array_variables[var].string = NULL;
-    }
-    else
-    {
-        i = strlen(subc);
-        array_variables[var].string = (char *) malloc (i);
+        free(array_variables[var].string);
+        array_variables[var].string = NULL;
     }
         
-    //array_variables[var].string = subc;
-    strcpy (array_variables[var].string,  subc);
-    
+    array_variables[var].string = subc;
     
     
     //free(subc);
@@ -267,7 +258,8 @@ void subcadena2(int i, ast * a, int var) {
         k++;
     }
     if (subc==NULL) {
-        pausar(); //error
+        
+        printf ("error en subcadena2");
         }
     subc[k] = '\0';
     
@@ -371,7 +363,8 @@ void initProcedimientos() {
 
 //cambiamos INT por DOUBLE
 double * nuevoValorEnteros(int cantidad) {  
-    double * vector = malloc(sizeof (double) *  cantidad);   // 4 * cantidad (el * no es puntero)
+    double * vector;
+    vector = (double *) malloc(sizeof (double) *  cantidad);   // 4 * cantidad (el * no es puntero)
     memoria += (sizeof (double) * cantidad);
     return vector;
 }
@@ -1008,7 +1001,7 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
         indice = lista_de_campos->nodo2->num;
         nombre = array_variables[indice].nombre;
         reservamem(indice, largo+1);
-        //str1 = (char *) malloc (largo+1);
+        
         //memoria+=largo;
         fread(array_variables[indice].string, 1, largo, handler);
         //array_variables[indice].string = str1;
@@ -1022,7 +1015,7 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
         indice = lista_de_campos->nodo1->num;
         nombre = array_variables[indice].nombre;
         reservamem(indice, largo+1);
-        //str1 = (char *) malloc (largo+1);
+        //str1 = (char *)  (largo+1);
         //memoria+=largo;
         fread(array_variables[indice].string, 1, largo, handler);
         //array_variables[indice].string = str1;
@@ -1186,8 +1179,8 @@ void * execut(ast * p) {
                 //gtk_main_iteration();
             }
         }
-        
-        pausar();
+        //printf("pausando..");
+        //pausar();
         
     }
     
@@ -1702,15 +1695,9 @@ void * execut(ast * p) {
             for (i = 0; i < j; i++) vector [i] = 0;
             arrayVectores[idx_vec] = vector;
             //var[(int) p->nodo1->num] = idx_vec;
-            i = (int) p->nodo1->num;
-            array_variables[i].numero = (double) (idx_vec*1);
-            //printf("he dimensionado el vector ");
-            //printf ("%s ",  array_variables[i].nombre);
-            //printf (" en %lf\n", array_variables[i].numero);
+            array_variables[(int) p->nodo1->num].numero = (double) idx_vec;
             idx_vec++;
-            //printf (" idx_vec:  %d\n", idx_vec);
             
-
         }
             break;
             
@@ -1794,30 +1781,16 @@ void * execut(ast * p) {
             k = (int) p->nodo1->num;
             vector = arrayVectoresAlfa[i];   // hasta 32 vectores
             //i = strlen(&vector[j]);
-            //str1 = (char *) malloc (i); memoria+=i;
+            //str1 = (char *)  (i); memoria+=i;
             //strcpy(str1,  ;   
             str1 = array_variables[k].string;
             if (str1!=NULL) {
-                //i = strlen(str1)+1;
-                //free(str1);
-                //memoria -= i;
-                //array_variables[k].string=NULL;
-                i = strlen(&vector[j])+1;
-                realloc(array_variables[k].string, i);
-                memoria += i;
-                strcpy (array_variables[k].string, &vector[j]);
-                pausar();
+                free(array_variables[k].string);
+                array_variables[k].string=NULL;
             }
-            else
-            {
-                i = strlen(&vector[j])+1;
-                array_variables[k].string = (char *) malloc(i);
-                memoria += i;
-                strcpy (array_variables[k].string, &vector[j]);
-                pausar();
-            }
-            
-            
+            i = strlen(&vector[j])+1;
+            array_variables[k].string = (char *) malloc(i);
+            strcpy (array_variables[k].string, &vector[j]);
         }
             break;
             
@@ -2675,7 +2648,7 @@ void * execut(ast * p) {
             k = strlen(texto)+1;
             if (k>0) {
                 reservamem(indice, k);
-                //str1 = (char *) malloc (k);
+                //str1 = (char *)  (k);
                 //memoria+=k;
                 //strcpy (str1, texto);
                 strcpy ( array_variables[indice].string , texto) ;   // = str1 ;
