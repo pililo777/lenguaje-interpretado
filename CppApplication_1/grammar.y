@@ -214,6 +214,8 @@ expression:
 | expr2 GE expr2 { $$ = nodo2(mayorigualque, $1, $3); /*mayor o igual que*/}
 | sdesignator EQ LITERAL { $$ = nodo2(comparaliteral, $1, $3) ; /*asigna literal*/}
 | sdesignator EQ sdesignator { $$ = nodo2(comparaliteral, $1, $3) ; /*asigna literal*/}
+| sdesignator NE LITERAL { $$ = nodo2(comparaliteral2, $1, $3) ; /*asigna literal*/}
+| sdesignator NE sdesignator { $$ = nodo2(comparaliteral2, $1, $3) ; /*asigna literal*/}
 ;
 
 expr2:

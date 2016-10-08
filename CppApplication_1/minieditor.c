@@ -170,7 +170,7 @@ void initmyModule() {
 #include <string.h>
 */
 extern int idx_vec;
-extern int * arrayVectores[32];
+extern double * arrayVectores[32];
 extern int idx_win;
 extern FILE * yyin;
 extern int err_number;
@@ -961,7 +961,7 @@ void liberar_mem() {
             while (idx_vec>0)
             {
                 int tamano;
-                int * vector;
+                double * vector;
                 idx_vec--;
                 
                 vector = arrayVectores[idx_vec];
@@ -1702,8 +1702,8 @@ void old_main(int argc, const char **argv) {
         int i;
         if (idx_vec > 0) {
             for (i = idx_vec - 1; i >= 0; i--) {
-                int * vector;
-                vector = (int*) arrayVectores[i];
+                double * vector;
+                vector = (double*) arrayVectores[i];
                 printf("liberando vector %d\n", i);
                 // free(vector);  //revisar porqué da error desde que se hizo la ventana grafica.
             }

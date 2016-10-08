@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <regex.h>
 //#include <ncurses.h>
+#include <math.h>
 
 
 /*
@@ -233,11 +234,19 @@ void subcadena(int i, ast * a, ast * b, int var) {
     //strcpy (array_variables[var].valor, subc);
     subc2 = array_variables[var].string;
     if (subc2!=NULL) {
-        free(array_variables[var].string);
-        array_variables[var].string = NULL;
+        i = strlen(subc);
+        realloc (array_variables[var].string, i);
+        //array_variables[var].string = NULL;
+    }
+    else
+    {
+        i = strlen(subc);
+        array_variables[var].string = (char *) malloc (i);
     }
         
-    array_variables[var].string = subc;
+    //array_variables[var].string = subc;
+    strcpy (array_variables[var].string,  subc);
+    
     
     
     //free(subc);
@@ -360,9 +369,10 @@ void initProcedimientos() {
     
 }
 
-int * nuevoValorEnteros(int cantidad) {
-    int * vector = malloc(sizeof (int) *  cantidad);   // 4 * cantidad (el * no es puntero)
-    memoria += (sizeof (int) * cantidad);
+//cambiamos INT por DOUBLE
+double * nuevoValorEnteros(int cantidad) {  
+    double * vector = malloc(sizeof (double) *  cantidad);   // 4 * cantidad (el * no es puntero)
+    memoria += (sizeof (double) * cantidad);
     return vector;
 }
 
@@ -1684,7 +1694,7 @@ void * execut(ast * p) {
         case dimensionar:
         {
  // DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
-            int * vector;
+            double * vector;
             int i;
             int j;
             j = (int) p->nodo2->num;  //NUMBER
@@ -1692,8 +1702,14 @@ void * execut(ast * p) {
             for (i = 0; i < j; i++) vector [i] = 0;
             arrayVectores[idx_vec] = vector;
             //var[(int) p->nodo1->num] = idx_vec;
-            array_variables[(int) p->nodo1->num].numero = idx_vec;
+            i = (int) p->nodo1->num;
+            array_variables[i].numero = (double) (idx_vec*1);
+            //printf("he dimensionado el vector ");
+            //printf ("%s ",  array_variables[i].nombre);
+            //printf (" en %lf\n", array_variables[i].numero);
             idx_vec++;
+            //printf (" idx_vec:  %d\n", idx_vec);
+            
 
         }
             break;
@@ -1706,7 +1722,7 @@ void * execut(ast * p) {
             int j;
             j = (int) p->nodo2->num;  //NUMBER
             vector = nuevoValorAlfas(j); // cantidad
-            //for (i = 0; i < j; i++) vector [i] = 0;  //no inicializamos el vector
+            for (i = 0; i < j; i++) vector [i] = NULL;  //no inicializamos el vector
             arrayVectoresAlfa[idx_vec2] = vector;
             array_variables[(int) p->nodo1->num].numero = idx_vec2;
             //var[(int) p->nodo1->num] = idx_vec2;
@@ -1716,12 +1732,16 @@ void * execut(ast * p) {
         case asigna_vector:
         {
 // designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }            
-            int * vector;
-            int i;
+            double * vector;
+            int i, j;
+            double valor;
+            int posicion;
             i = (int) p->nodo1->num;    // el indice de la variable (designator)
-            i = (int) array_variables[i].numero;
-            vector = arrayVectores[i];   // hasta 32 vectores
-            vector[(int) evalua(p->nodo2)] = (int) evalua(p->nodo3);   //expresion y expresion
+            j = (int) array_variables[i].numero;
+            vector = arrayVectores[j];   // hasta 32 vectores
+            valor = (double) evalua(p->nodo3);
+            posicion = (int) evalua(p->nodo2);
+            vector[posicion] = valor ;   //expresion y expresion
         }
 
             break;
@@ -1778,12 +1798,26 @@ void * execut(ast * p) {
             //strcpy(str1,  ;   
             str1 = array_variables[k].string;
             if (str1!=NULL) {
-                free(array_variables[k].string);
-                array_variables[k].string=NULL;
+                //i = strlen(str1)+1;
+                //free(str1);
+                //memoria -= i;
+                //array_variables[k].string=NULL;
+                i = strlen(&vector[j])+1;
+                realloc(array_variables[k].string, i);
+                memoria += i;
+                strcpy (array_variables[k].string, &vector[j]);
+                pausar();
             }
-            i = strlen(&vector[j])+1;
-            array_variables[k].string = (char *) malloc(i);
-            strcpy (array_variables[k].string, &vector[j]);
+            else
+            {
+                i = strlen(&vector[j])+1;
+                array_variables[k].string = (char *) malloc(i);
+                memoria += i;
+                strcpy (array_variables[k].string, &vector[j]);
+                pausar();
+            }
+            
+            
         }
             break;
             
@@ -2753,7 +2787,7 @@ double evalua(ast * p) {
                         char * a;
                         char * b;
                         int i,j;
-                        int * vector;
+                        double * vector;   // hemos cambiado desde INT
                         short k, m;
                         j = p->nodo2->nodo1->num;
                         i = p->nodo2->nodo2->nodo1->num;
@@ -2763,11 +2797,23 @@ double evalua(ast * p) {
                         b = array_variables[j].string;
                         k = comprobar_regex(a, b);
                         vector = arrayVectores[m];
-                        vector[0] = (int) captures[0].rm_so;
-                        vector[1] = (int) captures[0].rm_eo;
+                        vector[0] = (double) captures[0].rm_so;
+                        vector[1] = (double) captures[0].rm_eo;
                         res = (double) k;
                         return res;
                         
+                }
+                
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "potencia")) {
+                    int i, j;
+                    double  k, m;
+                    i =  p->nodo2->nodo1->num;
+                    j =  p->nodo2->nodo2->nodo1->num;
+                    k = array_variables[i].numero;
+                    m = array_variables[j].numero;
+                    res = (double) pow(k , m );
+                    //res =  (double) i;
+                    return res;
                 }
 
                 tipo = array_variables[indice_de_la_variable].tipo; //evalua
@@ -2841,9 +2887,9 @@ double evalua(ast * p) {
 
         case evalua_vector:
         {
-            int * vector;
+            double * vector;
             int i;
-            int j;
+            double j;
             i = (int) p->nodo1->num;
             vector = arrayVectores [ (int) array_variables[i].numero ];
             j = vector[(int) evalua(p->nodo2) ];
@@ -2919,7 +2965,7 @@ double evalua(ast * p) {
             break;
 
         case negativo:
-            res =  -evalua(p->nodo1);
+            res =  (double) (-1) * (evalua(p->nodo1));
             break;
 
         case comparaliteral:   //compara una variable a un literal
@@ -2941,6 +2987,29 @@ double evalua(ast * p) {
             else {
                 string3 = array_variables[i].string;
                 res = (double) !strcmp(string1, string3);
+            }
+        }
+        break;
+        
+        case comparaliteral2:   //compara una variable a un literal
+
+        {
+            char *string1, *string3;
+            char string2[255];
+            int tipo;
+            int i;
+            i = (int) p->nodo2->num;
+            string1 = array_variables[(int) p->nodo1->num].string;
+            tipo = (int) p->nodo2->tipo;
+            if (tipo==constante_literal) {
+                //strcpy(string1, array_variables[(int) p->nodo1->num].valor);
+                //printf("comparacion con un literal\n");
+                strcpy(string2, constantes[(int) p->nodo2->num]);
+                res = (double) strcmp(string1, string2);
+            }
+            else {
+                string3 = array_variables[i].string;
+                res = (double) strcmp(string1, string3);
             }
         }
         break;

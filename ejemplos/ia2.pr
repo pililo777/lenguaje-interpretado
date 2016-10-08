@@ -1,0 +1,15 @@
+segm = 0
+imprimir 'introduce un numero del 0 al 9'
+leer segm
+z=cargar_entradas(segm)
+desde var=0 hasta 4
+		{
+			z = activacion_capa_enmedio(var)
+		}
+		
+		//llamar ver_capa_enmedio
+		desde var=0 hasta 3
+		{
+			z = activacion_capa_salida(var)
+		}
+llamar ver_capa_salida

@@ -22,7 +22,7 @@ ast * pila_records[32]; // pila de registros
  int nodos = 0;
  int ejecuta_desde_editor = 0;
  
- int* arrayVectores [32];
+ double* arrayVectores [32];
  char *arrayVectoresAlfa[32];
  
  char constantes[127][127];
