@@ -11,7 +11,7 @@ factor2 = 7
 
 PALABRA = ' '
 vaciar PALABRA
-
+imprimir 'dim SEGM'
 dim SEGM 9
 SEGM[0] = '1110111'
 SEGM[1] = '1000001'
@@ -23,7 +23,7 @@ SEGM[6] = '0111111'
 SEGM[7] = '1100001'
 SEGM[8] = '1111111'
 SEGM[9] = '1111011'
-
+imprimir 'dim APRENDER'
 dim APRENDER 9
 APRENDER[0] = '0000'
 APRENDER[1] = '0001'
@@ -39,30 +39,65 @@ APRENDER[9] = '1001'
 cantidad = 7
 
 //capa de entrada
+imprimir 'dim entradas 7'
 dim entradas  7
 
 //capa de enmedio
+imprimir 'dim capa 5'
 dim capa       5
+imprimir 'dim peso 35'
 dim peso      35  // 7 * 5
+imprimir 'dim err 5'
 dim err        5
+imprimir 'dim umbral 5'
 dim umbral     5   
 
+
+
+
+imprimir 'dim capa2 5'
+dim capa2       5
+imprimir 'dim peso2 35'
+dim peso2      35  // 7 * 5
+imprimir 'dim err2 5'
+dim err2        5
+imprimir 'dim umbral2 5'
+dim umbral2     5   
+
+
+
+dim umbral_s   4   
 desde i=0 hasta 4
 {
     capa[i] = 0
+    capa2[i] = 0
+    umbral[i] = 0.5
+    umbral2[i] = 0.5
 }
 
-desde i=0 hasta 35
+desde i=0 hasta 34
 {
     peso[i] = 0.5
-    umbral[i] = 0.5
+    peso2[i] = 0.5
+    imprimir i, ' ', peso [i]
+    
 }
 
 // capa de salida
+imprimir 'dim salidas 4'
 dim salidas   4
+imprimir 'dim peso_s 20'
 dim peso_s    20 // 5*4
-dim umbral_s  4   
-desde i=0 hasta 20
+imprimir 'dim umbral_s 5'
+
+desde i = 0 hasta 3
+{
+
+	umbral_s[i] = 0.5
+	//salidas[i] = 0
+}
+
+desde i=0 hasta 19
 {
     peso_s[i] = 0.5
     umbral_s[i] = 0.5
@@ -70,26 +105,27 @@ desde i=0 hasta 20
 
 
 ddd = 9
-imprimir 'limite  iteraciones? '
-leer iteraciones
+contador1 = 0
+//imprimir 'limite  iteraciones? '
+//leer iteraciones
 
 // cuerpo del programa principal
 // primera etapa: aprendizaje
 acaba = 0
-//mientras acaba = 0
-//{
+mientras acaba = 0
+{
 cantidad = 7
 
-//imprimir 'que segmento? '
-//leer ddd
+imprimir 'que segmento? '
+leer ddd
 
-//imprimir 'limite  iteraciones? '
-//leer iteraciones
+imprimir 'limite  iteraciones? '
+leer iteraciones
 //segmn=9
 contador = 0
 mientras contador < iteraciones
 {
-	desde segmn = 0 hasta ddd
+	desde segmn = ddd hasta ddd
 	{
 		// cargar la capa de entrada con datos
 		j = cargar_entradas(segmn)   //ponemos datos en la carpeta de entrada
@@ -103,6 +139,11 @@ mientras contador < iteraciones
 		desde var=0 hasta 4
 		{
 			z = activacion_capa_enmedio(var)
+		}
+
+		desde var=0 hasta 4
+		{
+			z = activacion_capa_enmedio2(var)
 		}
 		
 		//llamar ver_capa_enmedio
@@ -119,15 +160,20 @@ mientras contador < iteraciones
 		//imprimir '-----------------------------------------------------------------------'
 	}	
 	contador = contador + 1
-	imprimir contador
+	contador1 = contador1 +  1
+	si contador1 = 100 entonces
+		imprimir contador
+		contador1 = 0
+	si-fin
+	//imprimir contador
 }
 imprimir 'salida: '
 //llamar activacion_capa_salida
-//llamar ver_capa_salida
-//imprimir VAR_APR
-//imprimir 'acaba?'
-//leer acaba
-//}
+llamar ver_capa_salida
+imprimir VAR_APR
+imprimir 'acaba?'
+leer acaba
+}
 
 
 segm = 0
@@ -156,6 +202,24 @@ llamar ver_capa_salida
 
 terminar
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 proc calcular_error
 desde i=0 hasta largo(VAR_APR) - 1   //desde 0 hasta 3   por cada neurona de salida
 {
@@ -180,20 +244,45 @@ desde i=0 hasta largo(VAR_APR) - 1   //desde 0 hasta 3   por cada neurona de sal
 		   error = error * dig_salida * ( 1 - dig_salida)  //error en la salida (i)
 		   //pausa
 		   //imprimir 'error = ', error
-		   umbral_s[i] = umbral_s[i] + (factor_apr * error * salidas[i])
+		   umbral_s[i] = umbral_s[i] + (factor_apr * error * dig_salida)
 		   suma2 = 0
 		   desde j  = 0 hasta 4   // una por cada peso entre la capa del medio y la salida
 			{ 
 					  indice = (i*factor) + j
 					  suma2 = suma2 + (error * peso_s [indice])
-					  err[j] =  err[j]  + suma2
+					  peso_s [ indice ] = peso_s [ indice ] + (factor_apr * error *  capa2[j])
+					  err2[j] =  err2[j]  + suma2
 				      //imprimir ' fila, columna, indice = ', i, '  ', j, '  ', indice, peso_s[indice]
-					  peso_s [ indice ] = peso_s [ indice ] + (factor_apr * error * capa[j])
 					 // imprimir 'peso_s , indice : ', peso_s [ indice ] , '      ', indice
 					  //umbral [j] = umbral[j] + factor_apr * error * capa[j]
 			}
 	si-fin
 }
+
+// capa2 ( penultima  )
+si hay_error = 1 entonces
+		desde k = 0 hasta 6       //  7 iteraciones, uno por cada peso entre la inicial y la capa del medio
+		{
+			   suma3 = 0
+			   desde j  = 0 hasta 4   // una por cada peso entre la capa del medio y la salida
+			   {
+			   	  indice = (k*factor2) + j
+				  err2[j] = err2[j] * capa2 [j] * ( 1 - capa2[j]  )
+				  error = err2[j]
+
+				  suma3 = suma3 + (error * peso2 [indice])
+				  err[j] =  err[j]  + suma3
+
+				  //imprimir ' fila, columna, indice = ', k, '  ', j, '  ', indice, peso[indice]
+				  peso2 [indice] = peso2 [indice] + ( factor_apr * err2[j] *  capa[k] )   // entrada [k] )
+				  //imprimir 'peso , indice : ', peso [ indice ] , '      ', indice
+				  umbral2 [j] = umbral2[j] + (factor_apr * err2[j] * capa2[k])
+				  //umbral [j] = umbral[j] + factor_apr * error * capa[j]
+			   }
+			   //stop
+		}
+si-fin
+
 
 si hay_error = 1 entonces
 		desde k = 0 hasta 6       //  7 iteraciones, uno por cada peso entre la inicial y la capa del medio
@@ -201,18 +290,39 @@ si hay_error = 1 entonces
 			   desde j  = 0 hasta 4   // una por cada peso entre la capa del medio y la salida
 			   {
 				  err[j] = err[j] * capa [j] * ( 1 - capa[j]  )
-				  indice = (j*factor2) + k
-				  //imprimir ' fila, columna, indice = ', j, '  ', k, '  ', indice, peso[indice]
-				  peso [indice] = peso [indice] + ( factor_apr * err[j] * entrada [k] )
+				  indice = (k*factor2) + j
+				  //imprimir ' fila, columna, indice = ', k, '  ', j, '  ', indice, peso[indice]
+				  peso [indice] = peso [indice] + ( factor_apr * err[j] *  entrada [k] )
 				  //imprimir 'peso , indice : ', peso [ indice ] , '      ', indice
-				  umbral [j] = umbral[j] + (factor_apr * err[j] * entrada[k])
+				  umbral [j] = umbral[j] + (factor_apr * err[j] * capa[k])
 				  //umbral [j] = umbral[j] + factor_apr * error * capa[j]
 			   }
 			   //stop
 		}
 si-fin
+
 //imprimir 'fin calcular error'
 fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // procedimientos y funciones
@@ -234,15 +344,24 @@ funcion activacion_capa_enmedio(indice)
     retornar z
 fin
 
-proc llena_salidas_enmedio
-    capa[indice] = activacion_u
+
+funcion activacion_capa_enmedio2(indice)
+    suma = 0
+    desde i=0 hasta 6
+    {
+		indice2 = (indice*factor2)+i
+		//imprimir '  fila,  columna, indice  = ', indice, '  ', i, '  ', indice2, peso[indice2]
+        suma = suma + capa[i] * peso2[indice2]
+    }
+    suma = suma + umbral2[indice]
+    //imprimir 'suma = ', suma
+    activacion_u = sigmoide(suma)
+	//imprimir 'en medio: ', activacion_u
+    //imprimir 'activacion: ', activacion_u
+    llamar  llena_salidas_enmedio2
+    retornar z
 fin
 
-proc  llena_salidas_salida
-		//no se podra indexar una variable no array,cuidado!
-        salidas[indice] = activacion_u
-		//imprimir '<<', indice, salidas[indice]
-fin
 
 funcion activacion_capa_salida(indice)
     suma = 0
@@ -250,7 +369,7 @@ funcion activacion_capa_salida(indice)
     {
 		indice2 = (indice*factor)+i
 		//imprimir '  fila,  columna, indice  = ', indice, '  ', i, '  ', indice2, peso[indice2]
-        suma = suma + capa[i] * peso_s[indice2]
+        suma = suma + capa2[i] * peso_s[indice2]
     }
     suma = suma + umbral_s[indice]
     //imprimir 'suma = ', suma
@@ -260,6 +379,32 @@ funcion activacion_capa_salida(indice)
     llamar  llena_salidas_salida
     retornar z
 fin
+
+
+
+
+
+
+
+
+
+
+
+proc llena_salidas_enmedio
+    capa[indice] = activacion_u
+fin
+
+proc llena_salidas_enmedio2
+    capa2[indice] = activacion_u
+fin
+
+proc  llena_salidas_salida
+		//no se podra indexar una variable no array,cuidado!
+        salidas[indice] = activacion_u
+		//imprimir '<<', indice, salidas[indice]
+fin
+
+
 
 
 
@@ -310,4 +455,35 @@ fin
 
 
 	
-	
+proc mostrar_pesos
+imprimir 'primeros pesos'
+desde i = 0 hasta 6
+{
+	desde j = 0 hasta 4
+	{
+		imprimir i, ' , ', j, '  --  ', peso[(i*factor2)+j]
+	}
+
+}
+
+imprimir 'segundos pesos'
+desde i = 0 hasta 6
+{
+	desde j = 0 hasta 4
+	{
+		imprimir i, ' , ', j, '  --  ', peso2[(i*factor2)+j]
+	}
+}
+
+imprimir 'ultimos pesos'
+desde i = 0 hasta 4
+{
+	desde j = 0 hasta 3
+	{
+		imprimir i, ' , ', j, '  --  ', peso_s[(i*factor)+j]
+	}
+}
+
+fin
+
+
