@@ -3,6 +3,7 @@
 
 decimales 8
 factor_apr = 0.5
+
 e =  2.718281828
 epsilon = 0.0000000001
 
@@ -12,7 +13,7 @@ factor2 = 7
 PALABRA = ' '
 vaciar PALABRA
 imprimir 'dim SEGM'
-dim SEGM 9
+dim SEGM 10
 SEGM[0] = '1110111'
 SEGM[1] = '1000001'
 SEGM[2] = '1101110'
@@ -24,7 +25,7 @@ SEGM[7] = '1100001'
 SEGM[8] = '1111111'
 SEGM[9] = '1111011'
 imprimir 'dim APRENDER'
-dim APRENDER 9
+dim APRENDER 10
 APRENDER[0] = '0000'
 APRENDER[1] = '0001'
 APRENDER[2] = '0010'
@@ -57,8 +58,8 @@ dim umbral     5
 
 imprimir 'dim capa2 5'
 dim capa2       5
-imprimir 'dim peso2 35'
-dim peso2      35  // 7 * 5
+imprimir 'dim peso2 25'
+dim peso2      25  // 5 * 5
 imprimir 'dim err2 5'
 dim err2        5
 imprimir 'dim umbral2 5'
@@ -78,9 +79,13 @@ desde i=0 hasta 4
 desde i=0 hasta 34
 {
     peso[i] = 0.5
+    //imprimir i, ' ', peso [i]
+ }
+
+desde i=0 hasta 24
+{
     peso2[i] = 0.5
-    imprimir i, ' ', peso [i]
-    
+    //imprimir i, ' ', peso [i]
 }
 
 // capa de salida
@@ -92,42 +97,49 @@ imprimir 'dim umbral_s 5'
 
 desde i = 0 hasta 3
 {
-
 	umbral_s[i] = 0.5
-	//salidas[i] = 0
 }
 
 desde i=0 hasta 19
 {
     peso_s[i] = 0.5
-    umbral_s[i] = 0.5
 }
 
-
-ddd = 9
 contador1 = 0
-//imprimir 'limite  iteraciones? '
+
 //leer iteraciones
 
 // cuerpo del programa principal
 // primera etapa: aprendizaje
 acaba = 0
-mientras acaba = 0
-{
+//mientras acaba = 0
+//{
 cantidad = 7
 
-imprimir 'que segmento? '
-leer ddd
+//imprimir 'que segmento? '
+//leer ddd
+ddd = 9
 
-imprimir 'limite  iteraciones? '
-leer iteraciones
-//segmn=9
+
+//leer iteraciones
+
+llamar realiza_iteraciones
+
+
+terminar
+
+proc realiza_iteraciones
+iteraciones = 20000
+segmn=0
 contador = 0
 mientras contador < iteraciones
 {
-	desde segmn = ddd hasta ddd
+	errores = 0
+	//imprimir contador
+	desde segmn = 0 hasta 9
 	{
-		// cargar la capa de entrada con datos
+		//imprimir 'seg: ', segmn
+			// cargar la capa de entrada con datos
 		j = cargar_entradas(segmn)   //ponemos datos en la carpeta de entrada
 		//imprimir 'entrada:'
 		//llamar ver_entradas
@@ -151,14 +163,22 @@ mientras contador < iteraciones
 		{
 			z = activacion_capa_salida(var)
 		}
+		
 		//llamar ver_capa_salida
 		hay_error = 0
 		llamar calcular_error
-		si hay_error = 0 entonces
-			salir
+		/*llamar comprobar_salidas
+		si hay_error = 1 entonces
+		    errores = errores + 1
+			
 		si-fin
+		*/
 		//imprimir '-----------------------------------------------------------------------'
 	}	
+	/*	si errores = 0 entonces
+			salir
+		si-fin  */
+	
 	contador = contador + 1
 	contador1 = contador1 +  1
 	si contador1 = 100 entonces
@@ -167,15 +187,28 @@ mientras contador < iteraciones
 	si-fin
 	//imprimir contador
 }
-imprimir 'salida: '
+//imprimir 'salida: '
 //llamar activacion_capa_salida
-llamar ver_capa_salida
-imprimir VAR_APR
-imprimir 'acaba?'
-leer acaba
-}
+//llamar ver_capa_salida
+//imprimir VAR_APR
+//imprimir 'acaba?'
+//leer acaba
+//}
+
+llamar pruebas
+fin
+
+//error (en la salida)=(salida correcta - salida actual) * salida actual  * (1 - salida actual)
+//pesoJK = pesoJK + factor_apr*errorK*Oj
+//Oj es la salida con funcion zigmoide.
+
+//error (en las capas interiores) debe ser la sumatoria
+// Ej = Oj*(1-Oj)*sumatoria ( Ek * Wjk)
 
 
+
+
+procedimiento pruebas
 segm = 0
 imprimir 'introduce un numero del 0 al 9'
 leer segm
@@ -185,140 +218,98 @@ desde var=0 hasta 4
 			z = activacion_capa_enmedio(var)
 		}
 		
+		desde var=0 hasta 4
+		{
+			z = activacion_capa_enmedio2(var)
+		}
 		//llamar ver_capa_enmedio
 		desde var=0 hasta 3
 		{
 			z = activacion_capa_salida(var)
 		}
-llamar ver_capa_salida
-
-
-//error (en la salida)=(salida correcta - salida actual) * salida actual  * (1 - salida actual)
-//pesoJK = pesoJK + factor_apr*errorK*Oj
-//Oj es la salida con funcion zigmoide.
-
-//error (en las capas interiores) debe ser la sumatoria
-// Ej = Oj*(1-Oj)*sumatoria ( Ek * Wjk)
-
-terminar
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-proc calcular_error
-desde i=0 hasta largo(VAR_APR) - 1   //desde 0 hasta 3   por cada neurona de salida
-{
-   DIGITO = subcadena(VAR_APR, i + 1 , 1 )
-   convertir DIGITO digito
-   dig_salida = salidas [i]
-   error = 0
-   error = (digito - dig_salida)
-   er = error
-   si er < 0 entonces
-		er = er * ( -1 )
-   si-fin
-   
-   si (er>epsilon) entonces
-		hay_error = 1
-   sino
-		hay_error = 0
-		salir
-   si-fin
-   
-   si hay_error = 1 entonces
-		   error = error * dig_salida * ( 1 - dig_salida)  //error en la salida (i)
-		   //pausa
-		   //imprimir 'error = ', error
-		   umbral_s[i] = umbral_s[i] + (factor_apr * error * dig_salida)
-		   suma2 = 0
-		   desde j  = 0 hasta 4   // una por cada peso entre la capa del medio y la salida
-			{ 
-					  indice = (i*factor) + j
-					  suma2 = suma2 + (error * peso_s [indice])
-					  peso_s [ indice ] = peso_s [ indice ] + (factor_apr * error *  capa2[j])
-					  err2[j] =  err2[j]  + suma2
-				      //imprimir ' fila, columna, indice = ', i, '  ', j, '  ', indice, peso_s[indice]
-					 // imprimir 'peso_s , indice : ', peso_s [ indice ] , '      ', indice
-					  //umbral [j] = umbral[j] + factor_apr * error * capa[j]
-			}
-	si-fin
-}
-
-// capa2 ( penultima  )
-si hay_error = 1 entonces
-		desde k = 0 hasta 6       //  7 iteraciones, uno por cada peso entre la inicial y la capa del medio
-		{
-			   suma3 = 0
-			   desde j  = 0 hasta 4   // una por cada peso entre la capa del medio y la salida
-			   {
-			   	  indice = (k*factor2) + j
-				  err2[j] = err2[j] * capa2 [j] * ( 1 - capa2[j]  )
-				  error = err2[j]
-
-				  suma3 = suma3 + (error * peso2 [indice])
-				  err[j] =  err[j]  + suma3
-
-				  //imprimir ' fila, columna, indice = ', k, '  ', j, '  ', indice, peso[indice]
-				  peso2 [indice] = peso2 [indice] + ( factor_apr * err2[j] *  capa[k] )   // entrada [k] )
-				  //imprimir 'peso , indice : ', peso [ indice ] , '      ', indice
-				  umbral2 [j] = umbral2[j] + (factor_apr * err2[j] * capa2[k])
-				  //umbral [j] = umbral[j] + factor_apr * error * capa[j]
-			   }
-			   //stop
-		}
-si-fin
-
-
-si hay_error = 1 entonces
-		desde k = 0 hasta 6       //  7 iteraciones, uno por cada peso entre la inicial y la capa del medio
-		{
-			   desde j  = 0 hasta 4   // una por cada peso entre la capa del medio y la salida
-			   {
-				  err[j] = err[j] * capa [j] * ( 1 - capa[j]  )
-				  indice = (k*factor2) + j
-				  //imprimir ' fila, columna, indice = ', k, '  ', j, '  ', indice, peso[indice]
-				  peso [indice] = peso [indice] + ( factor_apr * err[j] *  entrada [k] )
-				  //imprimir 'peso , indice : ', peso [ indice ] , '      ', indice
-				  umbral [j] = umbral[j] + (factor_apr * err[j] * capa[k])
-				  //umbral [j] = umbral[j] + factor_apr * error * capa[j]
-			   }
-			   //stop
-		}
-si-fin
-
-//imprimir 'fin calcular error'
+llamar mostrar_capas
 fin
 
 
+ 
 
 
+proc calcular_error
+pausa
+//  1:   recalculo del umbral en las neuronas en la salida
+desde i=0 hasta 3   //desde 0 hasta 3   por cada neurona de salida
+			{		
+			   digito = 0
+			   DIGITO = subcadena(VAR_APR, i + 1 , 1 )
+			   convertir DIGITO digito
+			   dig_salida = salidas [i]
+			   error = (digito - dig_salida) * dig_salida * ( 1 - dig_salida)  //error en la salida (i)
+			   umbral_s[i] = umbral_s[i] + (factor_apr * error * dig_salida)   
+			 }
+
+// recalculo de los pesos  entre la capa anterior a la salida			   
+desde j  = 0 hasta 4   // una por cada peso entre la capa2 del medio y la salida
+{ 
+			err2[j] = 0          
+			desde i=0 hasta 3   //desde 0 hasta 3   por cada neurona de salida
+			{		
+			   digito = 0
+			   DIGITO = subcadena(VAR_APR, i + 1 , 1 )
+			   convertir DIGITO digito
+			   dig_salida = salidas [i]
+				error = (digito - dig_salida) * dig_salida * ( 1 - dig_salida)  //error en la salida (i)
+				indice = (i*factor) + j   //comprobar posicion factores
+			   //propagacion del error hacia atras
+				err2[j] = err2[j]  + (error * peso_s [indice])
+ 				peso_s [ indice ] = peso_s [ indice ] + factor_apr * (  error *  capa2[j])
+			}
+ }
+ 
+ 
+
+ // 2:   capa2 ( penultima  )
+//  si hay_error = 1 entonces
+	    //recalculo del error y el umbral en la capa2
+		desde j  = 0 hasta 4   
+			   { 
+				  err2[j]  = capa2 [j] * ( 1 - capa2[j]  ) * err2[j]  
+				  umbral2 [j] = umbral2[j] + (factor_apr * err2[j] * capa[j])   
+			   }
+			   
+		desde k = 0 hasta 4       //  5 iteraciones
+		{
+			   err[j] = 0
+			   desde j  = 0 hasta 4   
+			   {
+			   	  indice = (j*factor) + k
+				  err[j] = err[j]  + (err2[j] * peso2 [indice])  //paso el error a la capa anterior
+				  peso2 [indice] = peso2 [indice] + ( factor_apr * err2[j] *  capa[k] )   // entrada [k] )
+			   }
+		}
+//si-fin
 
 
-
-
-
-
-
-
-
-
-
-
+// 3:   primera capa despues de la entrada
+ 
+// si hay_error = 1 entonces
+	   //recalculo del error y del umbral de esta primera capa
+	   desde j  = 0 hasta 4   
+			   {
+				  err[j]  = err[j] * capa [j] * ( 1 - capa[j]  )
+				  umbral [j] = umbral[j] + (factor_apr * err[j] * capa[j])  
+			   }
+		//recalculo de los pesos	   
+		desde k = 0 hasta 6       
+		{
+			   desde j  = 0 hasta 4 
+			   {
+				  indice = (j*factor2) + k
+				  peso [indice] = peso [indice] + ( factor_apr * err[j] *  entrada [k] )
+			   }
+		}
+// si-fin
+ 
+fin
 
 
 
@@ -329,7 +320,7 @@ fin
 
 funcion activacion_capa_enmedio(indice)
     suma = 0
-    desde i=0 hasta 6
+    desde i=0 hasta 6  //neuronas de entrada
     {
 		indice2 = (indice*factor2)+i
 		//imprimir '  fila,  columna, indice  = ', indice, '  ', i, '  ', indice2, peso[indice2]
@@ -338,31 +329,31 @@ funcion activacion_capa_enmedio(indice)
     suma = suma + umbral[indice]
     //imprimir 'suma = ', suma
     activacion_u = sigmoide(suma)
-	//imprimir 'en medio: ', activacion_u
-    //imprimir 'activacion: ', activacion_u
-    llamar  llena_salidas_enmedio
+ 
+    capa[indice] = activacion_u
     retornar z
 fin
 
 
 funcion activacion_capa_enmedio2(indice)
     suma = 0
-    desde i=0 hasta 6
+    desde i=0 hasta 4  //neuronas de esta capa (2)
     {
-		indice2 = (indice*factor2)+i
+		indice2 = (indice*factor)+i
 		//imprimir '  fila,  columna, indice  = ', indice, '  ', i, '  ', indice2, peso[indice2]
         suma = suma + capa[i] * peso2[indice2]
     }
     suma = suma + umbral2[indice]
     //imprimir 'suma = ', suma
     activacion_u = sigmoide(suma)
-	//imprimir 'en medio: ', activacion_u
-    //imprimir 'activacion: ', activacion_u
-    llamar  llena_salidas_enmedio2
+	 
+    capa2[indice] = activacion_u
+ 
     retornar z
 fin
 
-
+  //errj = (neuronJ[j].getActivacion()*(1-neuronJ[j].getActivacion())*suma)
+  
 funcion activacion_capa_salida(indice)
     suma = 0
     desde i=0 hasta 4
@@ -374,52 +365,45 @@ funcion activacion_capa_salida(indice)
     suma = suma + umbral_s[indice]
     //imprimir 'suma = ', suma
     activacion_u = sigmoide(suma)
-	//imprimir 'en salida: ', activacion_u
-    //imprimir 'activacion: ', activacion_u
-    llamar  llena_salidas_salida
+	 
+	
+    //no se podra indexar una variable no array,cuidado!
+    salidas[indice] = activacion_u
+	
+	// se pasa el umbral a la siguiente capa?
     retornar z
 fin
 
 
-
-
-
-
-
-
-
-
-
-proc llena_salidas_enmedio
-    capa[indice] = activacion_u
-fin
-
-proc llena_salidas_enmedio2
-    capa2[indice] = activacion_u
-fin
-
-proc  llena_salidas_salida
-		//no se podra indexar una variable no array,cuidado!
-        salidas[indice] = activacion_u
-		//imprimir '<<', indice, salidas[indice]
-fin
-
-
-
-
-
-proc ver_capa_enmedio
+proc mostrar_capas
  desde i=0 hasta 4
  {
     imprimir 'capa ', i, ': ',  capa[i]
  }
-fin
-
-proc ver_capa_salida
+ 
+desde i=0 hasta 4
+ {
+    imprimir 'capa2 ', i, ': ',  capa2[i]
+ }
+ d = 0
  desde i=0 hasta 3
  {
-    imprimir 'salida ', i, ': ',  salidas[i]
+	s = salidas[i]
+	n = 3 - i
+	si s > 0.49 entonces	
+		b = 1
+	sino
+		b = 0
+	si-fin
+	
+	si b = 1 entonces
+		//imprimir b, '   ', d
+		d = d + potencia (2, n)
+	si-fin
+	
+	imprimir 'salida ', i, ': ',  s
  }
+ imprimir 'decimal: ', d
 fin
 
 
@@ -427,7 +411,8 @@ fin
 funcion sigmoide(suma)
     //e =  2.718281828
     exponente = suma * (-1)
-    s = 1 / (1 + potencia(e, exponente))
+    s = 1 / ( 1 + potencia(e, exponente)  )
+	//imprimir suma, '     ---- ', s
     retornar s
 fin
 
@@ -461,17 +446,17 @@ desde i = 0 hasta 6
 {
 	desde j = 0 hasta 4
 	{
-		imprimir i, ' , ', j, '  --  ', peso[(i*factor2)+j]
+		imprimir i, ' , ', j, '  --  ', peso[(j*factor2)+i]
 	}
 
 }
 
 imprimir 'segundos pesos'
-desde i = 0 hasta 6
+desde i = 0 hasta 4
 {
 	desde j = 0 hasta 4
 	{
-		imprimir i, ' , ', j, '  --  ', peso2[(i*factor2)+j]
+		imprimir i, ' , ', j, '  --  ', peso2[(j*factor)+i]
 	}
 }
 
@@ -480,10 +465,35 @@ desde i = 0 hasta 4
 {
 	desde j = 0 hasta 3
 	{
-		imprimir i, ' , ', j, '  --  ', peso_s[(i*factor)+j]
+	    indice = (j*factor) + i
+		imprimir i, ' , ', j, '  --  ', peso_s[indice], '   ', indice
 	}
 }
 
 fin
 
 
+
+
+proc comprobar_salidas
+hay_error = 0
+desde i=0 hasta 3   //desde 0 hasta 3   por cada neurona de salida
+			{		
+			   digito = 0
+			   DIGITO = subcadena(VAR_APR, i + 1 , 1 )
+			   convertir DIGITO digito
+			   dig_salida = salidas [i]
+			   
+			  si (dig_salida > 0.5) entonces
+					  dig_salida = 1 
+			  sino 
+					  dig_salida = 0
+			  si-fin
+				
+			  si 	(digito <> dig_salida) entonces
+					hay_error = 1
+					salir
+			  si-fin
+			 }
+fin
+			 

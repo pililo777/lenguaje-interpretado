@@ -2376,8 +2376,9 @@ void * execut(ast * p) {
                 procedimiento = array_variables[indice_de_la_variable].procedimiento;
                 if ((tipo != 'P') && (tipo!='F')) {
                     printf("procedimiento no encontrado en linea: %d \n",  p->nrolinea2 );
-                    getchar();
-                    exit(1);
+                    //getchar();
+                    //exit(1);
+                    return;
                 }
                 else 
                 {
@@ -2778,13 +2779,13 @@ double evalua(ast * p) {
                 }
                 
                 if (!strcmp(array_variables[indice_de_la_variable].nombre, "potencia")) {
-                    int i, j;
-                    double  k, m;
-                    i =  p->nodo2->nodo1->num;
-                    j =  p->nodo2->nodo2->nodo1->num;
-                    k = array_variables[i].numero;
-                    m = array_variables[j].numero;
-                    res = (double) pow(k , m );
+                    double i, j;
+                    //double  k, m;
+                    i = evalua( p->nodo2->nodo1);
+                    j = evalua (  p->nodo2->nodo2->nodo1);
+                   // k = array_variables[i].numero;
+                   // m = array_variables[j].numero;
+                    res = (double) pow(i , j );
                     //res =  (double) i;
                     return res;
                 }
