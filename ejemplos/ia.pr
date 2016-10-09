@@ -72,8 +72,8 @@ desde i=0 hasta 4
 {
     capa[i] = 0
     capa2[i] = 0
-    umbral[i] = 0.5
-    umbral2[i] = 0.5
+    umbral[i] = -1
+    umbral2[i] = -1
 }
 
 desde i=0 hasta 34
@@ -97,7 +97,7 @@ imprimir 'dim umbral_s 5'
 
 desde i = 0 hasta 3
 {
-	umbral_s[i] = 0.5
+	umbral_s[i] = -1
 }
 
 desde i=0 hasta 19
@@ -128,8 +128,28 @@ llamar realiza_iteraciones
 
 terminar
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 proc realiza_iteraciones
-iteraciones = 20000
+iteraciones = 1200000
 segmn=0
 contador = 0
 mientras contador < iteraciones
@@ -166,23 +186,23 @@ mientras contador < iteraciones
 		
 		//llamar ver_capa_salida
 		hay_error = 0
-		llamar calcular_error
-		/*llamar comprobar_salidas
+		imprimir '>> --- PROCESADO: ', segmn
+		llamar comprobar_salidas
 		si hay_error = 1 entonces
 		    errores = errores + 1
-			
+			llamar calcular_error	
 		si-fin
-		*/
+		
 		//imprimir '-----------------------------------------------------------------------'
 	}	
-	/*	si errores = 0 entonces
+		si errores = 0 entonces
 			salir
-		si-fin  */
+		si-fin  
 	
 	contador = contador + 1
 	contador1 = contador1 +  1
 	si contador1 = 100 entonces
-		imprimir contador
+		//imprimir contador
 		contador1 = 0
 	si-fin
 	//imprimir contador
@@ -198,13 +218,20 @@ mientras contador < iteraciones
 llamar pruebas
 fin
 
-//error (en la salida)=(salida correcta - salida actual) * salida actual  * (1 - salida actual)
-//pesoJK = pesoJK + factor_apr*errorK*Oj
-//Oj es la salida con funcion zigmoide.
 
-//error (en las capas interiores) debe ser la sumatoria
-// Ej = Oj*(1-Oj)*sumatoria ( Ek * Wjk)
 
+
+
+
+ 
+
+
+
+
+
+
+
+ 
 
 
 
@@ -234,8 +261,24 @@ fin
  
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 proc calcular_error
-pausa
+ 
 //  1:   recalculo del umbral en las neuronas en la salida
 desde i=0 hasta 3   //desde 0 hasta 3   por cada neurona de salida
 			{		
@@ -264,7 +307,6 @@ desde j  = 0 hasta 4   // una por cada peso entre la capa2 del medio y la salida
  				peso_s [ indice ] = peso_s [ indice ] + factor_apr * (  error *  capa2[j])
 			}
  }
- 
  
 
  // 2:   capa2 ( penultima  )
@@ -310,6 +352,30 @@ desde j  = 0 hasta 4   // una por cada peso entre la capa2 del medio y la salida
 // si-fin
  
 fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -375,6 +441,31 @@ funcion activacion_capa_salida(indice)
 fin
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 proc mostrar_capas
  desde i=0 hasta 4
  {
@@ -385,12 +476,42 @@ desde i=0 hasta 4
  {
     imprimir 'capa2 ', i, ': ',  capa2[i]
  }
+
+llamar binario
+fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+proc binario
  d = 0
  desde i=0 hasta 3
  {
 	s = salidas[i]
 	n = 3 - i
-	si s > 0.49 entonces	
+	si s > 0.499 entonces	
 		b = 1
 	sino
 		b = 0
@@ -401,10 +522,32 @@ desde i=0 hasta 4
 		d = d + potencia (2, n)
 	si-fin
 	
-	imprimir 'salida ', i, ': ',  s
+	//imprimir 'salida ', i, ': ',  s
  }
  imprimir 'decimal: ', d
-fin
+ fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -426,6 +569,7 @@ fin
 
 funcion cargar_entradas(indice)
     PALABRA = SEGM[indice]
+    imprimir 'APRENDER: ', PALABRA
     desde segm = 1 hasta 7
     {
         DIGITO  = subcadena (PALABRA, segm, 1)
@@ -435,6 +579,22 @@ funcion cargar_entradas(indice)
     }
 	 
 fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -477,6 +637,8 @@ fin
 
 proc comprobar_salidas
 hay_error = 0
+SALIDA = ' '   UNO = '1'   CERO = '0'
+vaciar SALIDA 
 desde i=0 hasta 3   //desde 0 hasta 3   por cada neurona de salida
 			{		
 			   digito = 0
@@ -484,16 +646,23 @@ desde i=0 hasta 3   //desde 0 hasta 3   por cada neurona de salida
 			   convertir DIGITO digito
 			   dig_salida = salidas [i]
 			   
-			  si (dig_salida > 0.5) entonces
+			  si (dig_salida > 0.499) entonces
 					  dig_salida = 1 
+					  SALIDA += UNO
 			  sino 
 					  dig_salida = 0
+					  SALIDA += CERO
 			  si-fin
 				
 			  si 	(digito <> dig_salida) entonces
 					hay_error = 1
-					salir
+					
 			  si-fin
 			 }
+imprimir 'ESPERADO: ', VAR_APR
+imprimir 'SALIDA:   ',  SALIDA
+llamar binario
+imprimir '--------------------------'
+
 fin
 			 
