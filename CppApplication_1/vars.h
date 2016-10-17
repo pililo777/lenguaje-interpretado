@@ -11,6 +11,8 @@ typedef struct  {
           double      numero;
           int         procedimiento;
           short       backup;
+          int       dim1;
+          int       dim2;
 } struct_variable;
 
 extern struct_variable   array_variables[256];

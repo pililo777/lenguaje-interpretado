@@ -3,7 +3,7 @@
 #include <regex.h>
 //#include <ncurses.h>
 #include <math.h>
-
+#define rando() ((double)rand()/(RAND_MAX+1))
 
 /*
 #include <time.h>
@@ -1690,14 +1690,20 @@ void * execut(ast * p) {
             double * vector;
             int i;
             int j;
+            int k = 1;
             j = (int) p->nodo2->num;  //NUMBER
-            vector = nuevoValorEnteros(j); // cantidad
-            for (i = 0; i < j; i++) vector [i] = 0;
+            if (p->subnodos == 3) 
+                k = (int) p->nodo3->num;
+            vector = nuevoValorEnteros(j*k); // cantidad
+            for (i = 0; i < (j*k); i++) vector [i] = 0;
             arrayVectores[idx_vec] = vector;
             //var[(int) p->nodo1->num] = idx_vec;
             array_variables[(int) p->nodo1->num].numero = (double) idx_vec;
-            idx_vec++;
+            array_variables[(int) p->nodo1->num].dim1 = (int) j;
+            array_variables[(int) p->nodo1->num].dim2 = (int) k;
             
+            idx_vec++;
+                        
         }
             break;
             
@@ -1721,14 +1727,28 @@ void * execut(ast * p) {
 // designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }            
             double * vector;
             int i, j;
+            int k = 1;
             double valor;
-            int posicion;
+            int posicion, posicion2;
             i = (int) p->nodo1->num;    // el indice de la variable (designator)
             j = (int) array_variables[i].numero;
+            
             vector = arrayVectores[j];   // hasta 32 vectores
-            valor = (double) evalua(p->nodo3);
-            posicion = (int) evalua(p->nodo2);
-            vector[posicion] = valor ;   //expresion y expresion
+            if (p->subnodos == 3) {
+                valor = (double) evalua(p->nodo3);
+                posicion = (int) evalua(p->nodo2);
+                vector[posicion] = valor ;   //expresion y expresion
+            }
+            else {
+                k = (int) array_variables[i].dim2;
+                valor = (double) evalua(p->nodo4);
+                posicion = (int) evalua(p->nodo2);
+                posicion2 = (int) evalua(p->nodo3);
+                posicion = ( posicion * k ) + posicion2;
+               // printf ("pos: %d  ", posicion);
+                vector[posicion] = valor ;   //expresion y expresion
+            }
+                
         }
 
             break;
@@ -2789,6 +2809,23 @@ double evalua(ast * p) {
                     //res =  (double) i;
                     return res;
                 }
+                
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "potencia_e")) {
+                    double i;
+                    //double  k, m;
+                    i = evalua( p->nodo2->nodo1);
+                    
+                   // k = array_variables[i].numero;
+                   // m = array_variables[j].numero;
+                    res = (double) exp(i);
+                    //res =  (double) i;
+                    return res;
+                }
+                
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "random")) {
+                    res = rando();
+                    return res;
+                }
 
                 tipo = array_variables[indice_de_la_variable].tipo; //evalua
                 procedimiento = array_variables[indice_de_la_variable].procedimiento;
@@ -2862,11 +2899,18 @@ double evalua(ast * p) {
         case evalua_vector:
         {
             double * vector;
-            int i;
+            int i, k, n, m;
             double j;
             i = (int) p->nodo1->num;
             vector = arrayVectores [ (int) array_variables[i].numero ];
-            j = vector[(int) evalua(p->nodo2) ];
+            if (p->subnodos == 2)
+                j = vector[(int) evalua(p->nodo2) ];
+            else {
+                m = (int) evalua(p->nodo2); //indice1
+                k = (int) evalua(p->nodo3); //indice2
+                n = (int) array_variables[i].dim2; //dimension1
+                j = vector[ m * n + k   ];
+            }
             res =  (double) j;
         }
         break;

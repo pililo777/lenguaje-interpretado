@@ -97,8 +97,10 @@ statement:
 | sdesignator EQ sdesignator  { $$ = nodo2(asigna_alfa_var, $1, $3); /*asign literal*/} 
 | sdesignator PLUS EQ sdesignator  { $$ = nodo2(sumar_alfa, $1, $4); /*suma alfa*/} 
 | DIM designator NUMBER  { $$ = nodo2(dimensionar, $2, $3); /*dimensionar un vector entero */ }
+| DIM designator NUMBER COMMA NUMBER { $$ = nodo3(dimensionar, $2, $3, $5); /*dimensionar un vector entero */ }
 | DIM sdesignator NUMBER  { $$ = nodo2(dimensionar_alfa, $2, $3); /*dimensionar un vector strings */ }
 | designator '[' expression ']' EQ expression { $$ = nodo3(asigna_vector, $1, $3, $6 );  }
+| designator '[' expression ']' '[' expression ']' EQ expression { $$ = nodo4(asigna_vector, $1, $3, $6, $9 );  }
 | sdesignator '[' expression ']' EQ LITERAL { $$ = nodo3(asigna_vector_alfa, $1, $3, $6 );  }
 | sdesignator '[' expression ']' EQ sdesignator { $$ = nodo3(asigna_vector_alfa2, $1, $3, $6 );  }
 | sdesignator EQ sdesignator '[' expression ']' { $$ = nodo3(asigna_vector_alfa3, $1, $3, $5 );  }
@@ -239,6 +241,7 @@ expr4:
 | NUMBER { $$ =  $1; /*numero*/}
 | designator { $$ = $1; /*designador variable*/}
 | designator '[' expression ']' { $$ = nodo2(evalua_vector, $1, $3);   }
+| designator '[' expression ']'  '[' expression ']'  { $$ = nodo3(evalua_vector, $1, $3, $6);   }
 | proc_designator LPAREN lista_parametros RPAREN   {  $$ = nodo2(llamar, $1, $3) ;/*llamar proced.*/} 
 ;
 

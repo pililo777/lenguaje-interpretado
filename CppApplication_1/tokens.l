@@ -12,18 +12,7 @@ void  cuentalineas(char * yytext);
 #include "vars.h"
 
 
-/*
-char constantes[127][127];
-//char variables[127][127];
-typedef struct  {
-          char        tipo;
-          char        nombre[18];
-          char        valor[127]; 
-          double     numero;
-} struct_variable;
-
-struct_variable   array_variables[256];
-*/
+ 
 
 #include "nodo.h"
 #include "stdio.h"
@@ -84,8 +73,8 @@ int x;
    };
    //strcpy (variables[x],  yytext);
    strcpy  (array_variables[x].nombre, yytext);
-if (depurar)
-   printf("VARIABLE %d  --    %s\n", x, variables[x]);
+// if (depurar)
+   //printf("VARIABLE %d  --    %s\n", x, variables[x]);
   // insAST(yytext) ;
 /*   printf("%d  --    %s\n", x, variables[x]);  */
    return x;
@@ -140,7 +129,7 @@ if (depurar)
 "do"|"DO"|"HAZ"|"haz"|"hacer"|"HACER"|"{"    { return DO; }
 "od"|"OD"|"FIN-HAZ"|"fin-haz"|"fin-hacer"|"}"  {contador_lineaInicial--; return OD; }
 "print"|"PRINT"|"IMPRIMIR"|"imprimir"|"?"  {lineaEjecucion2(); return PRINT; }
-"input"|"INPUT"|"LEER"|"leer" {lineaEjecucion2(); return LEER; }
+"LEER"|"leer" {lineaEjecucion2(); return LEER; }
 "cls"|"CLS"|"BORRAR"|"borrar"|"cls"   {lineaEjecucion2(); return BORRAR ; }
 "decimales"|"dec"|"DECIMALES"|"DEC" {lineaEjecucion2(); return DECIMALES; }
 "TERMINAR"|"terminar"|"FINALIZAR"|"finalizar"|"exit"|"EXIT"|"quit"|"QUIT"  { return TERMINAR ; }
