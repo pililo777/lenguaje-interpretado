@@ -1179,8 +1179,9 @@ void * execut(ast * p) {
                 //gtk_main_iteration();
             }
         }
+        if (ejecuta_desde_editor)
         //printf("pausando..");
-        //pausar();
+           pausar();
         
     }
     

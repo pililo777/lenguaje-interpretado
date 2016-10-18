@@ -1,5 +1,5 @@
 /*  iann.pr    Inteligencia Artificial - Neural Network
-                                                      RUBEN RIVERO     2016
+                                                      RUBEN RIVERO  18 Octubre   2016
 
 
 
@@ -42,13 +42,14 @@ convertir NUMOUT numoutput
 
     // int    NumPattern = NUMPAT, NumInput = NUMIN, NumHidden = NUMHID, NumOutput = NUMOUT;
 
-dim input 11, 8  // (10x7)
+dim input 11 , 8  // (10x7)
 INPUT = '00000000 01110111 01000001 01101110 01101011 01011001 00111011 00111111 01100001 01111111 01111011'
 imprimir INPUT
 posicion = 1
 
 imprimir 'cargando entradas....'
 DIGITO = ' '
+digito = 0
 
 desde i = 0 hasta 10
 {
@@ -80,7 +81,7 @@ desde i = 0 hasta 10
 };
 */
 
-dim target 11, 5
+dim target 11 , 5
 TARGET = '00000 00000 00001 00010 00011 00100 00101 00110 00111 01000 01001'
 
 imprimir 'cargando targets.....'
@@ -115,17 +116,17 @@ desde i = 0 hasta 10
 */
 
 imprimir 'dimensionando vectores y matrices....'
-dim sumh 11, 4
-dim weightih 8, 4
-dim hidden 11, 4
-dim sumo 11, 5
-dim weightho 4, 5
-dim output 11, 5
+dim sumh 11 , 4
+dim weightih 8 , 4
+dim hidden 11 , 4
+dim sumo 11 , 5
+dim weightho 4 , 5
+dim output 11 , 5
 dim deltao 5
 dim sumdow 4
 dim deltah 4
-dim deltaweightih 8, 4
-dim deltaweightho 4, 5
+dim deltaweightih 8 , 4
+dim deltaweightho 4 , 5
 error = 0
 eta = 0.5
 alpha = 0.5
@@ -184,14 +185,14 @@ imprimir 'inicializando pesos y deltas 2....'
 
 imprimir 'inicio del bucle de epocas....'
      
-    desde epoch = 0 hasta it  {    /* iterate weight updates */
+   desde epoch = 0 hasta it  {    /* iterate weight updates */
         desde p = 1 hasta numpattern  {    /* randomize order of individuals */
-            ranpat[p] = p 
+                ranpat[p] = p 
         }
         desde p = 1 hasta numpattern  {
             xx = random(0) * ( numpattern + 1 - p )
             si xx < 0 entonces
-                 xx = xx * (-1)
+                 xx = xx * ( -1 )
             si-fin
             np = p + xx 
             op = ranpat[p] 
@@ -208,7 +209,7 @@ imprimir 'inicio del bucle de epocas....'
                 desde i = 1 hasta numinput  {
                     sumh[p][j] = sumh[p][j] + input[p][i] * weightih[i][j] 
                 }
-                hidden[p][j] = 1 /(1 + potencia_e ( sumh[p][j] * (-1)  ) )
+                hidden[p][j] = 1 /( 1 + potencia_e ( sumh[p][j] * ( -1 )  ) )
             }
 
             desde k = 1 hasta numoutput  {    /* compute output unit activations and errors */
@@ -216,9 +217,9 @@ imprimir 'inicio del bucle de epocas....'
                 desde j = 1 hasta numhidden  {
                     sumo[p][k] = sumo[p][k] + hidden[p][j] * weightho[j][k] 
                 }
-                output[p][k] = 1/(1 + potencia_e ( ( sumo[p][k] ) * (-1)  ))    /* Sigmoidal Outputs */
+                output[p][k] = 1/( 1 + potencia_e ( ( sumo[p][k] ) * ( -1 )  ))    /* Sigmoidal Outputs */
                 error = error + 0.5 * (target[p][k] - output[p][k]) * (target[p][k] - output[p][k])   /* SSE */
-                deltao[k] = (target[p][k] - output[p][k]) * output[p][k] * (1 - output[p][k])    /* Sigmoidal Outputs, SSE */
+                deltao[k] = (target[p][k] - output[p][k]) * output[p][k] * ( 1 - output[p][k])    /* Sigmoidal Outputs, SSE */
             }
 
             desde j = 1 hasta numhidden  {    /* 'back-propagate' errors to hidden layer */
@@ -226,7 +227,7 @@ imprimir 'inicio del bucle de epocas....'
                 desde k = 1 hasta numoutput  {
                     sumdow[j] = sumdow[j] + weightho[j][k] * deltao[k] 
                 }
-                deltah[j] = sumdow[j] * hidden[p][j] * (1 - hidden[p][j]) 
+                deltah[j] = sumdow[j] * hidden[p][j] * ( 1 - hidden[p][j]) 
             }
             desde j = 1 hasta numhidden  {     /* update weights WeightIH */
                 deltaweightih[0][j] = eta * deltah[j] + alpha * deltaweightih[0][j] 
