@@ -110,9 +110,9 @@ terminar
 //sin uso, sintaxis para guardar en un archivo abierto con largo y fin de linea opcional
 proc guardar_palabra
     si (col=1) oo (col=2) entonces
-      guardar # numarchivodbf  PALABRA 61, 0
+      guardar # numarchivodbf  PALABRA, 61, 0
     sino
-      guardar # numarchivodbf  PALABRA 9, 1
+      guardar # numarchivodbf  PALABRA,  9, 1
     si-fin
 fin
 
