@@ -1243,6 +1243,10 @@ void * execut(ast * p) {
             if (p->subnodos == 2) {
                 n3 = strlen(s);
                 fwrite(s, 1, n3, ficheros[n] ); 
+                my_record.mydata = 13;
+                fwrite(&my_record, sizeof(struct rec), 1, ficheros[n]);
+                my_record.mydata = 10;
+                fwrite(&my_record, sizeof(struct rec), 1, ficheros[n]);
             } else {
                 //OK pendiente, si n2 < strlen, guardar solo n2 bytes
                 n2 = (int) evalua (p->nodo3);  // numero de bytes que se quieren guardar
