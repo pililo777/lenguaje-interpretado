@@ -1,5 +1,11 @@
 /*  dbase.c  Region de Includes */ 
 //version para github
+
+
+
+#include <my_global.h>
+#include <mysql.h>
+
 #include "nodo.h"
 #include "stdio.h"
 #include "string.h"
@@ -132,6 +138,7 @@ int main(int argc, const char **argv)
 {
     initProcedimientos();
     copyrigth();
+    fprintf(stdout, "MySSQL client version: %s\n",  mysql_get_client_info());
     comandos();
 }
 
