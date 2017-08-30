@@ -880,6 +880,13 @@ create_window() {
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
     create_tags (buffer);
     
+        #define font "Sans 20"
+ 
+ 
+PangoFontDescription *font_desc;
+font_desc = pango_font_description_from_string (font);
+gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
+    
     buffer2 = buffer;
     //resaltarAlfanum(NULL, NULL);
     textview2 = textview;
@@ -1329,7 +1336,7 @@ on_button_bold_clicked (GtkButton * button, gpointer user_data)
 
     gtk_text_buffer_get_selection_bounds (textbuffer, &start, &end);
 
-    gtk_text_buffer_apply_tag_by_name (textbuffer, "bold", &start,
+    gtk_text_buffer_apply_tag_by_name (textbuffer, "bigandbold", &start,
                        &end);
 }
 
@@ -1569,7 +1576,18 @@ on_button_color_clicked (GtkButton * button, gpointer user_data)
 void
 create_tags (GtkTextBuffer * buffer)
 {
+    
+    // hsta aqui
+    
+
+ 
+
     g_assert (GTK_IS_TEXT_BUFFER (buffer));
+    
+/*
+    gtk_text_buffer_create_tag (buffer, "bigandbold", 
+                    "size-points", 24, "weight", PANGO_WEIGHT_BOLD, NULL);
+*/
 
     gtk_text_buffer_create_tag (buffer, "bold",
                     "weight", PANGO_WEIGHT_BOLD, NULL);

@@ -16,7 +16,7 @@ INDICE = 'nuevos contactos.ndx'
 use INDICE   //trabajaremos con el indice
 
 CLAVE = '10320'
-APELLIDO = 'nombre de la empresa'
+NOMBRE = 'nombre de la empresa'
 DIRECCION = 'direccion de la empresa'
 TELEFONO = ' 9999 '
 
@@ -25,26 +25,21 @@ desde numeroreg = 1 hasta 3
 	imprimir 'el dato se encuentra en la posicion: ', numeroreg
 	buscar registro clientes numeroreg
 	DIRECCION =  CDIRECCION
-	APELLIDO = CNOMBRE
+	NOMBRE = CNOMBRE
 	TELEFONO  =  CTELEFONO
 	CLAVE    =  CCLAVE
 
 	imprimir CLAVE
 	imprimir DIRECCION
-	imprimir APELLIDO
+	imprimir NOMBRE
 	imprimir TELEFONO
 }
 
 close //  cierra el indice con la ultima raiz
 
-imprimir 'que cosa!'
+imprimir 'Fin del listado!'
 
-desde x = 1 hasta 10 
-{
-	imprimir x
-}
-
-imprimir 'numeros random'
+ 
 
 
 

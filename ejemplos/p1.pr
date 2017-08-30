@@ -1,0 +1,35 @@
+imprimir 'como va la cosa'
+imprimir 'el numerito es : ', numerito
+imprimir 'el numerito3 es : ', numerito3
+
+y = 4
+z = 5
+
+imprimir 'tabla de multiplicar del ', numerito
+
+
+// puedes usar palabras clave en ingles o en castellano
+// mira el fichero tokens.txt para ver cuales son
+
+desde x = 1 hasta 10
+	haz
+		imprimir x, ' * ', numerito, ' = ',  x * numerito
+	fin-haz
+
+llamar prueba
+
+imprimir 'resultado intermedio: ', numerito3 * x
+
+
+terminar   //si tu programa tiene procedimientos debajo del programa ppal.
+           //debes separar el programa principal de los procedimientos
+           //con la palabra terminar ó su equivalente en tokens.txt
+           
+
+
+//los procedimientos siempre despues del programa principal
+//y debajo de la palabra 'terminar'
+
+procedimiento prueba
+        imprimir 'probando llamada a un procedimiento....', y + z
+fin

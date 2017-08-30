@@ -104,22 +104,23 @@ extern int yydebug;
      FOR = 313,
      TO = 314,
      DO = 315,
-     OD = 316,
-     PRINT = 317,
-     LEER = 318,
-     BORRAR = 319,
-     NUMBER = 320,
-     NAME = 321,
-     SNAME = 322,
-     PAUSA = 323,
-     LITERAL = 324,
-     STRING = 325,
-     DOBLECOMILLA = 326,
-     OR = 327,
-     AND = 328,
-     CONTINUAR = 329,
-     SALIR = 330,
-     ACTUALIZAR = 331
+     MAKETOKEN = 316,
+     OD = 317,
+     PRINT = 318,
+     LEER = 319,
+     BORRAR = 320,
+     NUMBER = 321,
+     NAME = 322,
+     SNAME = 323,
+     PAUSA = 324,
+     LITERAL = 325,
+     STRING = 326,
+     DOBLECOMILLA = 327,
+     OR = 328,
+     AND = 329,
+     CONTINUAR = 330,
+     SALIR = 331,
+     ACTUALIZAR = 332
    };
 #endif
 
@@ -128,13 +129,13 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2053 of yacc.c  */
-#line 24 "grammar.y"
+#line 25 "grammar.y"
 
  ast * nodo;
 
 
 /* Line 2053 of yacc.c  */
-#line 138 "grammar.tab.h"
+#line 139 "grammar.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
