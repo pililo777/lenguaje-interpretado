@@ -1631,7 +1631,7 @@ extern char *yytext;
 
 
 FILE * fichero = (FILE *) 0;
-
+ 
 void old_main(int argc, const char **argv) {
     // 	GtkWidget * ventana;
 

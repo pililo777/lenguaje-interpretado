@@ -3,8 +3,10 @@
 
 
 
+/*
 #include <my_global.h>
 #include <mysql.h>
+*/
 
 #include "nodo.h"
 #include "stdio.h"
@@ -138,7 +140,12 @@ int main(int argc, const char **argv)
 {
     initProcedimientos();
     copyrigth();
+    if (argc>1) {
+        old_main(  argc,  argv);
+    }
+/*
     fprintf(stdout, "MySSQL client version: %s\n",  mysql_get_client_info());
+*/
     comandos();
 }
 
