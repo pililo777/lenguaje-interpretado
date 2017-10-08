@@ -375,7 +375,7 @@ GtkWidget *create_window ();
 void create_tags (GtkTextBuffer * buffer);
 void on_button_save_clicked (GtkButton * button, gpointer user_data);
 void on_button_load_clicked (GtkButton * button, gpointer user_data);
-void on_button_clear_clicked (GtkButton * button, gpointer user_data);
+void on_button_clear_clicked (GtkButton * button, gpointer user_data); 
 void on_button_cut_clicked (GtkButton * button, gpointer user_data);
 void on_button_copy_clicked (GtkButton * button, gpointer user_data);
 void on_button_paste_clicked (GtkButton * button, gpointer user_data);
@@ -383,6 +383,7 @@ void on_button_bold_clicked (GtkButton * button, gpointer user_data);
 void on_button_underline_clicked (GtkButton * button, gpointer user_data);
 void on_button_strike_clicked (GtkButton * button, gpointer user_data);
 void on_button_color_clicked (GtkButton * button, gpointer user_data);
+void on_button_ejecutar_clicked (GtkButton * button, gpointer user_data);
 gboolean
 on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
@@ -676,6 +677,7 @@ create_window() {
     GtkWidget *button_load;
     GtkWidget *button_save;
     GtkWidget *button_clear;
+    GtkWidget *button_ejecutar;
     GtkWidget *button_cut;
     GtkWidget *button_copy;
     GtkWidget *button_paste;
@@ -807,21 +809,21 @@ create_window() {
                           GTK_STOCK_SAVE,
                          NULL,
                          NULL, NULL, NULL, -1);
-
+     
+ 
     button_clear = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
+                         GTK_STOCK_OK,
+                         NULL,
+                         NULL, NULL, NULL, -1);
+    
+    button_ejecutar = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
                          GTK_STOCK_EXECUTE,
                          NULL,
                          NULL, NULL, NULL, -1);
     
-/*
-     button_clear = gtk_button_new_with_label("Run");
+
+
      
-     gtk_button_set_relief ((GtkButton *)button_clear, GTK_RELIEF_NONE);
-     gtk_button_set_image((GtkButton *)button_clear, buttonImage);
-     gtk_button_set_image_position((GtkButton *)button_clear,  GTK_POS_TOP);
-*/
-    
-    
     button_cut = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar),
                            "gtk-cut",
                            NULL, NULL, NULL, NULL, -1);
@@ -880,7 +882,7 @@ create_window() {
     buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (textview));
     create_tags (buffer);
     
-        #define font "Sans 20"
+        #define font "Sans 14"
  
  
 PangoFontDescription *font_desc;
@@ -903,6 +905,9 @@ gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
               G_CALLBACK (on_button_save_clicked),
               (gpointer) textview);
     
+     g_signal_connect ((gpointer) button_ejecutar, "clicked",
+              G_CALLBACK (on_button_ejecutar_clicked),
+              (gpointer) textview);  
     
     g_signal_connect ((gpointer) button_clear, "clicked",
               G_CALLBACK (on_button_clear_clicked),
@@ -983,7 +988,7 @@ void liberar_mem() {
                 memoria -= tamano;
             }
             
-            
+            contador = 0; contadorvar =0;
            // free ( procedimientos[6]->nodo1);
            // free (procedimientos[6]);
              sprintf(str1, "Constantes: %d", (int) contador );
@@ -1005,12 +1010,14 @@ void liberar_mem() {
          //   liberar_nodo(pila_programas[31], 31);
       //      printf("memoria: %ld \n", memoria);
 
-        //   g_free(input);
+/*
+          g_free(input);
            
            
-         //  yy_delete_buffer(input); /* free up memory */ 
+          yy_delete_buffer(input);  
             
-      //  yy_delete_buffer(YY_CURRENT_BUFFER);   
+       yy_delete_buffer(YY_CURRENT_BUFFER);   
+*/
              
 
             /*Analyze the string*/
@@ -1034,13 +1041,13 @@ void liberar_mem() {
 
 
 void
-on_button_clear_clicked(GtkButton * button, gpointer user_data) {
+on_button_clear_clicked( GtkButton * button,    gpointer user_data) {
     GtkTextBuffer *textbuffer = NULL;
      GtkTextIter start, end;
      char str1 [100];
      
     //YY_BUFFER_STATE buf;
-     
+//     
 // printf("on buton clicked\n");
      
    //  printf("check1\n");
@@ -1143,8 +1150,8 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
              //yylex_destroy();
             
           //  printf("check7 ejecutando....\n");
-            if (err_number == 0)
-                execut(pila_programas[0]);
+            if (err_number == 0) {}
+               // execut(pila_programas[0]);
             else
                 {
                 printf("error en compilacion: ");
@@ -1157,6 +1164,13 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
 }
 
 
+
+void
+on_button_ejecutar_clicked(GtkButton * button,  gpointer user_data) { 
+
+        execut(pila_programas[0]);
+
+}
 
 void
 on_button_load_clicked(GtkButton * button, gpointer user_data) {

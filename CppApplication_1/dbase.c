@@ -787,7 +787,7 @@ int
 parse() {
     int i, j, k, hubocomilla;
     i = 0;
-    j = 0;
+    j = 0;     
     i = 0;
     while (buff1[i]) {
         k = 0;
