@@ -1,5 +1,5 @@
 //usando sublime como editor de texto alternativo a Netbeans
-// version para github
+// version para github  rama errorMem
 extern int depurar;
 
 #include "stdio.h"
