@@ -2,7 +2,7 @@
 // calculo del numero  e,   segundo metodo : limite (muy lento)
 //
 
-decimales 4
+decimales 14
 
 e = 0
 
