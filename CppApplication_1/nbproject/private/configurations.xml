@@ -26,10 +26,12 @@
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" raiz22.pr</runcommandpicklistitem>
+          <runcommandpicklistitem> raiz22.pr</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"  raiz22.pr</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" raiz22.pr</runcommand>
-        <arguments>raiz22.pr</arguments>
-        <rundir>.</rundir>
+        <runcommand>"${OUTPUT_PATH}"  raiz22.pr</runcommand>
+        <arguments>,,\,,\..\..\..\raiz22.pr</arguments>
+        <rundir>C:\Users\test\Documents\NetBeansProjects\lenguaje-interpretado\CppApplication_1</rundir>
         <buildfirst>true</buildfirst>
         <console-type>1</console-type>
         <terminal-type>0</terminal-type>
