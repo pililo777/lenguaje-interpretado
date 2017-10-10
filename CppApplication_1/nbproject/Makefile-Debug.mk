@@ -15,13 +15,14 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=g++-4.7
-CXX=g++-4.7
+CCC=g++
+CXX=g++
 FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=Cygwin_4.x-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -34,15 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/run.o \
+	${OBJECTDIR}/err.o \
 	${OBJECTDIR}/grammar.tab.o \
 	${OBJECTDIR}/lex.yy.o \
-	${OBJECTDIR}/err.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/run.o
 
 
 # C Compiler Flags
-CFLAGS=`pkg-config --cflags gtk+-2.0 --libs` 
+CFLAGS=-mms-bitfields -I/cygdrive/d/gtk/include/gtk-2.0 -I/cygdrive/d/gtk/lib/gtk-2.0/include -I/cygdrive/d/gtk/include/atk-1.0 -I/cygdrive/d/gtk/include/cairo -I/cygdrive/d/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/d/gtk/include/pango-1.0 -I/cygdrive/d/gtk/include/glib-2.0 -I/cygdrive/d/gtk/lib/glib-2.0/include -I/cygdrive/d/gtk/include -I/cygdrive/d/gtk/include/freetype2 -I/cygdrive/d/gtk/include/libpng14 -std=c99 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -v -g -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -w
 
 # CC Compiler Flags
 CCFLAGS=
@@ -55,42 +56,40 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/i386-linux-gnu -lgtk-x11-2.0 -lgobject-2.0 /lib/i386-linux-gnu/glib-2.0.so.0
+LDLIBSOPTIONS=-L/usr/lib/i386-linux-gnu -lgobject-2.0
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ./cppapplication_1.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1: /lib/i386-linux-gnu/glib-2.0.so.0
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1: ${OBJECTFILES}
-	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/run.o: run.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -w -I/usr/include/glib-2.0 -I/usr/include/cairo -I/usr/include/atk-1.0 -I/usr/include/gtk-2.0 -I/usr/include/pango-1.0 -I/usr/include/libpng12 -I/usr/include/freetype2 -I/usr/lib/i386-linux-gnu/gtk-2.0/include -I/usr/lib/i386-linux-gnu/glib-2.0/include -I/lib/i386-linux-gnu -MMD -MP -MF $@.d -o ${OBJECTDIR}/run.o run.c
-
-${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -w -I/usr/include/glib-2.0 -I/usr/include/cairo -I/usr/include/atk-1.0 -I/usr/include/gtk-2.0 -I/usr/include/pango-1.0 -I/usr/include/libpng12 -I/usr/include/freetype2 -I/usr/lib/i386-linux-gnu/gtk-2.0/include -I/usr/lib/i386-linux-gnu/glib-2.0/include -I/lib/i386-linux-gnu -MMD -MP -MF $@.d -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
-
-${OBJECTDIR}/lex.yy.o: lex.yy.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -w -I/usr/include/glib-2.0 -I/usr/include/cairo -I/usr/include/atk-1.0 -I/usr/include/gtk-2.0 -I/usr/include/pango-1.0 -I/usr/include/libpng12 -I/usr/include/freetype2 -I/usr/lib/i386-linux-gnu/gtk-2.0/include -I/usr/lib/i386-linux-gnu/glib-2.0/include -I/lib/i386-linux-gnu -MMD -MP -MF $@.d -o ${OBJECTDIR}/lex.yy.o lex.yy.c
+./cppapplication_1.exe: ${OBJECTFILES}
+	${MKDIR} -p .
+	${LINK.c} -o ./cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} -L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl
 
 ${OBJECTDIR}/err.o: err.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -w -I/usr/include/glib-2.0 -I/usr/include/cairo -I/usr/include/atk-1.0 -I/usr/include/gtk-2.0 -I/usr/include/pango-1.0 -I/usr/include/libpng12 -I/usr/include/freetype2 -I/usr/lib/i386-linux-gnu/gtk-2.0/include -I/usr/lib/i386-linux-gnu/glib-2.0/include -I/lib/i386-linux-gnu -MMD -MP -MF $@.d -o ${OBJECTDIR}/err.o err.c
+	${RM} "$@.d"
+	$(COMPILE.c) -g -w -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/err.o err.c
+
+${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -w -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
+
+${OBJECTDIR}/lex.yy.o: lex.yy.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -w -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include/sys -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lex.yy.o lex.yy.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -w -I/usr/include/glib-2.0 -I/usr/include/cairo -I/usr/include/atk-1.0 -I/usr/include/gtk-2.0 -I/usr/include/pango-1.0 -I/usr/include/libpng12 -I/usr/include/freetype2 -I/usr/lib/i386-linux-gnu/gtk-2.0/include -I/usr/lib/i386-linux-gnu/glib-2.0/include -I/lib/i386-linux-gnu -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.c
+	${RM} "$@.d"
+	$(COMPILE.c) -g -w -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include/sys -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/D/GTK/lib/glib-2.0/include -I/cygdrive/D/GTK/include/glib-2.0/glib -I/cygdrive/D/GTK/include/glib-2.0/gobject -I/cygdrive/D/GTK/include/pango-1.0/pango -I/cygdrive/D/GTK/include/gtk-2.0/gdk -I/cygdrive/D/GTK/include/gtk-2.0/gtk -I/cygdrive/D/GTK/include/glib-2.0 -I/cygdrive/D/GTK/include/gtk-2.0 -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
+
+${OBJECTDIR}/run.o: run.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -w -I/cygdrive/D/GTK/lib/glib-2.0/include -I/cygdrive/D/GTK/include/glib-2.0/glib -I/cygdrive/D/GTK/include/glib-2.0/gobject -I/cygdrive/D/GTK/include/cairo -I/cygdrive/D/GTK/include/pango-1.0/pango -I/cygdrive/D/GTK/include/gtk-2.0/gdk -I/cygdrive/D/GTK/include/gtk-2.0/gtk -I/cygdrive/D/GTK/include/glib-2.0 -I/cygdrive/D/GTK/include/gtk-2.0 -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/run.o run.c
 
 # Subprojects
 .build-subprojects:
@@ -98,7 +97,7 @@ ${OBJECTDIR}/main.o: main.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
+	${RM} ./cppapplication_1.exe
 
 # Subprojects
 .clean-subprojects:

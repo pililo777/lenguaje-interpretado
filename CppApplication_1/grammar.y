@@ -4,8 +4,8 @@
 #include "stdio.h"
  
 #define MSDOS
-//char constantes[127][127];
-//char variables[127][127];
+/*char constantes[127][127];
+char variables[127][127];   */
 %}
 
 %union {

@@ -1,9 +1,9 @@
-//run.c
+
 
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
-//  #include <gdk/gdkkeysyms.h>
+/*   #include <gdk/gdkkeysyms.h>   */
 
 extern int linenumber;
 extern int LineaInicial;
@@ -20,7 +20,7 @@ static int  idx_win = 0;
 
 double evalua (elnodo *);
 
-double var[127];  // 127 variables numericas e indices a variables alfa y literales
+double var[127];  /* 127 variables numericas e indices a variables alfa y literales  */
 static int counter1[32];
 static int indice_ctr = 0;  
 static int error_getstring = 0;
@@ -38,9 +38,9 @@ char *getstring(char *s)
         return NULL;
 
 	if (k == 10) { 
-		//k = getchar();
+		
 		error_getstring = 1;
-		//printf("se leyo un caracter 10\n");
+		
 		return NULL;
 	}
     /* Read and store characters until reaching a newline or end-of-file */
@@ -151,7 +151,7 @@ p->nrolinea2 = linenumber;
 return p;
 }
 
-struct widgets {   // para el array de ventanas
+struct widgets {  
     GtkWidget  *nombre;
     GtkWidget  *box1;
     int indice;
@@ -167,10 +167,10 @@ struct cajaTexto {
 
 
 
-struct widgets arrayWidgets[20];  //array de ventanas
+struct widgets arrayWidgets[20]; 
 struct widgets arrayBotones[20];
 
-void callback( GtkWidget *entry, gpointer data) { // al clicar los botones ********************************
+void callback( GtkWidget *entry, gpointer data) {
     int el_proc;
     
     el_proc = (int *) data;
@@ -180,9 +180,9 @@ void callback( GtkWidget *entry, gpointer data) { // al clicar los botones *****
 
 void close_window(GtkWidget *widget, gpointer data)
 {
-    //gtk_widget_destroy(GTK_WIDGET(window));
+   
     gtk_widget_destroy(widget);
-    //gtk_widget_hide(window);
+    
 }
 
 void close_main_window(GtkWidget *widget, gpointer data)
@@ -200,7 +200,7 @@ struct entry_txt {
                     int variable;
                 } entry_texto;
 
-static void enter_callback( GtkWidget *widget, gpointer data) // al dar enter en la caja de texto
+static void enter_callback( GtkWidget *widget, gpointer data) 
 {
    
     GtkWidget *entry;
@@ -222,7 +222,7 @@ static void enter_callback( GtkWidget *widget, gpointer data) // al dar enter en
   printf("variable  %d\n", numero);*/
   
   
- strcpy ( constantes [(int)var[numero]], entry_text);  // aplicamos el nombre del entry a la variable
+ strcpy ( constantes [(int)var[numero]], entry_text); 
  
 }
 
@@ -230,7 +230,7 @@ static void enter_callback( GtkWidget *widget, gpointer data) // al dar enter en
 void * execut(elnodo *  a)
 {
 elnodo * p;
-//p = nuevonodo();
+
 
 p = a;
 switch (p->tipo) {
@@ -278,33 +278,33 @@ switch (p->tipo) {
     
     case guardar_boton :
         {
- 		int a; //el indice de la ventana para el  boton
+ 		int a; 
  		a =  (int)p->nodo1->num;
                 
                 
                 int literal;
                 int procdesignator;
-                literal = (int)p->nodo2->num;   //texto del boton
-                procdesignator = (int)p->nodo3->num;  //indice del evento del boton
+                literal = (int)p->nodo2->num;  
+                procdesignator = (int)p->nodo3->num;  
                 
                 int x;
                 int y;
-                x =  (int)p->nodo4->num;     // coordenadas
+                x =  (int)p->nodo4->num;   
                 y =  (int)p->nodo5->num;
                
-                //GtkWidget *fixed;
+                
                 GtkWidget *button;
                 
                 
-                //fixed = gtk_fixed_new ();
-               // gtk_container_add (GTK_CONTAINER (arrayWidgets[a].box1), button);
+                
+               
                 
                 button = gtk_button_new_with_label(constantes [literal]);
                 gtk_signal_connect(GTK_OBJECT (button), "clicked", GTK_SIGNAL_FUNC (callback), (gpointer) procdesignator   );
                 gtk_fixed_put (GTK_FIXED (arrayWidgets[a].box1), button, x, y);
-                //gtk_widget_show (fixed);    // el fijo
-                gtk_widget_show (button);  //el boton
-                //gtk_widget_show (arrayWidgets[a].box1); 
+                
+                gtk_widget_show (button); 
+               
                 
      		}
                 
@@ -323,16 +323,16 @@ switch (p->tipo) {
                 w =  (int)p->nodo3->num;
                 h =  (int)p->nodo4->num;
                 
-                //GtkWidget *fixed;
+              
                 GtkWidget *label;
                 
-             //   fixed = gtk_fixed_new ();
+           
                 label = gtk_label_new(constantes [l]);
                
-              //  gtk_container_add (GTK_CONTAINER (arrayWidgets[a].box1), label);
+            
                 gtk_fixed_put (GTK_FIXED (arrayWidgets[a].box1), label, w, h);
                 gtk_widget_show (arrayWidgets[a].box1);
-                //gtk_widget_show (fixed);
+              
                 gtk_widget_show (label);
                 
      		}
@@ -347,16 +347,16 @@ switch (p->tipo) {
                 int h;
                 gchar *nombre;
                
- 		a =  (int)p->nodo1->num;   //ventana
-                t =  (int)p->nodo2->num;   //variable alfa
+ 		a =  (int)p->nodo1->num;  
+                t =  (int)p->nodo2->num;  
                 
-                w =  (int)p->nodo3->num;    //ancho y alto
+                w =  (int)p->nodo3->num;   
                 h =  (int)p->nodo4->num;
                 
-                //GtkWidget *fixed;
+               
                 GtkWidget *entry;
                 
-               // fixed = gtk_fixed_new ();
+             
                 entry = gtk_entry_new();
                 
                  gchar buffer [33];
@@ -369,25 +369,25 @@ switch (p->tipo) {
                 
                 g_signal_connect (entry, "changed", G_CALLBACK (enter_callback),  entry );
                
-              //  gtk_container_add (GTK_CONTAINER (arrayWidgets[a].box1), entry);
+            
                 gtk_fixed_put (GTK_FIXED (arrayWidgets[a].box1), entry, w, h);
                 gtk_widget_show (arrayWidgets[a].box1);
-                //gtk_widget_show (fixed);
+                
                 gtk_widget_show (entry);
                 
      		}
                 
                 break;
     
-    case crear_ventana:   //los nombres se convierten en indices, hay que modificar/mejorar esto.
+    case crear_ventana:  
 		{
                
                 int aa;
                 GtkWidget *box1;
-                //box1 = gtk_vbox_new ( TRUE, 0);
+             
                 box1 = gtk_fixed_new ();
                 
-                //int rows = 0; int cols = 0;
+             
                 
  		aa=   (int)p->nodo1->num;
                 int width ;
@@ -396,7 +396,7 @@ switch (p->tipo) {
                 width = (int)p->nodo2->num;
                 heigh = (int)p->nodo3->num;
      		
-                //argv[0] =  constantes [(int)p->nodo1->num] ;
+             
                
                 arrayWidgets[aa].nombre = gtk_window_new (GTK_WINDOW_TOPLEVEL);
                 arrayWidgets[aa].box1 = box1;
@@ -406,7 +406,7 @@ switch (p->tipo) {
                         g_signal_connect (arrayWidgets[aa].nombre, "delete_event", G_CALLBACK (close_main_window), NULL);
                     }
                  else
-                   // g_signal_connect (arrayWidgets[aa].nombre, "delete_event", G_CALLBACK (close_window), NULL);
+                 
                      g_signal_connect ( arrayWidgets[aa].nombre, "destroy", G_CALLBACK(close_window), NULL);
                  
                 arrayWidgets[aa].indice = 1;
@@ -428,12 +428,12 @@ switch (p->tipo) {
                 int aa;
                 
                 aa =   (int)p->nodo1->num ;
-                //argv[0] =  constantes [(int)p->nodo1->num] ;
+             
                 
                 GtkWidget *ventana;
                 ventana = arrayWidgets[aa].nombre ; 
                 gtk_window_set_title((GtkWindow *) ventana, constantes [ (int)p->nodo2->num] );
-                //gtk_widget_show (nuevo);
+                
             
                 }
           	break;
@@ -450,7 +450,7 @@ switch (p->tipo) {
                 int aa;
                 
                 aa =   (int)p->nodo1->num ;
-                //argv[0] =  constantes [(int)p->nodo1->num] ;
+
                 
                 GtkWidget *nuevo;
                 nuevo = arrayWidgets[aa].nombre ; 
@@ -469,7 +469,7 @@ switch (p->tipo) {
                         if (arrayWidgets[i].indice == 1) {
                         GtkWidget *nuevo;
                         nuevo = arrayWidgets[i].nombre ; 
-                       // gtk_window_set_default_size (GTK_WINDOW (nuevo), 400, 350);
+
                         gtk_widget_show (nuevo);
                         }
                     }
@@ -484,9 +484,9 @@ switch (p->tipo) {
  		gint a;
       		gchar *argv[0] ;
  		a=1;
-      		//argv[0] = "";
+      		
                 argv[0] =  constantes [(int)p->nodo1->num] ;
-	//	xmain (a, argv); 
+
      		}
           	break;
 
@@ -498,16 +498,16 @@ switch (p->tipo) {
 
 
 	case secuencia  :
-		// printf("secuencia\n");
+		
 		execut(p->nodo1);
-		// printf("secuencia 2\n");
+		
 		execut(p->nodo2);
 		break; 
                 
          case secuencia_controles  :
-		// printf("secuencia\n");
+
 		execut(p->nodo1);
-		// printf("secuencia 2\n");
+
 		execut(p->nodo2);
 		break; 
                 
@@ -520,11 +520,11 @@ switch (p->tipo) {
                                 sprintf(mensaje2, "%s", constantes [(int)p->nodo1->num] ) ;
                                 strcat(msgbox, mensaje2);
                                 strcat(msgbox, " ");
-                                //printf("MSGBOX %s", msgbox ) ;
+                                
 				break;
 
 	case imprimir_var_alfa:
-				//printf("%s", constantes [(int) var [(int)p->nodo1->num]] ) ;
+				
 		fflush(stdout);
 				printf("%s", constantes [ (int)  var   [(int)p->nodo1->num]    ]) ;
                                 sprintf(mensaje2, "%s", constantes [ (int)  var   [(int)p->nodo1->num]    ]) ;
@@ -607,7 +607,7 @@ switch (p->tipo) {
 
 
 	case imprimir_varios:
-		//printf("imprimir varios\n");
+		
 		execut(p->nodo1);
 		fflush(stdout);
 		printf("\n");
@@ -615,7 +615,7 @@ switch (p->tipo) {
 
 	
 	case llamar:
-		//printf("\nllamar un procedimiento\n");
+	
 		if (procedimientos[(int)p->nodo1->num] == NULL)
 		   {
 			   printf("procedimiento no encontrado en linea: \n");
@@ -624,11 +624,11 @@ switch (p->tipo) {
 		   }
 
 		execut ( procedimientos[ (int) (p->nodo1->num) ]  );
-		//printf("volvemos del procedimiento\n\n");
+	
 		break;
 
 	case asigna_num:
-		//printf("asignar numerico\n");
+	
 		var[(int) p->nodo1->num] = evalua ( p->nodo2 );
 		break;
 

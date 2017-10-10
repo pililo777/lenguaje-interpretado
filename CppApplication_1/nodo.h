@@ -25,7 +25,7 @@ typedef struct elnodo {
         struct elnodo * nodo5;
 } elnodo;
 
-elnodo * procedimientos[127]; //cambiar esta forma
+elnodo * procedimientos[127]; /* cambiar esta forma */
 static int idx_prc = 0;
 
 elnodo * pila_programas[32];

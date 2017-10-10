@@ -72,8 +72,8 @@
 #include "stdio.h"
  
 #define MSDOS
-//char constantes[127][127];
-//char variables[127][127];
+/* char constantes[127][127];
+char variables[127][127];  */
 
 
 /* Line 268 of yacc.c  */
@@ -1557,7 +1557,7 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 56 "grammar.y"
-   // { xmain ("fin del programa\n");  }
+   /* { xmain ("fin del programa\n");  } */
     break;
 
   case 5:
