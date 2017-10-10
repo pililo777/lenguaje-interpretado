@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=Cygwin_4.x-Windows
+CND_PLATFORM=GNU_Cygwin-Windows
 CND_DLIB_EXT=dll
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -43,7 +43,7 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=-mms-bitfields -I/cygdrive/d/gtk/include/gtk-2.0 -I/cygdrive/d/gtk/lib/gtk-2.0/include -I/cygdrive/d/gtk/include/atk-1.0 -I/cygdrive/d/gtk/include/cairo -I/cygdrive/d/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/d/gtk/include/pango-1.0 -I/cygdrive/d/gtk/include/glib-2.0 -I/cygdrive/d/gtk/lib/glib-2.0/include -I/cygdrive/d/gtk/include -I/cygdrive/d/gtk/include/freetype2 -I/cygdrive/d/gtk/include/libpng14 -std=c99 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -v -g -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -w
+CFLAGS=-mms-bitfields -I/cygdrive/d/gtk/include/gtk-2.0 -I/cygdrive/d/gtk/lib/gtk-2.0/include -I/cygdrive/d/gtk/include/atk-1.0 -I/cygdrive/d/gtk/include/cairo -I/cygdrive/d/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/d/gtk/include/pango-1.0 -I/cygdrive/d/gtk/include/glib-2.0 -I/cygdrive/d/gtk/lib/glib-2.0/include -I/cygdrive/d/gtk/include -I/cygdrive/d/gtk/include/freetype2 -I/cygdrive/d/gtk/include/libpng14 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -v -g -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -w
 
 # CC Compiler Flags
 CCFLAGS=
@@ -69,27 +69,27 @@ LDLIBSOPTIONS=-L/usr/lib/i386-linux-gnu -lgobject-2.0
 ${OBJECTDIR}/err.o: err.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -w -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/err.o err.c
+	$(COMPILE.c) -g -w -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/err.o err.c
 
 ${OBJECTDIR}/grammar.tab.o: grammar.tab.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -w -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
+	$(COMPILE.c) -g -w -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
 
 ${OBJECTDIR}/lex.yy.o: lex.yy.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -w -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include/sys -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lex.yy.o lex.yy.c
+	$(COMPILE.c) -g -w -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include/sys -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lex.yy.o lex.yy.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -w -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include/sys -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/D/GTK/lib/glib-2.0/include -I/cygdrive/D/GTK/include/glib-2.0/glib -I/cygdrive/D/GTK/include/glib-2.0/gobject -I/cygdrive/D/GTK/include/pango-1.0/pango -I/cygdrive/D/GTK/include/gtk-2.0/gdk -I/cygdrive/D/GTK/include/gtk-2.0/gtk -I/cygdrive/D/GTK/include/glib-2.0 -I/cygdrive/D/GTK/include/gtk-2.0 -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
+	$(COMPILE.c) -g -w -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include/sys -I../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/D/GTK/lib/glib-2.0/include -I/cygdrive/D/GTK/include/glib-2.0/glib -I/cygdrive/D/GTK/include/glib-2.0/gobject -I/cygdrive/D/GTK/include/pango-1.0/pango -I/cygdrive/D/GTK/include/gtk-2.0/gdk -I/cygdrive/D/GTK/include/gtk-2.0/gtk -I/cygdrive/D/GTK/include/glib-2.0 -I/cygdrive/D/GTK/include/gtk-2.0 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
 
 ${OBJECTDIR}/run.o: run.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -w -I/cygdrive/D/GTK/lib/glib-2.0/include -I/cygdrive/D/GTK/include/glib-2.0/glib -I/cygdrive/D/GTK/include/glib-2.0/gobject -I/cygdrive/D/GTK/include/cairo -I/cygdrive/D/GTK/include/pango-1.0/pango -I/cygdrive/D/GTK/include/gtk-2.0/gdk -I/cygdrive/D/GTK/include/gtk-2.0/gtk -I/cygdrive/D/GTK/include/glib-2.0 -I/cygdrive/D/GTK/include/gtk-2.0 -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/run.o run.c
+	$(COMPILE.c) -g -w -I/cygdrive/D/GTK/lib/glib-2.0/include -I/cygdrive/D/GTK/include/glib-2.0/glib -I/cygdrive/D/GTK/include/glib-2.0/gobject -I/cygdrive/D/GTK/include/cairo -I/cygdrive/D/GTK/include/pango-1.0/pango -I/cygdrive/D/GTK/include/gtk-2.0/gdk -I/cygdrive/D/GTK/include/gtk-2.0/gtk -I/cygdrive/D/GTK/include/glib-2.0 -I/cygdrive/D/GTK/include/gtk-2.0 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/run.o run.c
 
 # Subprojects
 .build-subprojects:

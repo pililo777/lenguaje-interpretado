@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>grammar.tab.h</itemPath>
+      <itemPath>nodo.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -14,13 +16,9 @@
                    projectFiles="true">
       <itemPath>err.c</itemPath>
       <itemPath>grammar.tab.c</itemPath>
-      <itemPath>grammar.tab.h</itemPath>
-      <itemPath>grammar.y</itemPath>
       <itemPath>lex.yy.c</itemPath>
       <itemPath>main.c</itemPath>
-      <itemPath>nodo.h</itemPath>
       <itemPath>run.c</itemPath>
-      <itemPath>tokens.l</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -40,6 +38,8 @@
       <itemPath>/home/ruben/workspace/inter/raiz22.pr</itemPath>
       <itemPath>tokens.l</itemPath>
     </logicalFolder>
+    <itemPath>grammar.y</itemPath>
+    <itemPath>tokens.l</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
@@ -48,7 +48,7 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <compilerSet>Cygwin_4.x|Cygwin_4.x</compilerSet>
+        <compilerSet>GNU_Cygwin|Cygwin</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -69,23 +69,21 @@
           <commandLine>-L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl</commandLine>
         </linkerTool>
       </compileType>
-      <item path="err.c" ex="false" tool="0" flavor2="2">
+      <item path="err.c" ex="false" tool="0" flavor2="9">
         <cTool>
           <incDir>
             <pElem></pElem>
           </incDir>
         </cTool>
       </item>
-      <item path="grammar.tab.c" ex="false" tool="0" flavor2="2">
+      <item path="grammar.tab.c" ex="false" tool="0" flavor2="9">
         <cTool>
           <incDir>
             <pElem></pElem>
           </incDir>
         </cTool>
       </item>
-      <item path="grammar.y" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="lex.yy.c" ex="false" tool="0" flavor2="2">
+      <item path="lex.yy.c" ex="false" tool="0" flavor2="9">
         <cTool>
           <incDir>
             <pElem>../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include/sys</pElem>
@@ -94,7 +92,7 @@
           </incDir>
         </cTool>
       </item>
-      <item path="main.c" ex="false" tool="0" flavor2="2">
+      <item path="main.c" ex="false" tool="0" flavor2="9">
         <cTool>
           <incDir>
             <pElem>../../../../../../Cygwin/usr/x86_64-pc-cygwin/sys-root/usr/include/sys</pElem>
@@ -111,7 +109,7 @@
           </incDir>
         </cTool>
       </item>
-      <item path="run.c" ex="false" tool="0" flavor2="2">
+      <item path="run.c" ex="false" tool="0" flavor2="9">
         <cTool>
           <incDir>
             <pElem>D:/GTK/lib/glib-2.0/include</pElem>
