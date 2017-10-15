@@ -13,7 +13,7 @@ CND_BUILDDIR=build
 CND_DLIB_EXT=dll
 NBTMPDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=cppapp1.exe
+OUTPUT_PATH=../ejemplos/cppapp1.exe
 OUTPUT_BASENAME=cppapp1.exe
 PACKAGE_TOP_DIR=cppapplication1/
 

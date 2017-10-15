@@ -65,10 +65,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk cppapp1.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ../ejemplos/cppapp1.exe
 
-cppapp1.exe: ${OBJECTFILES}
-	${LINK.c} -o cppapp1.exe ${OBJECTFILES} ${LDLIBSOPTIONS} -L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl
+../ejemplos/cppapp1.exe: ${OBJECTFILES}
+	${MKDIR} -p ../ejemplos
+	${LINK.c} -o ../ejemplos/cppapp1.exe ${OBJECTFILES} ${LDLIBSOPTIONS} -L/cygdrive/d/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl
 
 ${OBJECTDIR}/bt.o: nbproject/Makefile-${CND_CONF}.mk bt.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -126,7 +127,7 @@ ${OBJECTDIR}/variables.o: nbproject/Makefile-${CND_CONF}.mk variables.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} cppapp1.exe
+	${RM} ../ejemplos/cppapp1.exe
 
 # Subprojects
 .clean-subprojects:
