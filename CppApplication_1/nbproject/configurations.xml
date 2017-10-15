@@ -10,10 +10,11 @@
       <itemPath>../ejemplos/integracion.pr</itemPath>
       <itemPath>../ejemplos/integracion2.pr</itemPath>
       <itemPath>../ejemplos/integracion3.pr</itemPath>
+      <itemPath>../ejemplos/listado.pr</itemPath>
       <itemPath>../ejemplos/numeroEuler2.pr</itemPath>
       <itemPath>../ejemplos/numerodeEuler.pr</itemPath>
       <itemPath>../ejemplos/raiz_cuadrada.pr</itemPath>
-      <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr</itemPath>
+      <itemPath>../ejemplos/registros.pr</itemPath>
       <itemPath>../ejemplos/si_anidado.pr</itemPath>
       <itemPath>../ejemplos/ventanas.pr</itemPath>
       <itemPath>../ejemplos/ventanas2.pr</itemPath>
@@ -137,11 +138,15 @@
       </item>
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/registros.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -169,11 +174,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
             ex="false"
             tool="3"
             flavor2="0">
@@ -256,11 +256,15 @@
       </item>
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/registros.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -288,11 +292,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
             ex="false"
             tool="3"
             flavor2="0">
@@ -360,11 +359,15 @@
       </item>
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/registros.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -392,11 +395,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
             ex="false"
             tool="3"
             flavor2="0">
@@ -459,11 +457,15 @@
       </item>
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/registros.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -491,11 +493,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
             ex="false"
             tool="3"
             flavor2="0">
@@ -560,11 +557,15 @@
       </item>
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/registros.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -592,11 +593,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
             ex="false"
             tool="3"
             flavor2="0">
@@ -672,11 +668,15 @@
       </item>
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/registros.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -704,11 +704,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
             ex="false"
             tool="3"
             flavor2="0">
@@ -776,11 +771,15 @@
       </item>
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numerodeEuler.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/raiz_cuadrada.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/registros.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/si_anidado.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -808,11 +807,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/si.pr"
             ex="false"
             tool="3"
             flavor2="0">

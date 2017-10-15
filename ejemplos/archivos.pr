@@ -12,7 +12,7 @@ registro clientes 'nuevos contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
   CDIRECCION 61
-  CTELEFONO 9
+  CTELEFONO 10 
 fin-registro
 
 //creamos el indice por si no existe
@@ -105,6 +105,7 @@ mientras (num_archivo <> 99) yy (finalizo = 0)
 num_archivo = 0
 cerrar num_archivo
 close //indice
+
 terminar
 
 //sin uso, sintaxis para guardar en un archivo abierto con largo y fin de linea opcional
@@ -128,7 +129,7 @@ proc insertar_en_archivos
     si encontrado = 1 entonces
 		imprimir 'YA EXISTE ESTA CLAVE: ', CCLAVE,  '   : NO SE PUEDE INSERTAR'
 		//prueba: si encuentro una duplicada, le digo al bucle principal que aborte
-		finalizo = 1
+		finalizo = 0
 	sino
 		imprimir 'clave insertada: ', CCLAVE
 	si-fin

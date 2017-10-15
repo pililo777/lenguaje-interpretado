@@ -9,7 +9,7 @@ registro clientes 'nuevos contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
   CDIRECCION 61
-  CTELEFONO 9
+  CTELEFONO 10
 fin-registro
  
 INDICE = 'nuevos contactos.ndx'

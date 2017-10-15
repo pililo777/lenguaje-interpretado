@@ -1,10 +1,12 @@
 x=130
+dim vec1 17
+dim vec2 17
 
 registro clientes 'nuevos contactos.dbf'
   CCLAVE 10 
   CNOMBRE 61
   CDIRECCION 61
-  CTELEFONO 9
+  CTELEFONO 10
 fin-registro
 
 FICH_INDICE = 'nuevos contactos.ndx'
@@ -40,7 +42,7 @@ xyz boton 'Graficar...'  clicar_boton   220 270   //clicar_boton
 numero_boton = 0
 coordx = 0
 coordy = 0
-
+indice = 0
 // activa todas las ventanas creadas hasta que se cierra la primera
 llamar ventana xyz   
 
@@ -175,23 +177,23 @@ procedimiento clicar_ventana_grafica
    		// llamar dibujar_lineas_rectas
    		i=0
    		mientras i < indice
-   		haz
+   		{
    			//imprimir vec1[i], ' ', vec2[i]
-   			
+
    			coordx = vec1[i]
    			coordy = vec2[i]
-   			
+
    			j=0
    			mientras j < indice
-   			haz
+   			{
    			   coordx_1 = vec1[j]
    			   coordy_1 = vec2[j]
    			   //imprimir 'linea desde ' , coordx, ' ', coordy, ' hasta ' , coordx1, ' ', coordy1
    			   linea coordx, coordy,  coordx_1, coordy_1
    			   j = j + 1
-   			fin-haz
+   			}
    			i=i+1
-   		fin-haz
+   		}
 		indice = 0
    si-fin
 
@@ -207,10 +209,10 @@ procedimiento clicar_boton
 	imprimir 'el texto es: ' , CANTIDAD
 	i=1
 	mientras i<121
-	haz
+	{
 	    //imprimir 'linea desde ' , i*10+100, ' ', i*10+10, ' hasta ' , i*20+200, ' ', i*30+300
 		linea i*5+20, i*5+20, i*5+100, i*5+20
 		circulo i*5+20, i*5+20, numero
 		i=i+10
-	fin-haz
+	}
 fin

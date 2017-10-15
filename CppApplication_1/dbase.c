@@ -822,7 +822,7 @@ parse() {
 
 help(char *param, char *param2) {
     printf( "comandos:\n");
-    printf( " l ls lc help pwd clear quit buffer store ? display memory\n");
+    printf( " inter l ls lc help pwd clear quit buffer store ? display memory\n");
     printf( " use buscar list close do arbol buscar  insertar  eliminar\n");
     printf( " editorgtk cargar run  cargalib descargalib vars var n   prog n\n");
     printf( " editor evalua \n");
