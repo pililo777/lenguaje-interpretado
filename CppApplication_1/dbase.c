@@ -52,7 +52,7 @@ extern void initProcedimientos();
 extern void velocidad();
 extern void velocidad2();
 extern void liberar_mem();
-extern void freevar();
+extern void mainsql(); 
 
 
 int dbminit();
@@ -256,7 +256,8 @@ init_comandos() {
    comando[38].pfuncion = liberar_mem;
    
    comando[39].nombre = "free";           //30/09/2016
-   comando[39].pfuncion = freevar;
+   /*  comando[39].pfuncion = freevar;   */
+   comando[39].pfuncion = mainsql;
 
 }
 
