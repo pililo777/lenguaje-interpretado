@@ -6,7 +6,7 @@
 
 # Macros
 TOP=`pwd`
-CND_PLATFORM=GNU_Cygwin-Windows
+CND_PLATFORM=Cygwin_1-Windows
 CND_CONF=Windows_G
 CND_DISTDIR=dist
 CND_BUILDDIR=build

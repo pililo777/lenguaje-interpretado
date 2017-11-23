@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU_Cygwin-Windows
+CND_PLATFORM=Cygwin_1-Windows
 CND_DLIB_EXT=dll
 CND_CONF=Release
 CND_DISTDIR=dist
@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/1322756724/sql.o \
 	${OBJECTDIR}/bt.o \
 	${OBJECTDIR}/dbase.o \
 	${OBJECTDIR}/dinamic.o \
@@ -70,6 +71,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/_ext/1322756724/sql.o: /cygdrive/C/Users/usuario/Documents/NetBeansProjects/lenguaje-interpretado/myModule/sql.c 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1322756724
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1322756724/sql.o /cygdrive/C/Users/usuario/Documents/NetBeansProjects/lenguaje-interpretado/myModule/sql.c
 
 ${OBJECTDIR}/bt.o: bt.c 
 	${MKDIR} -p ${OBJECTDIR}

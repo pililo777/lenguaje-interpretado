@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU_Cygwin-Windows
+CND_PLATFORM=Cygwin_1-Windows
 CND_DLIB_EXT=dll
 CND_CONF=Debug_mac
 CND_DISTDIR=dist
@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/1322756724/sql.o \
 	${OBJECTDIR}/bt.o \
 	${OBJECTDIR}/dbase.o \
 	${OBJECTDIR}/dinamic.o \
@@ -70,6 +71,11 @@ LDLIBSOPTIONS=`pkg-config --libs cairo` `pkg-config --libs cairo-quartz` `pkg-co
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/_ext/1322756724/sql.o: /cygdrive/C/Users/usuario/Documents/NetBeansProjects/lenguaje-interpretado/myModule/sql.c 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1322756724
+	${RM} "$@.d"
+	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags cairo-quartz` `pkg-config --cflags fontconfig` `pkg-config --cflags freetype2` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gio-2.0` `pkg-config --cflags glib-2.0` `pkg-config --cflags gobject-2.0` `pkg-config --cflags gtk+-quartz-2.0` `pkg-config --cflags libpng` `pkg-config --cflags pango` `pkg-config --cflags pangocairo` `pkg-config --cflags pixman-1`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1322756724/sql.o /cygdrive/C/Users/usuario/Documents/NetBeansProjects/lenguaje-interpretado/myModule/sql.c
 
 ${OBJECTDIR}/bt.o: bt.c 
 	${MKDIR} -p ${OBJECTDIR}

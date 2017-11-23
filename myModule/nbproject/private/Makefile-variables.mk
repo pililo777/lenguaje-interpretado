@@ -9,4 +9,3 @@
 # Windows_E configuration
 # Windows_G configuration
 # WindowsPC configuration
-# Linux configuration
