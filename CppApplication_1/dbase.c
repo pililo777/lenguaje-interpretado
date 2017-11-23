@@ -129,6 +129,8 @@ int *resultado = 0; /* para recuperar resultado de algunas funciones */
 int depurando = 1; /* bandera para depurar */
 int *parametro1;
 int *parametro2;
+
+char *consulta;
  
 /* FIN DE VARIABLES GLOBALES */
 
@@ -268,7 +270,16 @@ extern xapuntador xraiz;
 
 extern int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 //int obtenerllave(tipollave *);
+extern void mainsql2();
 
+void mainsql() {
+    consulta = (char*) malloc(strlen(buff2[1])+1);
+    strcpy(consulta, buff2[1]+1);
+    consulta[strlen(consulta)-1] = 0;
+    printf("%s\n", consulta);
+    mainsql2();
+    //free(consulta);
+}
 
 void eliminar_en_indice() {
      strcpy(llave, buff2[1]);

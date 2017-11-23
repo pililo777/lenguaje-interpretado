@@ -9,35 +9,42 @@
 static LOGINREC              *src_login;
 static DBPROCESS             *src_dbproc;
 
-mainsql() {
+extern char *consulta;
+
+// https://lists.ibiblio.org/pipermail/freetds/2007q4/022482.html
+void mainsql2() {
 
 	RETCODE retcode;
-	int seqnbr_arg = 99;
+	//int seqnbr_arg = 99;
 	char Name[500], Desc[500];
 	int Value;
+        
         char *src_serv = "local"; /* as listed in freetds.config */
+/*
         char *DestPasswd;
         char *whereclause;
         char *sortby;
+*/
         
 
 	if (dbinit() == FAIL)
 		exit(-1);
                 
-src_login = dblogin();
-DBSETLUSER(src_login, "sa");
-DBSETLPWD(src_login, "1.Write.1");
-DBSETLAPP(src_login, "example");
+        src_login = dblogin();
+        DBSETLUSER(src_login, "sa");
+        DBSETLPWD(src_login, "1.Write.1");
+        DBSETLAPP(src_login, "example");
         
         
 	if((src_dbproc = dbopen(src_login, src_serv)) == FAIL) {
 		fprintf(stderr, "Could not open server %s\n", src_serv);
 		exit(1);
 	}
+        
+        dbcmd(src_dbproc, consulta);
+      //  dbcmd(src_dbproc, " where Clau like 'T%' ");
 
-	dbfcmd(src_dbproc, 
-               "SELECT top 1 c.Clau FROM Usuaris.dbo.Usuaris AS c", 
-               seqnbr_arg);
+	//dbfcmd(src_dbproc,  "select top 10 c.clau from usuaris.dbo.usuaris as c where c.clau like 'T%'");
 	
 	dbsqlexec(src_dbproc);
 
@@ -62,6 +69,10 @@ DBSETLAPP(src_login, "example");
 	return 0;
 }
 
+
+
+
+// http://www.freetds.org/userguide/samplecode.htm
 int mainsql3()
 {
 DBPROCESS *dbproc; /* The connection with */
