@@ -15,53 +15,53 @@ CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Windows/package
 CND_PACKAGE_NAME_Debug=cppapp1.tar
 CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Windows/package/cppapp1.tar
 # Release configuration
-CND_PLATFORM_Release=GNU_Cygwin-Windows
-CND_ARTIFACT_DIR_Release=dist/Release/GNU_Cygwin-Windows
+CND_PLATFORM_Release=Cygwin-Windows
+CND_ARTIFACT_DIR_Release=dist/Release/Cygwin-Windows
 CND_ARTIFACT_NAME_Release=mymodule
-CND_ARTIFACT_PATH_Release=dist/Release/GNU_Cygwin-Windows/mymodule
-CND_PACKAGE_DIR_Release=dist/Release/GNU_Cygwin-Windows/package
+CND_ARTIFACT_PATH_Release=dist/Release/Cygwin-Windows/mymodule
+CND_PACKAGE_DIR_Release=dist/Release/Cygwin-Windows/package
 CND_PACKAGE_NAME_Release=mymodule.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU_Cygwin-Windows/package/mymodule.tar
+CND_PACKAGE_PATH_Release=dist/Release/Cygwin-Windows/package/mymodule.tar
 # Windows configuration
-CND_PLATFORM_Windows=GNU_Cygwin-Windows
-CND_ARTIFACT_DIR_Windows=dist/Windows/GNU_Cygwin-Windows
+CND_PLATFORM_Windows=Cygwin-Windows
+CND_ARTIFACT_DIR_Windows=dist/Windows/Cygwin-Windows
 CND_ARTIFACT_NAME_Windows=mymodule
-CND_ARTIFACT_PATH_Windows=dist/Windows/GNU_Cygwin-Windows/mymodule
-CND_PACKAGE_DIR_Windows=dist/Windows/GNU_Cygwin-Windows/package
+CND_ARTIFACT_PATH_Windows=dist/Windows/Cygwin-Windows/mymodule
+CND_PACKAGE_DIR_Windows=dist/Windows/Cygwin-Windows/package
 CND_PACKAGE_NAME_Windows=mymodule.tar
-CND_PACKAGE_PATH_Windows=dist/Windows/GNU_Cygwin-Windows/package/mymodule.tar
+CND_PACKAGE_PATH_Windows=dist/Windows/Cygwin-Windows/package/mymodule.tar
 # Windows_E configuration
-CND_PLATFORM_Windows_E=GNU_Cygwin-Windows
-CND_ARTIFACT_DIR_Windows_E=dist/Windows_E/GNU_Cygwin-Windows
+CND_PLATFORM_Windows_E=Cygwin-Windows
+CND_ARTIFACT_DIR_Windows_E=dist/Windows_E/Cygwin-Windows
 CND_ARTIFACT_NAME_Windows_E=mymodule
-CND_ARTIFACT_PATH_Windows_E=dist/Windows_E/GNU_Cygwin-Windows/mymodule
-CND_PACKAGE_DIR_Windows_E=dist/Windows_E/GNU_Cygwin-Windows/package
+CND_ARTIFACT_PATH_Windows_E=dist/Windows_E/Cygwin-Windows/mymodule
+CND_PACKAGE_DIR_Windows_E=dist/Windows_E/Cygwin-Windows/package
 CND_PACKAGE_NAME_Windows_E=mymodule.tar
-CND_PACKAGE_PATH_Windows_E=dist/Windows_E/GNU_Cygwin-Windows/package/mymodule.tar
+CND_PACKAGE_PATH_Windows_E=dist/Windows_E/Cygwin-Windows/package/mymodule.tar
 # Windows_G configuration
-CND_PLATFORM_Windows_G=GNU_Cygwin-Windows
-CND_ARTIFACT_DIR_Windows_G=dist/Windows_G/GNU_Cygwin-Windows
+CND_PLATFORM_Windows_G=Cygwin-Windows
+CND_ARTIFACT_DIR_Windows_G=dist/Windows_G/Cygwin-Windows
 CND_ARTIFACT_NAME_Windows_G=mymodule
-CND_ARTIFACT_PATH_Windows_G=dist/Windows_G/GNU_Cygwin-Windows/mymodule
-CND_PACKAGE_DIR_Windows_G=dist/Windows_G/GNU_Cygwin-Windows/package
+CND_ARTIFACT_PATH_Windows_G=dist/Windows_G/Cygwin-Windows/mymodule
+CND_PACKAGE_DIR_Windows_G=dist/Windows_G/Cygwin-Windows/package
 CND_PACKAGE_NAME_Windows_G=mymodule.tar
-CND_PACKAGE_PATH_Windows_G=dist/Windows_G/GNU_Cygwin-Windows/package/mymodule.tar
+CND_PACKAGE_PATH_Windows_G=dist/Windows_G/Cygwin-Windows/package/mymodule.tar
 # WindowsPC configuration
-CND_PLATFORM_WindowsPC=GNU-Linux-x86
-CND_ARTIFACT_DIR_WindowsPC=
+CND_PLATFORM_WindowsPC=Cygwin-Windows
+CND_ARTIFACT_DIR_WindowsPC=../ejemplos
 CND_ARTIFACT_NAME_WindowsPC=libmyModule.so
-CND_ARTIFACT_PATH_WindowsPC=libmyModule.so
-CND_PACKAGE_DIR_WindowsPC=dist/WindowsPC/GNU-Linux-x86/package
-CND_PACKAGE_NAME_WindowsPC=libmyModule.so.tar
-CND_PACKAGE_PATH_WindowsPC=dist/WindowsPC/GNU-Linux-x86/package/libmyModule.so.tar
+CND_ARTIFACT_PATH_WindowsPC=../ejemplos/libmyModule.so
+CND_PACKAGE_DIR_WindowsPC=dist/WindowsPC/Cygwin-Windows/package
+CND_PACKAGE_NAME_WindowsPC=libmyModule.dll.tar
+CND_PACKAGE_PATH_WindowsPC=dist/WindowsPC/Cygwin-Windows/package/libmyModule.dll.tar
 # Linux configuration
-CND_PLATFORM_Linux=GNU-Linux-x86
+CND_PLATFORM_Linux=Cygwin-Windows
 CND_ARTIFACT_DIR_Linux=../ejemplos
-CND_ARTIFACT_NAME_Linux=libmyModule.so
-CND_ARTIFACT_PATH_Linux=../ejemplos/libmyModule.so
-CND_PACKAGE_DIR_Linux=dist/Linux/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Linux=libmyModule.so.tar
-CND_PACKAGE_PATH_Linux=dist/Linux/GNU-Linux-x86/package/libmyModule.so.tar
+CND_ARTIFACT_NAME_Linux=libmyModule.dll
+CND_ARTIFACT_PATH_Linux=../ejemplos/libmyModule.dll
+CND_PACKAGE_DIR_Linux=dist/Linux/Cygwin-Windows/package
+CND_PACKAGE_NAME_Linux=libmyModule.dll.tar
+CND_PACKAGE_PATH_Linux=dist/Linux/Cygwin-Windows/package/libmyModule.dll.tar
 #
 # include compiler specific variables
 #

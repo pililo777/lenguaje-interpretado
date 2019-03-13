@@ -174,7 +174,7 @@ init_comandos() {
     comando[1].pfuncion = pwd;
     comando[2].nombre = "quit";
     comando[2].pfuncion = quit;
-    comando[3].nombre = "lc";
+    comando[3].nombre = "chdir";
     comando[3].pfuncion = lc;
     comando[4].nombre = "ls";
     comando[4].pfuncion = ls;
@@ -214,7 +214,7 @@ init_comandos() {
     comando[21].pfuncion = runall; 
     comando[22].nombre = "evalua";
     comando[22].pfuncion = interpretar;
-    comando[23].nombre = "editor";
+    comando[23].nombre = "system";
     comando[23].pfuncion = editor;
     comando[24].nombre = "cargalib";
     comando[24].pfuncion = cargaDinamica;
@@ -796,7 +796,8 @@ parse() {
         while (buff1[i] && buff1[i] != ' ') {
             buff2[j][k] = buff1[i];
             if (buff1[i] == '"') {
-                hubocomilla = 1;
+                hubocomilla = 1; k--;
+                buff2[j][k] = ' ';
                 i++;
                 k++;
                 while (buff1[i] != '"' && buff1[i]) {
@@ -804,8 +805,8 @@ parse() {
                     i++;
                     k++;
                 }
-                buff2[j][k] = '"';
-                buff2[j][k + 1] = '\0';
+               // buff2[j][k] = '"';
+                buff2[j][k] = '\0';
             }
             i++;
             k++;
@@ -905,8 +906,14 @@ char *mensaje;
 
 editor() {
         char cmd[64];
-        snprintf(cmd, sizeof cmd, "vi  %s", buff2[1]);
+        snprintf(cmd, sizeof cmd, "%s", buff2[1]);
         system(cmd);
+}
+
+lc() {
+    char cmd[64];
+    snprintf(cmd, sizeof cmd, "%s", buff2[1]);
+    chdir(cmd);
 }
 
 

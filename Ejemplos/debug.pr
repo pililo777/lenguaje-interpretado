@@ -1,0 +1,10 @@
+
+A = 'esto no debe cambiar'
+dim R 2
+dim L 2
+
+R[0] = A
+L[0] = R[0]
+
+imprimir L[0]
+

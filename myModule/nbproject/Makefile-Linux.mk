@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
-CND_DLIB_EXT=so
+CND_PLATFORM=Cygwin-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -60,12 +60,12 @@ LDLIBSOPTIONS=
 
 ../ejemplos/libmyModule.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ../ejemplos
-	${LINK.c} -o ../ejemplos/libmyModule.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+	${LINK.c} -o ../ejemplos/libmyModule.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
-${OBJECTDIR}/myModule.o: myModule.c 
+${OBJECTDIR}/myModule.o: myModule.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/myModule.o myModule.c
+	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/myModule.o myModule.c
 
 # Subprojects
 .build-subprojects:
@@ -73,7 +73,6 @@ ${OBJECTDIR}/myModule.o: myModule.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ../ejemplos/libmyModule.${CND_DLIB_EXT}
 
 # Subprojects
 .clean-subprojects:

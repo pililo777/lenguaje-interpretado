@@ -60,7 +60,7 @@ int funcionDinamica() {
             return(1);
         }
         //aqui se realiza la llamada a 'listarTDS' en la libreria dinamica
-        (*ejemploFuncionDinamica)(&contador, &contadorvar, array_variables, constantes);
+        (*ejemploFuncionDinamica)(&contador, &contadorvar, array_variables,  constantes);
     }
 
     

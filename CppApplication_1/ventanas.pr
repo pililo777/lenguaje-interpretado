@@ -1,0 +1,254 @@
+/*
+
+Ejemplo de acceso a ficheros indice y de datos. También muestra cómo crear y usar ventanas tipo form.
+
+*/
+
+
+registro clientes 'nuevos contactos.dbf'
+  CCLAVE 10 
+  CNOMBRE 61
+  CDIRECCION 61
+  CTELEFONO 10
+fin-registro
+ 
+INDICE = 'nuevos contactos.ndx'
+use INDICE   //trabajaremos con el indice
+ 
+evalua "resultado = 3*8"
+// queda pendiente evaluar una variable alfanumerica
+// y concatenar variables alfanumericas
+evalua "imprimir resultado"
+x=0
+desde x = 1 hasta 5 
+	haz
+		imprimir 'x=', x
+		//stop
+	fin-haz
+indice = 0  // variable para los vectores de coordenadas
+
+dim vec1 7
+i=0
+mientras i < 7
+	haz
+		vec1[i]= i * 2
+		i = i + 1
+	fin-haz
+// probando a copiar un vector
+dim vec2 7
+i=0
+mientras i < 7
+	haz
+		vec2[i] = vec1[i] * 3
+		i=i+1
+	fin-haz
+j = 0
+mientras j < 7
+	haz
+		imprimir 'resultado: ', j, ' ',  vec2[j]
+		j = j + 1
+	fin-haz	
+imprimir 'vectores: ',  vec1[1], ' ',  vec1[2], ' ',  vec2[1]
+imprimir 'x=', x
+ 
+NOMBRE = '10320'
+APELLIDO = 'nombre de la empresa'
+DIRECCION = 'direccion de la empresa'
+TELEFONO = ' 9999 '
+  
+xyz = 1
+abc = 2
+ 
+x=130
+ventana xyz 500 340
+xyz ventana 'DEMOSTRACION DE CONSULTA DE DATOS'
+xyz etiqueta 'INTRODUCE UN CODIGO Y HAZ CLIC EN BUSCAR:' 10 10 
+xyz etiqueta 'Código: '   10 30
+xyz texto NOMBRE           (x + 0), 30
+xyz etiqueta 'Empresa:' 10 70
+xyz texto APELLIDO         (x + 0 ), 70
+xyz etiqueta 'Dirección:' 10 110
+xyz texto DIRECCION        (x + 0), 110
+xyz etiqueta 'Teléfonos:' 10 150
+xyz texto TELEFONO         (x + 0), 150
+ // enlaza un boton con un evento que muestra un dialogo con un mensaje
+xyz boton 'Buscar...'   buscar_en_indice   300 30  //anteriormente abre_ventana
+xyz boton 'Insertar...'   insertar_en_indice   300 50
+xyz boton 'Actualizar...'   actualizar_en_indice   300 90
+xyz boton 'Ventana Grafica'  mostrar_grafica   20 270   //clicar_boton
+xyz boton 'Graficar...'  clicar_boton   220 270   //clicar_boton
+
+
+imprimir 'llamando a la funcion graficos'
+numero_boton = 0
+coordx = 0
+coordy = 0
+
+
+imprimir 'se ha llamado a la funcion de graficos'
+
+// activa todas las ventanas creadas hasta que se cierra la primera
+llamar ventana xyz   
+
+// despues de cerrar la primer ventana el flujo continua aqui:
+
+imprimir 'finalizando.....'
+imprimir 'resultado = ', resultado
+llamar 'imprimir resultado'
+terminar  // ****************  finaliza  el programa *************
+
+proc mostrar_grafica
+	graficos     clicar_ventana_grafica     numero_boton coordx coordy
+fin
+ 
+proc buscar_en_indice
+         encontrado = 0
+         numeroreg = 0
+
+         buscar NOMBRE encontrado numeroreg
+
+         si encontrado = 1 entonces
+            imprimir 'el dato se encuentra en la posicion: ', numeroreg
+            buscar registro clientes numeroreg
+            DIRECCION =  CDIRECCION
+            APELLIDO = CNOMBRE
+            TELEFONO  =  CTELEFONO
+            NOMBRE    =  CCLAVE
+         sino
+            APELLIDO = 'no se ha encontrado'
+		    mensaje 'no se ha encontrado esa clave'
+         si-fin
+          
+	 actualizar ventana xyz
+fin
+
+
+proc  actualizar_en_indice
+         encontrado = 0
+         numeroreg = 0
+
+         buscar NOMBRE encontrado numeroreg
+
+         si encontrado = 1 entonces
+              
+            imprimir 'el dato se encuentra en la posicion: ', numeroreg
+            CDIRECCION =  DIRECCION
+            CCLAVE = NOMBRE
+            CTELEFONO  =  TELEFONO
+		    CNOMBRE = APELLIDO
+
+		    imprimir 'cdireccion = ', CDIRECCION
+
+            actualizar registro clientes numeroreg
+
+         sino
+            APELLIDO = 'no se ha encontrado esa clave'
+		    mensaje 'no se ha encontrado esa clave'
+         si-fin
+          
+	 actualizar ventana xyz
+fin
+
+
+proc insertar_en_indice
+         encontrado = 0
+         CDIRECCION = DIRECCION
+         CNOMBRE = APELLIDO   //pendiente arreglar esta confusion
+         CTELEFONO = TELEFONO
+         CCLAVE = NOMBRE   //esta tambien
+
+         insertar NOMBRE encontrado clientes
+         si encontrado = 1 entonces
+            mensaje 'YA EXISTE ESTA CLAVE, NO SE PUEDE INSERTAR'
+         si-fin
+	 actualizar ventana xyz
+fin
+
+
+procedimiento abre_ventana
+        // imprimir 'el nombre es: ', NOMBRE
+	 ventana abc 400 350
+	 abc ventana 'SEGUNDA VENTANA'
+	 abc etiqueta 'INTRODUZCA SU APELLIDO: ' 10 20 
+	 abc texto APELLIDO 200, 20
+	 abc boton 'por favor clic aqui' clicar_boton2  140 150
+fin
+
+procedimiento clicar_boton2
+  //mensaje 'el boton ha sido clicado ', x, x*2
+  //stop
+  mensaje 'Los datos son: N:', NOMBRE, ' A:', APELLIDO, ' D:', DIRECCION, ' T:', TELEFONO
+fin
+
+procedimiento clicar_boton3
+  //mensaje 'clicaste en la  segunda ventana ', x*2
+  mensaje 'el apellido es: ', APELLIDO
+fin
+
+procedimiento clicar_ventana_grafica22
+	si numero_boton = 1 entonces
+		si indice = 0 entonces
+   	 		x = coordx // colocar coordx en vector vec1
+   			y = coordy // colocar coordy en vector vec2
+   			indice = 1
+   		sino
+   			x1 = coordx
+   			y1 = coordy
+   			indice = 0
+   		si-fin
+   	sino
+   		linea x, y, x1, y1
+   	si-fin
+fin
+
+
+procedimiento clicar_ventana_grafica
+   si numero_boton = 1 entonces
+   		// boton izquierdo
+   		vec1[indice] = coordx // colocar coordx en vector vec1
+   		vec2[indice] = coordy // colocar coordy en vector vec2
+   		indice = indice + 1
+   sino
+   		// boton  derecho: graficar
+   		// llamar dibujar_lineas_rectas
+   		i=0
+   		mientras i < indice
+   		haz
+   			//imprimir vec1[i], ' ', vec2[i]
+   			
+   			coordx = vec1[i]
+   			coordy = vec2[i]
+   			
+   			j=0
+   			mientras j < indice
+   			{
+   			   coordx_1 = vec1[j]
+   			   coordy_1 = vec2[j]
+   			   //imprimir 'linea desde ' , coordx, ' ', coordy, ' hasta ' , coordx1, ' ', coordy1
+   			   linea coordx, coordy,  coordx_1, coordy_1
+   			   j = j + 1
+   			}
+   			i=i+1
+   		fin-haz
+		indice = 0
+   si-fin
+
+fin
+
+
+procedimiento clicar_boton
+	numero = 0
+	CANTIDAD = ' '
+	convertir NOMBRE numero
+	imprimir 'el numero es: ' , numero
+	convertir numero CANTIDAD
+	imprimir 'el texto es: ' , CANTIDAD
+	i=1
+	mientras i<121
+	haz
+	    //imprimir 'linea desde ' , i*10+100, ' ', i*10+10, ' hasta ' , i*20+200, ' ', i*30+300
+		linea i*5+20, i*5+20, i*5+100, i*5+20
+		circulo i*5+20, i*5+20, numero
+		i=i+10
+	fin-haz
+fin

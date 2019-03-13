@@ -1,0 +1,47 @@
+/*
+
+lista los 3 primeros registros del fichero de datos dbf
+
+*/
+
+
+registro clientes 'nuevos contactos.dbf'
+  CCLAVE 10 
+  CNOMBRE 61
+  CDIRECCION 61
+  CTELEFONO 9
+fin-registro
+ 
+INDICE = 'nuevos contactos.ndx'
+use INDICE   //trabajaremos con el indice
+
+CLAVE = '10320'
+NOMBRE = 'nombre de la empresa'
+DIRECCION = 'direccion de la empresa'
+TELEFONO = ' 9999 '
+
+desde numeroreg = 1 hasta 3
+{
+	imprimir 'el dato se encuentra en la posicion: ', numeroreg
+	buscar registro clientes numeroreg
+	DIRECCION =  CDIRECCION
+	NOMBRE = CNOMBRE
+	TELEFONO  =  CTELEFONO
+	CLAVE    =  CCLAVE
+
+	imprimir CLAVE
+	imprimir DIRECCION
+	imprimir NOMBRE
+	imprimir TELEFONO
+}
+
+close //  cierra el indice con la ultima raiz
+
+imprimir 'Fin del listado!'
+
+ 
+
+
+
+
+
