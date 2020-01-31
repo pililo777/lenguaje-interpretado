@@ -31,8 +31,9 @@ void initmyModule() {
 extern   int variables_count ;
  
 //extern char   variables[127][127];
-//extern char   constantes[127][127];
+extern char   constantes[127][127];
 
+/*
 typedef struct struct_variable  {
           char        tipo;
           char        nombre[48];
@@ -44,8 +45,27 @@ typedef struct struct_variable  {
           int       dim1;
           int       dim2;
 } ;
+*/
 
-//extern struct struct_variable array_variables[];
+
+typedef struct struct_variable  {
+          char        tipo;
+          char        nombre[48];
+         // char        valor[127]; 
+          char *      string;
+          double      numero;
+          int         procedimiento;
+          short       backup;
+          int       dim1;
+          int       dim2;
+} struct_variable;
+
+
+
+
+
+
+extern struct struct_variable array_variables[256];
  
 /*struct struct_variable  {
           char        tipo;
@@ -78,12 +98,12 @@ void listarTDS(int * contador, int * contadorvar, struct struct_variable array_v
     
     for (i=0; i<contvar;i++) {
         char tipo;
-        tipo  = array_variables[i].tipo  ;
-        printf("var %3d  %25s  %c     ", i, array_variables[i].nombre, array_variables[i].tipo);
+        tipo  = (char) array_variables[i].tipo  ;
+        printf("var %3d  %25s  %c     ", i, array_variables[i].nombre, tipo);
         switch (tipo) {
             case 'N':
             {
-                printf("valor %lf  proc %d\n", array_variables[i].numero, array_variables[i].procedimiento);
+                printf("valor %lf\n", array_variables[i].numero);
             }
                 break;
         
@@ -97,7 +117,7 @@ void listarTDS(int * contador, int * contadorvar, struct struct_variable array_v
                 break;
             
             default:
-                printf("tipo: %c\n", tipo);
+                printf("proc: %d\n", array_variables[i].procedimiento );
                 break;
         }
     }
@@ -108,7 +128,7 @@ void listarTDS(int * contador, int * contadorvar, struct struct_variable array_v
      printf("total: %d\n", cont + contvar );
 }
 
-/*   prueba de control de versiones.
+/*
 extern struct struct_variable array_variables[];
 extern int  contadorvar;
 
@@ -128,3 +148,4 @@ void listarTDS2( ) {
     }
 }
 */
+

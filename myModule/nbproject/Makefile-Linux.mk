@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=Cygwin-Windows
-CND_DLIB_EXT=dll
+CND_PLATFORM=GNU-Linux
+CND_DLIB_EXT=so
 CND_CONF=Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -39,7 +39,7 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=-m64
 
 # CC Compiler Flags
 CCFLAGS=
@@ -60,12 +60,12 @@ LDLIBSOPTIONS=
 
 ../ejemplos/libmyModule.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ../ejemplos
-	${LINK.c} -o ../ejemplos/libmyModule.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+	${LINK.c} -o ../ejemplos/libmyModule.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
 ${OBJECTDIR}/myModule.o: myModule.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/myModule.o myModule.c
+	$(COMPILE.c) -g -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/myModule.o myModule.c
 
 # Subprojects
 .build-subprojects:

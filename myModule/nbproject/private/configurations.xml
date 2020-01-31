@@ -213,7 +213,7 @@
     <conf name="Linux" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <platform>3</platform>
+        <platform>2</platform>
       </toolsSet>
       <dbx_gdbdebugger version="1">
         <gdb_pathmaps>
@@ -223,6 +223,11 @@
         </gdb_interceptlist>
         <gdb_options>
           <DebugOptions>
+            <option name="gdb_source_dirs" value="."/>
+            <option name="debug_command"
+                    value="/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/dist/Linux/GNU-Linux/cppaplication_1"/>
+            <option name="debug_dir"
+                    value="/home/ruben/Documentos/Netbeans/lenguaje-interpretado/ejemplos"/>
           </DebugOptions>
         </gdb_options>
         <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>

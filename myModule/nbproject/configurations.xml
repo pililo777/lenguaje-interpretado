@@ -208,6 +208,9 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <architecture>2</architecture>
+        </cTool>
         <linkerTool>
           <output>../ejemplos/libmyModule.${CND_DLIB_EXT}</output>
         </linkerTool>
