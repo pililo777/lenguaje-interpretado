@@ -176,7 +176,7 @@ extern FILE * yyin;
 extern int err_number;
 
 #include "nodo.h"
-
+extern void execut(ast *);
 
 
 
@@ -390,8 +390,7 @@ on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern int gtk_iniciado;
 extern int ejecuta_desde_editor;
 
-int
-main_anterior (int argc, char *argv[])
+int main_anterior (int argc, char *argv[])
 //main_old()
 {
    memoria = 0;
@@ -653,7 +652,7 @@ resaltarAlfanum (GtkButton * button, gpointer user_data)
 
 
 
-int random() {
+int random1() {
   unsigned int limit = 6;
   srand((unsigned int)**random + (unsigned int)time(NULL));
   srand(rand());
@@ -668,8 +667,7 @@ void interpretarEditor();
 extern short inter_flag;
  
 
-GtkWidget *
-create_window() {
+GtkWidget *create_window() {
    
     GtkWidget *vbox_main;
     GtkWidget *handlebox;
@@ -948,7 +946,7 @@ gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
   g_signal_connect (G_OBJECT (window), "key_press_event", G_CALLBACK (on_key_press), NULL);
 
     //color de fondo del editor
-    gtk_widget_modify_base (textview, GTK_STATE_NORMAL, "#030303");
+    gtk_widget_modify_base (textview, GTK_STATE_NORMAL, "#97cedb");
     
     return window;
 }
@@ -1165,15 +1163,13 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
 
 
 
-void
-on_button_ejecutar_clicked(GtkButton * button,  gpointer user_data) { 
+void on_button_ejecutar_clicked(GtkButton * button,  gpointer user_data) { 
 
         execut(pila_programas[0]);
 
 }
 
-void
-on_button_load_clicked(GtkButton * button, gpointer user_data) {
+void on_button_load_clicked(GtkButton * button, gpointer user_data) {
     GtkTextBuffer *textbuffer = NULL;
 
     g_assert (GTK_IS_TEXT_VIEW (user_data));
@@ -1230,8 +1226,7 @@ if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
 gtk_widget_destroy (dialog);
 }
 
-void
-on_button_save_clicked (GtkButton * button, gpointer user_data)
+void on_button_save_clicked (GtkButton * button, gpointer user_data)
 {
     GtkTextBuffer *textbuffer = NULL;
     GtkTextIter start, end;
@@ -1324,8 +1319,7 @@ on_button_copy_clicked (GtkButton * button, gpointer user_data)
                     gtk_clipboard_get (GDK_NONE));
 }
 
-void
-on_button_paste_clicked (GtkButton * button, gpointer user_data)
+void on_button_paste_clicked (GtkButton * button, gpointer user_data)
 {
     GtkTextBuffer *textbuffer = NULL;
 
@@ -1338,8 +1332,7 @@ on_button_paste_clicked (GtkButton * button, gpointer user_data)
                      NULL, TRUE);
 }
 
-void
-on_button_bold_clicked (GtkButton * button, gpointer user_data)
+void on_button_bold_clicked (GtkButton * button, gpointer user_data)
 {
     GtkTextBuffer *textbuffer = NULL;
     GtkTextIter start, end;
@@ -1587,8 +1580,7 @@ on_button_color_clicked (GtkButton * button, gpointer user_data)
     
 }
 
-void
-create_tags (GtkTextBuffer * buffer)
+void create_tags (GtkTextBuffer * buffer)
 {
     
     // hsta aqui
@@ -1921,7 +1913,8 @@ void runall() {
     idx_win = 0;
     do {
         printf("ejecutando programa %d\n", i);
-        execut(pila_programas[i]);
+        printf("minieditor-runall: pila programas[0] está en: %p\n", (ast *) pila_programas[i]);   //printf("%p", (void *)&var);
+        execut((ast *) pila_programas[i]);
         i++;
     } while (pila_programas[i]!=0); // (i != argc);     //para depurar:  ( (i == 1); //
     // exit (0);

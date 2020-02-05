@@ -91,7 +91,7 @@
   <confs>
     <conf name="WindowsPC" type="1">
       <toolsSet>
-        <compilerSet>Cygwin|Cygwin</compilerSet>
+        <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -533,14 +533,19 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <architecture>2</architecture>
+          <warningLevel>0</warningLevel>
+        </cTool>
         <linkerTool>
+          <output>../ejemplos/cppapplication_1</output>
           <linkerLibItems>
             <linkerOptionItem>`pkg-config --libs cairo`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs gdk-2.0`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs gtk+-2.0`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs gdk-2.0`</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-ldl</commandLine>
+          <commandLine>-ldl -lm</commandLine>
         </linkerTool>
       </compileType>
       <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">

@@ -5,6 +5,17 @@
 #include <math.h>
 #define rando() ((double)rand()/(RAND_MAX+1))
 
+#ifndef YY_TYPEDEF_YY_BUFFER_STATE
+#define YY_TYPEDEF_YY_BUFFER_STATE
+typedef struct yy_buffer_state *YY_BUFFER_STATE;
+#endif
+
+extern int exists(const char *);
+extern int mainGraph();
+extern void dibujarlinea();  
+extern void yypush_buffer_state ( YY_BUFFER_STATE new_buffer  );
+YY_BUFFER_STATE yy_scan_string ( const char *yy_str  );
+int yyparse (void);
 /*
 #include <time.h>
 #include <sys/time.h>
@@ -64,7 +75,7 @@ extern ast * pila_records[32]; // pila de registros
 #include "vars.h"
 typedef char tipollave;
 extern tipollave llave[55];
-extern xapuntador xraiz;
+extern xapuntador xraiz;   extern  void liberar_nodo( ast * , int );
 
 
 // double var[127]; // 127 variables numericas e indices a variables alfa y literales
@@ -95,7 +106,7 @@ static int counter1[32];
 static int indice_ctr = 0;
 static int error_getstring = 0;
 
-void * execut(ast *);
+void  execut(ast *);
 short comprobar_regex(char * expregular, char * texto) ;
 
 
@@ -469,7 +480,7 @@ ast * nodo1(tiponodo Tipo, ast * a) {
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
+    p->nodo1 = (ast *) a;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
     p->subnodos = 1;
@@ -520,8 +531,8 @@ ast * nodo2(tiponodo Tipo, ast * a, ast * b)
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
-    p->nodo2 = b;
+    p->nodo1 = (ast *) a;
+    p->nodo2 = (ast *) b;
     p->subnodos = 2;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
@@ -539,9 +550,9 @@ ast * nodo3(tiponodo Tipo, ast * a, ast * b, ast * c) {
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
-    p->nodo2 = b;
-    p->nodo3 = c;
+    p->nodo1 = (ast *) a;
+    p->nodo2 = (ast *) b;
+    p->nodo3 = (ast *) c;
     p->subnodos = 3;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
@@ -562,10 +573,10 @@ ast * nodo4(tiponodo Tipo, ast * a, ast * b, ast * c, ast * d) {
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
-    p->nodo2 = b;
-    p->nodo3 = c;
-    p->nodo4 = d;
+    p->nodo1 = (ast *) a;
+    p->nodo2 = (ast *) b;
+    p->nodo3 = (ast *) c;
+    p->nodo4 = (ast *) d;
     p->subnodos = 4;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
@@ -582,11 +593,11 @@ ast * nodo5(tiponodo Tipo, ast * a, ast * b, ast * c, ast * d, ast * e) {
     p = nuevonodo();
     p->tipo = Tipo;
     p->num = 777;
-    p->nodo1 = a;
-    p->nodo2 = b;
-    p->nodo3 = c;
-    p->nodo4 = d;
-    p->nodo5 = e;
+    p->nodo1 = (ast *) a;
+    p->nodo2 = (ast *) b;
+    p->nodo3 =  (ast *) c;
+    p->nodo4 = (ast *)  d;
+    p->nodo5 = (ast *) e;
     p->subnodos = 5;
     p->nrolinea1 = LineaInicial[contador_lineaInicial];
     p->nrolinea2 = lineaEjecucion ;
@@ -1062,9 +1073,9 @@ gboolean * left_gravity = TRUE;
 gboolean marca_creada = FALSE;
 char nombrefuncion[50];
 
-void * execut(ast * p) {
+void execut(ast * p) {
     
-    double return_value; //sin uso
+   // double return_value; //sin uso
    
     //printf("profundidad: %d\n", profundidad);
     //profundidad++;
@@ -1104,7 +1115,7 @@ void * execut(ast * p) {
     
         //resalta la linea del editorgtk en ejecucion
         //si no estamos interpretando buff1
-        if (ejecuta_desde_editor ) {
+        if (ejecuta_desde_editor && idx_prg < 31 ) {
         
         //en desarrollo: resaltar en editorgtk la linea del nodo ejecutado
 
@@ -1149,7 +1160,7 @@ void * execut(ast * p) {
         }
         
         //ir a la linea de ejecucion
-        if (idx_prg!=39+1) //el ultimo indice de programa
+        if (idx_prg!=31+1) //el ultimo indice de programa
         gtk_text_view_scroll_to_mark (textview2, marca1, 0.0, TRUE, 0.0, 0.17);
 
         sprintf(str_temp, "LINEA: %d   funcion: ", numlinea+1 );
@@ -1159,7 +1170,7 @@ void * execut(ast * p) {
         gtk_label_set_label(label2, str_temp );
         gtk_widget_queue_draw(label2); 
         
-         if (idx_prg!=39+1) //el ultimo indice de programa  VOLVER EL 39 A 31 DESPUES DE DEPURAR
+         if (idx_prg!=31+1) //el ultimo indice de programa  VOLVER EL 39 A 31 DESPUES DE DEPURAR
          {
                 if (modo_pausa == '1' ) {
 
@@ -1402,7 +1413,7 @@ void * execut(ast * p) {
             struct xnodo xnodoobjetivo;
             
             var = p->nodo1->num;
-            llave = (int) array_variables[var].string;
+            llave = (char *) array_variables[var].string;
             buscar(llave, &xraiz, &encontrar, &nodoobjetivo, &posobjetivo);
             var = p->nodo2->num;
             array_variables[var].numero = encontrar;
@@ -1458,7 +1469,7 @@ void * execut(ast * p) {
             
             // obtengo el nombre de la clave que se quiere agregar
             var = p->nodo1->num;
-            llave = (int) array_variables[var].string;
+            llave =  array_variables[var].string;
             
             //calculamos el numero de registro para el nuevo registro
             tamanio = 0;
@@ -1720,7 +1731,7 @@ void * execut(ast * p) {
             int j;
             j = (int) p->nodo2->num;  //NUMBER
             vector = nuevoValorAlfas(j); // cantidad
-            for (i = 0; i < j; i++) vector [i] = NULL;  //no inicializamos el vector
+            for (i = 0; i < j; i++) vector [i] = (char *) NULL;  //no inicializamos el vector
             arrayVectoresAlfa[idx_vec2] = vector;
             array_variables[(int) p->nodo1->num].numero = idx_vec2;
             //var[(int) p->nodo1->num] = idx_vec2;
@@ -2569,7 +2580,7 @@ void * execut(ast * p) {
             i = (int) p->nodo1->num; // var destino
             j = (int) p->nodo2->num; // var origen
             if (i==j) {
-                return;
+                return ;
             }
                 
             if (array_variables[i].string==NULL) {

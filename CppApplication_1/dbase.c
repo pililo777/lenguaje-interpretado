@@ -156,9 +156,7 @@ void eliminar_en_indice( );
 
 
 
-void 
-
-init_comandos() {
+void init_comandos() {
 
     int i;
  
@@ -314,9 +312,7 @@ void buscar_en_indice() {
 
 
 
-void 
-
-comandos() {
+void comandos() {
     init_comandos();
     mquit = 0;
     while (mquit == 0) {
@@ -356,7 +352,7 @@ listavar() {
 }
 
 
-extern void * execut(ast * a) ;
+extern void  execut(ast * a) ;  // se ha quitado el asterisco
 extern int gtk_iniciado;
 
 int  
@@ -405,9 +401,7 @@ char arrayBuffers[nro_bufers][128];  /* cantidad de comandos en el historial */
 static short ultimaPosicion = -1;
 short posicionRetrocedida = 0;
 
-char *
-
-getstring2(char *s) {
+char * getstring2(char *s) {
         struct termios old_tio, new_tio;
         // unsigned char c;
 
@@ -680,8 +674,7 @@ int buscar_posicion() {
 
 short inter_flag = 0;
 
-int 
-prompt() {
+int prompt() {
     int argc;
     int i, found;
 
@@ -782,13 +775,11 @@ print() {
     if (!j) fprintf(stdout, "%s: not found\n", buff2[1]);
 }
 
-int
-
-parse() {
+int parse() {
     int i, j, k, hubocomilla;
     i = 0;
     j = 0;     
-    i = 0;
+    
     while (buff1[i]) {
         k = 0;
         hubocomilla = 0;
@@ -796,8 +787,8 @@ parse() {
         while (buff1[i] && buff1[i] != ' ') {
             buff2[j][k] = buff1[i];
             if (buff1[i] == '"') {
-                hubocomilla = 1; k--;
-                buff2[j][k] = ' ';
+                hubocomilla = 1; 
+                
                 i++;
                 k++;
                 while (buff1[i] != '"' && buff1[i]) {
@@ -805,8 +796,8 @@ parse() {
                     i++;
                     k++;
                 }
-               // buff2[j][k] = '"';
-                buff2[j][k] = '\0';
+                buff2[j][k] = '"';
+                buff2[j][k+1] = '\0';
             }
             i++;
             k++;
