@@ -2623,7 +2623,7 @@ memoria += sizeof(struct ast);
 nodos++;
 if (depurar)
 printf("nuevo nodo: %ld      %p\n", memoria,  p);   //printf("%p", (void *)&var);
-printf ("A pointer is %ld bytes\n", sizeof (p));
+//printf ("A pointer is %ld bytes\n", sizeof (p));
 
 p->num = 0;
 p->tipo = 9999;

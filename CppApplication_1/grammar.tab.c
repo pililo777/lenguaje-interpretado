@@ -1745,12 +1745,12 @@ yyreduce:
               {  
                   ast * ptr1;
                   
-                  printf("yyvsp[0].nodo está en: %p\n", (ast *) yyvsp[0].nodo ); 
+                  //printf("yyvsp[0].nodo está en: %p\n", (ast *) yyvsp[0].nodo ); 
                   pila_programas [idx_prg] =  yyvsp[0].nodo;                     /* stmtseq */ 
-                  printf("pila programas 0 está en: %p\n", (ast *) (pila_programas) [(idx_prg)] ); 
+                  //printf("pila programas 0 está en: %p\n", (ast *) (pila_programas) [(idx_prg)] ); 
                   
                   ptr1 =  pila_programas [idx_prg] ;
-                  printf ("REDUCCION: A pointer is %p bytes\n", ptr1);
+                  //printf ("REDUCCION: A pointer is %p bytes\n", ptr1);
                   idx_prg++ ; 
 if (depurar)
   	printf("se ha reducido el programa por la primera  grammar.y\n"); }
@@ -1762,7 +1762,7 @@ if (depurar)
                                    {
 if (depurar)
   	printf("se ha reducido el programa por la segunda regla de grammar.y\n");
-         printf("yyvsp[0].nodo está en: %p\n", yyvsp[-2].nodo ); 
+        //printf("yyvsp[0].nodo está en: %p\n", yyvsp[-2].nodo ); 
  	(pila_programas) [(idx_prg)] = ((yyvsp[-2].nodo)); /* stmtseq */ ; 
         idx_prg++; }
 //line 1752 "grammar.tab.c"
