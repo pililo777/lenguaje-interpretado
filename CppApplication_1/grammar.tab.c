@@ -131,7 +131,7 @@ extern ast * pila_records[32]; // pila de registros
 # define YY_YY_GRAMMAR_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -1527,7 +1527,7 @@ yyparse (void)
   int yyn;
   int yyresult;
   /* Lookahead token as an internal (translated) token number.  */
-  int yytoken = 0;
+  int yytoken = 0; // yydebug=1;
   /* The variables used to return semantic value and location from the
      action routines.  */
   YYSTYPE yyval;
@@ -1743,13 +1743,13 @@ yyreduce:
   case 2:
 //line 73 "grammar.y"
               {  
-                  ast * ptr1;
+                  //ast * ptr1;
                   
                   //printf("yyvsp[0].nodo está en: %p\n", (ast *) yyvsp[0].nodo ); 
                   pila_programas [idx_prg] =  yyvsp[0].nodo;                     /* stmtseq */ 
                   //printf("pila programas 0 está en: %p\n", (ast *) (pila_programas) [(idx_prg)] ); 
                   
-                  ptr1 =  pila_programas [idx_prg] ;
+                  //ptr1 =  pila_programas [idx_prg] ;
                   //printf ("REDUCCION: A pointer is %p bytes\n", ptr1);
                   idx_prg++ ; 
 if (depurar)

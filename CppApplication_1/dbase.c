@@ -12,6 +12,7 @@
 #include "stdio.h"
 #include "string.h"
 #include "ctype.h"
+#include "vars.h"
 #define UNIX
 
 #ifdef DOS
@@ -136,6 +137,28 @@ int *parametro2;
 
 /*   BUCLE PRINCIPAL DE TODO EL PROGRAMA   */
 
+listaNodo ultimaLista;
+
+iniciarLista() {
+
+    ultimaLista = (listaNodo *) malloc(sizeof(struct lista));
+    ultimaLista->address_nodo = NULL;
+    ultimaLista->anterior_lista = NULL;
+    ultimaLista->siguiente_lista = NULL;
+    
+}
+extern int contadorvar;
+
+
+void iniciar_variables() {
+
+    iniciarLista();
+    contador = 0; //constantes
+    contadorvar = 0;
+    
+}
+
+
 int main(int argc, const char **argv)
 {
     initProcedimientos();
@@ -258,7 +281,7 @@ void init_comandos() {
 
 }
 
-#include "vars.h"
+//#include "vars.h"
 typedef char tipollave;
 extern tipollave llave[55];
 extern xapuntador xraiz;

@@ -14,7 +14,7 @@ typedef struct  {
           double     numero;
 } struct_variable;
 */
-
+#include "nodo.h"
 #include "vars.h"
 /*
 extern struct_variable array_variables[256];

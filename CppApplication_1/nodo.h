@@ -15,7 +15,7 @@ asigna_vector_alfa2, asigna_vector_alfa3, funcion, lista_argumentos, lista_param
 asigna_vector_alfa4, vector_alfanum, comparaliteral2
 } tiponodo;
 
-typedef struct ast {
+struct ast {
 	tiponodo tipo;
 	double num;
 	int    nrolinea1;
@@ -27,4 +27,6 @@ typedef struct ast {
 	struct ast * nodo3;
 	struct ast * nodo4;
         struct ast * nodo5;
-} ast;
+};
+
+typedef struct ast ast;

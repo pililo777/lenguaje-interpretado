@@ -15,6 +15,14 @@ typedef struct  {
           int       dim2;
 } struct_variable;
 
+struct lista {
+    ast * address_nodo ;
+    struct lista * anterior_lista;
+    struct lista * siguiente_lista;
+};
+
+typedef struct lista * listaNodo;
+
 extern struct_variable   array_variables[256];
 extern struct_variable   pila[256];
 

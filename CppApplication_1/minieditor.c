@@ -10,6 +10,7 @@ extern double var[127];
 extern char contadorvar;
 extern char contador;
 
+#include "nodo.h"
 #include "vars.h"
 /*extern char variables[127][127];
 extern char constantes[127][127]; */
@@ -175,7 +176,7 @@ extern int idx_win;
 extern FILE * yyin;
 extern int err_number;
 
-#include "nodo.h"
+
 extern void execut(ast *);
 
 
@@ -236,6 +237,7 @@ void liberar_nodo( ast * p, int n)
 
     
         if (p == pila_programas[n]) {
+            printf("entramos en liberar el programa %d\n", n);
                 if (p->subnodos == 0) 
                     {
                         free(p);
@@ -292,9 +294,11 @@ void liberar_nodo( ast * p, int n)
            free(p);
            memoria -= (long) sizeof (struct ast);
            nodos--;
-       //    printf("librando el nodo raiz: %ld\n", memoria);
+           
+           
+           printf("liberando el nodo raiz: %li\n", memoria);
             
-            
+            printf("salimos de liberar el programa %d\n", n);
         
         pila_programas[n] = NULL;
         return;
@@ -363,6 +367,7 @@ void liberar_nodo( ast * p, int n)
            nodos--;
            
        //    printf("librando el nodo: %ld\n", memoria);
+           
            return;
 
     }
@@ -960,11 +965,14 @@ void liberar_mem() {
 //  printf("check9 liberando memoria\n");
             liberar_nodo(pila_programas[0], 0);
             //liberar_nodo(pila_programas[31], 1);
+            idx_prg--;
+            
 
             while (idx_prc>0)
             {
                 idx_prc--;
                 liberar_nodo(procedimientos[idx_prc], idx_prc);
+                procedimientos[idx_prc] = NULL;
             }
             
             //liberar vectores:
@@ -994,9 +1002,9 @@ void liberar_mem() {
              sprintf(str3, "Memoria: %li -- nodos: %d", (long) memoria, nodos );
             
             if (ejecuta_desde_editor) {
-            gtk_label_set_text( label3, str1 );
-            gtk_label_set_text( label2, str2 );
-            gtk_label_set_text( label1, (gpointer) str3 );
+                gtk_label_set_text( label3, str1 );
+                gtk_label_set_text( label2, str2 );
+                gtk_label_set_text( label1, (gpointer) str3 );
             }
             else {
                 printf("%s\n", str1);
@@ -1116,7 +1124,7 @@ gtk_text_buffer_get_end_iter (textbuffer, &end);
            //    if (yyin != NULL) {
                
                //yypush_buffer_state();
-               
+                 iniciar_variables();
                  yyparse();
                  
                  //actualizamos valores en la ventana del editor (provenientes del parsing)
@@ -1698,6 +1706,7 @@ void old_main(int argc, const char **argv) {
             if (yyin != NULL) {
                 //printf("abierto.....\n");
                 {
+                    iniciar_variables();
                     yyparse();
                     fclose(yyin);
                     i++;
@@ -1750,6 +1759,7 @@ extern char buff2[10][128];
 */
 
 extern void initProcedimientos();
+extern iniciarLista();
 
 int cargar(int argc, const  char argv[][128])
 /*
@@ -1816,15 +1826,20 @@ void xxmain (int argc, const char *argv)
         do {
             printf("abriendo el fichero %s\n", argv[i]);
             yyin = fopen(argv[i], "r"); //comentar para depurar
+            yyrestart(yyin);
+            //fseek (yyin, 0, SEEK_SET);
             if (yyin != NULL) {
                 //printf("abierto.....\n");
                 {
                     printf("cargando en pila programas indice %d\n", idx_prg);
                     //initProcedimientos();
+                    iniciar_variables();
                     yyparse();
-                    printf("memoria: %li\n", (long) memoria);
+                    printf("memoria: %li  nodos: %d \n", (long) memoria, (int) nodos);
                     linenumber  = 1;
+                    //fflush(yyin);
                     fclose(yyin);
+                    yyin=NULL;
                     i++;
                 }
             }
