@@ -1,5 +1,6 @@
 /* IMPORTANTE:  no dejar espacios entre los | | | !!!!!1   github */
 /* '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux */
+/* compilar con:  flex  tokens.l */
 
 %{
 
@@ -9,12 +10,8 @@
 struct ast * nuevonodo(void);
 void  cuentalineas(char * yytext);
 
-#include "vars.h"
-
-
- 
-
 #include "nodo.h"
+#include "vars.h"
 #include "stdio.h"
 
 // #include "grammar_tab.h"
@@ -55,7 +52,7 @@ if(depurar)
    return x;
 }
 
-int variables_count = 0;
+//int variables_count = 0;
 short myflag = 0;
 
 char instalavar(x) 
@@ -63,18 +60,18 @@ int x;
 {
 
    int i=0; myflag = 0;
-   for (i=0; i<=contadorvar; i++) {
+   for (i=0; i<(contadorvar-1); i++) {
        if (!strcmp(yytext, array_variables[i].nombre)) {
                                 contadorvar--;
-                                variables_count++;
+                                //variables_count++;
                                 myflag = 1;
  		 return i ; }
            /* else printf("%d no igual...", i);   */
    };
    //strcpy (variables[x],  yytext);
    strcpy  (array_variables[x].nombre, yytext);
-// if (depurar)
-   //printf("VARIABLE %d  --    %s\n", x, variables[x]);
+ if (depurar)
+   printf("VARIABLE %d  --    %s\n", x, yytext);
   // insAST(yytext) ;
 /*   printf("%d  --    %s\n", x, variables[x]);  */
    return x;
@@ -83,8 +80,13 @@ int x;
 lineaEjecucion2() {
     lineaAnterior = lineaEjecucion;
     lineaEjecucion = linenumber;
-if (depurar)
-    printf("Linea Ejecucion: %d\n", lineaEjecucion);
+if (depurar) 
+{
+    //printf("Linea Ejecucion: %d\n", lineaEjecucion);
+    printf("-------------------------------------------------\n");
+    printf("linea: %d\n", linenumber);
+    printf("-------------------------------------------------\n");
+}  
 /*
     if (lineaEjecucion==12)
         pausar();
@@ -253,15 +255,37 @@ yywrap() { return 1; }
    // return vector;
 //}
 
+
+extern listaNodo ultimaLista;
+
+
  ast * nuevonodo()  {
  ast * p;
-p = malloc(sizeof(struct ast));
+ 
+ listaNodo nuevalista;
+ 
+p = (ast *) malloc(sizeof(struct ast));
+
+nuevalista = (listaNodo *) malloc(sizeof(struct lista));
+
+nuevalista->address_nodo = ultimaLista->address_nodo;
+nuevalista->anterior_lista = ultimaLista->anterior_lista;
+nuevalista->siguiente_lista = ultimaLista;
+
+ultimaLista->address_nodo = p;
+ultimaLista->anterior_lista = nuevalista;
+ultimaLista->siguiente_lista = NULL;
+
+ //listaAnterior.address_nodo = p;
+
+
 
 extern long memoria;
 memoria += sizeof(struct ast);
 nodos++;
 if (depurar)
-printf("nuevo nodo: %ld\n", memoria);
+printf("nuevo nodo: %ld      %p\n", memoria,  p);   //printf("%p", (void *)&var);
+//printf ("A pointer is %ld bytes\n", sizeof (p));
 
 p->num = 0;
 p->tipo = 9999;
@@ -277,10 +301,32 @@ p->nodo5 = NULL;
 return p;
 
 }
+ 
+int cuentalista = 0;
+extern long memoria;
+
+ liberar_lista(listaNodo  ultima) {
+     cuentalista++;
+     if (ultima->anterior_lista != NULL) {
+         //printf("%d --  %p\n", cuentalista,  ultima->anterior_lista);
+         liberar_lista(ultima->anterior_lista);
+     }
+     if (ultima->address_nodo!=NULL) {
+        free(ultima->address_nodo);
+        free(ultima);    
+        memoria = memoria - sizeof(struct ast);
+        nodos--;
+     }
+     
+ 
+ }
 
 void  cuentalineas( char * texto ) {
 int i = 0;
 for (i=0; i < strlen(texto); i++ ) {
-        if  ( texto[i] == '\n' || texto [i] == '\r') linenumber++;
+        if  ( texto[i] == '\n' || texto [i] == '\r') {
+            linenumber++;
+            
+        }
     }
 }

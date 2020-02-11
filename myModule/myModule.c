@@ -28,7 +28,7 @@ void initmyModule() {
 
 #include <stdio.h>
 
-extern   int variables_count ;
+//extern   int variables_count ;
  
 //extern char   variables[127][127];
 extern char   constantes[127][127];
