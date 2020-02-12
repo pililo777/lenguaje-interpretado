@@ -7,6 +7,7 @@
       <itemPath>../ejemplos/bucles_anidados.pr</itemPath>
       <itemPath>../ejemplos/buffer.pr</itemPath>
       <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr</itemPath>
+      <itemPath>../ejemplos/iann2.pr</itemPath>
       <itemPath>../ejemplos/integracion.pr</itemPath>
       <itemPath>../ejemplos/integracion2.pr</itemPath>
       <itemPath>../ejemplos/integracion3.pr</itemPath>
@@ -132,6 +133,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -250,6 +253,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -353,6 +358,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -450,6 +457,8 @@
       <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -555,6 +564,8 @@
       <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -667,6 +678,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -769,6 +782,8 @@
       <item path="../ejemplos/bucles_anidados.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>

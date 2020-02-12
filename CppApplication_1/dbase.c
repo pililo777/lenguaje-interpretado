@@ -1,8 +1,6 @@
 /*  dbase.c  Region de Includes */ 
 //version para github
 
-
-
 /*
 #include <my_global.h>
 #include <mysql.h>
@@ -23,11 +21,7 @@
 #include "stdlib.h"
 #endif
 
-
-
 #include "keywords.h"
-
-
 
 #define MAXPALABRAS      10 /* maximo numero de palabras en el buffer */
 #define MAXLARGO        128 /* maximo largo de caracteres por palabra */
@@ -35,7 +29,7 @@
 #define MAXCANTCOMANDOS 128 /* comandos programados en este fuente */
 #define MAXVARIABLES_NUM    120 /* cantidad de vars numericas */
 #define MAXVARIABLES_CHAR   120 /* cantidad de vars alfanumericas */
- 
+ // <editor-fold default-state
 extern int testlib();
 extern int funcionDinamica();
 extern int cargaDinamica();
@@ -56,9 +50,9 @@ extern void liberar_mem();
 extern void freevar();
 
 
-int dbminit();
-int delete();
-int store();
+//int dbminit();
+//int delete();
+//int store();
 int status;
 
 
@@ -137,9 +131,11 @@ int *parametro2;
 
 /*   BUCLE PRINCIPAL DE TODO EL PROGRAMA   */
 
+// <editor-fold defaultstate="collapsed" desc="funcion de iniciacion de la lista">
+
 listaNodo ultimaLista;
 
-iniciarLista() {
+void iniciarLista() {
 
     ultimaLista = (listaNodo *) malloc(sizeof(struct lista));
     ultimaLista->address_nodo = NULL;
@@ -147,6 +143,9 @@ iniciarLista() {
     ultimaLista->siguiente_lista = NULL;
     
 }
+
+// </editor-fold>
+
 extern int contadorvar;
 
 
@@ -920,7 +919,11 @@ char *mensaje;
 
 editor() {
         char cmd[64];
-        snprintf(cmd, sizeof cmd, "%s", buff2[1]);
+        char* s;
+        s=buff2[1]+1;
+        short largo = strlen(s);
+        buff2[1][largo] = 0;
+        snprintf(cmd, sizeof cmd, "%s", s);
         system(cmd);
 }
 

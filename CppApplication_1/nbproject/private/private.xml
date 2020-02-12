@@ -4,9 +4,21 @@
         <activeConfTypeElem>1</activeConfTypeElem>
         <activeConfIndexElem>4</activeConfIndexElem>
     </data>
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>lex.yy.c</url>
+            <bookmark id="1">
+                <name/>
+                <line>2679</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/run.c</file>
+            <file>file:/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/dbase.c</file>
+            <file>file:/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/minieditor.c</file>
             <file>file:/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/lex.yy.c</file>
         </group>
     </open-files>

@@ -234,7 +234,8 @@ void liberar_nodo(ast * p, int n) {
 
 
     if (p == pila_programas[n]) {
-        printf("entramos en liberar el programa %d\n", n);
+        if (depurar)
+            printf("entramos en liberar el programa %d\n", n);
         if (p->subnodos == 0) {
             free(p);
             nodos--;
@@ -291,10 +292,10 @@ void liberar_nodo(ast * p, int n) {
         memoria -= (long) sizeof (struct ast);
         nodos--;
 
-
-        printf("liberando el nodo raiz: %li\n", memoria);
-
-        printf("salimos de liberar el programa %d\n", n);
+        if (depurar) {
+            printf("liberando el nodo raiz: %li\n", memoria);
+            printf("salimos de liberar el programa %d\n", n);
+        }
 
         pila_programas[n] = NULL;
         return;
@@ -1369,14 +1370,15 @@ void interpretarEditor() {
 
         text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_sel,
                 &end_sel, FALSE);
-
-        printf("%s\n", buff1);
+        if (depurar)
+            printf("%s\n", buff1);
         strcpy(buff1, "evalua \" ");
         strcat(buff1, text);
         strcat(buff1, "\" ");
         interpretar();
         fflush(stdout);
-        printf("volvemos de interpretar\n");
+        if (depurar)
+            printf("volvemos de interpretar\n");
         fflush(stdout);
 
     }
@@ -1464,13 +1466,15 @@ on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
                     text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_sel,
                             &end_sel, FALSE);
 
-                    printf("%s\n", buff1);
+                    if (depurar)
+                        printf("%s\n", buff1);
                     strcpy(buff1, "evalua \" ");
                     strcat(buff1, text);
                     strcat(buff1, "\" ");
                     interpretar();
                     fflush(stdout);
-                    printf("volvemos de interpretar\n");
+                    if (depurar)
+                        printf("volvemos de interpretar\n");
                     fflush(stdout);
 
                 }

@@ -826,6 +826,7 @@ int interpretar() {
     
     int idx_prg_bak;
     idx_prg_bak = idx_prg;
+    //TODO:  crear un backup del ultimo nodo de la lista de nodos.
     char * input;
     input = buff1;
 /*
@@ -836,6 +837,7 @@ int interpretar() {
     //yy_scan_string(input);
     linenumber = 1;
     idx_prg = 31;
+    iniciarLista();
     yypush_buffer_state(yy_scan_string(input));
     yyparse();
     //yy_delete_buffer(input);
@@ -849,7 +851,7 @@ int interpretar() {
         /*
                 printf("ejecutando programa 31\n");
          */
-        execut(pila_programas[31]); liberar_nodo(pila_programas[31], 31);
+        execut(pila_programas[31]);   // liberar_nodo(pila_programas[31], 31);
         /*
                 printf("fin programa 31\n");
          */

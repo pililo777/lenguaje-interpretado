@@ -12,9 +12,7 @@ extern listaNodo ultimaLista;
 extern int lineaAnterior, lineaEjecucion;
 */
 
-yyerror(msg)
-   char * msg;
-{
+yyerror(char *msg) {
    printf("error en linea %d: %s\n", linenumber, msg);
   
    err_number = 1;
