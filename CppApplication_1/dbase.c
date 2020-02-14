@@ -1,3 +1,5 @@
+#pragma region VARIABLES
+
 /*  dbase.c  Region de Includes */ 
 //version para github
 
@@ -126,9 +128,10 @@ int *parametro1;
 int *parametro2;
  
 /* FIN DE VARIABLES GLOBALES */
+#pragma endregion VARIABLES
 
 
-
+#pragma region FUNCIONES1
 /*   BUCLE PRINCIPAL DE TODO EL PROGRAMA   */
 
 // <editor-fold defaultstate="collapsed" desc="funcion de iniciacion de la lista">
@@ -400,6 +403,12 @@ runprog() {
 }
 
 
+
+
+#pragma endregion FUNCIONES1
+
+
+#pragma region FUNCIONES2
 
 limpiar_buff1() {
 
@@ -771,6 +780,14 @@ display() {
     } else
         fprintf(stdout, "Syntax error\n");
 }
+ 
+
+
+#pragma endregion FUNCIONES2
+
+
+
+
  
 quit() {
     mquit = 1;

@@ -642,7 +642,7 @@ void resaltarAlfanum(GtkButton * button, gpointer user_data) {
 
 int random1() {
     unsigned int limit = 6;
-    srand((unsigned int) **random + (unsigned int) time(NULL));
+    srand( random() + (unsigned int) time(NULL));
     srand(rand());
     for (int i = 0; i < 10; i++) {
         printf("%d\n", rand() % limit);
