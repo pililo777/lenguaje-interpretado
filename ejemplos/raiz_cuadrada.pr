@@ -45,8 +45,6 @@
 				 	salir
 			    si-fin
 		}
-
- 		aqui;   
 			
 		imprimir 'hemos finalizado el programa '
 			
