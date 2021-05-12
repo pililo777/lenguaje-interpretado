@@ -4,7 +4,6 @@
 		//30 MARZO 2017  INSTALADO PACKAGE CONTROL CON (CONTROL SHIFT P)
 		//INSTALADO  COMPARE SIDE BY SIDE
 
-                                        make
 		imprimir 'introduce el numero al que quieres calcular la raíz cuadrada:'
 		numero = 0
 		leer numero
