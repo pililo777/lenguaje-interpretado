@@ -57,4 +57,16 @@ aún está en desarrollo.
 
 Consultas al email: pililo777@gmail.com
 
+Inspirado a partir de la web:
+http://memphis.compilertools.net/interpreter.html
+
+
+
+
+
+
+
+
+
+
 ****
