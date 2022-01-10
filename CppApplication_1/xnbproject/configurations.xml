@@ -7,11 +7,11 @@
       <itemPath>../ejemplos/bucles_anidados.pr</itemPath>
       <itemPath>../ejemplos/buffer.pr</itemPath>
       <itemPath>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos/desde.pr</itemPath>
+      <itemPath>../ejemplos/iann2.pr</itemPath>
       <itemPath>../ejemplos/integracion.pr</itemPath>
       <itemPath>../ejemplos/integracion2.pr</itemPath>
       <itemPath>../ejemplos/integracion3.pr</itemPath>
       <itemPath>../ejemplos/listado.pr</itemPath>
-      <itemPath>../ejemplos/matrizalfa.pr</itemPath>
       <itemPath>../ejemplos/numeroEuler2.pr</itemPath>
       <itemPath>../ejemplos/numerodeEuler.pr</itemPath>
       <itemPath>../ejemplos/raiz_cuadrada.pr</itemPath>
@@ -85,14 +85,14 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
+    <Elem>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos</Elem>
     <Elem>../myModule</Elem>
-    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="WindowsPC" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
@@ -100,11 +100,15 @@
         <cTool>
           <architecture>1</architecture>
           <incDir>
-            <pElem>C:/GTK/include/glib-2.0/gio</pElem>
-            <pElem>C:/GTK/lib/gtk-2.0/include</pElem>
-            <pElem>C:/GTK/include/gtk-2.0</pElem>
+            <pElem>D:/GTK/lib/gtk-2.0/include</pElem>
+            <pElem>D:/GTK/include/gtk-2.0</pElem>
             <pElem>c:/cygwin/usr/include/libgnomeui-2.0</pElem>
             <pElem>c:/cygwin/usr/include</pElem>
+            <pElem>/usr/include/libgnomeui-2.0</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed</pElem>
+            <pElem>/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++</pElem>
+            <pElem>/usr/x86_64-pc-cygwin/sys-root/usr/include</pElem>
             <pElem>c:/cygwin/usr/include/libgnomecanvas-2.0</pElem>
             <pElem>c:/cygwin/usr/include/libgnomeui-2.0</pElem>
             <pElem>c:/cygwin/usr/include/libgnome-2.0</pElem>
@@ -113,21 +117,12 @@
             <pElem>C:/cygwin/usr/include/libart-2.0</pElem>
             <pElem>C:/cygwin/usr/include/gnome-vfs-2.0</pElem>
             <pElem>c:/cygwin/usr/lib</pElem>
-            <pElem>/cygwin/c/gtk/lib/glib-2.0/include</pElem>
-            <pElem>/cygwin/c/GTK/include/glib-2.0/gio</pElem>
-            <pElem>C:/gtk/include/glib-2.0</pElem>
-            <pElem>C:/gtk/lib/glib-2.0/include</pElem>
-            <pElem>C:/gtk/include/cairo</pElem>
-            <pElem>C:/gtk/include/pango-1.0/pango</pElem>
-            <pElem>C:/gtk/include/pango-1.0</pElem>
-            <pElem>C:/gtk/include/gdk-pixbuf-2.0</pElem>
-            <pElem>C:/gtk/include/atk-1.0</pElem>
           </incDir>
-          <commandLine>-mms-bitfields -v -g -w</commandLine>
+          <commandLine>-mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14 -std=c99 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -v -g -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include -I/usr/include/libgnomeui-2.0 -I/usr/include -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include-fixed -I/usr/lib/gcc/i686-pc-cygwin/4.8.3/include/c++ -I/usr/x86_64-pc-cygwin/sys-root/usr/include -I/cygdrive/c/cygwin/usr/include/libgnomecanvas-2.0 -I/cygdrive/c/cygwin/usr/include/libgnomeui-2.0 -I/cygdrive/c/cygwin/usr/include/libgnome-2.0 -I/cygdrive/C/cygwin/usr/include/libbonobo-2.0 -I/cygdrive/C/cygwin/usr/include/libbonoboui-2.0 -I/cygdrive/C/cygwin/usr/include/libart-2.0 -I/cygdrive/C/cygwin/usr/include/gnome-vfs-2.0 -w</commandLine>
         </cTool>
         <linkerTool>
           <output>../ejemplos/cppapp1.exe</output>
-          <commandLine>-L/cygdrive/c/GTK/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl</commandLine>
+          <commandLine>-L/cygdrive/c/gtk/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl</commandLine>
         </linkerTool>
       </compileType>
       <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
@@ -138,6 +133,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -145,8 +142,6 @@
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../ejemplos/matrizalfa.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -217,7 +212,7 @@
     </conf>
     <conf name="Debug" type="1">
       <toolsSet>
-        <compilerSet>Cygwin|Cygwin</compilerSet>
+        <compilerSet>Cygwin_4.x|Cygwin_4.x</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -258,6 +253,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -265,8 +262,6 @@
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../ejemplos/matrizalfa.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -363,6 +358,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -370,8 +367,6 @@
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../ejemplos/matrizalfa.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -442,13 +437,16 @@
     </conf>
     <conf name="Windows" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
           <architecture>1</architecture>
+          <incDir>
+            <pElem>/cygwin/c/usr/include</pElem>
+          </incDir>
           <commandLine>-mms-bitfields -I/cygdrive/c/gtk/include/gtk-2.0 -I/cygdrive/c/gtk/lib/gtk-2.0/include -I/cygdrive/c/gtk/include/atk-1.0 -I/cygdrive/c/gtk/include/cairo -I/cygdrive/c/gtk/include/gdk-pixbuf-2.0 -I/cygdrive/c/gtk/include/pango-1.0 -I/cygdrive/c/gtk/include/glib-2.0 -I/cygdrive/c/gtk/lib/glib-2.0/include -I/cygdrive/c/gtk/include -I/cygdrive/c/gtk/include/freetype2 -I/cygdrive/c/gtk/include/libpng14</commandLine>
         </cTool>
         <linkerTool>
@@ -463,6 +461,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -470,8 +470,6 @@
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../ejemplos/matrizalfa.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -547,14 +545,19 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <architecture>2</architecture>
+          <warningLevel>0</warningLevel>
+        </cTool>
         <linkerTool>
+          <output>../ejemplos/cppapplication_1</output>
           <linkerLibItems>
             <linkerOptionItem>`pkg-config --libs cairo`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs gdk-2.0`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs gtk+-2.0`</linkerOptionItem>
             <linkerOptionItem>`pkg-config --libs gdk-2.0`</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-ldl</commandLine>
+          <commandLine>-ldl -lm</commandLine>
         </linkerTool>
       </compileType>
       <item path="../ejemplos/archivos.pr" ex="false" tool="3" flavor2="0">
@@ -565,6 +568,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -572,8 +577,6 @@
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../ejemplos/matrizalfa.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -678,6 +681,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -685,8 +690,6 @@
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../ejemplos/matrizalfa.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>
@@ -783,6 +786,8 @@
       </item>
       <item path="../ejemplos/buffer.pr" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="../ejemplos/iann2.pr" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="../ejemplos/integracion.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/integracion2.pr" ex="false" tool="3" flavor2="0">
@@ -790,8 +795,6 @@
       <item path="../ejemplos/integracion3.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/listado.pr" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="../ejemplos/matrizalfa.pr" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../ejemplos/numeroEuler2.pr" ex="false" tool="3" flavor2="0">
       </item>

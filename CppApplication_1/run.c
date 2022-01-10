@@ -16,6 +16,11 @@ extern void dibujarlinea();
 extern void yypush_buffer_state ( YY_BUFFER_STATE new_buffer  );
 YY_BUFFER_STATE yy_scan_string ( const char *yy_str  );
 int yyparse (void);
+int breakpoints[20];
+extern int current_line;
+extern int step;
+extern int new_socket;
+
 /*
 #include <time.h>
 #include <sys/time.h>
@@ -50,7 +55,8 @@ extern short  int tam_registro;
 extern struct ast * nuevonodo();
 
 int flag_ventanas = 0;
-
+extern int lee_socket();
+extern void listavar2();
 
 
 #include "nodo.h"
@@ -1196,6 +1202,50 @@ void execut(ast * p) {
         //printf("pausando..");
            pausar();
         
+        
+        
+        if (step == 1) {
+                listavar2();
+                printf("step en linea: %d\n", numlinea);
+                
+                if (numlinea == 0 || numlinea == (-1) ) {
+                    numlinea = current_line;
+                }
+                
+                current_line = numlinea;
+                mquit = 0;
+                step = 1;
+                while (mquit == 0) {
+                
+                    lee_socket();
+                    
+                }
+        }
+        else {
+            
+            for(int i=0; i<21; i++) {
+                if (numlinea==breakpoints[i] ) {
+                    listavar2();
+                    if (breakpoints[i]==0)
+                        break;
+                    printf("breakpoint %d en linea: %d\n", i, breakpoints[i]);
+                    
+                    current_line = numlinea;
+                    mquit = 0;
+                    step = 0;
+                    if (breakpoints[i] == 0)
+                        mquit = 1;
+                    while (mquit == 0) {
+                        lee_socket();
+                }
+            }
+            if (numlinea==breakpoints[i] ) 
+                break;
+        }
+            
+        }
+        
+        
     }
     
     /**
@@ -1656,7 +1706,7 @@ void execut(ast * p) {
                 {
                  int mquit = 0;
                  while (mquit == 0) {
-                        mquit =  prompt();
+                        mquit =  lee_socket();
                     }
                 }
                 mquit = 0;
@@ -1733,9 +1783,14 @@ void execut(ast * p) {
             int j;
             j = (int) p->nodo2->num;  //NUMBER
             vector = nuevoValorAlfas(j); // cantidad
-            for (i = 0; i < j; i++) vector [i] = (char *) NULL;  //no inicializamos el vector
+            for (i = 0; i < j; i++) 
+                //vector [i] = (char *) NULL;  //no inicializamos el vector
+                sprintf(&vector[i*127], "");
             arrayVectoresAlfa[idx_vec2] = vector;
             array_variables[(int) p->nodo1->num].numero = idx_vec2;
+            array_variables[(int) p->nodo1->num].dim1 = (int) j;
+            
+            //array_variables[(int) p->nodo1->num].dim2 = (int) k;
             //var[(int) p->nodo1->num] = idx_vec2;
             idx_vec2++;
         }
@@ -2185,6 +2240,7 @@ void execut(ast * p) {
 
         case mostrar_ventanas:
         {
+            char mensaje[100];
             printf("mostrando las ventanas\n");
             int i = 0;
             for (i = 0; i < 101; i++) {
@@ -2196,8 +2252,13 @@ void execut(ast * p) {
                     gtk_widget_show(nuevo);
                 }
             }
+            sprintf(mensaje, "suspendido");
+            send(new_socket , mensaje , strlen(mensaje) , 0 );
 
             gtk_main();
+            
+            sprintf(mensaje, "nosuspendido");
+            send(new_socket , mensaje , strlen(mensaje) , 0 );
 
         }
             break;

@@ -10,8 +10,8 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
+                <sourceRootElem>C:/Users/test/Documents/NetBeansProjects/lenguaje-interpretado/ejemplos</sourceRootElem>
                 <sourceRootElem>../myModule</sourceRootElem>
-                <sourceRootElem>.</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

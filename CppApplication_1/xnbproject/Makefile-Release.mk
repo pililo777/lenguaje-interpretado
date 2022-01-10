@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=Cygwin-Windows
 CND_DLIB_EXT=dll
-CND_CONF=Linux
+CND_CONF=Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -61,7 +61,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=`pkg-config --libs cairo` `pkg-config --libs gdk-2.0` `pkg-config --libs gtk+-2.0` `pkg-config --libs gdk-2.0`  
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -69,57 +69,57 @@ LDLIBSOPTIONS=`pkg-config --libs cairo` `pkg-config --libs gdk-2.0` `pkg-config 
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS} -ldl
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1 ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/bt.o: bt.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bt.o bt.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bt.o bt.c
 
 ${OBJECTDIR}/dbase.o: dbase.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dbase.o dbase.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dbase.o dbase.c
 
 ${OBJECTDIR}/dinamic.o: dinamic.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dinamic.o dinamic.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/dinamic.o dinamic.c
 
 ${OBJECTDIR}/err.o: err.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/err.o err.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/err.o err.c
 
 ${OBJECTDIR}/graficos.o: graficos.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/graficos.o graficos.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/graficos.o graficos.c
 
 ${OBJECTDIR}/grammar.tab.o: grammar.tab.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/grammar.tab.o grammar.tab.c
 
 ${OBJECTDIR}/lex.yy.o: lex.yy.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lex.yy.o lex.yy.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lex.yy.o lex.yy.c
 
 ${OBJECTDIR}/minieditor.o: minieditor.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/minieditor.o minieditor.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/minieditor.o minieditor.c
 
 ${OBJECTDIR}/run.o: run.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/run.o run.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/run.o run.c
 
 ${OBJECTDIR}/variables.o: variables.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g `pkg-config --cflags cairo` `pkg-config --cflags gdk-2.0` `pkg-config --cflags gtk+-2.0` `pkg-config --cflags gdk-2.0`   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/variables.o variables.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/variables.o variables.c
 
 # Subprojects
 .build-subprojects:

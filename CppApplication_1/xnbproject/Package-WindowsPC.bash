@@ -7,14 +7,14 @@
 # Macros
 TOP=`pwd`
 CND_PLATFORM=Cygwin-Windows
-CND_CONF=Debug
+CND_CONF=WindowsPC
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 CND_DLIB_EXT=dll
 NBTMPDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cppapplication_1
-OUTPUT_BASENAME=cppapplication_1
+OUTPUT_PATH=../ejemplos/cppapp1.exe
+OUTPUT_BASENAME=cppapp1.exe
 PACKAGE_TOP_DIR=cppapplication1/
 
 # Functions

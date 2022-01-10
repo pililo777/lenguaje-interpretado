@@ -1,0 +1,8 @@
+"make" -f nbproject/Makefile-WindowsPC.mk QMAKE= SUBPROJECTS= .build-conf
+make[1]: Entering directory '/cygdrive/c/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1'
+"make"  -f nbproject/Makefile-WindowsPC.mk ../ejemplos/cppapp1.exe
+make[2]: Entering directory '/cygdrive/c/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1'
+mkdir -p ../ejemplos
+gcc -m32 -mms-bitfields -v -g -w    -o ../ejemplos/cppapp1.exe build/WindowsPC/Cygwin-Windows/bt.o build/WindowsPC/Cygwin-Windows/dbase.o build/WindowsPC/Cygwin-Windows/dinamic.o build/WindowsPC/Cygwin-Windows/err.o build/WindowsPC/Cygwin-Windows/graficos.o build/WindowsPC/Cygwin-Windows/grammar.tab.o build/WindowsPC/Cygwin-Windows/lex.yy.o build/WindowsPC/Cygwin-Windows/minieditor.o build/WindowsPC/Cygwin-Windows/run.o build/WindowsPC/Cygwin-Windows/variables.o  -L/cygdrive/c/GTK/lib -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl -ldl
+make[2]: Leaving directory '/cygdrive/c/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1'
+make[1]: Leaving directory '/cygdrive/c/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1'

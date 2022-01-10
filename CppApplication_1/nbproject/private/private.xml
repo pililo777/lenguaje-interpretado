@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <code-assistance-data xmlns="http://www.netbeans.org/ns/make-project-private/1">
+        <code-model-enabled>true</code-model-enabled>
+    </code-assistance-data>
     <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
         <activeConfTypeElem>1</activeConfTypeElem>
-        <activeConfIndexElem>4</activeConfIndexElem>
+        <activeConfIndexElem>0</activeConfIndexElem>
     </data>
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3">
         <file>
-            <url>lex.yy.c</url>
-            <bookmark id="1">
+            <url>run.c</url>
+            <bookmark id="3">
                 <name/>
-                <line>2679</line>
+                <line>812</line>
+                <key/>
+            </bookmark>
+            <bookmark id="2">
+                <name/>
+                <line>812</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/run.c</file>
-            <file>file:/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/dbase.c</file>
-            <file>file:/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/minieditor.c</file>
-            <file>file:/home/ruben/Documentos/Netbeans/lenguaje-interpretado/CppApplication_1/lex.yy.c</file>
+            <file>file:/C:/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/vars.h</file>
+            <file>file:/C:/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/dbase.c</file>
+            <file>file:/C:/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/minieditor.c</file>
+            <file>file:/C:/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/graficos.c</file>
+            <file>file:/C:/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/run.c</file>
+            <file>file:/C:/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1/variables.c</file>
         </group>
     </open-files>
 </project-private>

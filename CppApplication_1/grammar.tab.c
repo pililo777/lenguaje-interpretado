@@ -1830,7 +1830,16 @@ if (depurar)
 
   case 14:
 //line 101 "grammar.y"
-                          { (yyval.nodo) = nodo2(dimensionar_alfa, (yyvsp[-1].nodo), (yyvsp[0].nodo)); /*dimensionar un vector strings */ }
+                          { 
+             /*dimensionar un vector strings */             
+             (yyval.nodo) = nodo2(dimensionar_alfa, (yyvsp[-1].nodo), (yyvsp[0].nodo)); 
+             //printf("reduce: %lf  ---   %lf  \n", (yyvsp[-1].nodo)->num, (yyvsp[0].nodo)->num);
+//             int n = (int) (yyvsp[-1].nodo)->num;
+//             int m = (int) (yyvsp[0].nodo)->num;
+//             array_variables[n].dim1 = m;
+//             printf("%s : dimensionado en %d\n", array_variables[n].nombre, m);
+  
+  }
 //line 1818 "grammar.tab.c"
     break;
 
