@@ -1,3 +1,5 @@
-cd %1
-cppapp1.exe %2
-pause
+cd ..\Cppapplication_1
+make.exe -f  Makefile CONF=WindowsPC
+cd ..\ejemplos
+cppapp1.exe
+

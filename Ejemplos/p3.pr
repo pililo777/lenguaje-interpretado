@@ -7,17 +7,17 @@ los resultados estan en la pagina 225 del libro del dragon
 Autor: Ruben Rivero Roca
 Fecha: 23 Septiembre 2016
 Lugar: Sabadell, Espana.
-
+TODO: WATCH,  VECTORES, remove BRK, run to cursor
 */
 
 
 SIMBOLOS_ANADIDOS = ' '
 vaciar SIMBOLOS_ANADIDOS
 
-
+ 
 II = ' '
 CC = ' '
-c = 1   //indexa al array cerradura C
+
 k = 0
 r = 0
 ic = 0
@@ -74,11 +74,11 @@ imprimir 'simbolos: ', LISTA_SIMBOLOS
 
 /*
 
-//dim resp 2
-//resp[0]=0
-//resp[1]=0
-//hallado = 1
-//trozea(MENSAJE, REGEX)
+dim resp 2
+resp[0]=0
+resp[1]=0
+hallado = 1
+trozea(MENSAJE, REGEX)
 
 */
 
@@ -198,7 +198,7 @@ llamar imprimir_array_c
 copiar_c_a_i(0)
 llamar vaciar_c
 
-jj1 = 0
+jj1 = 0  /* aqui empieza la funcion construir_i */
 
 //inicio.bucle:
 bucle = 1
@@ -245,7 +245,7 @@ mientras bucle = 1
 		bucle = 0
 		//GOTO inicio.bucle
 	si-fin
-}
+}   /* aqui termina la funcion construir_i */
 
 Z = ' '
 imprimir 'VAMOS A IR MOSTRAR LOS CONJUNTOS: ', ic
@@ -269,7 +269,7 @@ imprimir 'VAMOS A IR MOSTRAR LOS CONJUNTOS: ', ic
 
 
 
-	//'CALL imprimir.array.c 'C$ muestra en pantalla el array C$
+	//CALL imprimir.array.c 'C$ muestra en pantalla el array C$
 					 
 	imprimir 'fin del programa---------------------------'
 
@@ -410,6 +410,7 @@ anadidos = 0, externa
 */
 	linea_bk = linea1
 	A1 = C[linea1]
+	imprimir 'buscamos closure de: ', A1
 	p1 = instr(A1, PUNTO)
 	p1 = p1 + 1
 	
@@ -419,7 +420,7 @@ anadidos = 0, externa
 	LISTA = izquierda(LISTA_TERMINALES, ll)
 	//imprimir 'LISTA=', LISTA
 	kk = instr(LISTA, K)
-
+    
 	si  kk > 0 entonces 
 		anadidos = 0
 	sino
@@ -548,7 +549,7 @@ funcion mostrar_i(x)
 				    imprimir 'vamos a rellena tabla accion'
 				    //Z = ' '
 				    //leer Z
-					rellena_tabla_accion(x, SIG, REGLA)  //pendiente de implementar'
+					rellena_tabla_accion(x, SIG, REGLA)  //pendiente de implementar
 				sino
 					DOLAR = '$'
 					posic = instr(LISTA_TERMINALES, DOLAR) - 1
@@ -635,6 +636,7 @@ fin
 proc vaciar_c
 	TEMP = ' '
 	vaciar TEMP
+	imprimir 'vaciamos C'
 	desde x = 1 hasta nsym2
 	{
 		C[x] = TEMP
@@ -738,7 +740,7 @@ funcion  ira(i, J)
 		//	IF DBGFF THEN
 		//		PRINT "existe: "; existe, "   cnt="; cnt
 		//	END IF
-		//	'kkk$ = INPUT$(1)
+		//	kkk$ = INPUT$(1)
 		// END IF
 
 		//imprimir '3b-----------------> existe: ', existe
@@ -896,12 +898,13 @@ fin
 
 
 funcion copiar_c_a_i (x)
-	
+	imprimir 'copiamos C a I'
 	desde j=0 hasta nsym2
 	{
 		
 		I[(x*nsym)+j] =  C[j]  
-		
+		imprimir 'fila: ', x, ' columna: ', j, ' indice: ', x*nsym+j
+		imprimir C[j]
 		
 	}
 	
@@ -1288,22 +1291,23 @@ fin
 
 
 funcion primero(SIMBOLO)
-//Se calcula PRIMERO(SIMBOLO)
-//(en las reglas: X es SIMBOLO)
-//Las reglas estan en la pagina 194 del libro del dragon
-//(1) Si X es terminal, entonces PRIMERO(X)  es {X}
-//(2) Si X->epsilon es una produccion, entonces se añade epsilon a PRIMERO(X)
-//(3) Si X es un NO Terminal, se buscan todas las producciones tipo X-> Y1 Y2....Yn
-//    si un terminal esta en algun PRIMERO(Yn) y ademas epsilon esta en todos los
-//    PRIMERO(Y1).....PRIMERO(Yn),  se añade a PRIMERO(X).
-//(4) Si epsilon esta en todos los PRIMERO(Yn), se añade epsilon a PRIMERO(X)
-//fin de las reglas//
+/*
+Se calcula PRIMERO(SIMBOLO)
+(en las reglas: X es SIMBOLO)
+Las reglas estan en la pagina 194 del libro del dragon
+(1) Si X es terminal, entonces PRIMERO(X)  es {X}
+(2) Si X->epsilon es una produccion, entonces se añade epsilon a PRIMERO(X)
+(3) Si X es un NO Terminal, se buscan todas las producciones tipo X-> Y1 Y2....Yn
+   si un terminal esta en algun PRIMERO(Yn) y ademas epsilon esta en todos los
+   PRIMERO(Y1).....PRIMERO(Yn),  se añade a PRIMERO(X).
+(4) Si epsilon esta en todos los PRIMERO(Yn), se añade epsilon a PRIMERO(X)
+fin de las reglas//
 
-//COLOR 8
-//IF DBGFF THEN
-//	PRINT "vamos a buscar primero de "; SIMBOLO
-//END IF
-
+COLOR 8
+IF DBGFF THEN
+	PRINT "vamos a buscar primero de "; SIMBOLO
+END IF
+*/
 RESUL = ' '
 vaciar RESUL
 hubo_e = 0
@@ -1503,18 +1507,18 @@ fin
 proc mostrar_tabla_accion
    desde x = 0 hasta ic
    {
-   	desde i = 0 hasta largo(LISTA_TERMINALES) - 1
-   	{
-   		TEMP = TABLA_ACCION[(x*nsym)+i]
-   		TEMP1 = subcadena(LISTA_TERMINALES, i+1, 1)
-   		imprimir 'accion ', x, ' ', i, ' ---- ', TEMP1, '   ', TEMP  //, '  ::  ', (x*nsym)+i
-	 //PRINT "accion "; STR$(x); ", "; STR$(i); " = "; MID$(lista.terminales$, i + 1, 1); "   ";
-	 //PRINT tabla.accion$(i, x)
-    }
-    imprimir '----------------------------'
-    Z = ' '
-    //leer Z
-}
+		desde i = 0 hasta largo(LISTA_TERMINALES) - 1
+		{
+			TEMP = TABLA_ACCION[(x*nsym)+i]
+			TEMP1 = subcadena(LISTA_TERMINALES, i+1, 1)
+			imprimir 'accion ', x, ' ', i, ' ---- ', TEMP1, '   ', TEMP  //, '  ::  ', (x*nsym)+i
+			//PRINT "accion "; STR$(x); ", "; STR$(i); " = "; MID$(lista.terminales$, i + 1, 1); "   ";
+			//PRINT tabla.accion$(i, x)
+		}
+		imprimir '----------------------------'
+		Z = ' '
+		//leer Z
+   }
 fin
 
 
@@ -1533,7 +1537,8 @@ fin
 
 
 proc calcular_tabla_goto
-
+dim GTO 20
+idx=0
 desde x = 0  hasta ic
 {
 	desde posic = 1 hasta largo (LISTA_NO_TERMINALES)
@@ -1547,6 +1552,20 @@ desde x = 0  hasta ic
 		
 		si (n = 0) oo (n = 1) entonces
 		    imprimir ELEMENTO, ' ', x, '   --->   ', existe
+			EXISTE = ' '
+			X = ' '
+			Y = ' '
+			TEMP = ' '
+			vaciar TEMP
+			convertir x X
+			convertir existe EXISTE
+			TEMP = ELEMENTO
+			TEMP += Y
+			TEMP += X
+			TEMP += Y
+			TEMP += EXISTE 
+			GTO[idx] = TEMP
+			idx = idx + 1
 		si-fin
 	}
 }

@@ -1,0 +1,50 @@
+iteraciones = 20000
+segmn=0
+contador = 0
+mientras contador < iteraciones
+{
+	//imprimir contador
+	desde segmn = 0 hasta 9
+	{
+		//imprimir 'seg: ', segmn
+			// cargar la capa de entrada con datos
+		j = cargar_entradas(segmn)   //ponemos datos en la carpeta de entrada
+		//imprimir 'entrada:'
+		//llamar ver_entradas
+		//imprimir 'aprender: '
+		VAR_APR = APRENDER[segmn]
+		//imprimir  VAR_APR
+		
+		//imprimir 'en medio:'
+		desde var=0 hasta 4
+		{
+			z = activacion_capa_enmedio(var)
+		}
+
+		desde var=0 hasta 4
+		{
+			z = activacion_capa_enmedio2(var)
+		}
+		
+		//llamar ver_capa_enmedio
+		desde var=0 hasta 3
+		{
+			z = activacion_capa_salida(var)
+		}
+		
+		//llamar ver_capa_salida
+		hay_error = 0
+		llamar calcular_error
+		si hay_error = 0 entonces
+			salir
+		si-fin
+		//imprimir '-----------------------------------------------------------------------'
+	}	
+	contador = contador + 1
+	contador1 = contador1 +  1
+	si contador1 = 100 entonces
+		imprimir contador
+		contador1 = 0
+	si-fin
+	//imprimir contador
+}

@@ -1,0 +1,302 @@
+        TEST='hola'
+		imprimir TEST
+		
+	decimales 6
+
+NUMPAT = '10'
+NUMIN = '7'
+NUMHID = '3'
+NUMOUT = '4'
+
+it=2000000
+
+// int    i, j, k, p, np, op, ranpat[NUMPAT+1], epoch
+
+i = 0
+j = 0
+k = 0
+p = 0
+np = 0
+op = 0
+epoch = 0
+
+dim ranpat 11
+
+numpattern = 0
+numinput = 0
+numhidden = 0
+numoutput = 0
+
+convertir NUMPAT numpattern
+convertir NUMIN numinput
+convertir NUMHID numhidden
+convertir NUMOUT numoutput
+
+    // int    NumPattern = NUMPAT, NumInput = NUMIN, NumHidden = NUMHID, NumOutput = NUMOUT;
+
+dim input 11 , 8  // (10x7)
+INPUT = '12345678 01110111 01000001 01101110 01101011 01011001 00111011 00111111 01100001 01111111 01111011'
+imprimir INPUT
+posicion = 1
+
+imprimir 'cargando entradas....'
+DIGITO = ' '
+digito = 0
+
+desde i = 0 hasta 10
+{
+    desde j = 0 hasta 7
+    {
+	    DIGITO = subcadena(INPUT, posicion, 1)
+        imprimir 'digito = ', DIGITO, ' posicion = ', posicion
+        convertir DIGITO digito
+		
+        input[i][j] = digito
+        posicion = posicion + 1
+    }
+    imprimir 'fin'
+    posicion = posicion + 1
+}
+
+
+/*
+    double Input[NUMPAT+1][NUMIN+1] = { 0,0,0,0,0,0,0,0,
+                                        0,1,1,1,0,1,1,1,  
+                                        0,1,0,0,0,0,0,1,
+                                        0,1,1,0,1,1,1,0,
+                                        0,1,1,0,1,0,1,1,
+                                        0,1,0,1,1,0,0,1,
+                                        0,0,1,1,1,0,1,1,
+                                        0,0,1,1,1,1,1,1,
+                                        0,1,1,0,0,0,0,1,
+                                        0,1,1,1,1,1,1,1,
+                                        0,1,1,1,1,0,1,1    
+};
+*/
+
+dim target 11 , 5
+TARGET = '00000 00000 00001 00010 00011 00100 00101 00110 00111 01000 01001'
+
+imprimir 'cargando targets.....'
+
+posicion = 1
+desde i = 0 hasta 10
+{
+    desde j = 0 hasta 4
+    {
+        DIGITO = subcadena (TARGET, posicion, 1)
+        convertir DIGITO digito
+        imprimir 'digito = ', digito, ' posicion = ', posicion 
+        target[i][j] = digito
+        posicion = posicion + 1
+    }
+    imprimir 'fin'
+    posicion = posicion + 1
+}
+
+/*
+    double Target[NUMPAT+1][NUMOUT+1] = { 0,0,0,0,0,
+                                          0,0,0,0,0,
+                                          0,0,0,0,1,
+                                          0,0,0,1,0,
+                                          0,0,0,1,1,
+                                          0,0,1,0,0,
+                                          0,0,1,0,1,
+                                          0,0,1,1,0,
+                                          0,0,1,1,1,
+                                          0,1,0,0,0,
+                                          0,1,0,0,1  };
+*/
+
+imprimir 'dimensionando vectores y matrices....'
+dim sumh 11 , 4
+dim weightih 8 , 4
+dim hidden 11 , 4
+dim sumo 11 , 5
+dim weightho 4 , 5
+dim output 11 , 5
+dim deltao 5
+dim sumdow 4
+dim deltah 4
+dim deltaweightih 8 , 4
+dim deltaweightho 4 , 5
+error = 0
+eta = 0.5
+alpha = 0.5
+smallwt = 0.5
+
+imprimir 'hecho'
+
+
+/*
+    double SumH[NUMPAT+1][NUMHID+1], WeightIH[NUMIN+1][NUMHID+1], Hidden[NUMPAT+1][NUMHID+1];
+    double SumO[NUMPAT+1][NUMOUT+1], WeightHO[NUMHID+1][NUMOUT+1], Output[NUMPAT+1][NUMOUT+1];
+    double DeltaO[NUMOUT+1], SumDOW[NUMHID+1], DeltaH[NUMHID+1];
+    double DeltaWeightIH[NUMIN+1][NUMHID+1], DeltaWeightHO[NUMHID+1][NUMOUT+1];
+    //double Error, eta = 0.5, alpha = 0.9, smallwt = 0.5;
+    double Error, eta = 0.5, alpha = 0.5, smallwt = 0.5;
+
+    
+    for( j = 1 ; j <= numhidden ; j++ ) {    // initialize WeightIH and DeltaWeightIH
+        for( i = 0 ; i <= numinput ; i++ ) { 
+            DeltaWeightIH[i][j] = 0.0 ;
+            WeightIH[i][j] = 2.0 * ( rando() - 0.5 ) * smallwt ;
+        }
+    }
+  */  
+
+imprimir 'inicializando pesos y deltas 1....'
+
+    desde  j = 1 hasta numhidden  
+    {                                     /* initialize WeightIH and DeltaWeightIH */
+        desde i = 0 hasta numinput { 
+            deltaweightih[i][j] = 0 
+			xy = random(0)
+			 
+            weightih[i][j] = 2 * ( xy - 0.5 ) * smallwt 
+        }
+    }
+
+/*
+    for( k = 1 ; k <= numoutput ; k ++ ) {    // initialize WeightHO and DeltaWeightHO
+        for( j = 0 ; j <= numhidden ; j++ ) {
+            DeltaWeightHO[j][k] = 0.0 ;              
+            WeightHO[j][k] = 2.0 * ( rando() - 0.5 ) * smallwt ;
+        }
+    }
+*/
+
+imprimir 'inicializando pesos y deltas 2....'
+
+    desde k = 1 hasta numoutput  {    // initialize WeightHO and DeltaWeightHO
+        desde j = 0 hasta numhidden  {
+            deltaweightho[j][k] = 0 
+			xy = random(0)
+			 
+            weightho[j][k] = 2 * ( xy - 0.5 ) * smallwt 
+        }
+    }
+
+
+    contador1 = 0
+
+
+	
+imprimir 'inicio del bucle de epocas....'
+     
+   desde epoch = 0 hasta it  {    /* iterate weight updates */
+        desde p = 1 hasta numpattern  {    /* randomize order of individuals */
+                ranpat[p] = p 
+        }
+        desde p = 1 hasta numpattern  {
+		    xy = random(0)
+			 
+            xx = xy * ( numpattern + 1 - p )
+            si xx < 0 entonces
+                 xx = xx * ( -1 )
+            si-fin
+            np = p + xx 
+            op = ranpat[p] 
+            ranpat[p] = ranpat[np]
+            ranpat[np] = op
+        }
+
+        error = 0
+
+        desde np = 1 hasta numpattern  {    /* repeat for all the training patterns */
+            p = ranpat[np]
+            desde  j = 1 hasta numhidden  {    /* compute hidden unit activations */
+                sumh[p][j] = weightih[0][j] 
+                desde i = 1 hasta numinput  {
+                    sumh[p][j] = sumh[p][j] + input[p][i] * weightih[i][j] 
+                }
+                hidden[p][j] = 1 /( 1 + potencia_e ( sumh[p][j] * ( -1 )  ) )
+            }
+
+            desde k = 1 hasta numoutput  {    /* compute output unit activations and errors */
+                sumo[p][k] = weightho[0][k] 
+                desde j = 1 hasta numhidden  {
+                    sumo[p][k] = sumo[p][k] + hidden[p][j] * weightho[j][k] 
+                }
+                output[p][k] = 1/( 1 + potencia_e ( ( sumo[p][k] ) * ( -1 )  ))    /* Sigmoidal Outputs */
+                error = error + 0.5 * (target[p][k] - output[p][k]) * (target[p][k] - output[p][k])   /* SSE */
+                deltao[k] = (target[p][k] - output[p][k]) * output[p][k] * ( 1 - output[p][k])    /* Sigmoidal Outputs, SSE */
+            }
+
+            desde j = 1 hasta numhidden  {    /* 'back-propagate' errors to hidden layer */
+                sumdow[j] = 0
+                desde k = 1 hasta numoutput  {
+                    sumdow[j] = sumdow[j] + weightho[j][k] * deltao[k] 
+                }
+                deltah[j] = sumdow[j] * hidden[p][j] * ( 1 - hidden[p][j]) 
+            }
+            desde j = 1 hasta numhidden  {     /* update weights WeightIH */
+                deltaweightih[0][j] = eta * deltah[j] + alpha * deltaweightih[0][j] 
+                weightih[0][j] = weightih[0][j] + deltaweightih[0][j]
+                desde i = 1 hasta numinput  { 
+                    deltaweightih[i][j] = eta * input[p][i] * deltah[j] + alpha * deltaweightih[i][j]
+                    weightih[i][j] = weightih[i][j] + deltaweightih[i][j]
+                }
+            }
+            desde k = 1 hasta numoutput  {    /* update weights WeightHO */
+                deltaweightho[0][k] = eta * deltao[k] + alpha * deltaweightho[0][k] 
+                weightho[0][k] = weightho[0][k] + deltaweightho[0][k] 
+                desde j = 1 hasta numhidden  {
+                    deltaweightho[j][k] = eta * hidden[p][j] * deltao[k] + alpha * deltaweightho[j][k] 
+                    weightho[j][k] = weightho[j][k] + deltaweightho[j][k] 
+                }
+            }
+        }
+        contador1 = contador1 + 1
+        si contador1 = 400 entonces
+            contador1 = 0
+            imprimir 'Epoca : ', epoch, '  Error =  ',  error
+			
+        si-fin
+
+        si error < 0.0004 entonces
+            salir
+        si-fin
+
+        // if( Error < 0.0004 ) break ;  /* stop learning when 'near enough' */
+    }
+    
+    imprimir 'NETWORK DATA - EPOCH : ', epoch 
+    imprimir 'Pat'
+
+    desde i = 1 hasta numinput  {
+        imprimir 'I', i 
+    }
+
+
+
+
+    //for( k = 1 ; k <= numoutput ; k++ ) {
+        //fprintf(stdout, "Output%-4d\t", k) ;
+       imprimir  'Output'
+    //}
+
+
+imprimir '------------------------------------------------------------------------------'       
+    desde p = 1 hasta numpattern  {        
+        imprimir p-1
+        imprimir ':'
+        desde i = 1 hasta numinput  {
+            imprimir input[p][i]
+        }
+
+    imprimir '  ----  '
+        desde k = 1 hasta numoutput {
+            val = 0
+            si output[p][k] > 0.5 entonces
+                 val = 1
+            sino
+                 val = 0
+            si-fin
+           // fprintf(stdout, "%f\t%f\t", Target[p][k], Output[p][k]) ;
+             imprimir  val
+        }
+imprimir '------------------------------------------------------------------------------'  
+    }
+
+imprimir 'Goodbye!'

@@ -1,0 +1,598 @@
+ 
+*** Interprete de Comandos
+Version 1.0.
+Digite help para ver una lista de comandos.
+F: trozea
+P: crear_puntos
+F: closure2
+P: imprimir_array_c
+F: mostrar_i
+P: vaciar_c
+F: ira
+F: avanzar_punto
+F: buscar_c_en_i
+F: comparar_c_con_ix
+F: copiar_c_a_i
+F: siguiente
+F: primero_xxx
+F: primero
+F: rellena_tabla_accion
+F: buscar_numero_regla
+P: mostrar_tabla_accion
+P: calcular_tabla_goto
+simbolos: ETF(a+*)
+simbolos: ETF(a+*)
+Creando los puntos iniciales en R$
+W=.E
+E=.E+T
+E=.T
+T=.T*F
+T=.F
+F=.(E)
+F=.a
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+ARRAY C$: 
+0 --> W=.E
+1 --> E=.E+T
+2 --> E=.T
+3 --> T=.T*F
+4 --> T=.F
+5 --> F=.(E)
+6 --> F=.a
+7 --> 
+8 --> 
+9 --> 
+entra a closure2
+n=1   ii = 1   ic=1
+entra a closure2
+n=1   ii = 2   ic=2
+entra a closure2
+n=0   ii = 3   ic=3
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+n=0   ii = 4   ic=4
+entra a closure2
+n=0   ii = 5   ic=5
+n=-1   ii = 6   ic=5
+n=-1   ii = 7   ic=5
+n=-1   ii = 8   ic=5
+n=-1   ii = 1   ic=5
+n=-1   ii = 2   ic=5
+n=-1   ii = 3   ic=5
+n=-1   ii = 4   ic=5
+n=-1   ii = 5   ic=5
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+n=0   ii = 6   ic=6
+n=-1   ii = 7   ic=6
+n=-1   ii = 8   ic=6
+n=-1   ii = 1   ic=6
+n=-1   ii = 2   ic=6
+n=-1   ii = 3   ic=6
+n=-1   ii = 4   ic=6
+n=-1   ii = 5   ic=6
+n=-1   ii = 6   ic=6
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+n=0   ii = 7   ic=7
+n=-1   ii = 8   ic=7
+n=-1   ii = 1   ic=7
+n=-1   ii = 2   ic=7
+n=-1   ii = 3   ic=7
+n=-1   ii = 4   ic=7
+n=-1   ii = 5   ic=7
+n=-1   ii = 6   ic=7
+n=-1   ii = 7   ic=7
+n=-1   ii = 8   ic=7
+entra a closure2
+n=1   ii = 1   ic=8
+entra a closure2
+n=1   ii = 2   ic=8
+entra a closure2
+n=0   ii = 3   ic=8
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+n=0   ii = 4   ic=8
+entra a closure2
+n=0   ii = 5   ic=8
+n=-1   ii = 6   ic=8
+n=-1   ii = 7   ic=8
+n=-1   ii = 8   ic=8
+n=-1   ii = 1   ic=8
+n=-1   ii = 2   ic=8
+n=-1   ii = 3   ic=8
+n=-1   ii = 4   ic=8
+n=-1   ii = 5   ic=8
+n=-1   ii = 6   ic=8
+n=-1   ii = 7   ic=8
+n=-1   ii = 8   ic=8
+n=-1   ii = 1   ic=8
+entra a closure2
+n=1   ii = 2   ic=9
+entra a closure2
+n=0   ii = 3   ic=9
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+n=0   ii = 4   ic=9
+entra a closure2
+n=0   ii = 5   ic=9
+n=-1   ii = 6   ic=9
+n=-1   ii = 7   ic=9
+n=-1   ii = 8   ic=9
+n=-1   ii = 1   ic=9
+n=-1   ii = 2   ic=9
+entra a closure2
+n=0   ii = 3   ic=10
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+n=0   ii = 4   ic=10
+entra a closure2
+n=0   ii = 5   ic=10
+n=-1   ii = 6   ic=10
+n=-1   ii = 7   ic=10
+n=-1   ii = 8   ic=10
+n=-1   ii = 1   ic=10
+n=-1   ii = 2   ic=10
+n=-1   ii = 3   ic=10
+n=-1   ii = 4   ic=10
+n=-1   ii = 5   ic=10
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+n=0   ii = 6   ic=10
+n=-1   ii = 7   ic=10
+entra a closure2
+n=0   ii = 8   ic=11
+n=-1   ii = 1   ic=11
+n=-1   ii = 2   ic=11
+n=-1   ii = 3   ic=11
+n=-1   ii = 4   ic=11
+n=-1   ii = 5   ic=11
+n=-1   ii = 6   ic=11
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+n=0   ii = 7   ic=11
+n=-1   ii = 8   ic=11
+n=-1   ii = 1   ic=11
+n=-1   ii = 2   ic=11
+n=-1   ii = 3   ic=11
+n=-1   ii = 4   ic=11
+n=-1   ii = 5   ic=11
+n=-1   ii = 6   ic=11
+n=-1   ii = 7   ic=11
+n=-1   ii = 8   ic=11
+n=-1   ii = 1   ic=11
+n=-1   ii = 2   ic=11
+n=-1   ii = 3   ic=11
+n=-1   ii = 4   ic=11
+n=-1   ii = 5   ic=11
+n=-1   ii = 6   ic=11
+n=-1   ii = 7   ic=11
+n=-1   ii = 8   ic=11
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+entra a closure2
+ 
+SIG W ---- 
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+ 
+añadimos FB de +T : + a sig: E
+añadimos FB de ) : ) a sig: E
+SIG E ---- $+)
+reducir: 2  ,  5    r2
+reducir: 2  ,  1    r2
+reducir: 2  ,  4    r2
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+ 
+añadimos FB de +T : + a sig: E
+añadimos FB de ) : ) a sig: E
+SIG E ---- $+)
+añadimos FK1 $+) a sig: T
+añadimos FB de *F : * a sig: T
+SIG T ---- $+)*
+reducir: 3  ,  5    r4
+reducir: 3  ,  1    r4
+reducir: 3  ,  4    r4
+reducir: 3  ,  2    r4
+ 
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+entra a closure2
+ 
+ bucle 1E=E+T
+ bucle 2E=T
+ bucle 3T=T*F
+añadimos FB de +T : + a sig: E
+añadimos FB de ) : ) a sig: E
+SIG E ---- $+)
+añadimos FK1 $+) a sig: T
+añadimos FB de *F : * a sig: T
+SIG T ---- $+)*
+añadimos FK1 $+)* a sig: F
+ bucle 4T=F
+ bucle 5F=(E)
+ bucle 6F=a
+SIG F ---- $+)*
+reducir: 5  ,  5    r6
+reducir: 5  ,  1    r6
+reducir: 5  ,  4    r6
+reducir: 5  ,  2    r6
+ 
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+entra a closure2
+ 
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+pop
+entra a closure2
+ 
+entra a closure2
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+pop
+ 
+añadimos FB de +T : + a sig: E
+añadimos FB de ) : ) a sig: E
+SIG E ---- $+)
+reducir: 9  ,  5    r1
+reducir: 9  ,  1    r1
+reducir: 9  ,  4    r1
+entra a closure2
+push
+entra a closure2
+pop
+push
+entra a closure2
+pop
+ 
+añadimos FB de +T : + a sig: E
+añadimos FB de ) : ) a sig: E
+SIG E ---- $+)
+añadimos FK1 $+) a sig: T
+añadimos FB de *F : * a sig: T
+SIG T ---- $+)*
+reducir: 10  ,  5    r3
+reducir: 10  ,  1    r3
+reducir: 10  ,  4    r3
+reducir: 10  ,  2    r3
+ 
+ bucle 1E=E+T
+ bucle 2E=T
+ bucle 3T=T*F
+añadimos FB de +T : + a sig: E
+añadimos FB de ) : ) a sig: E
+SIG E ---- $+)
+añadimos FK1 $+) a sig: T
+añadimos FB de *F : * a sig: T
+SIG T ---- $+)*
+añadimos FK1 $+)* a sig: F
+ bucle 4T=F
+ bucle 5F=(E)
+ bucle 6F=a
+SIG F ---- $+)*
+reducir: 11  ,  5    r5
+reducir: 11  ,  1    r5
+reducir: 11  ,  4    r5
+reducir: 11  ,  2    r5
+ 
+accion 0 0 ---- a   d5
+accion 0 1 ---- +   
+accion 0 2 ---- *   
+accion 0 3 ---- (   d4
+accion 0 4 ---- )   
+accion 0 5 ---- $   
+----------------------------
+accion 1 0 ---- a   
+accion 1 1 ---- +   d6
+accion 1 2 ---- *   
+accion 1 3 ---- (   
+accion 1 4 ---- )   
+accion 1 5 ---- $   acep
+----------------------------
+accion 2 0 ---- a   
+accion 2 1 ---- +   r2
+accion 2 2 ---- *   d7
+accion 2 3 ---- (   
+accion 2 4 ---- )   r2
+accion 2 5 ---- $   r2
+----------------------------
+accion 3 0 ---- a   
+accion 3 1 ---- +   r4
+accion 3 2 ---- *   r4
+accion 3 3 ---- (   
+accion 3 4 ---- )   r4
+accion 3 5 ---- $   r4
+----------------------------
+accion 4 0 ---- a   d5
+accion 4 1 ---- +   
+accion 4 2 ---- *   
+accion 4 3 ---- (   d4
+accion 4 4 ---- )   
+accion 4 5 ---- $   
+----------------------------
+accion 5 0 ---- a   
+accion 5 1 ---- +   r6
+accion 5 2 ---- *   r6
+accion 5 3 ---- (   
+accion 5 4 ---- )   r6
+accion 5 5 ---- $   r6
+----------------------------
+accion 6 0 ---- a   d5
+accion 6 1 ---- +   
+accion 6 2 ---- *   
+accion 6 3 ---- (   d4
+accion 6 4 ---- )   
+accion 6 5 ---- $   
+----------------------------
+accion 7 0 ---- a   d5
+accion 7 1 ---- +   
+accion 7 2 ---- *   
+accion 7 3 ---- (   d4
+accion 7 4 ---- )   
+accion 7 5 ---- $   
+----------------------------
+accion 8 0 ---- a   
+accion 8 1 ---- +   d6
+accion 8 2 ---- *   
+accion 8 3 ---- (   
+accion 8 4 ---- )   d11
+accion 8 5 ---- $   
+----------------------------
+accion 9 0 ---- a   
+accion 9 1 ---- +   r1
+accion 9 2 ---- *   d7
+accion 9 3 ---- (   
+accion 9 4 ---- )   r1
+accion 9 5 ---- $   r1
+----------------------------
+accion 10 0 ---- a   
+accion 10 1 ---- +   r3
+accion 10 2 ---- *   r3
+accion 10 3 ---- (   
+accion 10 4 ---- )   r3
+accion 10 5 ---- $   r3
+----------------------------
+accion 11 0 ---- a   
+accion 11 1 ---- +   r5
+accion 11 2 ---- *   r5
+accion 11 3 ---- (   
+accion 11 4 ---- )   r5
+accion 11 5 ---- $   r5
+----------------------------
+entra a closure2
+E 0   --->   1
+entra a closure2
+T 0   --->   2
+entra a closure2
+F 0   --->   3
+entra a closure2
+E 4   --->   8
+entra a closure2
+T 4   --->   2
+entra a closure2
+F 4   --->   3
+entra a closure2
+T 6   --->   9
+entra a closure2
+F 6   --->   3
+entra a closure2
+F 7   --->   10
+END RUN
+fin del programa---------------------------
+hemos finalizado
+liberando vector 0
+. quit
+*** FIN DEL PROGRAMA

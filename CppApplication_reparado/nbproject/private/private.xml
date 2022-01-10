@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <code-assistance-data xmlns="http://www.netbeans.org/ns/make-project-private/1">
+        <code-model-enabled>true</code-model-enabled>
+    </code-assistance-data>
+    <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
+        <activeConfTypeElem>1</activeConfTypeElem>
+        <activeConfIndexElem>0</activeConfIndexElem>
+    </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="3">
+        <file>
+            <url>run.c</url>
+            <bookmark id="3">
+                <name/>
+                <line>806</line>
+                <key/>
+            </bookmark>
+            <bookmark id="2">
+                <name/>
+                <line>806</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/minieditor.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/lex.yy.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/dbase.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/variables.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/run.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/graficos.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/err.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/bt.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/dinamic.c</file>
+            <file>file:/C:/Users/ruben/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_sinGraficos/grammar.tab.c</file>
+        </group>
+    </open-files>
+</project-private>
