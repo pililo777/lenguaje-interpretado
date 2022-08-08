@@ -240,3 +240,7 @@ CppApplication_1 16sept.zip
 CppApplication_1 17 sept.zip
 *.exe
 *.d
+/.vs
+/CppApplication_1/.vshistory
+/ejemplos/nuevos contactos.dbf
+/ejemplos/nuevos contactos.ndx
