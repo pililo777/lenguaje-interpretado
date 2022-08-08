@@ -1,6 +1,12 @@
-/* IMPORTANTE:  no dejar espacios entre los | | | !!!!!1   github */
-/* '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux */
-/* compilar con:  flex  tokens.l */
+/* 
+
+  IMPORTANTE:  no dejar espacios entre los | | | !!!!!   
+
+    '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux 
+
+   Compilar con:  flex  tokens.l 
+
+*/
 
 %{
 

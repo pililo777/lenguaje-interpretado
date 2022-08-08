@@ -240,3 +240,6 @@ CppApplication_1 16sept.zip
 CppApplication_1 17 sept.zip
 *.exe
 *.d
+/.vs/lenguaje-interpretado/v16
+/.vs/slnx.sqlite
+/CppApplication_1/.vshistory
