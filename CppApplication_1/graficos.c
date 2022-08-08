@@ -177,6 +177,7 @@ static gboolean clicked(GtkWidget *widget, GdkEventButton *event,
  // **** DIBUJAR UNA LINEA ****
 void dibujarlinea() {
 	double x, y, x1, y1;
+  x1 = 0; y1=0;
     cairo_t *cr;
   cr = gdk_cairo_create (gtk_widget_get_window (darea));
  
@@ -184,10 +185,11 @@ void dibujarlinea() {
     
     x = (double)  evalua( nodografico2->nodo1);
     y = (double) evalua( nodografico2->nodo2);
+    if (nodografico2->subnodos > 2)
     x1 = (double)   evalua(nodografico2->nodo3);
     if (nodografico2->subnodos > 3)
     y1 = (double)   evalua( nodografico2->nodo4);
-  //  printf ("%lf  %lf  %lf  %lf\n",  x, y, x1, y1);
+    // printf ("%lf  %lf  %lf  %lf\n",  x, y, x1, y1);
     
   cairo_set_source_rgb(cr, 0, 8, 0);  // color de pintado
   cairo_show_text (cr, "ejemplo de texto");
@@ -198,19 +200,39 @@ void dibujarlinea() {
  cairo_move_to(cr,  x,  y);
  if (nodografico2->tipo == dibuja_linea)
  {
-	 cairo_line_to(cr, x1, y1);
-	 cairo_stroke_preserve(cr);
+	 cairo_line_to (cr, x1, y1);
+	 cairo_stroke_preserve(cr);  // estaba con preserve
  
  }
 
- else {
+ if (nodografico2->tipo == dibuja_circulo) {
 
 	     cairo_arc(cr, x, y, x1, 0, 2 * 3.1415);
-		 cairo_stroke_preserve(cr);
-	     cairo_set_source_rgb(cr, 0.3, 0.4, 0.6);   //color de relleno
+		 cairo_stroke_preserve(cr); // estaba con preserve
+	     cairo_set_source_rgb(cr, 0.4, 0.5, 0.6);   //color de relleno   fillcolor
 	     cairo_fill(cr);
  }
-  
+
+ if (nodografico2->tipo == dibuja_rectangulo) // dibuja rectangulo
+  {
+     //printf ("%lf  %lf  %lf  %lf\n",  x, y, x1, y1);
+     cairo_set_line_width(cr, 1.5);
+     cairo_rectangle (cr, x, y, x1, y1);
+	   cairo_stroke_preserve(cr);  // estaba con preserve
+
+
+  }
+
+  if (nodografico2->tipo == dibuja_punto) // dibuja punto
+  {
+
+    cairo_set_line_cap(cr, CAIRO_LINE_CAP_ROUND);
+    cairo_set_source_rgb(cr, 0, 0, 0);
+    cairo_set_line_width(cr, 2);
+        cairo_move_to(cr, x, y);
+        cairo_close_path(cr);
+        cairo_stroke(cr);
+  }
 
   
 

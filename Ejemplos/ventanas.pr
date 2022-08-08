@@ -247,8 +247,32 @@ procedimiento clicar_boton
 	mientras i<121
 	haz
 	    //imprimir 'linea desde ' , i*10+100, ' ', i*10+10, ' hasta ' , i*20+200, ' ', i*30+300
-		linea i*5+20, i*5+20, i*5+100, i*5+20
+		
 		circulo i*5+20, i*5+20, numero
+
+		rectangulo i*5+20, i*5+20, 7.5, 7.5
+
+		linea i*5+20, i*5+20, i*5+100, i*5+20
+
+		//punto    i*5+25, i*5+25
+
+
 		i=i+10
 	fin-haz
+	i = 1
+	j = 0
+	decimales 14
+	mientras i < 360*2
+	{
+		j = seno( i * 3.1415926536 / 180.0)
+		imprimir 'i=',  i, '  j=', j
+		punto i+50,  j * 50 + 50
+		punto i+50,  j * 150 + 250
+		i = i + 1
+
+	}
+
+
+
+	//rectangulo 10,  20,  100,  100
 fin

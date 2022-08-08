@@ -1928,6 +1928,23 @@ void execut(ast * p) {
         }
             break;
 
+        case dibuja_rectangulo:
+        {
+            flag_ventanas = 1;
+            nodografico2 = p;
+            dibujarlinea();
+        }
+
+            break;
+
+        case dibuja_punto:
+        {
+            flag_ventanas = 1;
+            nodografico2 = p;
+            dibujarlinea();
+        }
+
+            break;
 
         case interpreta:
 
@@ -2900,6 +2917,16 @@ double evalua(ast * p) {
                     //res =  (double) i;
                     return res;
                 }
+
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "seno")) {
+                    double i;
+                    
+                    i = evalua( p->nodo2->nodo1);
+                    res = (double) sin(i);
+
+                    return res;
+                }
+
                 
                 if (!strcmp(array_variables[indice_de_la_variable].nombre, "random")) {
                     res = rando();

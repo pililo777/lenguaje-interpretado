@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.5.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -74,55 +74,57 @@ extern int yydebug;
     DIM = 280,
     LINEA = 281,
     CIRCULO = 282,
-    CONVERTIR = 283,
-    EVALUAR = 284,
-    EQ = 285,
-    TERMINAR = 286,
-    DECIMALES = 287,
-    VENTANA = 288,
-    FIN = 289,
-    BOTON = 290,
-    MENSAJE = 291,
-    ETIQUETA = 292,
-    TEXTO = 293,
-    NE = 294,
-    LT = 295,
-    LE = 296,
-    GT = 297,
-    GE = 298,
-    PLUS = 299,
-    MINUS = 300,
-    MULT = 301,
-    DIVIDE = 302,
-    RPAREN = 303,
-    LPAREN = 304,
-    ASSIGN = 305,
-    SEMICOLON = 306,
-    COMMA = 307,
-    IF = 308,
-    THEN = 309,
-    ELSE = 310,
-    FI = 311,
-    WHILE = 312,
-    FOR = 313,
-    TO = 314,
-    DO = 315,
-    OD = 316,
-    PRINT = 317,
-    LEER = 318,
-    BORRAR = 319,
-    NUMBER = 320,
-    NAME = 321,
-    SNAME = 322,
-    PAUSA = 323,
-    LITERAL = 324,
-    STRING = 325,
-    DOBLECOMILLA = 326,
-    OR = 327,
-    AND = 328,
-    CONTINUAR = 329,
-    SALIR = 330,
-    ACTUALIZAR = 331
+    RECTANGULO = 283,
+    PUNTO = 284,
+    CONVERTIR = 285,
+    EVALUAR = 286,
+    EQ = 287,
+    TERMINAR = 288,
+    DECIMALES = 289,
+    VENTANA = 290,
+    FIN = 291,
+    BOTON = 292,
+    MENSAJE = 293,
+    ETIQUETA = 294,
+    TEXTO = 295,
+    NE = 296,
+    LT = 297,
+    LE = 298,
+    GT = 299,
+    GE = 300,
+    PLUS = 301,
+    MINUS = 302,
+    MULT = 303,
+    DIVIDE = 304,
+    RPAREN = 305,
+    LPAREN = 306,
+    ASSIGN = 307,
+    SEMICOLON = 308,
+    COMMA = 309,
+    IF = 310,
+    THEN = 311,
+    ELSE = 312,
+    FI = 313,
+    WHILE = 314,
+    FOR = 315,
+    TO = 316,
+    DO = 317,
+    OD = 318,
+    PRINT = 319,
+    LEER = 320,
+    BORRAR = 321,
+    NUMBER = 322,
+    NAME = 323,
+    SNAME = 324,
+    PAUSA = 325,
+    LITERAL = 326,
+    STRING = 327,
+    DOBLECOMILLA = 328,
+    OR = 329,
+    AND = 330,
+    CONTINUAR = 331,
+    SALIR = 332,
+    ACTUALIZAR = 333
   };
 #endif
 
@@ -130,11 +132,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 24 "grammar.y"
+#line 30 "grammar.y"
 
  ast * nodo;
 
-#line 138 "grammar.tab.h"
+#line 140 "grammar.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
