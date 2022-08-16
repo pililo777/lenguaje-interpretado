@@ -1,0 +1,138 @@
+/*
+este programa importa datos a un fichero dbf
+ y crea un indice     //github
+*/
+
+/*
+El registro de clientes permite 
+tener una estructura para acceder 
+al fichero de datos.
+*/
+registro clientes 'contacts.dbf'
+  CCLAVE 10 
+  CNOMBRE 61
+  CDIRECCION 61
+  CTELEFONO 10 
+fin-registro
+
+//creamos el indice por si no existe
+INDICE = 'contacts.ndx'
+use INDICE // al abrirlo, lo crea si no existe. 
+close
+use INDICE   //abrimos el indice
+
+//fichero del cual importaremos los datos
+ARCHIVO = 'contacts.csv'
+num_archivo = 0 // cuando se acaba de leer el archivo, esta variable se pone en 99
+abrir ARCHIVO num_archivo
+
+//fichero que contendra los datos importados
+ARCHIVODBF = 'contacts.dbf' 
+numarchivodbf = 1
+// al abrir, creamos el archivo de datos si no existiera
+abrir ARCHIVODBF numarchivodbf
+// lo cerramos porque no es necesario que permanezca abierto
+cerrar numarchivodbf
+
+//iniciamos variables auxiliares del fichero dbf
+CLAVE = ' '
+NOMBRE = ' '
+DIRECCION = ' '
+TELEFONO = ' '
+
+//iniciamos variables globales
+PALABRA = ' '
+LETRA = ' '
+vaciar PALABRA 
+letra = 0
+contador = 0
+col = 1
+lin = 10000
+LIN = ' '
+vaciar LIN
+finalizo = 0
+
+//bucle principal de lectura del archivo csv
+mientras (num_archivo <> 99) yy (finalizo = 0) 
+{
+    leer # num_archivo LETRA letra
+    //59 es el codigo del caracter punto y coma (;) nuestro delimitador de campos actual
+    si (letra =59) oo (letra = 9) oo (letra= 10) oo (letra= 13) entonces
+        si contador <> 0 entonces
+            //tenemos una palabra, procesamos segun la columna
+            si col = 1 entonces
+			    //nos inventamos una clave
+	            convertir lin LIN
+	            CLAVE = LIN
+			  
+				NOMBRE = PALABRA
+	          //guardar # numarchivodbf  LIN 10, 0  //guarda la clave en dbf
+            si-fin
+             
+			si col = 2 entonces
+				DIRECCION = PALABRA
+            si-fin
+       
+			si col = 3 entonces
+				TELEFONO = PALABRA
+			si-fin
+
+            col = col + 1
+	    
+            si col = 4 entonces
+			    //pasamos a la siguiente linea
+                col = 1
+                lin = lin + 1
+				//vamos al procedimiento que guarda los datos
+		        llamar insertar_en_archivos
+				//el procedimiento puede decirnos que terminemos el bucle
+                si finalizo = 1 entonces
+			        salir
+		        si-fin
+            si-fin
+			// hacemos palabra una string vacia
+	        vaciar PALABRA
+            contador = 0
+
+        si-fin
+    sino
+	    //no es caracter delimitador:
+		//tenemos una letra que forma una palabra
+        contador = contador + 1
+        PALABRA += LETRA
+    si-fin
+}
+num_archivo = 0
+cerrar num_archivo
+close //indice
+
+terminar
+
+//sin uso, sintaxis para guardar en un archivo abierto con largo y fin de linea opcional
+proc guardar_palabra
+    si (col=1) oo (col=2) entonces
+      guardar # numarchivodbf  PALABRA, 61, 0
+    sino
+      guardar # numarchivodbf  PALABRA,  9, 1
+    si-fin
+fin
+
+proc insertar_en_archivos
+    encontrado = 0
+	//paso datos desde las variables auxiliares a las variables del registro
+    CDIRECCION = DIRECCION
+    CNOMBRE = NOMBRE
+    CTELEFONO = TELEFONO
+    CCLAVE = CLAVE
+	//guardo los datos en dbf y la clave en el indice
+	imprimir 'INTENTO GUARDAR....', CLAVE
+	insertar CCLAVE encontrado clientes
+    si encontrado = 1 entonces
+		imprimir 'YA EXISTE ESTA CLAVE: ', CCLAVE,  '   : NO SE PUEDE INSERTAR'
+		//prueba: si encuentro una duplicada, le digo al bucle principal que aborte
+		finalizo = 0
+	sino
+		imprimir 'clave insertada: ', CCLAVE
+	si-fin
+fin
+

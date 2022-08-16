@@ -1,4 +1,4 @@
-#pragma region variables
+//#pragma region variables
 //usando sublime como editor de texto alternativo a Netbeans
 // version para github  rama errorMem segunda prueba  ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}..
 extern int depurar;
@@ -57,7 +57,7 @@ posicion i;
 
 
 
- 
+ int buscar(char * , xapuntador * , int * , xapuntador *, posicion *);
 
 struct xnodo primernodo;
 tipollave llave[55];
@@ -70,10 +70,16 @@ xapuntador xraiz;
 
 /* fin de bt.c */
 
-#pragma endregion
 
 
-#pragma region funciones1
+
+
+
+//rem
+//#pragma endregion
+
+
+//#pragma region funciones1
 
 
 
@@ -105,6 +111,8 @@ void grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
     short int conteo = 0;
     long int   rama;
     long int   datoInt;
+    
+    //estudiar aqui
     char buffer[variableArray];
     
     int tamanyoRegistro;
@@ -144,6 +152,11 @@ void grabarnodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
         fwrite(&datoInt, 1, sizeof(datoInt), arch);
         posicion+=sizeof(datoInt);
     }
+    
+/*
+    fseek(arch, (*xp + 1) * sizeof (struct xnodo), SEEK_SET);
+    fwrite(xpn, 1, sizeof (struct xnodo), arch);
+*/
 }
 
 void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray) 
@@ -199,7 +212,12 @@ void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
         if (depurar)
             printf ("se ha leido: %li  en la posicion %d\n", datoInt, i);
         xpnLocal.datoInt[i-1] = datoInt;
-
+/*
+         if (!strcmp(xpnLocal.xllave[i-1], "ruben")) {
+            printf ("ruben, dato: %li\n", datoInt  );
+            getchar();
+        }
+*/
         posicion+=sizeof(datoInt);
     }
     
@@ -225,13 +243,13 @@ void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
         printf("sale de leenodo\n");
 }
 
-#pragma endregion funciones1
+//#pragma endregion funciones1
 
 
 #pragma region funciones2
 
 
-
+//rem
 void buscarnodo(tipollave *objetivo, xapuntador *xp, int *encontrar, posicion *k) 
 {
     struct xnodo xpn;
@@ -240,7 +258,10 @@ void buscarnodo(tipollave *objetivo, xapuntador *xp, int *encontrar, posicion *k
     if (depurar)
         printf("entra en buscarnodo\n");
 
+//rem
     leenodo(xp, &xpn, tam_registro);
+ //   printf("Tamaño registro: %d\n", tam_registro  );
+            
                 
     if (strcmp(objetivo, xpn.xllave[0]) < 0) {
         *encontrar = 0;
@@ -294,11 +315,12 @@ void empujardentro(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion k, 
     
     xpn.xrama[k + 1] = *xxder;
     
-    xpn.xconteo++;
+    xpn.xconteo = xpn.xconteo + 1;
     grabarnodo(xp, &xpn, tam_registro);
 }
 
-void dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k, tipollave *y_llave, xapuntador *xyder, long int * datoInt, long int * y_datoInt) 
+void dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k,
+             tipollave *y_llave, xapuntador *xyder, long int * datoInt, long int * y_datoInt) 
 {
     short int i;
     posicion mediana;
@@ -342,7 +364,9 @@ void dividir(tipollave *x, xapuntador *xxder, xapuntador *xp, posicion *k, tipol
     grabarnodo(xyder, &xydern, tam_registro);
 }
 
-void empujarabajo(tipollave *nuevallave, xapuntador *xp, int *empujararriba, tipollave *x, xapuntador *xxder, xapuntador *datoInt, xapuntador *datoInt2, int *encontrar)
+void empujarabajo(tipollave *nuevallave, xapuntador *xp,
+        int *empujararriba, tipollave *x, xapuntador *xxder, 
+        xapuntador *datoInt, xapuntador *datoInt2, int *encontrar)
  {
     posicion k;
     int encontrar1 = *encontrar;
@@ -353,7 +377,7 @@ void empujarabajo(tipollave *nuevallave, xapuntador *xp, int *empujararriba, tip
     long int dato;
     
     dato = *datoInt;
-    //if (depurar)
+    if (depurar)
     printf ("entra en empujarabajo: %s   en raiz: %d\n", nuevallave, *xp);
     if (*xp == -1) {
         *encontrar = 0;
@@ -401,7 +425,9 @@ void empujarabajo(tipollave *nuevallave, xapuntador *xp, int *empujararriba, tip
     }
 }
 
-void inserta(tipollave *nuevallave, xapuntador *xraiz, xapuntador *datoEntero, int *encontrar) 
+void 
+inserta(tipollave *nuevallave, xapuntador *xraiz, xapuntador *datoEntero, 
+	int *encontrar) 
 {
     int empujararriba;
     tipollave x[55];
@@ -646,6 +672,9 @@ void eliminar(tipollave *objetivo, xapuntador *xraiz) {
 void enorden(xapuntador xraiz, int *contador) {
     struct xnodo xraizn;
     const int pagina = 10;
+    
+    
+    
     if (xraiz != -1) {
         leenodo(&xraiz, &xraizn, tam_registro);
         enorden(xraizn.xrama[0], contador);
@@ -723,9 +752,7 @@ void leer(xapuntador *xraiz) /* LEE EL ARCHIVO TEMP. AL TEXT.DAT */
             len = 0;
             fprintf(stdout, "%3d  ", *xraiz);
             fprintf(stdout, "%s\n", linea);
-            if (depurar)
-                if (strcmp(linea, "rosario")==1)
-                    printf("linea es rosario");
+
             if (strlen(linea)==0) {
                 if (depurar)
                     printf ("la linea que se quiere insertar esta vacia");
@@ -755,8 +782,9 @@ void obtenerllave(tipollave *llave) {
     fprintf(stdout, "\n");
 }
 
-
-void altas(xapuntador *xraiz) {
+//rem
+void altas(xapuntador *xraiz) 
+{
     tipollave llave[255];
     int encontrar;
     xapuntador nroreg;
@@ -818,6 +846,7 @@ int main2() {
     xapuntador nodoobjetivo;
     struct xnodo xnodoobjetivo;
     posicion posobjetivo;
+   // xapuntador xraiz; /* raiz del arbol */
     int contador;
     int encontrar;
     xraiz = -1;
@@ -935,6 +964,12 @@ int main2() {
 
 }
 
+//extern int depurar;
+
+
+/* EOF.: BT.C   */
+
+/*-- rutinas de manejo de base de datos --------------------*/
 
 int use(char * nombre_indice) {
     if (!exists(nombre_indice)) 
@@ -989,6 +1024,9 @@ getdatos() {
 
 }
 
+/*
+static int contador;
+ */
 int list() {
     /*  key.puntero = keybuf2; */
     /*
@@ -1033,6 +1071,9 @@ int list() {
     }
      */
 }
+
+/* OTRAS  FUNCIONES */
+
 
 copyrigth() {
     fprintf(stdout, " \n");

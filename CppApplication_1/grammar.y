@@ -37,7 +37,8 @@ extern ast * pila_records[32]; // pila de registros
 %token BUSCAR INSERTAR ELIMINAR USE_INDICE CLOSE_INDICE
 %token STOP  REGISTRO FINREGISTRO
 %token ABRIR CERRAR MOSTRAR VACIAR
-%token LLAMAR PROC END PROCNAME GRAFICOS DIM LINEA CIRCULO RECTANGULO PUNTO CONVERTIR EVALUAR
+%token LLAMAR PROC END PROCNAME GRAFICOS DIM LINEA CIRCULO RECTANGULO PUNTO 
+CONVERTIR EVALUAR
 %token EQ
 %token TERMINAR DECIMALES VENTANA FIN BOTON MENSAJE ETIQUETA TEXTO
 %token NE
@@ -99,6 +100,7 @@ subprograma:
 
 statement:
   designator EQ expression { $$ = nodo2(asigna_num, $1, $3); /*asignacion*/} 
+| sdesignator EQ STRING { $$ = nodo2(asigna_alfa, $1, $3); /* asigna string a varalfa */}
 | sdesignator EQ LITERAL  { $$ = nodo2(asigna_alfa, $1, $3); /*asign literal*/} 
 | sdesignator EQ sdesignator  { $$ = nodo2(asigna_alfa_var, $1, $3); /*asign literal*/} 
 | sdesignator PLUS EQ sdesignator  { $$ = nodo2(sumar_alfa, $1, $4); /*suma alfa*/} 

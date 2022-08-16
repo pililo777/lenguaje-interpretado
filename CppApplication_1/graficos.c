@@ -191,7 +191,9 @@ void dibujarlinea() {
     y1 = (double)   evalua( nodografico2->nodo4);
     // printf ("%lf  %lf  %lf  %lf\n",  x, y, x1, y1);
     
-  cairo_set_source_rgb(cr, 0, 8, 0);  // color de pintado
+  cairo_set_source_rgb(cr, 0.325, 0.542, 0.789);  // color de pintado
+  cairo_set_font_size(cr, 48);
+  cairo_move_to(cr, 120, 130);
   cairo_show_text (cr, "ejemplo de texto");
   cairo_set_line_width(cr, 3.5);
 //   printf("inicio dodrawing");
@@ -201,15 +203,15 @@ void dibujarlinea() {
  if (nodografico2->tipo == dibuja_linea)
  {
 	 cairo_line_to (cr, x1, y1);
-	 cairo_stroke_preserve(cr);  // estaba con preserve
+	 cairo_stroke_preserve(cr);
  
  }
 
  if (nodografico2->tipo == dibuja_circulo) {
 
 	     cairo_arc(cr, x, y, x1, 0, 2 * 3.1415);
-		 cairo_stroke_preserve(cr); // estaba con preserve
-	     cairo_set_source_rgb(cr, 0.4, 0.5, 0.6);   //color de relleno   fillcolor
+		 cairo_stroke_preserve(cr);
+	     cairo_set_source_rgb(cr, 0.3, 0.4, 0.6);   //color de relleno
 	     cairo_fill(cr);
  }
 
@@ -261,8 +263,8 @@ void dibujarlinea() {
   //cairo_surface_write_to_png(imagen,
 	 // filename);
 
- // cairo_destroy(cr2);
-  //cairo_surface_destroy(imagen);
+  cairo_destroy(cr2);
+  cairo_surface_destroy(imagen);
  
 
 //  return FALSE;

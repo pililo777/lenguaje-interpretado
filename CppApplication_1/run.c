@@ -1045,7 +1045,7 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
 }
 
 
-
+//estudiar aqui
 void guardar_campos(ast * lista_de_campos, FILE * handler) {
     int nnodos = 0;
     int largo;
@@ -1080,6 +1080,10 @@ GtkTextMark *marca1;
 gboolean * left_gravity = TRUE;
 gboolean marca_creada = FALSE;
 char nombrefuncion[50];
+
+
+
+//rem
 
 void execut(ast * p) {
     
@@ -1167,6 +1171,8 @@ void execut(ast * p) {
                            &start);
         }
         
+        
+        //estudiar aqui
         //ir a la linea de ejecucion
         if (idx_prg!=31+1) //el ultimo indice de programa
         gtk_text_view_scroll_to_mark (textview2, marca1, 0.0, TRUE, 0.0, 0.17);
@@ -1360,6 +1366,7 @@ void execut(ast * p) {
             //bucle de calculo de tamaño de registro
             tamanio = 0;
             calcular_tamanio(registro->nodo3);
+            //estudiar aqui
             tam = tamanio+1;  // temporalmente por el fin de linea
             pos = (tam * (nroreg - 1) );
             fseek(handler2, pos, SEEK_SET);
@@ -2838,6 +2845,8 @@ void evalua_doble(elnodo * p, elnodo * q) {
 */
 
 //static int prof = 0;
+//descomentar: 
+ 
 regmatch_t captures[2];
 
 double evalua(ast * p) {
@@ -2887,6 +2896,7 @@ double evalua(ast * p) {
                         b = array_variables[j].string;
                         k = comprobar_regex(a, b);
                         vector = arrayVectores[m];
+						//descomentar:
                         vector[0] = (double) captures[0].rm_so;
                         vector[1] = (double) captures[0].rm_eo;
                         res = (double) k;
@@ -3167,6 +3177,7 @@ double evalua(ast * p) {
  
 
 short comprobar_regex(char * expregular, char * texto) {
+	//descomentar:
     regex_t regex;
     int reti;
     char msgbuf[100];

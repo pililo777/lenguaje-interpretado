@@ -165,11 +165,7 @@ void initmyModule() {
 }
 #endif
 
-/*
-#include <gtk/gtk.h>
-#include <stdlib.h>
-#include <string.h>
- */
+
 extern int idx_vec;
 extern double * arrayVectores[32];
 extern int idx_win;
@@ -179,37 +175,6 @@ extern int err_number;
 
 extern void execut(ast *);
 
-
-
-/*
-typedef enum tipos_nodo {un_numero =1, desde, nombre_de_variable, 
-                        indice_strings, procedimiento, secuencia , imprimir, 
-                        suma, resta, multiplica, divide, si, mientras, asigna_num, asigna_alfa,
-                        mayorque, menorque, igualque, leer, leertexto, noigualque, menorigualque, mayorigualque, negativo,
-                        comparaliteral, imprimir_varios, imprimir_expresion, imprimir_literal, imprimir_var_alfa, guardar_boton, secuencia_controles,
-                        constante_literal, llamar, decimales, ventana, defventana, crear_ventana, mostrar_ventana, mostrar_ventanas, cambiar_titulo,
-        mensaje, guardar_etiqueta, guardar_texto, interpreta
-
-
-
-
-} tiponodo;
-
-typedef struct elnodo {
-        tiponodo tipo;
-        double num;
-        int    nrolinea1;
-        int    nrolinea2;
-	 
-        int subnodos;
-        struct elnodo * nodo1;
-        struct elnodo * nodo2;
-        struct elnodo * nodo3;
-        struct elnodo * nodo4;
-        struct elnodo * nodo5;
-} elnodo;
- */
-
 extern ast * pila_programas[32];
 extern ast * procedimientos[127];
 extern int idx_prg;
@@ -218,7 +183,10 @@ extern int linenumber;
 
 void liberar_mem();
 
-void liberar_nodo(ast * p, int n) {
+
+void liberar_nodo( ast * p, int n)
+
+{
     //printf("memoria: %d\n", memoria);
     //elnodo * p;
     //p=a;
@@ -291,6 +259,8 @@ void liberar_nodo(ast * p, int n) {
         free(p);
         memoria -= (long) sizeof (struct ast);
         nodos--;
+       //    printf("librando el nodo raiz: %ld\n", memoria);
+            
 
         if (depurar) {
             printf("liberando el nodo raiz: %li\n", memoria);
@@ -299,9 +269,11 @@ void liberar_nodo(ast * p, int n) {
 
         pila_programas[n] = NULL;
         return;
-    } else {
+    }
+    else {
 
-        if (p->subnodos == 0) {
+        if (p->subnodos == 0) 
+        {
             free(p);
             memoria -= (long) sizeof (struct ast);
             nodos--;
@@ -362,7 +334,6 @@ void liberar_nodo(ast * p, int n) {
         nodos--;
 
         //    printf("librando el nodo: %ld\n", memoria);
-
         return;
 
     }
@@ -390,11 +361,16 @@ on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern int gtk_iniciado;
 extern int ejecuta_desde_editor;
 
-int main_anterior(int argc, char *argv[]) {
+GtkWidget* window;
+
+int
+main_anterior (int argc, char *argv[])
+ 
+{
     memoria = 0;
     ejecuta_desde_editor = 1; // true
 
-    GtkWidget *window;
+   
 
     // gtk_init (&argc, &argv);
     if (!gtk_iniciado) {
@@ -527,13 +503,15 @@ void mark_set_callback(GtkTextBuffer *buffer,
 extern gulong tiempo;
 
 void
-velocidad(GtkButton * button, gpointer user_data) {
+velocidad (GtkButton * button, gpointer user_data)
+{
     tiempo = tiempo + 200000L;
     printf("%lu\n", tiempo);
 }
 
 void
-velocidad2(GtkButton * button, gpointer user_data) {
+velocidad2 (GtkButton * button, gpointer user_data)
+{
     tiempo = tiempo - 200000L;
     printf("%lu\n", tiempo);
 }
@@ -558,7 +536,10 @@ const char * colorTags[10] = {"numeros", "signos", "alfanum", "varnumerica", "re
 const char * colores[10] = {"#DB30DD", "yellow", "#5A56DC", "#CFC63E", "#7E9C32", "lightgray", "gray"};
 const char fore_back[] = {'F', 'F', 'F', 'F', 'F', 'F', 'B'};
 
-void resaltarAlfanum(GtkButton * button, gpointer user_data) {
+
+void
+resaltarAlfanum (GtkButton * button, gpointer user_data)
+{
     //he visto un codigo que tiene la funcion debug para imprimir lineas donde
     //suceden errores pero no recuerdo donde era.
     //creo que era en el proyecto Solid.
@@ -654,7 +635,9 @@ void interpretarEditor();
 
 extern short inter_flag;
 
-GtkWidget *create_window() {
+
+GtkWidget *
+create_window() {
 
     GtkWidget *vbox_main;
     GtkWidget *handlebox;
@@ -795,18 +778,15 @@ GtkWidget *create_window() {
             NULL,
             NULL, NULL, NULL, -1);
 
+	button_clear = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OK, NULL, NULL, NULL, NULL, -1);
+    //rem            
+            
 
-    button_clear = gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar),
-            GTK_STOCK_OK,
-            NULL,
-            NULL, NULL, NULL, -1);
-
-    button_ejecutar = gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar),
+     button_ejecutar = gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar),
             GTK_STOCK_EXECUTE,
             NULL,
-            NULL, NULL, NULL, -1);
-
-
+            NULL, NULL, NULL, -1);          
+ 
 
 
     button_cut = gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar),
@@ -849,9 +829,9 @@ GtkWidget *create_window() {
     gtk_box_pack_start(GTK_BOX(vbox_main), scrolledwindow, TRUE,
             TRUE, 0);
 
-    textview = gtk_text_view_new();
+    textview = (GtkTextView *) gtk_text_view_new ();
     gtk_text_view_set_left_margin((gpointer) textview, (gint) 60);
-    gtk_container_add(GTK_CONTAINER(scrolledwindow), textview);
+    gtk_container_add (GTK_CONTAINER (scrolledwindow), (GtkWidget *) textview);
 
     balign = gtk_alignment_new(0, 2, 2, 0);
 
@@ -867,7 +847,7 @@ GtkWidget *create_window() {
     buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
     create_tags(buffer);
 
-#define font "Sans 14"
+        #define font "Sans 20"
 
 
     PangoFontDescription *font_desc;
@@ -876,7 +856,7 @@ GtkWidget *create_window() {
 
     buffer2 = buffer;
     //resaltarAlfanum(NULL, NULL);
-    textview2 = textview;
+    textview2 = ( GtkWidget *) textview;
 
 
     //g_signal_connect ((gpointer) window, "delete_event",  G_CALLBACK (gtk_main_quit), NULL);
@@ -933,7 +913,7 @@ GtkWidget *create_window() {
     g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(on_key_press), NULL);
 
     //color de fondo del editor
-    gtk_widget_modify_base(textview, GTK_STATE_NORMAL, "#97cedb");
+    gtk_widget_modify_base ( (GtkWidget *)  textview, GTK_STATE_NORMAL, (GdkColor *) "#030303");
 
     return window;
 }
@@ -961,13 +941,13 @@ void liberar_mem() {
         idx_vec--;
 
         vector = arrayVectores[idx_vec];
-#ifdef __APPLE__
-#pragma message ("compilando en apple")
-        tamano = malloc__size(vector);
-#else
-#pragma message( "no es apple" )
+// #ifdef __APPLE__
+// #pragma message ("compilando en apple")
+//         tamano = malloc__size(vector);
+// #else
+// #pragma message( "no es apple" )
         tamano = malloc_usable_size(vector);
-#endif
+// #endif
         free(vector);
         memoria -= tamano;
     }
@@ -984,7 +964,8 @@ void liberar_mem() {
         gtk_label_set_text(label3, str1);
         gtk_label_set_text(label2, str2);
         gtk_label_set_text(label1, (gpointer) str3);
-    } else {
+            }
+            else {
         printf("%s\n", str1);
         printf("%s\n", str2);
         printf("%s\n", str3);
@@ -995,11 +976,8 @@ void liberar_mem() {
     //      printf("memoria: %ld \n", memoria);
 
     /*
-              g_free(input);
-           
-           
-              yy_delete_buffer(input);  
-            
+              g_free(input);      
+              yy_delete_buffer(input);    
            yy_delete_buffer(YY_CURRENT_BUFFER);   
      */
 
@@ -1023,13 +1001,15 @@ void liberar_mem() {
 //extern int contador, contadorvar;
 // void gtk_label_set_text( GtkLabel   *label,  const char *str );
 
-void on_button_clear_clicked(GtkButton * button, gpointer user_data) {
+
+void
+on_button_clear_clicked(GtkButton * button, gpointer user_data) {
     GtkTextBuffer *textbuffer = NULL;
     GtkTextIter start, end;
     char str1 [100];
 
     //YY_BUFFER_STATE buf;
-    //     
+       
     // printf("on buton clicked\n");
 
     //  printf("check1\n");
@@ -1150,7 +1130,8 @@ void on_button_ejecutar_clicked(GtkButton * button, gpointer user_data) {
 
 }
 
-void on_button_load_clicked(GtkButton * button, gpointer user_data) {
+void
+on_button_load_clicked(GtkButton * button, gpointer user_data) {
     GtkTextBuffer *textbuffer = NULL;
 
     g_assert(GTK_IS_TEXT_VIEW(user_data));
@@ -1165,14 +1146,18 @@ void on_button_load_clicked(GtkButton * button, gpointer user_data) {
 
     GtkWidget *dialog;
 
+    #define GTK_STOCK_CANCEL           "gtk-cancel"
+
     dialog = gtk_file_chooser_dialog_new("Open File",
             NULL,
             GTK_FILE_CHOOSER_ACTION_OPEN,
             GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
             GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
             NULL);
+            //rem
 
-    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+  if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+  {
         char *filename;
         gchar *text;
 
@@ -1187,7 +1172,8 @@ void on_button_load_clicked(GtkButton * button, gpointer user_data) {
         //result = g_file_get_contents (filename, input, -1, &err);
         result = g_file_get_contents(filename, &text, NULL, &err);
 
-        if (result == FALSE) {
+       if (result == FALSE)
+        {
             /* error loading file, show message to user */
             //error_message (err->message);   //da error al compilar
             g_error_free(err);
@@ -1205,7 +1191,9 @@ void on_button_load_clicked(GtkButton * button, gpointer user_data) {
     gtk_widget_destroy(dialog);
 }
 
-void on_button_save_clicked(GtkButton * button, gpointer user_data) {
+void
+on_button_save_clicked (GtkButton * button, gpointer user_data)
+{
     GtkTextBuffer *textbuffer = NULL;
     GtkTextIter start, end;
 
@@ -1216,9 +1204,6 @@ void on_button_save_clicked(GtkButton * button, gpointer user_data) {
     gtk_text_buffer_cut_clipboard(textbuffer,
             gtk_clipboard_get(GDK_NONE), TRUE);
 
-
-
-
     GtkWidget *dialog;
 
     dialog = gtk_file_chooser_dialog_new("Guardar programa...",
@@ -1228,7 +1213,8 @@ void on_button_save_clicked(GtkButton * button, gpointer user_data) {
             GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
             NULL);
 
-    if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+  {
         char *filename;
         //  gchar *text;
 
@@ -1249,7 +1235,8 @@ void on_button_save_clicked(GtkButton * button, gpointer user_data) {
         result = g_file_set_contents(filename, input, -1, &err);
 
 
-        if (result == FALSE) {
+       if (result == FALSE)
+        {
             /* error loading file, show message to user */
             //  error_message (err->message);
             g_error_free(err);
@@ -1263,12 +1250,11 @@ void on_button_save_clicked(GtkButton * button, gpointer user_data) {
     }
 
     gtk_widget_destroy(dialog);
-
-
-
 }
 
-void on_button_cut_clicked(GtkButton * button, gpointer user_data) {
+void
+on_button_cut_clicked (GtkButton * button, gpointer user_data)
+{
     GtkTextBuffer *textbuffer = NULL;
 
     g_assert(GTK_IS_TEXT_VIEW(user_data));
@@ -1279,7 +1265,10 @@ void on_button_cut_clicked(GtkButton * button, gpointer user_data) {
             gtk_clipboard_get(GDK_NONE), TRUE);
 }
 
-void on_button_copy_clicked(GtkButton * button, gpointer user_data) {
+
+void
+on_button_copy_clicked (GtkButton * button, gpointer user_data)
+{
     GtkTextBuffer *textbuffer = NULL;
 
     g_assert(GTK_IS_TEXT_VIEW(user_data));
@@ -1290,7 +1279,9 @@ void on_button_copy_clicked(GtkButton * button, gpointer user_data) {
             gtk_clipboard_get(GDK_NONE));
 }
 
-void on_button_paste_clicked(GtkButton * button, gpointer user_data) {
+void
+on_button_paste_clicked (GtkButton * button, gpointer user_data)
+{
     GtkTextBuffer *textbuffer = NULL;
 
     g_assert(GTK_IS_TEXT_VIEW(user_data));
@@ -1302,7 +1293,9 @@ void on_button_paste_clicked(GtkButton * button, gpointer user_data) {
             NULL, TRUE);
 }
 
-void on_button_bold_clicked(GtkButton * button, gpointer user_data) {
+void
+on_button_bold_clicked (GtkButton * button, gpointer user_data)
+{
     GtkTextBuffer *textbuffer = NULL;
     GtkTextIter start, end;
 
@@ -1317,7 +1310,8 @@ void on_button_bold_clicked(GtkButton * button, gpointer user_data) {
 }
 
 void
-on_button_underline_clicked(GtkButton * button, gpointer user_data) {
+on_button_underline_clicked (GtkButton * button, gpointer user_data)
+{
     GtkTextBuffer *textbuffer = NULL;
     GtkTextIter start, end;
 
@@ -1332,7 +1326,8 @@ on_button_underline_clicked(GtkButton * button, gpointer user_data) {
 }
 
 void
-on_button_strike_clicked(GtkButton * button, gpointer user_data) {
+on_button_strike_clicked (GtkButton * button, gpointer user_data)
+{
     GtkTextBuffer *textbuffer = NULL;
     GtkTextIter start, end;
 
@@ -1394,27 +1389,41 @@ on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
     gchar *text;
     extern int interpretar();
 
-    switch (event->keyval) {
+switch (event->keyval)
+  {
         case GDK_p:
-            if (event->state & GDK_CONTROL_MASK) {
-                if (en_pausa == '1') {
-                    en_pausa = '0';
-                    modo_pausa = '0';
-                } else {
+        if (event->state & GDK_CONTROL_MASK)
+        {
+
+
+                if (en_pausa == '1') 
+                    {
+                        en_pausa = '0';
+                        modo_pausa = '0';
+                    }
+
+
+
+            else 
+                {
                     en_pausa = '1';
                     modo_pausa = '1';
                 }
-            }
+
+
+        }
             //printf("key pressed: %s\n", "p");
             break;
         case GDK_i:
         case GDK_I:
-            if (event->state & GDK_CONTROL_MASK) {
+        if (event->state & GDK_CONTROL_MASK)
+        {
 
                 selected = gtk_text_buffer_get_selection_bounds(buffer2,
                         &start_sel, &end_sel);
 
-                if (selected) {
+                if (selected) 
+                {
                     gtk_text_buffer_get_start_iter(buffer2, &start_find);
                     gtk_text_buffer_get_end_iter(buffer2, &end_find);
 
@@ -1422,7 +1431,8 @@ on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
                     text = (gchar *) gtk_text_buffer_get_text(buffer2, &start_sel,
                             &end_sel, FALSE);
 
-                    if (strstr(text, "[")) {
+                    if (strstr(text, "[")) 
+                    {
                         printf("%s\n", buff1);
                         strcpy(buff1, "evalua \"imprimir ");
                         strcat(buff1, text);
@@ -1432,11 +1442,16 @@ on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
                         fflush(stdout);
                         printf("volvemos de interpretar\n");
                         fflush(stdout);
-                    } else {
+                    }
+
+
+                else {
 
                         printf("%s: \n", text);
-                        for (int i = 0; i < 255; i++) {
-                            if (!strcmp(text, array_variables[i].nombre)) {
+                for (int i=0; i<255; i++) 
+                {
+                            if (!strcmp(text, array_variables[i].nombre)) 
+                            {
                                 printf("variable indice: %d\n", i);
                                 if (array_variables[i].tipo == 'S')
                                     printf("%s\n", array_variables[i].string);
@@ -1444,16 +1459,20 @@ on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
                                     printf("%lf\n", array_variables[i].numero);
                                 break;
                             }
-                        }
-                    }
                 }
             }
-            //printf("key pressed: %s\n", "p");
-            break;
+
+
+
+                }
+        }
+        //printf("key pressed: %s\n", "p");
+        break;
 
         case GDK_o:
         case GDK_O:
-            if (event->state & GDK_CONTROL_MASK) {
+        if (event->state & GDK_CONTROL_MASK)
+        {
 
                 selected = gtk_text_buffer_get_selection_bounds(buffer2,
                         &start_sel, &end_sel);
@@ -1483,23 +1502,33 @@ on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
             break;
 
         case GDK_s:
-            if (event->state & GDK_SHIFT_MASK) {
+      if (event->state & GDK_SHIFT_MASK)
+      {
                 // printf("key pressed: %s\n", "shift + s");
 
-            } else if (event->state & GDK_CONTROL_MASK) {
+      }
+      else if (event->state & GDK_CONTROL_MASK)
+      {
                 //printf("key pressed: %s\n", "ctrl + s");
                 en_pausa = '0';
-            } else {
+      }
+      else
+      {
                 //printf("key pressed: %s\n", "s");
             }
             break;
 
         case GDK_m:
-            if (event->state & GDK_SHIFT_MASK) {
+      if (event->state & GDK_SHIFT_MASK)
+      {
                 //printf("key pressed: %s\n", "shift + m");
-            } else if (event->state & GDK_CONTROL_MASK) {
+      }
+      else if (event->state & GDK_CONTROL_MASK)
+      {
                 //printf("key pressed: %s\n", "ctrl + m");
-            } else {
+      }
+      else
+      {
                 //printf("key pressed: %s\n", "m");
             }
             break;
@@ -1512,7 +1541,8 @@ on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 }
 
 void
-on_button_color_clicked(GtkButton * button, gpointer user_data) {
+on_button_color_clicked (GtkButton * button, gpointer user_data)
+{
     GtkTextBuffer *textbuffer = NULL;
     GtkTextIter start, end;
 
@@ -1529,7 +1559,9 @@ on_button_color_clicked(GtkButton * button, gpointer user_data) {
 
 }
 
-void create_tags(GtkTextBuffer * buffer) {
+void
+create_tags (GtkTextBuffer * buffer)
+{
 
     // hsta aqui
 
@@ -1564,7 +1596,8 @@ void create_tags(GtkTextBuffer * buffer) {
     //printf("estamos en color dialog\n");
 
     // creamos tags para el resaltado de sintaxis
-    for (int i = 0; i < numelem; i++) {
+    for (int i = 0; i < numelem; i++) 
+    {
         if (fore_back[i] == 'F')
             gtk_text_buffer_create_tag(buffer, colorTags[i],
                 "foreground", colores[i], NULL);
@@ -1586,7 +1619,8 @@ void create_tags(GtkTextBuffer * buffer) {
 
 FILE * fichero = (FILE *) 0;
 
-void old_main(int argc, const char **argv) {
+void old_main(int argc, const char **argv) 
+{
     // 	GtkWidget * ventana;
 
     gtk_init(&argc, &argv);
@@ -1651,7 +1685,8 @@ void old_main(int argc, const char **argv) {
                     fclose(yyin);
                     i++;
                 }
-            } else {
+            }
+            else {
                 printf("imposible abrir fichero.\n");
                 return;
             }
@@ -1682,7 +1717,8 @@ void old_main(int argc, const char **argv) {
         }
 
         return; //para el modulo python
-    } else
+    }
+    else
         printf("usar: inter.exe nombreprograma [nombreprograma....]\n");
 }
 
@@ -1700,9 +1736,8 @@ extern void initProcedimientos();
 //extern iniciarLista();
 
 int cargar(int argc, const char argv[][128])
-/*
-void xxmain (int argc, const char *argv)
- */ {
+
+{
     // int argc = 2;
     // char *argv = nombreprograma;
     // 	GtkWidget * ventana;
@@ -1780,7 +1815,8 @@ void xxmain (int argc, const char *argv)
                     yyin = NULL;
                     i++;
                 }
-            } else {
+            }
+            else {
                 printf("imposible abrir fichero.\n");
                 int k;
                 k = getchar();
@@ -1789,7 +1825,8 @@ void xxmain (int argc, const char *argv)
         } while (i != argc); //  (i != argc)  para depurar:  (i==1); modificar abajo tambien(run)
 
         return; //para el modulo python
-    } else
+    }
+    else
         printf("usar: inter.exe nombreprograma [nombreprograma....]\n");
 }
 
@@ -1872,10 +1909,3 @@ void runall() {
     mquit = 0;
     return; //para el modulo python
 }
-
-/*
-        else
-                        printf("usar: inter.exe nombreprograma [nombreprograma....]\n");
- */
-
-

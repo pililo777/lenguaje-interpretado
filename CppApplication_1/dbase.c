@@ -67,14 +67,7 @@ extern void velocidad2();
 extern void liberar_mem();
 extern void freevar();
 extern int breakpoints[20];
-
 int current_line;
-
-
-//int dbminit();
-//int delete();
-//int store();
-
 
 // variables para el socket
 int server_fd, new_socket, valread;
@@ -84,9 +77,8 @@ int addrlen = sizeof(address);
 char skbuffer[1024] = {0};
 char *hello = "Hello from server";
 // fin sockets
-
-int status;
 int step = 0;
+int status;
 
 
 
@@ -263,16 +255,18 @@ void bpClear() {
 //funcion principal
 int main(int argc, const char **argv)
 {
-    //printf("iniciamos el programa");
     bpClear();
     initProcedimientos();
     for (short i=0; i<21;i++)
         breakpoints[i]=0;
     
     //breakpoints[0] = 14;
+    
+    //rem
     copyrigth();
     if (argc>1) {
         old_main(  argc,  argv);
+		exit(0);
     }
 /*
     fprintf(stdout, "MySSQL client version: %s\n",  mysql_get_client_info());
@@ -287,7 +281,9 @@ void eliminar_en_indice( );
 
 
 
-void init_comandos() {
+void 
+
+init_comandos() {
 
     int i;
  
@@ -609,7 +605,7 @@ void listavar2() {
     
 }
 
-
+//rem
 extern void  execut(ast * a) ;  // se ha quitado el asterisco
 extern int gtk_iniciado;
 
@@ -938,7 +934,8 @@ int buscar_posicion() {
 
 short inter_flag = 0;
 
-int prompt() {
+int 
+prompt() {
     int argc;
     int i, found;
 
@@ -1047,7 +1044,9 @@ print() {
     if (!j) fprintf(stdout, "%s: not found\n", buff2[1]);
 }
 
-int parse() {
+int
+
+parse() {
     int i, j, k, hubocomilla;
     i = 0;
     j = 0;     
@@ -1059,8 +1058,7 @@ int parse() {
         while (buff1[i] && buff1[i] != ' ') {
             buff2[j][k] = buff1[i];
             if (buff1[i] == '"') {
-                hubocomilla = 1; 
-                
+                hubocomilla = 1;   
                 i++;
                 k++;
                 while (buff1[i] != '"' && buff1[i]) {

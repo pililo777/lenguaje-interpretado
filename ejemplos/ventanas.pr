@@ -250,7 +250,7 @@ procedimiento clicar_boton
 		
 		circulo i*5+20, i*5+20, numero
 
-		rectangulo i*5+20, i*5+20, 7.5, 7.5
+		//rectangulo i*5+20, i*5+20, 7.5, 7.5
 
 		linea i*5+20, i*5+20, i*5+100, i*5+20
 
@@ -266,8 +266,8 @@ procedimiento clicar_boton
 	{
 		j = seno( i * 3.1415926536 / 180.0)
 		imprimir 'i=',  i, '  j=', j
-		punto i+50,  j * 50 + 50
-		punto i+50,  j * 150 + 250
+		punto i+50+numero,  j * 50 + 50
+		punto i+50+numero,  j * 150 + 250
 		i = i + 1
 
 	}
