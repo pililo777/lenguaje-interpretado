@@ -16,6 +16,11 @@ extern void dibujarlinea();
 extern void yypush_buffer_state ( YY_BUFFER_STATE new_buffer  );
 YY_BUFFER_STATE yy_scan_string ( const char *yy_str  );
 int yyparse (void);
+int breakpoints[20];
+extern int current_line;
+extern int step;
+extern int new_socket;
+
 /*
 #include <time.h>
 #include <sys/time.h>
@@ -50,7 +55,8 @@ extern short  int tam_registro;
 extern struct ast * nuevonodo();
 
 int flag_ventanas = 0;
-
+extern int lee_socket();
+extern void listavar2();
 
 
 #include "nodo.h"
@@ -1039,7 +1045,7 @@ void leer_campos(ast * lista_de_campos, FILE * handler) {
 }
 
 
-
+//estudiar aqui
 void guardar_campos(ast * lista_de_campos, FILE * handler) {
     int nnodos = 0;
     int largo;
@@ -1074,6 +1080,10 @@ GtkTextMark *marca1;
 gboolean * left_gravity = TRUE;
 gboolean marca_creada = FALSE;
 char nombrefuncion[50];
+
+
+
+//rem
 
 void execut(ast * p) {
     
@@ -1161,6 +1171,8 @@ void execut(ast * p) {
                            &start);
         }
         
+        
+        //estudiar aqui
         //ir a la linea de ejecucion
         if (idx_prg!=31+1) //el ultimo indice de programa
         gtk_text_view_scroll_to_mark (textview2, marca1, 0.0, TRUE, 0.0, 0.17);
@@ -1195,6 +1207,50 @@ void execut(ast * p) {
         if (ejecuta_desde_editor)
         //printf("pausando..");
            pausar();
+        
+        
+        
+        if (step == 1) {
+                listavar2();
+                printf("step en linea: %d\n", numlinea);
+                
+                if (numlinea == 0 || numlinea == (-1) ) {
+                    numlinea = current_line;
+                }
+                
+                current_line = numlinea;
+                mquit = 0;
+                step = 1;
+                while (mquit == 0) {
+                
+                    lee_socket();
+                    
+                }
+        }
+        else {
+            
+            for(int i=0; i<21; i++) {
+                if (numlinea==breakpoints[i] ) {
+                    listavar2();
+                    if (breakpoints[i]==0)
+                        break;
+                    printf("breakpoint %d en linea: %d\n", i, breakpoints[i]);
+                    
+                    current_line = numlinea;
+                    mquit = 0;
+                    step = 0;
+                    if (breakpoints[i] == 0)
+                        mquit = 1;
+                    while (mquit == 0) {
+                        lee_socket();
+                }
+            }
+            if (numlinea==breakpoints[i] ) 
+                break;
+        }
+            
+        }
+        
         
     }
     
@@ -1310,6 +1366,7 @@ void execut(ast * p) {
             //bucle de calculo de tamaño de registro
             tamanio = 0;
             calcular_tamanio(registro->nodo3);
+            //estudiar aqui
             tam = tamanio+1;  // temporalmente por el fin de linea
             pos = (tam * (nroreg - 1) );
             fseek(handler2, pos, SEEK_SET);
@@ -1656,7 +1713,7 @@ void execut(ast * p) {
                 {
                  int mquit = 0;
                  while (mquit == 0) {
-                        mquit =  prompt();
+                        mquit =  lee_socket();
                     }
                 }
                 mquit = 0;
@@ -1733,9 +1790,14 @@ void execut(ast * p) {
             int j;
             j = (int) p->nodo2->num;  //NUMBER
             vector = nuevoValorAlfas(j); // cantidad
-            for (i = 0; i < j; i++) vector [i] = (char *) NULL;  //no inicializamos el vector
+            for (i = 0; i < j; i++) 
+                //vector [i] = (char *) NULL;  //no inicializamos el vector
+                sprintf(&vector[i*127], "");
             arrayVectoresAlfa[idx_vec2] = vector;
             array_variables[(int) p->nodo1->num].numero = idx_vec2;
+            array_variables[(int) p->nodo1->num].dim1 = (int) j;
+            
+            //array_variables[(int) p->nodo1->num].dim2 = (int) k;
             //var[(int) p->nodo1->num] = idx_vec2;
             idx_vec2++;
         }
@@ -1873,6 +1935,23 @@ void execut(ast * p) {
         }
             break;
 
+        case dibuja_rectangulo:
+        {
+            flag_ventanas = 1;
+            nodografico2 = p;
+            dibujarlinea();
+        }
+
+            break;
+
+        case dibuja_punto:
+        {
+            flag_ventanas = 1;
+            nodografico2 = p;
+            dibujarlinea();
+        }
+
+            break;
 
         case interpreta:
 
@@ -2185,6 +2264,7 @@ void execut(ast * p) {
 
         case mostrar_ventanas:
         {
+            char mensaje[100];
             printf("mostrando las ventanas\n");
             int i = 0;
             for (i = 0; i < 101; i++) {
@@ -2196,8 +2276,13 @@ void execut(ast * p) {
                     gtk_widget_show(nuevo);
                 }
             }
+            sprintf(mensaje, "suspendido");
+            send(new_socket , mensaje , strlen(mensaje) , 0 );
 
             gtk_main();
+            
+            sprintf(mensaje, "nosuspendido");
+            send(new_socket , mensaje , strlen(mensaje) , 0 );
 
         }
             break;
@@ -2760,6 +2845,8 @@ void evalua_doble(elnodo * p, elnodo * q) {
 */
 
 //static int prof = 0;
+//descomentar: 
+ 
 regmatch_t captures[2];
 
 double evalua(ast * p) {
@@ -2809,6 +2896,7 @@ double evalua(ast * p) {
                         b = array_variables[j].string;
                         k = comprobar_regex(a, b);
                         vector = arrayVectores[m];
+						//descomentar:
                         vector[0] = (double) captures[0].rm_so;
                         vector[1] = (double) captures[0].rm_eo;
                         res = (double) k;
@@ -2839,6 +2927,16 @@ double evalua(ast * p) {
                     //res =  (double) i;
                     return res;
                 }
+
+                if (!strcmp(array_variables[indice_de_la_variable].nombre, "seno")) {
+                    double i;
+                    
+                    i = evalua( p->nodo2->nodo1);
+                    res = (double) sin(i);
+
+                    return res;
+                }
+
                 
                 if (!strcmp(array_variables[indice_de_la_variable].nombre, "random")) {
                     res = rando();
@@ -3079,6 +3177,7 @@ double evalua(ast * p) {
  
 
 short comprobar_regex(char * expregular, char * texto) {
+	//descomentar:
     regex_t regex;
     int reti;
     char msgbuf[100];

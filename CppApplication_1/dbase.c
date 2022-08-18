@@ -1,4 +1,20 @@
+/*
+ 
+ * PRUEBA DE COMMIT Y PUSH
+ 
+ */
+
 #pragma region VARIABLES
+
+#include <time.h>
+#include <errno.h>    
+
+
+#include <unistd.h>
+#include <sys/socket.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#define PORT 8080
 
 /*  dbase.c  Region de Includes */ 
 //version para github
@@ -50,11 +66,18 @@ extern void velocidad();
 extern void velocidad2();
 extern void liberar_mem();
 extern void freevar();
+extern int breakpoints[20];
+int current_line;
 
-
-//int dbminit();
-//int delete();
-//int store();
+// variables para el socket
+int server_fd, new_socket, valread;
+struct sockaddr_in address;
+int opt = 1;
+int addrlen = sizeof(address);
+char skbuffer[1024] = {0};
+char *hello = "Hello from server";
+// fin sockets
+int step = 0;
 int status;
 
 
@@ -84,6 +107,10 @@ int doit();
 int enorden();
 int t_close();
 int runprog();
+int lee_socket();
+int create_socket();
+void listavar2();
+
 extern int main_anterior(int argc, char *argv[]);
 
 void inter();
@@ -116,7 +143,9 @@ int             punchar = -1;
 int             punnum = -1;
 char                                              buff1[BUFSIZE];
 char                                              buff2[MAXPALABRAS][MAXLARGO];
-int mquit, contador;
+int mquit;
+int socket_iniciado = 0;
+extern int contador;
 
 
 
@@ -126,6 +155,8 @@ int *resultado = 0; /* para recuperar resultado de algunas funciones */
 int depurando = 1; /* bandera para depurar */
 int *parametro1;
 int *parametro2;
+
+int run_iniciado = 0;
  
 /* FIN DE VARIABLES GLOBALES */
 #pragma endregion VARIABLES
@@ -151,6 +182,8 @@ void iniciarLista() {
 
 extern int contadorvar;
 
+char listaVars[9000];
+
 
 void iniciar_variables() {
 
@@ -160,13 +193,80 @@ void iniciar_variables() {
     
 }
 
+void setBP() {
+    int bp;
+    bp = atoi(buff2[1]);
+    for (short i=0; i<21;i++) {
+        if (breakpoints[i] == bp)
+                return;
+        
+        if (breakpoints[i]==0) {
+          breakpoints[i] = bp;
+          
+          //elimina otros BP con el mismo numero de linea
+          if (i+1<21) {
+              for (short j=i+1; j<21; j++)
+                  if (breakpoints[j] == bp  )
+                      breakpoints[j] = 0;
+          }
+          
+          break;
+        }
+    }
+    //listBP(); descomentar para ver los breakpoints
+   
+}
 
+//continua despues de un breakpoint
+void contBP() {
+    //printf("resumimos....");
+    if (!run_iniciado) {
+        run_iniciado = 1;
+        runall();
+    }
+    else {
+        mquit = 1;
+      //  printf("mquit es 1");
+    }
+}
+
+//lista los breakpoints
+void listBP() {
+    //int j = 0;
+    //printf("lista de breakpoints:\n");
+    for (int i=0; i<21;i++) {
+        if (breakpoints[i]) {
+            //j++;
+           // printf("%d : %d\n", i+1, breakpoints[i]); 
+        }
+    }
+    //printf("\n");
+}
+
+// elimina todos los breakpoints
+void bpClear() {
+    //printf("eliminando todos los breakpoints:\n");
+    for (int i=0; i<21;i++) {
+        breakpoints[i] = 0;
+    }
+    //printf("fin_breakpoints.");
+}
+
+//funcion principal
 int main(int argc, const char **argv)
 {
+    bpClear();
     initProcedimientos();
+    for (short i=0; i<21;i++)
+        breakpoints[i]=0;
+    
+    //breakpoints[0] = 14;
+    
+    //rem
     copyrigth();
     if (argc>1) {
         old_main(  argc,  argv);
+		exit(0);
     }
 /*
     fprintf(stdout, "MySSQL client version: %s\n",  mysql_get_client_info());
@@ -181,7 +281,9 @@ void eliminar_en_indice( );
 
 
 
-void init_comandos() {
+void 
+
+init_comandos() {
 
     int i;
  
@@ -247,8 +349,8 @@ void init_comandos() {
     comando[26].pfuncion = descargaDinamica;
     comando[27].nombre = "testlib";
     comando[27].pfuncion = testlib;
-    comando[28].nombre = "listaast";
-    comando[28].pfuncion = listaAST;
+    comando[28].nombre = "listavar";
+    comando[28].pfuncion = listavar2;
     comando[29].nombre = "var";
     comando[29].pfuncion = listavar;
     comando[30].nombre = "prog";
@@ -280,7 +382,19 @@ void init_comandos() {
    
    comando[39].nombre = "free";           //30/09/2016
    comando[39].pfuncion = freevar;
-
+   
+   comando[40].nombre = "socket";           //15/08/2021
+   comando[40].pfuncion = lee_socket;
+   
+   comando[41].nombre = "bp";           //15/08/2021
+   comando[41].pfuncion = setBP;
+   
+   comando[42].nombre = "continue";           //15/08/2021
+   comando[42].pfuncion = contBP;
+   
+   comando[43].nombre = "bps";           //15/08/2021
+   comando[43].pfuncion = listBP;
+   
 }
 
 //#include "vars.h"
@@ -355,10 +469,8 @@ void comandos() {
 extern double var[127];  //en run.c
 
 
-
-int  
-
-listavar() {
+// muestra una variable, se llama desde el "."
+int  listavar() {
     int indice;
     printf("variable\n");
     indice = atoi(buff2[1]);
@@ -377,6 +489,123 @@ listavar() {
 }
 
 
+// crea un Json con las variables, el tipo array le pone tipo A
+void listavar2() {
+    
+    char linea[512];
+    char valor[256];
+    int i;
+    int dim1 = 0;     
+    
+    
+    listaVars[0] = '\x0';
+    linea[0] = '\x0';
+    
+    sprintf(linea, "[ " ) ;
+    
+    strcat (listaVars, linea);
+    //send(new_socket , linea , strlen(linea) , 0 );
+ 
+    for (i=0; i<contadorvar;i++) {
+        //printf("%d\n", i);
+        char tipo;
+        tipo  = (char) array_variables[i].tipo  ;
+        
+        if (tipo=='F' || tipo=='P' )
+            continue;
+        
+
+        dim1 = array_variables[i].dim1;
+        if (dim1 == 0)
+            sprintf(linea, "{ \"indice\": %3d, \"nombre\": \"%s\", \"tipo\": \"%c\",", i, array_variables[i].nombre, tipo);
+        
+        
+        if (dim1 == 0) {
+                
+                switch (tipo) {
+                    case 'N':
+                    {
+                        sprintf(valor, " \"valor\":  \"%lf\", \"idx\": 0 },", array_variables[i].numero);
+                    }
+                        break;
+
+                    case 'S':
+                    {
+                        if (array_variables[i].string!=NULL)
+                            sprintf(valor, " \"valor\": \"%s\", \"idx\": 0 },", array_variables[i].string);
+                        else
+                            sprintf(valor, " \"valor\": \" \",  \"idx\": 0 }," ) ;
+
+                    }
+                        break;
+
+                    default:
+                        break;
+
+                    
+                }
+                strcat (linea, valor);
+                strcat (listaVars, linea);
+                //printf(listaVars);
+        }
+        else {
+            
+            switch (tipo) {
+                
+                case 'S':
+                {
+                    // es Array
+                    char * vector;
+                    char str[127];
+                    int ii;
+                    int j=0;
+                    int k=0;
+                    ii =array_variables[i].numero;
+                    //i = var[(int) p->nodo1->num];    // el indice de la variable (designator)
+                    //i =  (int) array_variables[(int) p->nodo1->num].numero;    // el indice de la variable (designator)
+                    if (arrayVectoresAlfa[ii]!=0 && ii<32) {
+                        vector = arrayVectoresAlfa[ii];
+
+                        while (j<dim1){
+                            k = j*127;
+                            sprintf(str, "%s", &vector[k]  );
+                            if (strlen(str)>0) {
+                                sprintf(linea, "{ \"indice\": %3d, \"nombre\": \"%s\", \"tipo\": \"%c\",", i, array_variables[i].nombre, 'A');
+                                sprintf(valor, " \"valor\": \"%s\",  \"idx\": %3d }," , str, j);
+                                strcat (linea, valor);
+                                strcat (listaVars, linea);
+                            }
+                            j++;
+                        }
+                        //i++;
+                    }
+                    
+
+                }
+                break;
+            
+            }
+            
+            
+        
+        }
+        
+       
+        
+        
+        
+    }
+    
+    listaVars[strlen(listaVars)-1] = ' ';  //borra la ultima comma
+    sprintf(linea, " ]");
+    strcat (listaVars, linea);
+    //printf(listaVars);
+    send(new_socket , listaVars , strlen(listaVars) , 0 );
+    msleep(400);
+    
+}
+
+//rem
 extern void  execut(ast * a) ;  // se ha quitado el asterisco
 extern int gtk_iniciado;
 
@@ -705,7 +934,8 @@ int buscar_posicion() {
 
 short inter_flag = 0;
 
-int prompt() {
+int 
+prompt() {
     int argc;
     int i, found;
 
@@ -814,7 +1044,9 @@ print() {
     if (!j) fprintf(stdout, "%s: not found\n", buff2[1]);
 }
 
-int parse() {
+int
+
+parse() {
     int i, j, k, hubocomilla;
     i = 0;
     j = 0;     
@@ -826,8 +1058,7 @@ int parse() {
         while (buff1[i] && buff1[i] != ' ') {
             buff2[j][k] = buff1[i];
             if (buff1[i] == '"') {
-                hubocomilla = 1; 
-                
+                hubocomilla = 1;   
                 i++;
                 k++;
                 while (buff1[i] != '"' && buff1[i]) {
@@ -839,6 +1070,8 @@ int parse() {
                 buff2[j][k+1] = '\0';
             }
             i++;
+            if(i>127) 
+                return 0;
             k++;
             if (hubocomilla) break;
         } /* sale por aqui cuando encuentra un espacio */
@@ -1002,4 +1235,183 @@ doit() {
 
     } while (!feof(fd));
     close(fd);
+}
+
+int create_socket() {
+    
+    printf("creando socket");
+    // Creating socket file descriptor
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
+    {
+        perror("socket failed");
+        exit(EXIT_FAILURE);
+    }
+       
+    // Forcefully attaching socket to the port 8080
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR,
+                                                  &opt, sizeof(opt)))
+    {
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
+    }
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons( PORT );
+       
+    // Forcefully attaching socket to the port 8080
+    if (bind(server_fd, (struct sockaddr *)&address, 
+                                 sizeof(address))<0)
+    {
+        perror("bind failed");
+        exit(EXIT_FAILURE);
+    }
+    if (listen(server_fd, 3) < 0)
+    {
+        perror("listen");
+        exit(EXIT_FAILURE);
+    }
+    if ((new_socket = accept(server_fd, (struct sockaddr *)&address, 
+                       (socklen_t*)&addrlen))<0)
+    {
+        perror("accept");
+        exit(EXIT_FAILURE);
+    }
+    
+    printf("fin creando socket");
+    
+    return 0;
+}
+
+
+/* msleep(): Sleep for the requested number of milliseconds. */
+int msleep(long msec)
+{
+    struct timespec ts;
+    int res;
+
+    if (msec < 0)
+    {
+        errno = EINVAL;
+        return -1;
+    }
+
+    ts.tv_sec = msec / 1000;
+    ts.tv_nsec = (msec % 1000) * 1000000;
+
+    do {
+        res = nanosleep(&ts, &ts);
+    } while (res && errno == EINTR);
+
+    return res;
+}
+
+
+int  lee_socket() {
+    if (!socket_iniciado) {
+        create_socket();
+        socket_iniciado = 1;
+    }
+    while (1)
+    {
+        valread = read( new_socket , skbuffer, 1024);
+        //printf("valread: %d\n", valread);
+        skbuffer[valread] = '\x0';
+//        printf("%s\n",skbuffer );
+        
+        
+        if (strcmp(skbuffer, "continue")==0) {  // es start continue, step) {
+            //printf("enviamos variables");
+            //listavar2();
+            step = 0;
+            
+        }
+        
+        if (strcmp(skbuffer, "bpclear")==0) {  // eliminar los puntos de interr.
+            bpClear();
+            //sprintf(listaVars, "car bpset");
+            //send(new_socket , listaVars , strlen(listaVars) , 0 );
+            //return (0);
+            continue;
+        }
+        
+        if (strcmp(skbuffer, "current_line")==0) {
+            sprintf(listaVars, "current_line:%d", current_line);
+            //printf("enviamos current_line");
+            send(new_socket , listaVars , strlen(listaVars) , 0 );
+            return (0);
+        }
+        
+        if (strcmp(skbuffer, "step")==0) {
+            //sprintf(listaVars, "current_line:%d", current_line);
+            //printf("enviamos current_line");
+            //send(new_socket , listaVars , strlen(listaVars) , 0 );
+            step = 1;
+            mquit = 1;
+            //printf("enviamos variables");
+            
+            return (0);
+        }
+        
+        
+        //send(new_socket , listaVars , strlen(listaVars) , 0 );
+        
+        //printf("variables enviadas, largo: %d\n", strlen(listaVars));
+        //printf(listaVars);
+
+        if (!strcmp(skbuffer, "fin")) {
+            return (0);
+        }
+        
+        if (!strcmp(skbuffer, "setvar")) {
+            return (0);
+        }
+        
+    int argc;
+    int i, found;
+
+    limpiar_buff1();
+    //introduzca_buff1();
+    strcpy (buff1, skbuffer);
+    argc = parse(); /* trozea buff1 en buff2[10] */
+    found = 0;
+    i = buscar_comando(); /* i retorna el numero de la funcion */
+    if (i >= 0) found = 1;
+
+
+    /* BUSCAR LA POSICION DE MEMORIA DEL PRIMER PARAMETRO */
+
+
+    if (found) {
+
+        // aqui se llama al comando correspondiente, a veces es preferible pasar buff1, o buff2[n]
+        resultado = (int *) (*comando[i].pfuncion) (argc, buff2);   
+
+        if (depurando) {
+
+            // printf("resultado %d\n", resultado);
+
+        }
+        
+        resultado = 0;
+        
+        if (mquit ==1) {
+            resultado = 1;
+            return 0;
+        }
+        
+
+    }; /* if found */
+
+
+    /* else */
+
+    if (!found)
+        if (!inter_flag)
+        fprintf(stdout, "Comando %s: No encontrado.\n", buff2[0]);
+        else
+            interpretar();
+    
+    buffer();
+        
+    }
 }

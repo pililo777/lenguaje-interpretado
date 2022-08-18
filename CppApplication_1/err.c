@@ -31,6 +31,7 @@ char * c;
    printf("error en linea %d: %s\n", linenumber, msg);
    printf("texto: %c\n", c);
    err_number = 1;
+  // exit(1);
 }
 //extern int pausar();
 

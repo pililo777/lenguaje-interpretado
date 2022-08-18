@@ -1,0 +1,85 @@
+dim R 7
+dim R1 7
+dim r 7   //para saber si hemos aniadido la regla N
+dim I 140  //20*7 guarda los estados (hasta 20 de momento)
+dim C 100
+dim TABLA_ACCION 100      //(LEN(lista.terminales$), ic)
+CC = ' '
+vaciar CC
+desde i=0 hasta 139
+{
+	I[i] = CC
+}
+desde i=0 hasta 99
+{
+	C[i] = CC
+}
+desde i=0 hasta 99
+{
+	TABLA_ACCION[i] = CC
+}
+
+dim REGLA 7
+// DATA "W=E",  "E=E+T",  "E=T",  "T=T*F",  "T=F", "F=(E)", "F=a"
+REGLA[0]= 'W=E'
+REGLA[1]= 'E=E+T'
+REGLA[2]= 'E=T'
+REGLA[3]= 'T=T*F'
+REGLA[4]= 'T=F'
+REGLA[5]= 'F=(E)'
+REGLA[6]= 'F=a'                     
+
+nsym = 7
+nsym2 = nsym-1
+LISTA_SIMBOLOS = 'ETF(a+*)'
+LISTA_TERMINALES = 'a+*()$'
+LISTA_NO_TERMINALES = 'ETF'
+
+imprimir 'simbolos: ', LISTA_SIMBOLOS
+
+VAR1 = REGLA[3]
+VAR2 = '*'
+i = instr( VAR1, VAR2 )
+imprimir 'i=', i 
+VAR0 = izquierda( VAR1, 2 )
+VAR3 = derecha ( VAR1, 2 )
+imprimir 'resul: ', VAR0, '/', VAR3
+VAR4 = subcadena( VAR1, 3, 2 )
+l = largo (VAR4)
+imprimir 'subcadena: ', VAR4, ' largo: ', l 
+ll = largo(LISTA_TERMINALES)- 1
+LISTA = izquierda(LISTA_TERMINALES, ll)
+imprimir 'lista: ', LISTA
+linea1 = 3
+x=0
+R1 [x] = 'no'
+C[linea1] = R1[x]
+imprimir 'C linea1=', C[linea1]
+
+TEMP=R1[x]
+imprimir TEMP
+TEMP2 = 'no'
+si TEMP=TEMP2 entonces
+	imprimir 'son iguales'
+sino
+	imprimir 'no son iguales'
+si-fin
+kk=0
+SIMBOLOS_ANADIDOS = 'E'
+K = 'E'
+kk = instr(SIMBOLOS_ANADIDOS, K)
+imprimir 'kk=', kk
+
+
+	
+
+
+
+
+
+
+	
+
+
+
+

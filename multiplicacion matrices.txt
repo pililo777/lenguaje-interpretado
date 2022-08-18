@@ -1,0 +1,13 @@
+//multiplicacion de matrices
+for (i = 0 ; i < 3 ; i++ ) //i para las filas de la matriz resultante
+{
+    for (k = 0 ; k < 3 ; k++ ) // k para las columnas de la matriz resultante
+    {
+        temporal = 0 ;
+        for (j = 0 ; j < 2 ; j++ ) //j para realizar la multiplicacion de 
+                {                                   //los elementos   de la matriz
+            temporal += mat[i][j] * mat2[j][k];
+            resultado[i][k] = temporal ;
+        }
+        }
+}

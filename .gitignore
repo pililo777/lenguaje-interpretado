@@ -240,6 +240,14 @@ CppApplication_1 16sept.zip
 CppApplication_1 17 sept.zip
 *.exe
 *.d
+/.vs/lenguaje-interpretado/v16
+/.vs/slnx.sqlite
+/CppApplication_1/.vshistory
+/.vs
+/CppApplication_1/a.out
+/CppApplication_1/sin.c
+/ejemplos/cppapp1.exe.stackdump
+CppApplication_1/nbproject/private/private.xml
 /.vs
 /CppApplication_1/.vshistory
 /ejemplos/nuevos contactos.dbf

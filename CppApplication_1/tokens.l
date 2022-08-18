@@ -1,6 +1,17 @@
-/* IMPORTANTE:  no dejar espacios entre los | | | !!!!!1   github */
-/* '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux */
-/* compilar con:  flex  tokens.l */
+/*
+
+    IMPORTANTE:  no dejar espacios entre los | | | !
+   '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux 
+
+
+Ultima compilacion: 8 agosto 2022
+PC:    desktop Rancho WSL
+
+ruta:  /mnt/c/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1
+
+
+*/
+
 
 %{
 
@@ -12,6 +23,7 @@ void  cuentalineas(char * yytext);
 
 #include "nodo.h"
 #include "vars.h"
+
 #include "stdio.h"
 
 // #include "grammar_tab.h"
@@ -19,7 +31,6 @@ void  cuentalineas(char * yytext);
 #ifdef windows
   //#include "grammar_tab.h"
 #endif
-
 
 #ifdef linux
  #include "grammar.tab.h"
@@ -86,16 +97,15 @@ if (depurar)
     printf("-------------------------------------------------\n");
     printf("linea: %d\n", linenumber);
     printf("-------------------------------------------------\n");
-}  
+}
+
+
 /*
     if (lineaEjecucion==12)
         pausar();
 */
 }
-
 %}
-
-
 %%
 "oo" { return OR; }
 "yy" { return AND; }
@@ -144,6 +154,8 @@ if (depurar)
 "dim" {lineaEjecucion2(); return DIM; }
 "linea" {lineaEjecucion2(); return LINEA; }
 "circulo" {lineaEjecucion2(); return CIRCULO; }
+"rectangulo" {lineaEjecucion2(); return RECTANGULO; }
+"punto"      {lineaEjecucion2(); return PUNTO; }
 "convertir" {lineaEjecucion2(); return CONVERTIR; }
 "evalua" {lineaEjecucion2(); return EVALUAR; }
 "stop" {lineaEjecucion2();  return STOP; }
@@ -235,7 +247,7 @@ if (depurar)
 	return SNAME; 
 	}
 
-
+\r      { ; }
 \       { ; }
 \n      { nextline(); }
 \t      { ; }
