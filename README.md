@@ -39,7 +39,7 @@ gcc -std=c99 -Wl,--export-dynamic `pkg-config --cflags --libs cairo cairo-png gt
 ```
 # Uso 
 
-Una vez que hayas copilado ejecula el programa asi 
+Una vez que hayas compilado ejecuta el programa asi :
 
 ```
 ./miprograma
