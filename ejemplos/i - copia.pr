@@ -1,0 +1,25 @@
+decimales 10
+
+dim vec1 3, 4
+
+
+
+desde i = 0 hasta 2
+{
+	desde j = 0 hasta 3
+	{
+	   	n = random(0)   
+   		imprimir n
+		vec1 [i][j] = n
+	}
+}
+
+
+desde i = 0 hasta 2
+{
+	desde j = 0 hasta 3
+	{
+		n = vec1 [i][j] 
+   		imprimir 'vec1 ', i, ' , ', j, '  = ', n
+	}
+}

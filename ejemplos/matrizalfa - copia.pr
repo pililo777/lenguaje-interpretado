@@ -1,0 +1,83 @@
+/*
+
+Se demuestran funciones de cadena y expresiones regulares.
+
+*/
+
+n = 6
+SALUDO = 'HOLA'
+MENSAJE = 'variable global 1234  456 '
+REGEX = '[[:alnum:]]+'  //'[[:digit:]]+'
+//https://en.wikibooks.org/wiki/Regular_Expressions/POSIX_Basic_Regular_Expressions
+//https://www.gnu.org/software/grep/manual/html_node/Character-Classes-and-Bracket-Expressions.html
+dim resp 2
+resp[0]=0
+resp[1]=0
+hallado = 1
+
+trozea(MENSAJE, REGEX)
+
+i = 1
+j = 1
+
+SUBC = 'ble'
+k = instr(MENSAJE,  SUBC)
+IZQ = ' '
+DER = ' '
+IZQ = izquierda(MENSAJE, 3)
+DER = derecha(MENSAJE, 8)
+IZQ += DER
+
+imprimir 'izq: ', IZQ  , '  DER: ', DER
+imprimir 'el texto se encuentra en la posicion: ', k
+k = largo(MENSAJE)
+imprimir MENSAJE, ' tiene ', k, ' caracteres'
+desde i=1 hasta k
+{
+	SUBC = subcadena(MENSAJE, i, j)
+    imprimir i, ' ', SUBC
+}
+cerradura (SALUDO, 4)
+imprimir 'SALUDO despues: ', SALUDO
+imprimir 'MENSAJE despues: ', MENSAJE
+imprimir 'n = ', n
+dim REGLA 7
+// DATA "W=E",  "E=E+T",  "E=T",  "T=T*F",  "T=F", "F=(E)", "F=a"
+REGLA[0]= 'W=E'
+REGLA[1]= 'E=E+T'
+REGLA[2]= 'E=T'
+REGLA[3]= 'T=T*F'
+REGLA[4]= 'T=F'
+REGLA[5]= 'F=(E)'
+REGLA[6]= 'F=a'
+
+
+terminar
+
+funcion cerradura (MENSAJE, n)
+  imprimir 'estoy en la cerradura: ', n
+  imprimir MENSAJE
+  SALUDO = 'que tal'
+  imprimir SALUDO
+fin
+
+funcion trozea(MENSAJE, REGEX) 
+mientras hallado = 1
+{
+  hallado = chkregex(MENSAJE, REGEX, resp)
+  si hallado = 1 entonces
+    //imprimir  MENSAJE , ' contiene la expresion regular:  ',  REGEX
+    //imprimir resp[0], ' ',  resp[1]
+    i = resp[0]  
+	j = resp[1]
+    SUBC = subcadena(MENSAJE, i+1, j-i+1)
+    imprimir  SUBC
+	MENSAJE = subcadena(MENSAJE, j+1, largo(MENSAJE)-j)
+	//stop
+  //sino
+    //imprimir '!!no se encuentra!!'
+  si-fin
+ }
+ fin
+
+

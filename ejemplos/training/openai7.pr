@@ -1,0 +1,55 @@
+// calcular el numero de Euler
+
+decimales 14
+verdadero = 1
+imprimir euler(0.00001)
+terminar 
+
+proc nada
+imprimir 'Ingrese el valor de n para el cálculo del número de Euler:'
+leer n
+euler = 0
+desde i=0 hasta n {
+    euler = euler + (1 / fact(i))
+}
+imprimir 'El número de Euler es: ', euler
+fin
+
+//terminar
+
+funcion fact(n)
+    si n = 0 entonces
+        retornar 1
+    sino
+        retornar n * fact(n-1)
+    si-fin
+fin
+
+funcion euler(precision)
+    n = 0
+    suma = 0
+    imprimir 'verdadero ', verdadero
+    mientras verdadero
+    {
+        termino = 1 / factorial(n)
+        suma = suma + termino
+        imprimir 'suma ', n, ' es ', suma, ' termino es ', termino
+        
+        si termino < precision entonces
+            salir
+        si-fin
+        
+        n = n + 1
+    }
+    retornar suma
+fin
+
+funcion factorial(numero)
+    resultado = 1
+    mientras numero > 1 
+    {
+        resultado = resultado * numero
+        numero = numero - 1
+    }
+    retornar resultado
+fin

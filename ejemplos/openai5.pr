@@ -1,0 +1,22 @@
+// openai5.pr
+
+imprimir 'Ingrese un número:'
+leer num
+
+si (num / 2 = entero(num / 2)) entonces
+    imprimir num, ' es par.'
+ sino 
+    imprimir num, ' no es par.'
+si-fin
+
+terminar
+
+funcion entero(numero)
+    contador = 0
+    mientras numero > 0 
+    {
+        numero = numero - 1
+        contador = contador + 1
+    }
+    retornar contador
+fin

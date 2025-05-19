@@ -1,0 +1,9 @@
+desde x = 1 hasta 5
+haz
+   imprimir x
+fin-haz
+
+x=4
+imprimir x
+
+

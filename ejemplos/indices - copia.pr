@@ -1,0 +1,31 @@
+// version antigua del indice, este programa ya no es operacional
+
+use
+
+NOMBRE='ruben'
+encontrado = 0
+buscar NOMBRE encontrado
+llamar resultado
+
+buscar NOMBRE encontrado
+llamar resultado
+
+imprimir 'eliminamos la clave: ', NOMBRE
+eliminar NOMBRE  
+
+NOMBRE='indira'
+encontrado = 0
+buscar NOMBRE encontrado
+llamar resultado
+
+close
+terminar
+
+proc resultado
+si encontrado = 1 entonces
+    imprimir NOMBRE, ' está en el indice'
+sino
+   imprimir NOMBRE, ' no se encuentra en el indice, ..'
+ 
+fin-si
+fin

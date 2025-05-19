@@ -1,0 +1,710 @@
+
+
+
+
+Contenido
+Introducci�n	2
+Funcionamiento	2
+Programas Fuente	3
+bt.c	3
+dbase.c	3
+cargalib	4
+descargalib	4
+cosine	4
+editor	4
+quit	4
+evalua	4
+main	4
+main2	4
+use, list, close	4
+arbol	5
+pwd	5
+store	5
+buffer	5
+testlib	5
+listaast	5
+dinamic.c	5
+cargaDinamica (funci�n)	5
+descargaDinamica (funci�n)	5
+insAST (funci�n)	5
+listaAST (funci�n)	5
+ANEXO I	6
+Ejemplo de Ejecuci�n	6
+Resultados:	6
+ANEXO II	7
+AYUDA WORD	7
+FORMATO DE ESTE DOCUMENTO	7
+ANEXO III	8
+PROGRAMA DE EJEMPLO: VENTANAS.PR	8
+ANEXO IV	12
+Opciones de compilaci�n: Build	12
+Opciones de compilaci�n: C Compiler	12
+Opciones de compilaci�n: Linker	12
+Opciones de compilaci�n: Run	13
+ANEXO V	13
+INDICE	13
+
+
+
+Introducci�n
+El lenguaje interpretado desarrollado en base al int�rprete de Memphis es un proyecto creado para aprender t�cnicas de creaci�n de lenguajes de programaci�n. Tambi�n permitir crear aplicaciones escritas en idioma castellano. Posteriormente se prev� hacer que las palabras claves sean configurables para funcionar con cualquier conjunto de palabras, de cualquier idioma.
+
+El proyecto a�n no tiene un nombre definitivo, pero actualmente utilizo el nombre "inter" para referirme a �l.
+
+En alg�n momento, se hizo que el int�rprete fuera compilado como una librer�a para Python, por lo que era posible ejecutar programas de "inter" desde Python y luego cruzar variables entre ambos int�rpretes. Posteriormente escribir� aqu� los argumentos de compilaci�n para utilizarlo en este modo, los beneficios que puede aportar al desarrollo de los programadores de Python y los beneficios de utilizar concurrentemente ambos lenguajes.
+
+En otra versi�n se ha compilado con visual studio y se tiene una DLL que puede utilizarse desde otros lenguajes .NET. Igualmente, aqu� se pueden cruzar variables entre "inter" y el lenguaje que se utilice.
+
+El estilo de programaci�n actual es similar al lenguaje Pascal, aunque no se declaran variables. Se utilizan nombres en min�sculas para variables num�ricas y may�sculas para alfanum�ricas. Al final de �ste documento hay un programa de ejemplo: "ventanas.pr".
+
+De momento no se prev� implementar "clases" � "interfaces" en la sintaxis del lenguaje, no se crean objetos ni instancias de ninguna clase. Es programaci�n procedural tambi�n llamada programaci�n estructurada.
+Funcionamiento
+Al ejecutar el programa, se obtiene una ventana de consola y un prompt, similar a una terminal de Linux, en este caso el prompt es un punto (.)
+
+A partir de aqu� es posible escribir una serie de comandos � instrucciones para realizar determinadas operaciones, similar a la consola que utilizaba dBASE III en su �poca.
+
+De momento, los programas para "inter" se crean con cualquier editor de textos. En mi caso, utilizo un solo programa llamado "ventanas.pr" para realizar pruebas. Posteriormente se incorporar� un comando para cargar un programa distinto a �ste.
+
+Una vez creado el programa "ventanas.pr", utilizo el comando "cargar" para cargarlo, luego el comando "run" para ejecutarlo.
+
+Las ultimas funcionalidades agregadas al proyecto han sido:
+
+* Capacidad de generar ventanas
+* Controles dentro de las ventanas: cajas de texto, etiquetas, botones, etc.
+* asignaci�n de eventos a los botones para enlazarlos a procedimientos
+* Creaci�n de gr�ficos 2D en una ventana gr�fica
+* Posibilidad de ejecutar un programa en memoria en vez de cargarlo de disco
+* Evaluaci�n de instrucciones contenidas en variables alfanum�ricas
+* Vectores numericos y alfanumericos de 1 y 2 dimensiones
+* Consultas a bases de datos de SQL Server
+* Tablas de simbolos para hacer funciones recursivas
+
+
+
+Actualmente estoy desarrollando varias funcionalidades, entre las que caben destacar:
+
+* Gr�ficos 2D (l�neas, c�rculos, puntos, rectangulos, etc.)
+* Ficheros �ndices (con la t�cnica de Arboles B)
+* Integraci�n con lenguaje Python
+* Carga y descarga de librer�as din�micas (en Linux)
+
+
+Las caracter�sticas pendientes de implementar a fecha 24 de junio 2015, son:
+* Manejo de archivos: lectura y escritura
+* Mejora del sistema de la tabla de s�mbolos: actualmente se hace en un vector, pero se prev� hacerlo con un �rbol B en memoria. El algoritmo del arbol B ya est� realizado e integrado, pero est� como una librer�a din�mica dado que est� realizado en lenguaje Pascal con el entorno de programaci�n "Lazarus" y es una adaptaci�n de un programa que hice en la d�cada de los a�os 80.
+* Integraci�n con servidores de datos: Microsoft Sql Server y MySql
+* Varias otras funcionalidades disponibles en lenguajes de alto nivel.
+* 
+
+Programas Fuente
+El proyecto est� programado en lenguaje C, actualmente utilizo Netbeans 7.0.1 en Ubuntu version 12.
+
+Sin embargo, tambi�n ha sido compilado en Windows con Netbeans y Visual Studio.
+
+Las fuentes en lenguaje C son los siguientes:
+
+o bt.c
+o dbase.c
+o dinamic.c
+o run.c
+o err.c
+o graficos.c
+o grammar.tab.c
+o lex.yy.c
+o minieditor.c
+o variables.c
+o grammar.tab.h
+o nodo.h
+
+A continuaci�n, una descripci�n de cada uno de ellos:
+bt.c
+
+Contiene el men� del comando �rbol, el mismo que permite crear un fichero �ndice. Este ha sido modificado desde el original, para que se pueda especificar el largo del registro. Internamente se est� utilizando una longitud de 55 bytes.
+
+dbase.c
+
+Este contiene una lista de pares de comandos y funciones. Cada comando est� asociado a una funci�n. La lista es la siguiente:
+
+
+    comando[0].nombre = "clear";
+    comando[0].pfuncion = clear;
+    comando[1].nombre = "pwd";
+    comando[1].pfuncion = pwd;
+    comando[2].nombre = "quit";
+    comando[2].pfuncion = quit;
+    comando[3].nombre = "lc";
+    comando[3].pfuncion = lc;
+    comando[4].nombre = "ls";
+    comando[4].pfuncion = ls;
+    comando[5].nombre = "l";
+    comando[5].pfuncion = l;
+    comando[6].nombre = "help";
+    comando[6].pfuncion = help;
+    comando[7].nombre = "buffer";
+    comando[7].pfuncion = buffer;
+    comando[8].nombre = "store";
+    comando[8].pfuncion = dstore;
+    comando[9].nombre = "?";
+    comando[9].pfuncion = print;
+    comando[10].nombre = "display";
+    comando[10].pfuncion = display;
+    comando[11].nombre = "use";
+    comando[11].pfuncion = use;
+    comando[12].nombre = "save";
+    comando[12].pfuncion = getdatos;
+    comando[13].nombre = "list";
+    comando[13].pfuncion = list;
+    comando[14].nombre = "modify";
+    comando[14].pfuncion = editor;
+    comando[15].nombre = "do";
+    comando[15].pfuncion = doit;
+    comando[16].nombre = "arbol";
+    comando[16].pfuncion = main2;
+
+    comando[17].nombre = "close";
+    comando[17].pfuncion = t_close;
+
+    comando[18].nombre = "buscar_posicion";
+    comando[18].pfuncion = buscar_posicion;
+    comando[19].nombre = "strcmp";
+    comando[19].pfuncion = strcmp;
+    comando[20].nombre = "main";
+    comando[20].pfuncion = xxmain;
+    comando[21].nombre = "main2";
+    comando[21].pfuncion = xxmain2;
+    comando[22].nombre = "evalua";
+    comando[22].pfuncion = interpretar;
+    comando[23].nombre = "editor";
+    comando[23].pfuncion = editor;
+    comando[24].nombre = "cargalib";
+    comando[24].pfuncion = cargaDinamica;
+    comando[25].nombre = "cosine";
+    comando[25].pfuncion = llamaCosine;
+    comando[26].nombre = "descargalib";
+    comando[26].pfuncion = descargaDinamica;
+    comando[27].nombre = "testlib";
+    comando[27].pfuncion = testlib;
+     comando[28].nombre = "listaast";
+    comando[28].pfuncion = listaAST;
+
+
+Los m�s importantes son:
+
+cargalib
+
+Carga una librer�a din�mica, en este caso, el proyecto de la librer�a din�mica est� en proyecto netbeans, llamado myModule, el cual est� formado por un solo fichero: myModule.c
+
+Para compilar este proyecto se establecen las siguientes PROPIEDADES:
+
+	BUILD:   	Configuration type:  dynamic library
+	C Compiler:    Include directories:  /usr/include/python2.7
+			Aditional Options:  -shared
+
+	LINKER: 	Output: /lib/libmyModule.so
+		   	Aditional Options: -shared -lpython2.7
+
+
+Como se puede ver, al compilar este proyecto se crea una librer�a din�mica la cual es enlazada desde la linea de comandos del interprete, con la orden cargalib. Ver "descargalib" y "cosine" que est�n relacionadas con esta instrucci�n.
+
+descargalib
+
+Descarga la librer�a cargada con la orden anterior.
+
+vars
+Muestra las VARIABLES (num�ricas y alfanum�ricas) y CONSTANTES encontradas al analizar un programa fuente. Requiere haber cargado una librer�a din�mica con la instrucci�n "cargalib" y haber analizado un programa fuente de "inter". 
+
+editor
+Llama al editor vi, lo cual permite editar el programa "ventanas.pr" o cualquier otro.
+Ejemplo:
+- n ventanas.pr    (carga el programa en vi)
+- w   (guarda el programa)
+- set nu (muestra n�meros de l�nea)
+- q  (sale sin guardar)
+
+
+
+quit
+Sale del interprete.
+
+evalua
+eval�a/interpreta lo que se escriba entre comillas
+
+cargar <nombre de programa>
+
+Carga el programa  especificado y hace un an�lisis sint�ctico creando el AST. Se pueden cargar hasta 30 programas.
+run
+Ejecuta el programa anterior  cargado en memoria, si se han cargado m�s de uno los ejecuta todos secuencialmente. Se pueden cargar hasta 30 programas.
+
+
+use, list, close
+Instrucciones que se utilizan para leer el indice del arbol B.
+
+arbol 
+Muestra el men� de mantenimiento del indice  text.dat del arbol B.
+
+pwd
+print working directory, similar al linux.
+
+store 
+almacena valores a variables num�ricas y alfanum�ricas.
+
+buffer 
+muestra el contenido del buffer de comandos (prompt).
+
+
+
+dinamic.c
+Este fichero contiene las siguientes funciones:
+
+* cargaDinamica
+* descargaDinamica
+* insAST
+* listaAST
+* llamaCosine
+* testlib
+
+   cargaDinamica (funci�n)
+Carga en memoria la librer�a din�mica "/lib/libmyModule.so"
+
+   descargaDinamica (funci�n)
+Descarga la librer�a cargada con la instrucci�n anterior
+
+   insAST (funci�n)
+Inserta una clave en el arbolB en memoria. Se utiliza para a�adir entradas desde el analizador l�xico para tener una lista de simbolos.
+
+En el fichero lex.yy.c, en la funci�n  instalavar(), se llama a insAST(yytext), para a�adir el nombre de la variable al arbol B en memoria. Se a�aden variables num�ricas y alfanum�ricas. Se ha comprobado que funciona pendiente: Crear una estructura de datos idonea para un ast en el btree.
+
+   listaAST (funci�n)
+Se llama desde el prompt con el comando listaast, muestra la lista de variables almacenadas en el arbol B en memoria. Se ha comprobado que funciona, despu�s de analizar un programa fuente de "inter".
+
+
+
+
+
+ANEXO I
+
+Ejemplo de Ejecuci�n
+Al ejecutar el programa, aparecer� el prompt (.), un punto, escribir estas intrucciones en orden finalizando cada una con la tecla Intro � Enter.
+
+. cargar "ventanas.pr"
+. run
+
+Al introducir la instrucci�n "run" se ejecuta el progrma, para continuar, realizar todas las pruebas que se quieran y al finalizar cerrar las ventanas en el siguiente �rden: ventana gr�fica, ventana principal.
+
+Resultados:
+1. testlib carga una librer�a para btree
+2. cargalib carga una librer�a para cosine
+3. "cargar ventanas.pr"  analiza el programa fuente "ventanas.pr"
+4. "run"  ejecuta el programa
+5. listaast muestra el arbol B de variables
+6. "vars"  muestra el estado de las variables
+
+
+
+ANEXO II
+AYUDA WORD
+Las siguientes operaciones son �tiles al momento de editar el manual:
+* Marcar entrada de indice  (REFERENCIAS)
+* Actualizar campos (F9) de la tabla de contenidos y del indice
+* Mostrar / Ocultar marcas de formato (ctrl mayus 8)
+* Mostrar estilos (INICIO)
+* Mostrar Navegaci�n
+* Mostrar Revisiones
+* Mostrar formato
+* Insertar portada
+* Usar estilos para titulos, subtitulos y parrafos
+* Insertar hiperv�nculos
+* Bordes y sombreado
+
+  
+* Alt 8629: tecla enter: ?
+* Alt 24, 25, 26, 27: ????
+* Alt 9003: ?
+
+
+FORMATO DE ESTE DOCUMENTO
+Para este documento se utiliza letra DejaVu Serif, 10.
+
+
+
+
+
+
+
+
+PENDIENTE: 
+OTRAS ORDENES Y FICHEROS DEL PROYECTO.
+DESCRIPCION DEL LENGUAJE, SINTAXIS Y GRAMATICA
+Parametros de compilacion
+
+
+
+
+
+ANEXO III
+PROGRAMA DE EJEMPLO: VENTANAS.PR
+Este programa sirve de ejemplo para el interprete.
+
+imprimir 'hola, inicio del programa'
+evalua 'indira = 3*8'
+evalua 'imprimir indira'
+desde x = 1 hasta 120 
+haz
+    imprimir x
+fin-haz
+indice = 0  // variable para los vectores de coordenadas
+x=130
+dim vec1 7
+i=0
+mientras i < 7
+haz
+	vec1[i]= i * 2
+	i = i + 1
+fin-haz
+// probando a copiar un vector
+dim vec2 7i=0
+mientras i < 7
+haz
+	vec2[i] = vec1[i] * 3
+	i=i+1
+fin-hazj = 0
+mientras j < 7
+haz
+	imprimir 'resultado: ', j, ' ',  vec2[j]
+	j = j + 1
+fin-haz	
+imprimir 'vectores: ',  vec1[1], ' ',  vec1[2], ' ',  vec2[1]
+imprimir 'x=', x
+
+NOMBRE = 'perico'
+APELLIDO = 'de los palotes'
+DIRECCION = ' '
+TELEFONO = ' '
+
+xyz = 1
+abc = 2
+//leer j
+
+ventana xyz 600 500
+xyz ventana 'MENU PRINCIPAL DEL PROGRAMA'
+xyz etiqueta 'INTRODUZCA SUS DATOS:' 10 10 
+xyz etiqueta 'valor numerico: '   10 30
+xyz texto NOMBRE           (x + 0), 30
+xyz etiqueta 'Apellidos:' 10 70
+xyz texto APELLIDO         (x + 5), 70
+xyz etiqueta 'Direcci�n:' 10 110
+xyz texto DIRECCION        (x + 10), 110
+xyz etiqueta 'Tel�fonos:' 10 150
+xyz texto TELEFONO         (x + 15), 150
+ // enlaza un boton con un evento que muestra un dialogo con un mensaje
+xyz boton 'clicame'       clicar_boton 270 250  
+xyz boton 'abrir ventana' abre_ventana 270 290
+
+
+imprimir 'llamando a la funcion graficos'
+numero_boton = 0
+coordx = 0
+coordy = 0
+
+graficos     clicar_ventana_grafica     numero_boton coordx coordy
+imprimir 'se ha llamado a la funcion de graficos'
+
+// activa todas las ventanas creadas hasta que se cierra la primera
+llamar ventana xyz   
+
+// despues de cerrar la primer ventana el flujo continua aqui:
+
+imprimir 'finalizando.....'
+imprimir 'indira = ', indira
+llamar 'imprimir indira'
+
+terminar  // ****************  finaliza  el programa *************
+
+procedimiento abre_ventana
+ventana abc 400 350
+ abc ventana 'SEGUNDA VENTANA'
+ abc etiqueta 'INTRODUZCA SU APELLIDO: ' 10 20 
+ abc texto APELLIDO x, 30
+ abc boton 'por favor clic aqui' clicar_boton2  140 150
+fin
+
+procedimiento clicar_boton2
+  //mensaje 'el boton ha sido clicado ', x, x*2
+  mensaje 'Los datos son: N:', NOMBRE, ' A:', APELLIDO, ' D:', DIRECCION, ' T:', TELEFONO
+fin
+
+procedimiento clicar_boton2
+  //mensaje 'clicaste en la  segunda ventana ', x*2
+  mensaje 'el apellido es: ', APELLIDO
+fin
+
+
+procedimiento clicar_ventana_grafica22
+	si numero_boton = 1 entonces
+		si indice = 0 entonces
+   	 		x = coordx // colocar coordx en vector vec1
+   			y = coordy // colocar coordy en vector vec2
+   			indice = 1
+   		sino
+   			x1 = coordx
+   			y1 = coordy
+   			indice = 0
+   		si-fin
+   	sino
+   		linea x, y, x1, y1
+   	si-fin
+fin
+
+
+procedimiento clicar_ventana_grafica
+   si numero_boton = 1 entonces
+   		// boton izquierdo
+   		vec1[indice] = coordx // colocar coordx en vector vec1
+   		vec2[indice] = coordy // colocar coordy en vector vec2
+   		indice = indice + 1
+   sino
+   		// boton  derecho: graficar
+   		// llamar dibujar_lineas_rectas
+   		i=0
+   		mientras i < indice
+   		haz
+   			//imprimir vec1[i], ' ', vec2[i]
+   			
+   			coordx = vec1[i]
+   			coordy = vec2[i]
+   			
+   			j=0
+   			mientras j < indice
+   			haz
+   			   coordx1 = vec1[j]
+   			   coordy1 = vec2[j]
+   			   //imprimir 'linea desde ' , coordx, ' ', coordy, ' hasta ' , coordx1, ' ', coordy1
+   			   linea coordx, coordy,  coordx1, coordy1
+   			   j = j + 1
+   			fin-haz
+   			i=i+1
+   		fin-haz
+   si-fin
+fin
+
+
+procedimiento clicar_boton
+numero = 0
+CANTIDAD = ' '
+convertir NOMBRE numero
+imprimir 'el numero es: ' , numero
+convertir numero CANTIDAD
+imprimir 'el texto es: ' , CANTIDAD
+i=1
+mientras i<121
+haz
+    //imprimir 'linea desde ' , i*10+100, ' ', i*10+10, ' hasta ' , i*20+200, ' ', i*30+300
+	linea i*5+20, i*5+20, i*5+100, i*5+20
+	circulo i*5+20, i*5+20, numero
+	i=i+10
+fin-haz
+fin
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ANEXO IV
+Opciones de compilaci�n: Build
+Para las opciones de compilaci�n desde Netbeans, se utilizan estas opciones:
+
+Figura 4.1  Opciones de compilacion
+
+En el apartado "Build", se pueden configurar la "Tool Collection", que en linux generalmente suelde ser GNU, y la "Configuration Type" que en nuestro caso es "Application" para que el int�rprete funcione desde la linea de comandos, � puede ser "Dynamic Library" para ser llamado desde Python.
+Opciones de compilaci�n: C Compiler
+Para �ste apartado, tenemos:
+
+
+
+Figura 4.2  C Compiler
+
+Opciones de compilaci�n: Linker
+Para linker:
+
+
+
+Figura 4.3  Linker Options
+
+Opciones de compilaci�n: Run
+Para la opci�n Run:
+
+
+Figura 4.4  Run
+
+ANEXO V
+Pendiente.
+
+
+Chequear la funcionalidad actual de la tecla backspace ?.
+Despues de revisar, vemos que genera el caracter 127 y con putchar(8) hacemos que el cursor retroceda sin borrar. Habr� que crear una variable short (posActual) que apunte a la posici�n actual del car�cter dentro del buffer, cada que se presione la tecla ?, restarle 1 si no es cero. Cada que se presione una tecla imprimible, aumentar 1.
+Para realizar la funcionalidad de la tecla flecha arriba, tenemos la funcion prompt, la funcion introduzca_buff1, la funcion getstring2. En esta ultima, si se presiona la tecla, hay que mostrar la linea anterior en el array de buffers, situar el cursor en la ultima posicion, permitir a�adir o modificar la linea.
+El array de buffers debe ser un array similar de buffers al que se usa actualmente (arrayBuffers)  y dos  variables de tipo short para indicar la posicion actual de la ultima entrada (ultimaPosicion) en el array y otra con la posici�n alcanzada (posicionRetrocedida) con la tecla de flecha arriba. Al presionar Intro, la entrada que apunda la variable posicionRetrocedida se introduce en (ultimaPosicion+1).
+Cada vez que se presiona flecha arriba (?), la variable pR disminuye en 1 y se muestra la entrada en esa posici�n del array aB en el prompt.
+Cada vez que se presiona Intro ( ?  ) , la entrada actual se a�ade en el array de buffers en la posici�n uP+1. Se hace la variable pR igual a uP.
+
+Actualmente ya funciona. Falta hacer que en el ultimo ? no aparezca un corchete.
+ Faltan las teclas de cursor y la funci�n de un int�rprete tipo gwbasic. Ver c�mo conciliar ambos tipos   de variables. Podemos usar el de dbase, y el btree apunta a el. Esto acarrea el problema de que el array es limitado.
+
+
+
+
+
+INDICE
+
+buffer	2, 5, 7, 21
+cargar	3
+dBASE	3
+memphis	3
+Pascal	3, 4, 7
+Python	3
+quit	6
+run	3, 4, 6
+
+
+
+
+
+El documento trata sobre un lenguaje de programa creado a partir de un intérprete de Memphis. Se discute el funcionamiento del lenguaje y se presentan los programas fuente utilizados en el proyecto. Se describen las funcionalidades actuales y las características pendientes de implementar. Además, se proporciona un ejemplo de ejecución del programa y se detallan las opciones de compilación utilizadas en el proyecto.
+
+ En resumen, se discute sobre las características de este programa, que es a su vez un procesador de comandos y un lenguaje de programación. 
+  
+ Se proporciona una visión detallada del lenguaje y su funcionamiento, así como de los programas fuente utilizados en el proyecto. Se describen las funcionalidades actuales y las características pendientes de implementar, y se presenta un ejemplo de ejecución del programa. Además, se detallan las opciones de compilación utilizadas en el proyecto.
+
+
+ULTIMOS AVANCES EN EL DESARROLLO DEL LENGUAJE DE PROGRAMACION INTERPRETADO
+---------------------------------------------------------------------------
+
+Recientemente se han añadido las siguientes características al código fuente del intérprete:
+
+1. Capacidad de generar ventanas
+2. Controles dentro de las ventanas: cajas de texto, etiquetas, botones, etc.
+3. Asignación de eventos a los botones para enlazarlos a procedimientos
+4. Creación de gráficos 2D en una ventana gráfica
+5. Posibilidad de ejecutar un programa en memoria en vez de cargarlo de disco
+6. Evaluación de instrucciones contenidas en variables alfanuméricas
+7. Vectores numéricos y alfanuméricos de 1 y 2 dimensiones
+8. Consultas a bases de datos de SQL Server
+9. Tablas de símbolos para hacer funciones recursivas
+10. Integración con lenguaje Python (en proceso)
+11. Carga y descarga de librerías dinámicas (en Linux)
+12. Manejo de archivos: lectura y escritura (pendiente)
+13. Ficheros índices (con la técnica de Árboles B) (pendiente de mejorar a arboles B+)
+
+Estos avances han permitido ampliar las capacidades del lenguaje de programación interpretado y ofrecer a los usuarios nuevas funcionalidades para el desarrollo de aplicaciones. Se espera seguir mejorando el intérprete y añadir nuevas características en futuras versiones.
+
+Pendiente a futuro:
+
+1. Mejora del sistema de la tabla de símbolos: implementación de un árbol B en memoria para un mejor manejo de las variables y funciones.
+2. Integración con servidores de datos: Microsoft SQL Server y MySQL para facilitar el acceso a bases de datos.
+3. Varias otras funcionalidades disponibles en lenguajes de alto nivel para enriquecer el lenguaje y hacerlo más versátil y completo.
+4. Implementación de clases e interfaces para permitir la programación orientada a objetos en el lenguaje.
+5. Mejora del sistema de manejo de archivos y ficheros para facilitar la lectura y escritura de datos.
+6. Integración con otros lenguajes de programación para permitir la interoperabilidad y el intercambio de datos entre diferentes plataformas y entornos de desarrollo.
+7. Implementación de un sistema de compilación y ejecución de programas para facilitar el desarrollo y la depuración de aplicaciones.
+8. Mejora de la interfaz de usuario y la experiencia de programación para hacer el lenguaje más accesible y fácil de usar para los desarrolladores.
+9. Documentación detallada y tutoriales para ayudar a los usuarios a aprender a programar en el lenguaje y aprovechar al máximo sus capacidades.
+10. Soporte y mantenimiento continuo del intérprete para corregir errores, añadir nuevas funcionalidades y mejorar su rendimiento y estabilidad.
+11. Capacidad de generar ejecutables para diferentes plataformas y sistemas operativos para facilitar la distribución y el despliegue de aplicaciones desarrolladas en el lenguaje.
+12. Implementación de pruebas unitarias y de integración para garantizar la calidad y fiabilidad del intérprete y de las aplicaciones desarrolladas en él.
+13. Colaboración con la comunidad de desarrolladores para fomentar la participación, el intercambio de ideas y la mejora continua del lenguaje y del intérprete.
+14. Promoción y difusión del lenguaje y del intérprete a través de eventos, conferencias, tutoriales y recursos en línea para atraer a nuevos usuarios y fomentar su adopción y uso en diferentes ámbitos y sectores.
+15. Investigación y desarrollo de nuevas tecnologías y técnicas de programación para seguir innovando y ofrecer soluciones avanzadas y eficientes a los usuarios y desarrolladores de aplicaciones.
+16. Adaptación a los cambios y tendencias del mercado y de la industria de la tecnología para mantenerse relevante y competitivo en un entorno en constante evolución y transformación.
+17. Colaboración con empresas, instituciones y organizaciones para desarrollar proyectos y soluciones basadas en el lenguaje y el intérprete y para explorar nuevas oportunidades y aplicaciones en diferentes sectores y áreas de actividad.
+18. Formación y capacitación de desarrolladores, estudiantes y profesionales en el uso y la programación en el lenguaje para fomentar su adopción y difusión en la comunidad y en el mercado laboral.
+19. Creación de una comunidad de usuarios y desarrolladores en torno al lenguaje y al intérprete para compartir conocimientos, experiencias y recursos y para colaborar en el desarrollo y la mejora continua del lenguaje y de las aplicaciones desarrolladas en él.
+20. Innovación y creatividad en el diseño y la implementación de nuevas funcionalidades y características para hacer el lenguaje más potente, flexible y versátil y para satisfacer las necesidades y demandas de los usuarios y desarrolladores de aplicaciones en diferentes contextos y entornos.
+21. Conectividad y compatibilidad con otras tecnologías y plataformas para facilitar la integración y la interoperabilidad con sistemas y servicios externos y para ampliar las capacidades y las posibilidades de desarrollo y despliegue de aplicaciones en el lenguaje. Estos puedes ser: Python, .NET, Java, C++, etc.
+22. Seguridad y protección de datos y aplicaciones para garantizar la confidencialidad, integridad y disponibilidad de la información y para prevenir y mitigar posibles amenazas y vulnerabilidades en el lenguaje y en las aplicaciones desarrolladas en él.
+23. Escalabilidad y rendimiento para garantizar el funcionamiento óptimo y eficiente del lenguaje y del intérprete en entornos y situaciones de uso variados y para satisfacer las necesidades y exigencias de los usuarios y desarrolladores en términos de capacidad, velocidad y eficacia.
+24. Capacidad de conectarse a bases de datos y servicios web para acceder y manipular datos y recursos externos y para integrar y combinar información y funcionalidades de diferentes fuentes y sistemas en las aplicaciones desarrolladas en el lenguaje.
+25. Automatización y optimización de tareas y procesos para simplificar y agilizar el desarrollo y la programación en el lenguaje y para mejorar la productividad y la eficiencia de los usuarios y desarrolladores en la creación y el mantenimiento de aplicaciones y sistemas informáticos.
+26. Capacidad para crear bytecode y ejecutar programas en un entorno virtual para mejorar la portabilidad y la seguridad de las aplicaciones desarrolladas en el lenguaje y para facilitar su distribución y despliegue en diferentes plataformas y sistemas operativos.
+27. Soporte y asistencia técnica para ayudar a los usuarios y desarrolladores a resolver problemas y dudas relacionadas con el lenguaje y el intérprete y para ofrecer orientación y recomendaciones sobre su uso y su aplicación en diferentes contextos y situaciones.
+28. Capactidad de utilizar inteligencia artificial y aprendizaje automático para mejorar la programación y el desarrollo de aplicaciones en el lenguaje y para ofrecer soluciones avanzadas y eficientes a los usuarios y desarrolladores en la creación y la gestión de sistemas y servicios informáticos.
+
+CAPACIDADES DEL LENGUAJE HASTA EL MOMENTO ACTUAL:
+---------------------------------------------------
+
+1. Generación de ventanas gráficas con controles como cajas de texto, etiquetas y botones. 
+2. Asignación de eventos a los botones para enlazarlos a procedimientos y funciones.
+3. Creación de gráficos 2D en una ventana gráfica para representar datos y resultados.
+4. Ejecución de programas en memoria en lugar de cargarlos desde el disco para mejorar la velocidad y eficiencia.
+5. Evaluación de instrucciones contenidas en variables alfanuméricas para realizar operaciones dinámicas.
+6. Uso de vectores numéricos y alfanuméricos de 1 y 2 dimensiones para almacenar y manipular datos.
+7. Consultas a bases de datos de SQL Server para acceder y gestionar información almacenada en bases de datos.
+8. Tablas de símbolos para organizar y gestionar funciones y variables de forma eficiente y estructurada.
+9. Integración con lenguaje Python para ampliar las capacidades y posibilidades de programación y desarrollo.
+10. Carga y descarga de librerías dinámicas en Linux para extender las funcionalidades del lenguaje y del intérprete.
+11. Manejo de archivos y ficheros para leer y escribir datos en el sistema de archivos y gestionar información externa.
+12. Ficheros índices con la técnica de Árboles B para organizar y acceder a datos de forma rápida y eficiente.
+13. Ejecucución de instrucciones logicas y aritméticas en un entorno de consola y gráfico.
+14. Instrucciones de control de flujo como bucles y condicionales para realizar operaciones repetitivas y condicionales.
+15. Creación de variables de tipo numérico y alfanumérico para almacenar y manipular datos en el programa.
+16. Uso de funciones y procedimientos para modularizar y reutilizar código en el programa y mejorar su estructura y organización.
+17. Interacción con el usuario a través de la consola y las ventanas gráficas para recibir y mostrar información y resultados.
+18. Depuración y análisis de errores para identificar y corregir problemas en el código y mejorar su funcionamiento y rendimiento.
+19. Documentación y comentarios en el código para explicar y describir el funcionamiento y la estructura del programa y facilitar su comprensión y mantenimiento.
+20. Instrucciones para dibujar líneas, círculos, rectángulos y otros elementos gráficos en la ventana gráfica para representar datos y resultados.
+21. Programas de ejemplo y tutoriales para ayudar a los usuarios a aprender y utilizar el lenguaje y el intérprete de forma efectiva y productiva.
+
+Estas capacidades y funcionalidades permiten a los usuarios y desarrolladores crear aplicaciones y sistemas informáticos de forma rápida y eficiente, y explorar nuevas posibilidades y oportunidades en el desarrollo de software y la programación de computadoras.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

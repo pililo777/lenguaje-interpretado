@@ -1,0 +1,11 @@
+decimales 1
+
+llamar contarHastaDiez
+terminar
+
+proc contarHastaDiez
+    DESDE i = 1 HASTA 10 {
+        IMPRIMIR 'Contador:', i
+    }
+
+fin
