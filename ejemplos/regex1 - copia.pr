@@ -1,0 +1,26 @@
+MENSAJE = 'a123 es  456 y  676   saca el jugo '
+REGEX =  '^a[[:alnum:]]+'
+// '[0-9]+'				
+dim resp 2
+resp[0]=0
+resp[1]=0
+hallado = 1
+trozea(MENSAJE, REGEX)
+terminar//esta funcion no se utiliza pero se deja como ejemplo
+funcion trozea(MENSAJE, REGEX) 
+mientras hallado = 1
+{  
+     hallado = chkregex(MENSAJE, REGEX, resp)  
+	 si hallado = 1 entonces    
+	       imprimir  MENSAJE , ' contiene la expresion regular:  ',  REGEX    
+		   imprimir resp[0], ' ',  resp[1]    
+		   i = resp[0]      j = resp[1]    
+		   SUBC = subcadena(MENSAJE, i+1, j-i+1)    
+		   imprimir  SUBC    
+		   MENSAJE = subcadena(MENSAJE, j+1)	//stop  
+	 sino    
+			imprimir '!!no se encuentra!!'  
+	 si-fin 
+} 
+
+fin

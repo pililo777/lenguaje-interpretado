@@ -1,0 +1,23 @@
+// TODO: probar CONSULTA STRING
+// pasar a memoria el sql
+dim RESULT 40
+CONN = "Driver={SQL Server Native Client 11.0};Server=LAPTOP-SKLD56TF\MSS10135;Uid=sa;Pwd=1Write1;"
+
+
+ consulta 'select convert(varchar(20), ( select max(h.Data) from Historico h  ))', RESULT, CONN
+//consulta "select convert(varchar(20), ( select count(*) from Historico h where h.Data >= '21/8/2017'))", RESULT, CONN
+
+//consulta "SELECT top 4 titulo_libro from mydb.dbo.libro", RESULT, CONN
+
+//consulta "SELECT TOP 4 [nomEsc]  FROM [ejemplo].[dbo].[coches]", RESULT, CONN
+
+//graficos
+
+//consulta "SELECT TOP 2 MESSAGE FROM principal.dbo.log", RESULT, CONN
+
+i=0
+mientras (i<1)
+{ 
+  imprimir RESULT[i] 
+  i = i + 1
+}

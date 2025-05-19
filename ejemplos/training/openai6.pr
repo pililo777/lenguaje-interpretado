@@ -1,0 +1,27 @@
+// calcular el numero de euler
+it = 39    // numero de iteraciones para aproximarnos lo suficiente en precision
+
+decimales 14
+e = 1
+imprimir 'calculo del numero de Euler por el metodo del factorial.'
+resultado = euler(it)
+imprimir 'euler es ', resultado
+terminar
+
+funcion euler(it)
+	desde x=1 hasta it
+	{
+		llamar factorial
+		imprimir 'iteracion: ', x,  'euler: ', e
+		e = e + ( 1 / f )
+	}
+	retornar e
+fin
+
+proc factorial   //calculamos el fact de it iterativamente
+  f = 1
+  desde n = 1 hasta x
+      {
+         f = f * n  // en la variable numerica f tendremos el factoria de x
+      }
+fin

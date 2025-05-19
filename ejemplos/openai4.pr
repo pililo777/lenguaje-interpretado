@@ -1,0 +1,28 @@
+imprimir 'Ingrese el primer número:'
+leer num1
+imprimir 'Ingrese el segundo número:'
+leer num2
+
+si num1 > num2 entonces
+    imprimir num1, ' es mayor que ', num2
+    si num1 / num2 = entero(num1 / num2) entonces
+        imprimir num1, ' es divisible por ', num2
+    si-fin
+ sino 
+    imprimir num2, ' es mayor que ', num1
+    si num2 / num1 = entero(num2 / num1) entonces
+        imprimir num2, ' es divisible por ', num1
+    si-fin
+si-fin
+
+terminar
+
+funcion entero(numero)
+    contador = 0
+    mientras numero > 0 
+    {
+        numero = numero - 1
+        contador = contador + 1
+    }
+    retornar contador
+fin

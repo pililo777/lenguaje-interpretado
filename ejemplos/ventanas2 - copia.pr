@@ -1,0 +1,58 @@
+//  demostracion de un lenguaje interpretado
+
+imprimir 'hola, inicio del programa'
+x=130
+z=4
+imprimir 'x=', x
+LLAMAR 'imprimir z * 9'
+
+NOMBRE = 'perico'
+APELLIDO = 'de los palotes'
+DIRECCION = ' '
+TELEFONO = ' '
+
+xyz = 1
+abc = 2
+
+
+ventana xyz 600 500
+xyz ventana 'MENU PRINCIPAL'
+xyz etiqueta 'INTRODUZCA SUS DATOS:' 10 10 
+xyz etiqueta 'Nombre: '   10 30
+xyz texto NOMBRE           (x + 0), 30
+xyz etiqueta 'Apellidos:' 10 70
+xyz texto APELLIDO         (x + 5), 70
+xyz etiqueta 'Dirección:' 10 110
+xyz texto DIRECCION        (x + 10), 110
+xyz etiqueta 'Teléfonos:' 10 150
+xyz texto TELEFONO         (x + 15), 150
+xyz boton 'clicame'       clicar_boton 270 250   // enlaza un boton con un evento que muestra un dialogo con un mensaje
+xyz boton 'abrir ventana' abre_ventana 270 290
+
+llamar ventana xyz   // activa todas las ventanas creadas hasta que se cierra la primera
+
+// despues de cerrar la primer ventana el flujo continua aqui:
+
+
+terminar  // ****************  finaliza  el programa *************
+
+procedimiento abre_ventana
+ventana abc 400 350
+ abc ventana 'SEGUNDA VENTANA'
+ abc etiqueta 'INTRODUZCA SU APELLIDO: ' 10 20 
+ abc texto APELLIDO x, 30
+ abc boton 'por favor clic aqui' clicar_boton2  140 150
+fin
+
+procedimiento clicar_boton
+  //mensaje 'el boton ha sido clicado ', x, x*2
+  mensaje 'Los datos son: N:', NOMBRE, ' A:', APELLIDO, ' D:', DIRECCION, ' T:', TELEFONO
+  x = x  + 1
+fin
+
+procedimiento clicar_boton2
+  //mensaje 'clicaste en la  segunda ventana ', x*2
+  mensaje 'el apellido es: ', APELLIDO
+  x = x  + 1
+fin
+

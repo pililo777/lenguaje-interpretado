@@ -1,0 +1,36 @@
+imprimir 'numero? '
+leer valor
+imprimir 'valor = ', valor
+n = 8
+f = 1
+//f = factorial(valor)
+
+llamar factorial2
+
+imprimir 'el factorial de ', valor, ' es: ', f
+imprimir 'n es: ', n
+
+terminar
+
+proc factorial2
+imprimir '1) valor = ', valor, ' ', f
+f = valor * f
+si valor > 1 entonces
+	//push valor
+	valor = valor - 1
+	llamar factorial2
+	//pop valor
+	imprimir '2) valor = ',  valor, ' ', f
+si-fin
+fin
+
+
+funcion factorial (n)
+  si n = 1 entonces
+        retornar 1
+  si-fin
+
+  si n > 1 entonces 
+        retornar n * factorial (n-1)
+  si-fin
+fin

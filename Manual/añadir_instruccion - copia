@@ -1,0 +1,16 @@
+como añadir una instruccion al lenguaje:
+
+1. editar grammar.y
+2. añadir un %token ej: STOP
+3. añadirlo el token a %type ej:  %type <nodo> STOP
+4. en la seccion de sintaxis, en statement, añadir
+   la creación del nodo mediante una sintaxis
+5. editar nodo.h
+6. añadir una palabra equivalente al token en minusculas
+   como tipo de nodo para esa sintaxis
+ 
+
+1. editar tokens.l
+2. añadir una entrada ej: "stop" {return STOP; } en la seccion de tokens
+3. editar run.c
+4. añadir un caso de ejecución para esa instruccion

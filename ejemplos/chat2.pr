@@ -1,0 +1,31 @@
+// Declarar variables numéricas
+num1 = 10
+num2 = 5
+
+// Declarar variables alfanuméricas
+NOMBRE = 'FlexScript'
+MENSAJE = 'Hola, mundo!'
+
+// Llamar al procedimiento ProgramaPrincipal
+llamar programaprincipal
+
+// Terminar el programa
+terminar
+
+// Definir el procedimiento ProgramaPrincipal
+proc programaprincipal
+    // Realizar operaciones con las variables numéricas
+    suma = num1 + num2
+    resta = num1 - num2
+    multiplicacion = num1 * num2
+    division = num1 / num2
+
+    // Imprimir los resultados
+    imprimir 'Suma: ', suma
+    imprimir 'Resta: ', resta
+    imprimir 'Multiplicacion: ', multiplicacion
+    imprimir 'División: ', division
+
+    // Mostrar un mensaje
+    imprimir MENSAJE
+end

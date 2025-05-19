@@ -1,0 +1,50 @@
+
+		// calcula la raiz cuadrada de un numero por el metodo del algoritmo babilonico
+		// ver el articulo de wikipedia  https://es.wikipedia.org/wiki/C%C3%A1lculo_de_la_ra%C3%ADz_cuadrada
+		//30 MARZO 2017  INSTALADO PACKAGE CONTROL CON (CONTROL SHIFT P)
+		//INSTALADO  COMPARE SIDE BY SIDE
+
+		imprimir 'introduce el numero al que quieres calcular la raíz cuadrada:'
+		numero = 0
+		leer numero
+		imprimir 'introduce un numero por el que sea divisible: '
+		divisor = 0
+		leer divisor
+		dividendo = 0
+		dividendo = numero / divisor
+		imprimir 'dividendo = ', dividendo
+		decimales 14
+		siguecalculando = 1
+		diferencia =  0.0000000000001
+		si diferencia = 0 entonces
+				stop  //significa que se redondea a cero
+		si-fin
+		 
+		mientras siguecalculando > 0
+		{
+			  	si  dividendo = divisor entonces
+				  	imprimir 'la raiz cuadrada es: ', dividendo
+				  	siguecalculando = 0
+			      	salir
+			  	si-fin
+
+			 	dividendo = ( divisor + dividendo ) / 2
+				divisor   = ( numero / dividendo )
+			
+				imprimir 'aproximacion: ', dividendo, ' ---- ',  divisor
+				
+			  	diferencia2 = dividendo - divisor
+			  
+			    si diferencia2 < 0 entonces
+				 	diferencia2 = diferencia2 * (-1)
+			    si-fin
+		 
+			    si diferencia2 < diferencia entonces
+				 	imprimir 'la raiz cuadrada es: ', dividendo
+				 	siguecalculando = 0
+				 	salir
+			    si-fin
+		}
+			
+		imprimir 'hemos finalizado el programa '
+			
