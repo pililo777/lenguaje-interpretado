@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compilación del Proyecto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Compilación del Proyecto</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Requisitos Previos</h2>
+        <div class="codigo">
+            <pre>
+- Cygwin con GCC
+- GTK+ 2.0 para Windows
+- Flex y Bison
+- Ruta de las librerías GTK+ configurada
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Archivos Generados</h2>
+        <div class="codigo">
+            <pre>
+1. lex.yy.c - Generado a partir de tokens.l usando Flex
+2. grammar.tab.c - Generado a partir de grammar.y usando Bison
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Pasos de Compilación</h2>
+        <h3>3.1 Generar archivos de lex/yacc</h3>
+        <div class="codigo">
+            <pre>
+flex tokens.l
+bison -d grammar.y
+            </pre>
+        </div>
+
+        <h3>3.2 Compilar archivos .c individuales</h3>
+        <div class="codigo">
+            <pre>
+gcc -c bt.c -o bt.o
+gcc -c dbase.c -o dbase.o
+gcc -c dinamic.c -o dinamic.o
+gcc -c err.c -o err.o
+gcc -c graficos.c -o graficos.o
+gcc -c lex.yy.c -o lex.yy.o
+gcc -c grammar.tab.c -o grammar.tab.o
+gcc -c minieditor.c -o minieditor.o
+gcc -c run.c -o run.o
+gcc -c variables.c -o variables.o
+            </pre>
+        </div>
+
+        <h3>3.3 Enlazar todos los archivos .o</h3>
+        <div class="codigo">
+            <pre>
+gcc -m32 -mms-bitfields -o cppapp.exe 
+    bt.o dbase.o dinamic.o err.o graficos.o 
+    grammar.tab.o lex.yy.o minieditor.o run.o variables.o
+    -L/cygdrive/c/gtk/lib 
+    -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 
+    -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 
+    -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz 
+    -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Notas Importantes</h2>
+        <ul>
+            <li>Se compila en modo 32 bits usando -m32</li>
+            <li>Se usa -mms-bitfields para compatibilidad con Windows</li>
+            <li>El ejecutable final se llama cppapp.exe</li>
+            <li>Todas las librerías GTK+ deben estar disponibles</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>5. Comando de Compilación Simplificado</h2>
+        <div class="codigo">
+            <pre>
+# Desde la carpeta del proyecto:
+gcc -m32 -mms-bitfields -o ../ejemplos/cppapp.exe 
+    build/Windows/Cygwin-Windows/*.o 
+    -L/cygdrive/c/gtk/lib 
+    -lgtk-win32-2.0 -lgdk-win32-2.0 -latk-1.0 -lgio-2.0 
+    -lpangowin32-1.0 -lgdi32 -lpangocairo-1.0 -lgdk_pixbuf-2.0 
+    -lpango-1.0 -lcairo -lfontconfig -lfreetype -lpng14 -lz 
+    -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lglib-2.0 -lintl
+            </pre>
+        </div>
+    </div>
+</body>
+</html>

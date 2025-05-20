@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionalidades de dbase.c</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        .funcionalidad {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .descripcion {
+            margin-left: 20px;
+        }
+        .collapsible {
+            background-color: #f8f9fa;
+            color: #34495e;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .collapsible:after {
+            content: '\002B';
+            color: #34495e;
+            float: right;
+            margin-left: 5px;
+        }
+        .collapsible.active:after {
+            content: "\2212";
+        }
+        .comandos-content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f8f9fa;
+        }
+    </style>
+    <script>
+        function toggleCollapsible(element) {
+            element.classList.toggle("active");
+            var content = element.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Funcionalidades de dbase.c</h1>
+
+    <div class="funcionalidad">
+        <h2>1. CLI (Command Line Interface)</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Prompt interactivo con 44 comandos disponibles</li>
+                <li>Sistema de parsing de comandos</li>
+                <li>Manejo de errores y ayuda</li>
+                <li>Modo interactivo</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>2. Sistema de Programas</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Carga de programas en lenguaje propio</li>
+                <li>Creación de AST (Árbol de Sintaxis Abstracta)</li>
+                <li>Ejecución de programas cargados</li>
+                <li>Pila de programas (32 programas máx.)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>3. Sistema de Variables</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Variables numéricas y alfanuméricas</li>
+                <li>Arrays multidimensionales</li>
+                <li>Visualización de variables en formato JSON</li>
+                <li>Sistema de memoria para variables</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>4. Sistema de Depuración</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Breakpoints (hasta 20)</li>
+                <li>Depuración remota por sockets</li>
+                <li>Control de ejecución paso a paso</li>
+                <li>Visualización de estado</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>5. Interfaz Gráfica</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Integración con GTK</li>
+                <li>Soporte para GUI</li>
+                <li>Editor integrado</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>6. Sistema de Archivos</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Manejo de archivos</li>
+                <li>Sistema de buffers</li>
+                <li>Carga y guardado de programas</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>7. Sistema de Memoria</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Gestión de memoria para variables</li>
+                <li>Sistema de constantes</li>
+                <li>Manejo de buffers</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>8. Sistema de Networking</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Servidor socket en puerto 8080</li>
+                <li>Comunicación remota</li>
+                <li>Depuración remota</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>9. Sistema de Índices</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Búsqueda rápida</li>
+                <li>Insertar y eliminar elementos</li>
+                <li>Sistema de claves</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>Lista de Comandos</h2>
+        <button class="collapsible" onclick="toggleCollapsible(this)">Ver lista de comandos</button>
+        <div class="comandos-content">
+            <div class="descripcion">
+                <ul>
+                    <li>clear</li>
+                    <li>pwd</li>
+                    <li>quit</li>
+                    <li>chdir</li>
+                    <li>ls</li>
+                    <li>l</li>
+                    <li>help</li>
+                    <li>buffer</li>
+                    <li>store</li>
+                    <li>?</li>
+                    <li>display</li>
+                    <li>use</li>
+                    <li>save</li>
+                    <li>list</li>
+                    <li>modify</li>
+                    <li>do</li>
+                    <li>arbol</li>
+                    <li>close</li>
+                    <li>buscar_posicion</li>
+                    <li>strcmp</li>
+                    <li>cargar</li>
+                    <li>run</li>
+                    <li>evalua</li>
+                    <li>system</li>
+                    <li>cargalib</li>
+                    <li>vars</li>
+                    <li>descargalib</li>
+                    <li>testlib</li>
+                    <li>listavar</li>
+                    <li>var</li>
+                    <li>prog</li>
+                    <li>editorgtk</li>
+                    <li>buscar</li>
+                    <li>insertar</li>
+                    <li>eliminar</li>
+                    <li>inter</li>
+                    <li>vel+</li>
+                    <li>vel-</li>
+                    <li>freemem</li>
+                    <li>free</li>
+                    <li>socket</li>
+                    <li>bp</li>
+                    <li>continue</li>
+                    <li>bps</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="funcionalidad">
+        <h2>Resumen</h2>
+        <div class="descripcion">
+            <p>Este es un intérprete/compilador con características de:</p>
+            <ul>
+                <li>Interfaz CLI</li>
+                <li>Sistema de programas con AST</li>
+                <li>Sistema de variables</li>
+                <li>Depuración avanzada</li>
+                <li>Interfaz gráfica</li>
+                <li>Networking</li>
+                <li>Sistema de archivos</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación del Proyecto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .sección {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background: #3498db;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .menu-item {
+            background: white;
+            color: #3498db;
+            padding: 12px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            background: #2980b9;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .enlace {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .enlace:hover {
+            color: #2980b9;
+        }
+        .sección h2 {
+            margin-top: 0;
+            color: #34495e;
+        }
+        .sección ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sección li {
+            margin: 10px 0;
+        }
+        .sección li a {
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .sección li a:hover {
+            background: #f1f8ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Documentación del Proyecto</h1>
+    <div class="menu">
+        <a href="base/index.html" class="menu-item">Base</a>
+        <a href="ramas/master/index.html" class="menu-item">Master</a>
+        <a href="ramas/sql/index.html" class="menu-item">SQL</a>
+    </div>
+    
+    <div class="sección">
+        <h2>Contenido Principal</h2>
+        <ul>
+            <li><a href="archivos.html" class="enlace">Sistema de Archivos</a></li>
+            <li><a href="cli.html" class="enlace">CLI (Command Line Interface)</a></li>
+            <li><a href="comandos.html" class="enlace">Comandos y Sintaxis</a></li>
+            <li><a href="compilacion.html" class="enlace">Compilación y AST</a></li>
+            <li><a href="dbase_funcionalidades.html" class="enlace">Funcionalidades Principales</a></li>
+            <li><a href="depuracion.html" class="enlace">Sistema de Depuración</a></li>
+            <li><a href="ejecucion.html" class="enlace">Ejecución de Programas</a></li>
+            <li><a href="graficos.html" class="enlace">Gráficos y Visualización</a></li>
+            <li><a href="gui.html" class="enlace">Interfaz Gráfica</a></li>
+            <li><a href="lexer_gramatica.html" class="enlace">Lexer y Gramática</a></li>
+            <li><a href="memoria.html" class="enlace">Gestión de Memoria</a></li>
+            <li><a href="programas.html" class="enlace">Sistema de Programas</a></li>
+            <li><a href="sockets.html" class="enlace">Comunicación en Red</a></li>
+            <li><a href="variables.html" class="enlace">Sistema de Variables</a></li>
+        </ul>
+    </div>
+</body>
+</html>

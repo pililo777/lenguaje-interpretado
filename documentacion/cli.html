@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI - dbase.c</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .descripcion {
+            margin-left: 20px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>CLI (Command Line Interface)</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Funcionalidades Principales</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Prompt interactivo</li>
+                <li>Sistema de parsing de comandos</li>
+                <li>Manejo de errores y ayuda</li>
+                <li>Modo interactivo</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Estructura</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Buffer de entrada (buff1)</li>
+                <li>Buffer de tokens (buff2[10])</li>
+                <li>Sistema de comandos</li>
+                <li>Manejo de memoria</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Manejo de Comandos</h2>
+        <div class="descripcion">
+            <ul>
+                <li>Busca comando en la tabla</li>
+                <li>Ejecuta función correspondiente</li>
+                <li>Muestra errores si no se encuentra</li>
+                <li>Soporte para argumentos</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

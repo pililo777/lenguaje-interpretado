@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Ejecución - dbase.c</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Ejecución</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Flujo de Ejecución</h2>
+        <ol>
+            <li>El flujo de ejecución principal se inicia de dos formas:</li>
+            <ul>
+                <li>Comando "run" en la línea de comandos del CLI</li>
+                <li>Botón "Ejecutar" en el mini-editor gráfico</li>
+            </ul>
+            <li>El buffer <code>buff1</code> se utiliza solo temporalmente para:</li>
+            <ul>
+                <li>Comandos del CLI de dBase</li>
+                <li>Modo "interpretar el comando como si fuera una línea de programa" (comando "inter")</li>
+            </ul>
+            <li>El flujo de ejecución completo es:</li>
+            <ol>
+                <li>Se inicia la lista de nodos con <code>iniciarLista()</code></li>
+                <li>Se configura el buffer de entrada</li>
+                <li>Se ejecuta el parser (yyparse)</li>
+                <li>Si no hay errores, se ejecuta el programa con <code>execut()</code></li>
+                <li>Las expresiones se evalúan con <code>evalua()</code></li>
+            </ol>
+            <li>El comando <code>run</code> ejecuta programas de la pila de programas:</li>
+            <ul>
+                <li>Comienza en el índice 0</li>
+                <li>Incrementa el índice para ejecutar el siguiente programa</li>
+                <li>No borra las variables entre ejecuciones</li>
+            </ul>
+        </ol>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Manejo de Errores</h2>
+        <ul>
+            <li>Variable global <code>err_number</code> para errores</li>
+            <li>Sistema de backup de programas</li>
+            <li>Restauración de estado tras errores</li>
+            <li>Manejo de errores en tiempo de ejecución</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Sistema de Pila</h3>
+        <ul>
+            <li>Pila de programas (32 programas máx.)</li>
+            <li>Pila de registros (32 registros máx.)</li>
+            <li>Manejo de memoria para cada nivel</li>
+            <li>Restauración de estado</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Funciones Principales</h2>
+        <div class="codigo">
+            <pre>
+// Función principal de ejecución
+void execut(ast * p)
+{
+    switch (p->tipo) {
+        case suma: 
+            // ... ejecuta operación de suma
+            break;
+        case resta:
+            // ... ejecuta operación de resta
+            break;
+        // ... más casos
+    }
+}
+
+// Evaluación de expresiones
+double evalua(ast * p)
+{
+    switch (p->tipo) {
+        case NUMBER:
+            return p->num;
+        case VARIABLE:
+            return obtener_valor_variable(p->nodo1);
+        // ... más casos
+    }
+}
+            </pre>
+        </div>
+    </div>
+</body>
+</html>

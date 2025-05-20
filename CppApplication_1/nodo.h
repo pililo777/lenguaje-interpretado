@@ -12,7 +12,12 @@ eliminar_clave, use_indice, close_indice, actualizar, push, pop,
 definir_registro, buscar_registro, listacampos, imprimir_var_vectoralfa, retorno, pausa,
 asigna_alfa_var, actualizar_registro, escribir_archivo, dimensionar_alfa, asigna_vector_alfa,
 asigna_vector_alfa2, asigna_vector_alfa3, funcion, lista_argumentos, lista_parametros,
-asigna_vector_alfa4, vector_alfanum, comparaliteral2
+asigna_vector_alfa4, 
+vector_alfanum, comparaliteral2,
+ 
+ 
+ 
+dibuja_rectangulo, dibuja_punto
 } tiponodo;
 
 struct ast {

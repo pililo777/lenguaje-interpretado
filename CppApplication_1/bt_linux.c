@@ -1,4 +1,4 @@
-#pragma region variables
+//#pragma region variables
 //usando sublime como editor de texto alternativo a Netbeans
 // version para github  rama errorMem segunda prueba  ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}..
 extern int depurar;
@@ -77,10 +77,10 @@ xapuntador xraiz;
 
 /* fin de bt.c */
 
-#pragma endregion
+//#pragma endregion
 
 
-#pragma region funciones1
+//#pragma region funciones1
 
 
 
@@ -232,10 +232,10 @@ void leenodo(xapuntador *xp, struct xnodo *xpn, int variableArray)
         printf("sale de leenodo\n");
 }
 
-#pragma endregion funciones1
+//#pragma endregion funciones1
 
 
-#pragma region funciones2
+//#pragma region funciones2
 
 
 

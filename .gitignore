@@ -245,5 +245,16 @@ CppApplication_1 16sept.zip
 CppApplication_1 17 sept.zip
 *.exe
 *.d
+<<<<<<< HEAD
 /CppApplication_1/.vshistory/lex.yy.c
 /CppApplication_1/.vshistory/tokens.l
+=======
+/.vs/lenguaje-interpretado/v16
+/.vs/slnx.sqlite
+/CppApplication_1/.vshistory
+/.vs
+/CppApplication_1/a.out
+/CppApplication_1/sin.c
+/ejemplos/cppapp1.exe.stackdump
+CppApplication_1/nbproject/private/private.xml
+>>>>>>> 1a874d082830815c1b8ba3ddd8cf9a1781bb1eca
