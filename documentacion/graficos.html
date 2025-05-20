@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gráficos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Gráficos</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Creación de Ventanas</h2>
+        <div class="codigo">
+            <pre>
+// Crear ventana
+ventana nombre ancho alto
+
+// Mostrar ventana
+mostrar ventana nombre
+
+// Cambiar título
+cambiar_titulo ventana nombre "nuevo título"
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Componentes Gráficos</h2>
+        <div class="codigo">
+            <pre>
+// Botones
+botón ventana nombre "texto" x y
+
+// Etiquetas
+etiqueta ventana nombre "texto" x y
+
+// Texto editable
+texto ventana nombre x y
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Dibujo en Pantalla</h2>
+        <div class="codigo">
+            <pre>
+// Líneas
+dibujar línea x1 y1 x2 y2
+
+// Circulos
+dibujar círculo x y radio
+
+// Rectángulos
+dibujar rectángulo x1 y1 x2 y2
+
+// Puntos
+dibujar punto x y
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Manejo de Eventos</h2>
+        <div class="codigo">
+            <pre>
+// Eventos de ventana
+ventana nombre "evento" procedimiento
+
+// Eventos de botón
+botón nombre "evento" procedimiento
+
+// Eventos de texto
+texto nombre "evento" procedimiento
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>5. Ejemplo Completo</h2>
+        <div class="codigo">
+            <pre>
+// Crear ventana principal
+ventana principal 400 300
+
+// Agregar componentes
+botón principal "saludar" "Saludar" 50 50
+etiqueta principal "mensaje" "" 50 100
+
+// Definir procedimiento
+procedimiento saludar
+    mensaje = "¡Hola!"
+fin
+
+// Mostrar ventana
+mostrar ventana principal
+            </pre>
+        </div>
+    </div>
+</body>
+</html>

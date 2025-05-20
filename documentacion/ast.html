@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AST - dbase.c</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        .positivo {
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        .negativo {
+            background: #fff3e0;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Árbol de Sintaxis Abstracta (AST)</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Implementación Actual</h2>
+        
+        <div class="codigo">
+            <pre>
+struct ast {
+    tiponodo tipo;
+    double num;
+    int    nrolinea1;
+    int    nrolinea2;
+    int subnodos;
+    struct ast * nodo1;
+    struct ast * nodo2;
+    struct ast * nodo3;
+    struct ast * nodo4;
+    struct ast * nodo5;
+};
+            </pre>
+        </div>
+
+        <div class="positivo">
+            <h3>Aspectos Positivos</h3>
+            <ul>
+                <li>Simplicidad y claridad en la estructura básica</li>
+                <li>Tipos de nodos bien definidos y organizados</li>
+                <li>Flexibilidad para manejar diferentes tipos de operaciones</li>
+                <li>Manejo de memoria con funciones específicas</li>
+                <li>Sistema de pila para programas y registros</li>
+            </ul>
+        </div>
+
+        <div class="negativo">
+            <h3>Aspectos que Mejorarían</h3>
+            <ul>
+                <li>Punteros a subnodos hardcodeados y limitados a 5</li>
+                <li>Solo maneja double para valores numéricos</li>
+                <li>Gestión de memoria dispersa</li>
+                <li>Tipos mezclados en el enum</li>
+                <li>Manejo de errores disperso</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Propuesta de Mejora</h2>
+        
+        <div class="codigo">
+            <pre>
+// Definición moderna del AST
+typedef enum {
+    TYPE_NUMBER,
+    TYPE_STRING,
+    TYPE_BOOLEAN,
+    TYPE_NULL,
+    TYPE_ARRAY,
+    TYPE_OBJECT
+} ValueType;
+
+typedef enum {
+    NODE_TYPE_LITERAL,
+    NODE_TYPE_BINARY,
+    NODE_TYPE_UNARY,
+    NODE_TYPE_ASSIGN,
+    NODE_TYPE_VAR_DECL,
+    NODE_TYPE_IF,
+    NODE_TYPE_WHILE,
+    NODE_TYPE_FUNCTION,
+    NODE_TYPE_CALL,
+    // ... más tipos
+} NodeType;
+
+struct ast_node {
+    NodeType type;
+    ValueType value_type;
+    union {
+        double number;
+        char *string;
+        int boolean;
+        struct {
+            struct ast_node *left;
+            struct ast_node *right;
+        } binary;
+        struct {
+            struct ast_node *operand;
+        } unary;
+        struct {
+            struct ast_node *target;
+            struct ast_node *value;
+        } assign;
+        // ... más uniones
+    } value;
+    struct ast_node **children;  // Array dinámico
+    size_t num_children;
+    int line_number;
+    int column_number;
+    struct {
+        bool is_constant;
+        bool is_mutable;
+        // ... más flags
+    } flags;
+};
+            </pre>
+        </div>
+
+        <div class="positivo">
+            <h3>Mejoras Propuestas</h3>
+            <ul>
+                <li>Tipos de datos más robustos</li>
+                <li>Número variable de hijos</li>
+                <li>Mejor separación de responsabilidades</li>
+                <li>Sistema de tipos más completo</li>
+                <li>Mejor manejo de memoria</li>
+                <li>Sistema de errores más robusto</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Comparación</h2>
+        <table>
+            <tr>
+                <th>Aspecto</th>
+                <th>Implementación Actual</th>
+                <th>Propuesta Mejorada</th>
+            </tr>
+            <tr>
+                <td>Flexibilidad</td>
+                <td>Limitada (5 hijos máx.)</td>
+                <td>Ilimitada (array dinámico)</td>
+            </tr>
+            <tr>
+                <td>Tipo de Datos</td>
+                <td>Solo double</td>
+                <td>Múltiples tipos (union)</td>
+            </tr>
+            <tr>
+                <td>Manejo de Memoria</td>
+                <td>Disperso</td>
+                <td>Centralizado y optimizado</td>
+            </tr>
+            <tr>
+                <td>Mantenibilidad</td>
+                <td>Media</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>Escalabilidad</td>
+                <td>Baja</td>
+                <td>Alta</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Consideraciones Finales</h2>
+        <p>La implementación actual es funcional pero tiene limitaciones que la hacen menos escalable y mantenible. La propuesta mejorada busca abordar estos problemas manteniendo la simplicidad mientras se agrega flexibilidad y robustez al sistema.</p>
+    </div>
+</body>
+</html>

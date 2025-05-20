@@ -1,0 +1,245 @@
+69e98f2 2022-08-18  (HEAD -> Debug) se ignora private.xml
+064660a 2022-08-16  mas graficos
+4bf2b50 2022-08-09  makefile para linux
+3ec1d7d 2022-08-08  nueva version de ventanas.pr
+d949c9a 2022-08-08  mejora en graficos: se añaden: punto y rectangulo, tambien la funcion SENO para hacer pruebas de graficos. Ver ejemplo ventanas.pr
+6fe13d9 2022-08-08  ignore files
+5d6135e 2022-08-08  indices en carpeta ejemplos
+995ced5 2022-08-08  version rama debug con vscode
+99c3a8f 2022-01-21  quitamos submodulo
+398970e 2022-01-21  Prueba push
+8b8f328 2022-01-10  Prueba push
+dedf794 2022-01-10  Preparacion para push
+5d7988a 2022-01-10  Debug con web sockets y vscode
+68bac4d 2021-05-12  (tag: v0.0.4) reparo raiz cuadrada
+3294af3 2021-05-12  reparo raiz cuadrada (ejemplo)
+6add1aa 2020-02-14  Sincro con windows
+b7e38a7 2020-02-12  ejemplo de redes neuronales
+4cb9b30 2020-02-12  ejemplo de redes neuronales
+425d2bd 2020-02-12  mejora en ordenes interpretar y system
+8cf8721 2020-02-11  replicamos cambios a lex.yy.c en tokens.l
+47c4b06 2020-02-10  Se crea un mecanismo para liberar memoria en caso de error de compilación.
+2f743dc 2020-02-06  Elimino algunos mensajes de depuracion
+9742a47 2020-02-05  Correccion de errores en comando Arbol, funcion parse, etc.
+2cdbb67 2020-01-31  Cambio en la estructura de las variables
+a4c2882 2019-03-13  Commit desde VSCODE
+4ab4282 2018-09-07  mejora en la libreria dinamica
+13aeadc 2017-10-15  fichero de prueba
+5d9cdf8 2017-10-15  mejora en los ejemplos de archivos.
+6c455e8 2017-10-15  ejecucion en la carpeta ejemplos
+e613a71 2017-10-15  makefiles para ide 7.4 windows
+883268e 2017-10-09  segunda prueba branch
+027cb2b 2017-10-09  segunda prueba branch
+95460cc 2017-10-09  (origin/errorMem) segunda prueba branch
+7cf7307 2017-10-09  prueba branch
+11c3716 2017-10-09  boton compilar
+3412a76 2017-09-01  Letras grandes en el editor
+cb62d39 2017-08-30  Merge origin/master
+89a2267 2017-08-30  Letras grandes en el editor
+e60c237 2017-02-12  MySql
+ad9d323 2016-10-25  Guardar archivo con fin de linea
+474feb9 2016-10-22  Carga de datos desde un fichero CSV
+e53fc4f 2016-10-18  Matrices numericas con doble dimension
+ec0a1eb 2016-10-18  ejemplos
+8366eec 2016-10-10  ejemplos
+eb2a08c 2016-10-10  Ejemplo de red neuronal
+b4990fa 2016-10-09  Funcion potencia
+606b0ba 2016-10-08  Ejemplo de red neuronal
+5689fa3 2016-10-08  Mejora por fallos en asignacion de memoria
+5d6f33c 2016-10-08  Vectores Double
+3cd863a 2016-10-06  Vector alfa = vector alfa
+40d1293 2016-10-06  Vector alfa = vector alfa
+6450d4d 2016-10-04  Mejora ejemplos
+7975ea1 2016-10-04  Mejora a la tabla de simbolos
+a71ddc4 2016-10-02  Circulos
+e864082 2016-10-02  Strings Ejemplos
+bda8b7c 2016-10-02  Strings
+de44b33 2016-09-26  Mejora en ejemplos
+9127e56 2016-09-26  Mejora en liberacion memoria
+6318747 2016-09-26  Mejora en los ejemplos
+12c7b1e 2016-09-26  Se arregla pausa en ejecucion desde editorgtk
+76e2416 2016-09-26  Resaltado y ejemplos
+e5f259f 2016-09-26  Resaltado y ejemplos
+0885575 2016-09-25  Menu, inspeccion, evaluacion, pausa
+9d4087c 2016-09-24  Ejemplos
+57f2357 2016-09-24  Mejoras al editor
+2b12122 2016-09-23  Mejoras para realizar el analizador
+4c2e51c 2016-09-22  Ejemplo Expresiones Regulares
+db0f58c 2016-09-22  Merge origin/master
+17b67f4 2016-09-22  Expresiones regulares 2
+ba6b819 2016-09-22  Expresiones regulares 2
+600ac4f 2016-09-22  Delete x1.txt
+8dcb071 2016-09-21  Ejemplo funciones de cadena
+ffc2572 2016-09-21  Mas funciones de cadena
+81b4cdf 2016-09-21  Funciones subcadena, instr y largo
+0a37866 2016-09-16  Mejora a Funciones y recursividad
+6e3ebfc 2016-09-16  Mejora a Funciones y recursividad
+0ca52cc 2016-09-16  Mejora a Funciones y recursividad
+591ab40 2016-09-16  Funciones y recursividad
+33249a5 2016-09-15  Corregido fallo al llamar a procedimientos
+5fa8a14 2016-09-15  Matrices alfanumericas, push y pop para recursividad en procedimientos
+8a07062 2016-09-13  ejemplo matriz alfa
+366545d 2016-09-13  
+cc259ac 2016-09-03  delete ndx
+327674e 2016-09-03  delete dbf
+25be527 2016-09-01  Recuperacion
+971d7bd 2016-08-17  Creacion archivos indice y datos
+b186fe5 2016-08-13  inserta clave y datos
+b3b4ca4 2016-08-11  mejora en insertar clave, avisa si ya existe
+d22ce0b 2016-08-11  mejora en insertar clave, avisa si ya existe
+492b623 2016-08-11  mejora en insertar clave, avisa si ya existe
+2cfb0ad 2016-08-11  mejora en insertar clave, avisa si ya existe
+e96b296 2016-08-11  mejora en insertar clave, avisa si ya existe
+0639035 2016-08-11  mejora en insertar clave, avisa si ya existe
+ec0d3c3 2016-08-11  mejora en el formato
+854fe39 2016-08-10  Correccion en comando VARS
+5fbc02a 2016-08-10  consulta de una base de datos
+b7b247c 2016-08-10  consulta de una base de datos
+01dc820 2016-08-10  consulta de una base de datos
+902fb92 2016-08-10  consulta de una base de datos
+94eda29 2016-08-10  consulta de una base de datos
+1884531 2016-08-07  Con contactos.csv
+94b8fb0 2016-08-05  DatosInt, inserta y elimina correctamente
+c193447 2016-08-05  DatosInt, primera version
+7d1aaab 2016-08-05  DatosInt, solo falla en algun caso
+68f287d 2016-08-05  DatosINT en la estructura y en Insert2
+deef363 2016-08-05  DatosINT en la estructura y en Insert
+ba4753b 2016-08-05  DatosINT en la estructura
+91b2c5e 2016-08-04  Funciona con datosINT
+1a475d4 2016-07-29  Correcion Minieditor para mac
+c9c25ef 2016-07-29  Compilacion para mac y linux
+2e45c98 2016-07-29  Compilacion condicional para Mac
+d2c8a70 2016-07-29  Libera memoria de vectores
+609c911 2016-07-29  Se corrige funcion de callback para boton
+65eafff 2016-07-29  Correcion en la llamada a la funcion indizada
+b1c9c61 2016-07-29  Ejemplo de defines para cambiar las palabras clave del C
+931ba53 2016-07-29  reparo el comando evalua
+cb5ac94 2016-07-28  Merge origin/master
+e640c3d 2016-07-28  Mejora al interprete de comandos y al arbol B
+bb005b3 2016-07-28  Añado el fichero de test para indices
+1d8c988 2016-07-28  Compilacion en MAC, 2da version
+ab6c78c 2016-07-28  Windows, linux y mac
+e94d806 2016-07-28  Compilacion en MAC
+78cfecf 2016-07-28  
+51477a6 2016-07-28  Fallaba clic en ventana grafica
+4055d29 2016-07-27  Se había descomentado parte del codigo.
+153086d 2016-07-27  Se eliminan ficheros del arbol virtual de netbeans
+090056a 2016-07-27  Ejemplos
+e2f6567 2016-07-27  Sin cambios
+821ef21 2016-07-27  Generado con ubuntu 15.10 bison
+9b9f5ae 2016-07-27  Cambio de nombres en la libreria dinamica
+0d9face 2016-07-25  Cambio de nombres en la libreria dinamica
+44a61e3 2016-07-25  Compilacion de la libreria dinamica
+dc4ee54 2016-07-25  Makefile
+4e24262 2016-07-25  Libreria dinamica myModule
+b5b56f0 2016-07-24  Ejemplos
+172d93e 2016-07-24  Varias mejoras y liberacion de memoria.
+971bee2 2016-07-23  Resaltado de instruccion actual
+21e2538 2016-07-20  Error en el AST
+02132c1 2016-07-20  Dehabilito el AST
+7fe2bd4 2016-07-20  Resalta la linea actual de ejecución en el editorgtk
+c4a5e41 2016-07-20  Solo comentarios
+78a4945 2016-07-20  Mejora el registro de la linea de ejecución actual
+4dea27b 2016-07-19  Mejora al editorgtk
+626e551 2016-07-19  comprobacion de la instruccion STOP cuando se ejecuta desde el editorgtk
+f010d1b 2016-07-19  Corregido cierre de ventana del editorgtk
+49d33d1 2016-07-19  Ejemplo para servidor web
+3a74cf6 2016-07-19  Ejemplo corregido
+9e50666 2016-07-19  Cambios en los ficheros nbproject
+ffd526b 2016-07-19  Cambios en los ficheros nbproject
+d89f6cc 2016-07-19  Cambios en los ficheros nbproject
+13d3df0 2016-07-19  Modificado por haber detectado fallos
+596b4ae 2016-07-19  Corrijo fallo abrir y cerrar ficheros
+73e802f 2016-07-18  Corrijo cerrado de la ventana principal
+4383237 2016-07-18  Se actualiza a Netbeans 8.1, 32bits
+aee033c 2016-07-17  Corrijo Readme
+88c97e2 2016-07-17  mise en page
+48e16cf 2016-07-17  Git desde Windows
+04bf996 2016-07-17  Intentamos subir la carpeta de ejemplos
+cba7663 2016-07-17  Añadimos configuracion de compilacion para Linux (ubuntu)
+3fc4145 2016-07-17  Actualizo netbeans en windows a la version 8.1
+a2afc61 2016-07-17  Merge origin/master
+553996f 2016-07-17  
+f73529c 2016-07-17  Se añaden ejemplos
+258b958 2016-07-17  creo el debug
+0312b86 2016-07-17  reorganizo el codigo
+c97e3f2 2016-07-17  pongo el manual en una carpeta
+91d988c 2016-07-17  actualizo el readme
+36a7f35 2016-07-17  actualizo instalacion linux
+8fda936 2016-07-17  agrego el codigo de copilacion en linux
+e544a7a 2016-07-16  Corregimos fallo en el contador del bucle DESDE
+a665dc3 2016-07-16  (tag: v0.0.3) Corregimos la comparacion de una variable alfanumerica con un literal
+33dafac 2016-07-16  presentacion de SI
+74b01ba 2016-07-16  presentacion de SI
+86350cc 2016-07-16  Creo la carpeta ejemplos
+69d8766 2016-07-16  (tag: 0.0.2) Merge origin/master
+2fc50bb 2016-07-16  prueba de commit
+3b403b0 2016-07-16  prueba de commit
+a256831 2016-07-15  Mejora en el manejo de indices.
+6759dc6 2016-07-15  Mejora en el manejo de indices.
+09f4fb1 2016-07-15  Mejora en el manejo de indices.
+9a2fa54 2016-07-14  Mejora en el manejo de indices.
+76dc152 2016-07-11  (tag: 0.0.1) Merge pull request #6 from robincoello/patch-6
+fe013bf 2016-07-11  Update README.md
+ddbed02 2016-07-11  Merge pull request #5 from robincoello/patch-5
+e1020a2 2016-07-11  Update README.md
+2b3520a 2016-07-11  Merge pull request #4 from robincoello/patch-4
+1dacaa6 2016-07-11  Update README.md
+3b5029b 2016-07-11  Merge pull request #2 from robincoello/patch-2
+c3c82d6 2016-07-11  Update README.md
+a571565 2016-07-11  Merge pull request #1 from robincoello/patch-1
+fca0e0b 2016-07-11  Update README.md
+45c200e 2016-01-31  Actualizo leeme.txt Solución a problemas de CRLF en programas pr
+909b9b6 2016-01-31  ACTUALIZO LEEME.TXT
+97b3134 2016-01-31  Actualizo leeme.txt Comentando como actualizar mi copia local con los cambios que hay en el repositorio remoto.
+ed3f02e 2016-01-31  ACTUALIZO LEEME.TXT
+3f418bc 2016-01-31  ACTUALIZO LEEME.TXT
+08e1603 2016-01-31  Actualizo leeme.txt Comentando como actualizar mi copia local con los cambios que hay en el repositorio remoto.
+26ee6db 2016-01-31  Clic en Team Remote Push
+2758eb7 2016-01-31  Se cambia el usuario Git a Pililo777 En el pc de la habitación hacía commit pero no se reflejaba en la web de GitHub, raro no? Se actualiza el fichero leeme.txt con información importante para compilar en otro PC
+47eadfe 2016-01-31  Prueba de commit desde Netbeans Se actualiza el fichero leeme.txt con información importante para compilar en otro PC
+6bab12e 2016-01-31  Prueba de commit desde Netbeans Se actualiza el fichero leeme.txt con información importante para compilar en otro PC
+b8a69d8 2016-01-30  Se quitan file path absolutos para clonar en otro pc
+ee1c03f 2016-01-30  Cambios en la manera de recuperar las variables
+d40ec95 2015-09-13  Continuar y Salir
+18f4ef7 2015-09-12  operadores AND y OR
+f0fbdbb 2015-09-12  Version al 12 Sept
+6d61dca 2015-09-12  Este fichero se quedó del anterior commit
+cb44b66 2015-09-12  Version de prueba para GitHub
+59980d6 2015-09-12  Create README.md
+ed7bb03 2014-03-02  
+890f007 2014-03-02  
+da11842 2014-02-11  cargar fichero en el editor
+6e545a7 2014-02-11  cargar fichero en el editor
+35cbd22 2014-02-09  cargar fichero
+1ae6d6f 2014-02-09  Funciona sin guardar el buffer en un fichero.
+10125c1 2014-02-07  Cambios para ejecutar desde el editor
+286c6ca 2014-02-07  Configuración para la unidad Windows G
+62bcc65 2014-02-07  ultimas modificaciones
+5e9fa83 2014-02-07  ultimas modificaciones
+97e4e03 2014-02-04  ultimas modificaciones
+18002aa 2014-02-03  ultimas modificaciones
+c8fef7b 2014-02-02  ultimas modificaciones
+716a82b 2014-02-02  ultimas modificaciones
+6f93862 2014-02-02  ultimas modificaciones
+e6d0303 2014-02-02  
+5e9ebbc 2014-01-29  version windows
+53f8e27 2014-01-25  ultimas modificaciones
+92e1699 2014-01-20  ultimas modificaciones
+3f2b25f 2014-01-19  ultimas modificaciones
+dbc10a6 2014-01-18  ultimas modificaciones
+1a0dbb9 2014-01-18  ultimas modificaciones
+4198570 2014-01-18  se añade una nota: cómo instalar gtk 2.0 en ubuntu.
+a645178 2014-01-18  se añade una nota: cómo instalar gtk 2.0 en ubuntu.
+b340712 2014-01-18  se añade un fichero de leeme.txt para colocar notas se renombra el fichero integracion.pr   a ventanas.pr se cambia la configuración de compilación, por un error que en el otro pendrive no daba.
+17b9e0b 2014-01-17  cambios en los programas de ejemplo
+91f5c6f 2014-01-17  se ha quitado xmain
+a1c6f4c 2014-01-17  se ha quitado xmain
+5c57042 2014-01-17  se añade ejemplos del numero de euler
+9102597 2014-01-17  2 ejemplos de calculo del numero de euler, algoritmos sacados de wikipedia
+ebea96e 2014-01-17  ddd
+cc6a260 2014-01-17  ddd
+f6e445b 2014-01-17  primer commit por pililo777
+3d0f146 2014-01-17  primer commit por pililo777
+091aa9d 2014-01-17  prueba
+57cc0a9 2014-01-17  Primer prueba

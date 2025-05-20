@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema GUI - dbase.c</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema GUI</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Componentes Principales</h2>
+        <ul>
+            <li>Integración con GTK+</li>
+            <li>Sistema de ventanas</li>
+            <li>Manejo de eventos</li>
+            <li>Resaltado de sintaxis</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Manejo de Ventanas</h2>
+        <div class="codigo">
+            <pre>
+struct widgets {
+    GtkWidget *nombre;
+    GtkWidget *box1;
+    int indice;
+    // ... más campos
+};
+
+// Gestión de ventanas
+void close_window(GtkWidget *widget, gpointer data)
+{
+    // Cierra ventana
+}
+
+void close_main_window(GtkWidget *widget, gpointer data)
+{
+    // Cierra ventana principal
+}
+
+// Manejo de eventos
+void enter_callback(GtkWidget *widget, gpointer data)
+{
+    // Maneja eventos de entrada
+}
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Sistema de Resaltado</h2>
+        <ul>
+            <li>GtkTextBuffer para texto</li>
+            <li>Marcadores de texto</li>
+            <li>Actualización en tiempo real</li>
+            <li>Manejo de cursor</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Funciones Principales</h2>
+        <div class="codigo">
+            <pre>
+// Actualización de texto
+void change_entry_callback(GtkWidget *widget, gpointer data)
+{
+    // Actualiza contenido de entrada
+}
+
+// Configuración de ventana
+void configure_callback(GtkWindow *window, 
+                       GdkEvent *event, gpointer data)
+{
+    // Configura ventana
+}
+
+// Manejo de foco
+void set_focus(GtkWindow *window, 
+              GdkEvent *event, gpointer data)
+{
+    // Maneja el foco
+}
+            </pre>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Variables - dbase.c</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Variables</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Tipos de Variables</h2>
+        <ul>
+            <li>Numericas (double)</li>
+            <li>Alfanuméricas (strings)</li>
+            <li>Vectores</li>
+            <li>Matrices</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Gestión de Memoria</h2>
+        <div class="codigo">
+            <pre>
+// Liberación de memoria
+void freevar(int i)
+{
+    // Libera memoria de variable numérica
+}
+
+void freevar2(int i, char *buff3)
+{
+    // Libera memoria de variable alfanumérica
+}
+
+// Reserva de memoria
+void reservamem(int i, int j)
+{
+    // Reserva memoria para variable
+}
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Sistema de Pila</h2>
+        <ul>
+            <li>Pila de registros (32 registros máx.)</li>
+            <li>Gestión de contexto</li>
+            <li>Manejo de variables locales</li>
+            <li>Restauración de estado</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Funciones Principales</h2>
+        <div class="codigo">
+            <pre>
+// Manejo de variables alfanuméricas
+void subcadena(int i, ast *a, ast *b, int var)
+{
+    // Extrae subcadena
+}
+
+void izquierda(int i, ast *a, int var)
+{
+    // Obtiene parte izquierda
+}
+
+void derecha(int i, ast *a, int var)
+{
+    // Obtiene parte derecha
+}
+
+// Manejo de variables numéricas
+double nuevoValorEnteros(int cantidad)
+{
+    // Crea nuevo valor numérico
+}
+
+char nuevoValorAlfas(int cantidad)
+{
+    // Crea nuevo valor alfanumérico
+}
+            </pre>
+        </div>
+    </div>
+</body>
+</html>
