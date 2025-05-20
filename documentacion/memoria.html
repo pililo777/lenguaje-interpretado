@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Memoria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Memoria</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Variables</h2>
+        <div class="codigo">
+            <pre>
+// Variables numéricas
+a = 10
+b = 20
+
+// Variables alfanuméricas
+c = "Hola Mundo"
+d = "Texto de ejemplo"
+
+// Operaciones con variables
+a = a + b
+c = c + " " + d
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Vectores y Matrices</h2>
+        <div class="codigo">
+            <pre>
+// Declaración de vectores
+dim vector 10
+dim matriz 5,5
+
+// Asignación de valores
+vector[1] = 10
+matriz[2][3] = 20
+
+// Operaciones con vectores
+vector[1] = vector[1] + 5
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Pila de Programas</h2>
+        <div class="codigo">
+            <pre>
+// Ejecución de programas
+push programa
+pop programa
+
+// Manejo de procedimientos
+llamar procedimiento
+retornar valor
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Manejo de Memoria</h2>
+        <div class="codigo">
+            <pre>
+// Liberación de memoria
+liberar variable
+liberar vector
+liberar matriz
+
+// Verificación de memoria
+verificar_memoria
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>5. Ejemplo Completo</h2>
+        <div class="codigo">
+            <pre>
+// Declaración y uso de variables
+a = 10
+b = "Hola"
+
+dim vector 5
+vector[1] = 100
+
+// Procedimiento
+procedimiento calcular
+    c = a + b
+    retornar c
+fin
+
+// Uso de procedimiento
+push calcular
+resultado = pop calcular
+            </pre>
+        </div>
+    </div>
+</body>
+</html>

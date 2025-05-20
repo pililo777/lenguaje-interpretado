@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivos Necesarios para Ejecutar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .archivo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        .tabla th, .tabla td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .tabla th {
+            background-color: #f4f4f4;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Archivos Necesarios para Ejecutar</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Archivos del Programa Principal</h2>
+        <div class="archivo">
+            <pre>
+cppapp.exe
+        </pre>
+        </div>
+        <p>Este es el ejecutable principal generado por la compilación.</p>
+    </div>
+
+    <div class="seccion">
+        <h2>2. DLLs de GTK+ 2.0</h2>
+        <div class="archivo">
+            <pre>
+C:\GTK\bin\gtk-win32-2.0.dll
+C:\GTK\bin\gdk-win32-2.0.dll
+C:\GTK\bin\atk-1.0.dll
+C:\GTK\bin\gio-2.0.dll
+C:\GTK\bin\pangowin32-1.0.dll
+C:\GTK\bin\pangocairo-1.0.dll
+C:\GTK\bin\gdk_pixbuf-2.0.dll
+C:\GTK\bin\pango-1.0.dll
+C:\GTK\bin\cairo.dll
+C:\GTK\bin\fontconfig.dll
+C:\GTK\bin\freetype.dll
+C:\GTK\bin\png14.dll
+C:\GTK\bin\zlib1.dll
+C:\GTK\bin\gobject-2.0.dll
+C:\GTK\bin\gmodule-2.0.dll
+C:\GTK\bin\gthread-2.0.dll
+C:\GTK\bin\glib-2.0.dll
+C:\GTK\bin\intl.dll
+            </pre>
+        </div>
+        <p>Todas estas DLLs son necesarias para el funcionamiento de la interfaz gráfica GTK+. En tu sistema, las DLLs deberían estar en:</p>
+        <ul>
+            <li><strong>C:\GTK\bin\</strong> - DLLs principales (ya está en tu PATH)</li>
+            <li><strong>C:\Program Files (x86)\GtkSharp\2.12\bin\</strong> - Otra instalación posible</li>
+            <li><strong>c:\gtk\bin\</strong> - Otra posible ubicación</li>
+        </ul>
+        <p>Alternativamente, si no las encuentras en estas ubicaciones, puedes:</p>
+        <ol>
+            <li>Instalar GTK+ 2.0 Runtime desde el sitio web oficial</li>
+            <li>O copiar las DLLs necesarias a la carpeta donde está tu ejecutable cppapp.exe</li>
+        </ol>
+        <p>Nota: Si instalas GTK+ 2.0 Runtime, asegúrate de que las nuevas DLLs se añadan correctamente a tu PATH.</p>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Archivos de Configuración GTK+</h2>
+        <div class="archivo">
+            <pre>
+themes
+etc
+share
+        </pre>
+        </div>
+        <p>Estos directorios contienen los archivos de configuración necesarios para GTK+.</p>
+    </div>
+
+    <div class="seccion">
+        <h2>4. DLL de BTree</h2>
+        <div class="archivo">
+            <pre>
+btree.dll
+        </pre>
+        </div>
+        <p>Esta DLL es necesaria para el manejo de índices y estructuras de datos.</p>
+    </div>
+
+    <div class="seccion">
+        <h2>5. Archivos de Ejemplo</h2>
+        <div class="archivo">
+            <pre>
+ARCHIVOS.PR
+CONTACTS.CSV
+LISTADO.PR
+contacts.dbf
+contacts.ndx
+        </pre>
+        </div>
+        <p>Estos archivos son necesarios para los ejemplos y pruebas del programa.</p>
+    </div>
+
+    <div class="seccion">
+        <h2>6. Estructura de Carpetas Recomendada</h2>
+        <table class="tabla">
+            <tr>
+                <th>Carpetas</th>
+                <th>Contenido</th>
+            </tr>
+            <tr>
+                <td>bin/</td>
+                <td>cppapp.exe, todas las DLLs de GTK+, btree.dll</td>
+            </tr>
+            <tr>
+                <td>data/</td>
+                <td>Archivos de ejemplo (.PR, .CSV, .DBF, .NDX)</td>
+            </tr>
+            <tr>
+                <td>lib/</td>
+                <td>Archivos de configuración GTK+ (themes, etc, share)</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="seccion">
+        <h2>7. Pasos para Preparar la Instalación</h2>
+        <ol>
+            <li>Copiar cppapp.exe a la carpeta bin/</li>
+            <li>Copiar todas las DLLs de GTK+ a bin/</li>
+            <li>Copiar btree.dll a bin/</li>
+            <li>Copiar archivos de ejemplo a data/</li>
+            <li>Copiar archivos de configuración GTK+ a lib/</li>
+            <li>Configurar las variables de entorno GTK2_RC_FILES y GTK_PATH</li>
+        </ol>
+    </div>
+
+    <div class="seccion">
+        <h2>8. Variables de Entorno Necesarias</h2>
+        <table class="tabla">
+            <tr>
+                <th>Variable</th>
+                <th>Valor</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td>GTK2_RC_FILES</td>
+                <td>lib/etc/gtk-2.0/gtkrc</td>
+                <td>Archivo de configuración GTK+</td>
+            </tr>
+            <tr>
+                <td>GTK_PATH</td>
+                <td>lib</td>
+                <td>Ruta de los archivos de configuración GTK+</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

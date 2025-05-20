@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Archivos - dbase.c</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Archivos</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Gestión de Archivos</h2>
+        <ul>
+            <li>Manejo de múltiples archivos</li>
+            <li>Sistema de índices</li>
+            <li>Lectura/Escritura</li>
+            <li>Registro de campos</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Funciones Principales</h2>
+        <div class="codigo">
+            <pre>
+// Cálculo de tamaño de registro
+void calcular_tamanio(ast *lista_de_campos)
+{
+    // Calcula tamaño total
+}
+
+// Lectura de campos
+void leer_campos(ast *lista_de_campos, FILE *handler)
+{
+    // Lee campos del archivo
+}
+
+// Guardado de campos
+void guardar_campos(ast *lista_de_campos, FILE *handler)
+{
+    // Guarda campos en archivo
+}
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Sistema de Índices</h2>
+        <ul>
+            <li>Manejo de claves</li>
+            <li>Operaciones de búsqueda</li>
+            <li>Insertar/eliminar registros</li>
+            <li>Mantenimiento de índices</li>
+        </ul>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Manejo de Memoria</h2>
+        <div class="codigo">
+            <pre>
+// Gestión de memoria para archivos
+void reservamem(int i, int j)
+{
+    // Reserva memoria para archivo
+}
+
+void freevar(int i)
+{
+    // Libera memoria de archivo
+}
+
+// Manejo de buffers
+void getstring(char *s)
+{
+    // Maneja buffer de entrada
+}
+            </pre>
+        </div>
+    </div>
+</body>
+</html>

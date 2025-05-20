@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Archivos y Registros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Archivos y Registros</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Manejo de Archivos</h2>
+        <div class="codigo">
+            <pre>
+// Abrir archivo
+abrir nombre_archivo
+
+// Cerrar archivo
+cerrar nombre_archivo
+
+// Leer registro
+leer # nombre_archivo variable1 variable2
+
+// Escribir registro
+guardar # nombre_archivo variable1 variable2
+
+// Leer registro con posición
+leer # nombre_archivo variable1 variable2 , expresion , numero
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Definición de Registros</h2>
+        <div class="codigo">
+            <pre>
+registro nombre_registro "nombre_archivo"
+    campo1 tipo longitud
+    campo2 tipo longitud
+fin-registro
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Operaciones con Registros</h2>
+        <div class="codigo">
+            <pre>
+// Buscar registro
+buscar registro nombre_registro clave
+
+// Actualizar registro
+actualizar registro nombre_registro clave
+
+// Eliminar registro
+eliminar clave
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Sistema de Índices</h2>
+        <div class="codigo">
+            <pre>
+// Usar índice
+use índice nombre_archivo
+
+// Cerrar índice
+close índice
+
+// Operaciones con índice
+buscar clave
+insertar clave
+eliminar clave
+actualizar clave
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>5. Ejemplo Completo</h2>
+        <div class="codigo">
+            <pre>
+// Definir registro
+registro clientes "clientes.dbf"
+    nombre alfa 50
+    edad num 3
+    ciudad alfa 30
+fin-registro
+
+// Manejar archivo
+abrir clientes
+leer # clientes nombre edad ciudad
+
+// Operaciones con índice
+use índice clientes
+buscar "Juan Perez"
+actualizar registro clientes "Juan Perez"
+
+// Cerrar todo
+close índice
+cerrar clientes
+            </pre>
+        </div>
+    </div>
+</body>
+</html>

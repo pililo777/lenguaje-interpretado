@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Sockets y Comunicación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .seccion {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .codigo {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Sockets y Comunicación</h1>
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <div class="seccion">
+        <h2>1. Comunicación Cliente-Servidor</h2>
+        <div class="codigo">
+            <pre>
+// Servidor
+servidor puerto
+esperar_conexion
+aceptar_conexion
+
+// Cliente
+cliente servidor puerto
+conectar
+enviar datos
+recibir datos
+desconectar
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>2. Protocolos de Comunicación</h2>
+        <div class="codigo">
+            <pre>
+// TCP
+socket_tcp
+conectar_tcp
+desconectar_tcp
+
+// UDP
+socket_udp
+enviar_udp
+recibir_udp
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>3. Manejo de Datos</h2>
+        <div class="codigo">
+            <pre>
+// Envío de datos
+enviar_datos datos
+enviar_texto texto
+enviar_archivo archivo
+
+// Recepción de datos
+recibir_datos
+recibir_texto
+recibir_archivo
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>4. Ejemplo Completo - Servidor</h2>
+        <div class="codigo">
+            <pre>
+// Configuración del servidor
+servidor 8080
+esperar_conexion
+
+// Manejo de conexión
+aceptar_conexion
+recibir_datos
+
+// Respuesta
+enviar_datos "Datos recibidos correctamente"
+desconectar
+            </pre>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h2>5. Ejemplo Completo - Cliente</h2>
+        <div class="codigo">
+            <pre>
+// Configuración del cliente
+cliente localhost 8080
+conectar
+
+// Envío de datos
+enviar_texto "Hola servidor"
+
+// Recepción de respuesta
+recibir_texto
+
+// Cerrar conexión
+desconectar
+            </pre>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
