@@ -1,0 +1,36 @@
+
+		// calcula la multiplicacion de 2 matrices 
+		// ver el articulo de wikipedia https://es.wikipedia.org/wiki/Multiplicaci%C3%B3n_de_matrices
+
+		
+		dim matriz_a    2 ,  2
+        dim matriz_b    2 ,  2
+		
+		matriz_a[0][0] = 2   //e
+		matriz_a[0][1] = 3   //f
+		matriz_a[1][0] = 4   //g *
+		matriz_a[1][1] = 5   //h *
+		
+		matriz_b[0][0] = 6   //a
+		matriz_b[0][1] = 7   //b *
+		matriz_b[1][0] = 8   //c
+		matriz_b[1][1] = 9   //d *
+		
+		desde j = 0 hasta 1   // j para fila de A y columna de B
+		{
+				suma = 0
+				desde i = 0  hasta 1  // i para columna de A y fila de B
+				{
+					a = matriz_a[j][i] 
+					b = matriz_b[i][j] 
+					imprimir 'a, i, j:',  a, ' - ', i, ' - ', j    // i se mueve en fila de matriz a
+					imprimir 'b, i, j: ', b, ' - ', i, ' - ', j   // i se mueve en columna de matriz b
+					suma = suma + (  a * b )
+				}
+				imprimir 'suma =  ',  suma
+				imprimir '*******--------********'
+				
+			 
+				 
+		}
+		

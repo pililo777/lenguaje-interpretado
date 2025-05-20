@@ -1,0 +1,109 @@
+	/*
+
+	Ejemplo de guardar datos en un fichero sin indexar
+
+	*/
+	
+	numero_campos = 130      //129 para version 13    y 130  para version 8.
+
+	ARCHIVO = 'nuevo.txt'
+	ARCHIVO2 = 'Salida.txt'
+	numarchivo = 1
+	numarchivo2 = 2
+	abrir ARCHIVO numarchivo
+	abrir ARCHIVO2 numarchivo2
+	LETRA = ' '
+	FICHERO= ' '
+	vaciar FICHERO
+	mientras numarchivo <> 99
+	{
+		leer # numarchivo LETRA letra
+		si numarchivo <> 99 entonces
+	  //      imprimir LETRA
+			FICHERO += LETRA
+		si-fin
+	}
+
+	numarchivo = 1
+	cerrar numarchivo
+	
+
+	//imprimir FICHERO
+	dim resp 2
+	hallado = 0
+	REGEX = 'CREATE: '
+	hallado = chkregex(FICHERO, REGEX, resp)
+	tr = 0
+	si (hallado =  1 ) entonces
+		final = resp[1]
+		ANIO = subcadena (FICHERO, final+ 1 , 4 )
+		imprimir 'año de creacion: ', ANIO
+		final = resp[1]+29
+		tamanio=largo(FICHERO)
+		nro = 0
+		mientras final < tamanio
+		{
+			llamar procesa_comas
+			//stop
+			final = final + 1
+		}
+		convertir tr LINEA
+		MENSAJE = 'total registros: '
+		MENSAJE += LINEA
+		guardar # numarchivo2 MENSAJE
+		
+		imprimir 'total registros: ', tr
+	sino
+		imprimir 'no es un fichero procesable'
+	si-fin
+	
+	cerrar numarchivo2
+
+	terminar
+
+
+
+	proc procesa_comas
+		PALABRA = ' '
+		vaciar PALABRA
+		CH = subcadena (FICHERO, final, 1 ) 
+		mientras (CH <> ',') yy (final < tamanio)
+		{
+			PALABRA + = CH
+			final = final + 1
+			si final < tamanio entonces
+				CH = subcadena (FICHERO, final, 1 )
+			si-fin
+		}
+		
+		nro = nro + 1
+		LINEA = ' '
+		FLECHA = '------>'
+		convertir nro LINEA
+		LINEA += FLECHA
+		LINEA += PALABRA
+		imprimir nro, '---->', PALABRA
+		guardar # numarchivo2 LINEA
+		
+		
+		si nro = numero_campos entonces
+			nro = 0
+			tr = tr + 1
+		si-fin
+		
+	fin
+
+
+	/*
+	NOMBRE='añadir al final'
+	//guardar # numarchivo  NOMBRE, 20, 0     //formato con width
+	numarchivo = 1
+	n = 0
+	n = largo(NOMBRE)
+	//guardar # numarchivo  NOMBRE             //formato sin width
+	guardar # numarchivo  NOMBRE, n, 1          //metodo de guardar una linea con salto de linea
+	cerrar  numarchivo
+	*/
+
+
+

@@ -1,0 +1,353 @@
+// red neuronal para aprender a 
+// reconocer un digito representado en 7 segmentos
+
+decimales 8
+factor_apr = 0.5
+e =  2.718281828
+manual = 0
+epsilon = 0.0000000001
+
+factor = 5
+factor2 = 7
+
+PALABRA = ' '
+vaciar PALABRA
+
+dim SEGM 10
+SEGM[0] = '1110111'
+SEGM[1] = '1000001'
+SEGM[2] = '1101110'
+SEGM[3] = '1101011'
+SEGM[4] = '1011001'
+SEGM[5] = '0111011'
+SEGM[6] = '0111111'
+SEGM[7] = '1100001'
+SEGM[8] = '1111111'
+SEGM[9] = '1111011'
+
+dim APRENDER 10
+APRENDER[0] = '0000'
+APRENDER[1] = '0001'
+APRENDER[2] = '0010'
+APRENDER[3] = '0011'
+APRENDER[4] = '0100'
+APRENDER[5] = '0101'
+APRENDER[6] = '0110'
+APRENDER[7] = '0111'
+APRENDER[8] = '1000'
+APRENDER[9] = '1001'
+
+cantidad = 7
+
+//capa de entrada
+dim entradas  7
+
+//capa de enmedio
+dim capa       5
+dim peso      35  // 7 * 5
+dim err        5
+dim umbral     5   
+
+desde i=0 hasta 4
+{
+    capa[i] = 0
+}
+
+desde i=0 hasta 34
+{
+    peso[i] = 0.5
+    umbral[i] = 0.5
+}
+
+// capa de salida
+dim salidas   4
+dim peso_s    20 // 5*4
+dim umbral_s  4   
+desde i=0 hasta 19
+{
+    peso_s[i] = 0.5
+    umbral_s[i] = 0.5
+}
+
+
+ddd = 9
+
+
+// cuerpo del programa principal
+// primera etapa: aprendizaje
+acaba = 0
+//mientras acaba = 0
+//{
+cantidad = 7
+
+
+
+llamar itera
+
+terminar
+
+
+//imprimir 'limite  iteraciones? '
+//leer iteraciones
+//segmn=9
+
+proc itera
+manual = 0
+imprimir 'limite  iteraciones? '
+leer iteraciones
+
+imprimir 'que segmento? '
+leer ddd
+
+contador = 0
+mientras contador < iteraciones
+{
+	desde segmn = ddd hasta ddd
+	{
+		// cargar la capa de entrada con datos
+		j = cargar_entradas(segmn)   //ponemos datos en la carpeta de entrada
+		//imprimir 'entrada:'
+		//llamar ver_entradas
+		//imprimir 'aprender: '
+		VAR_APR = APRENDER[segmn]
+		//imprimir  VAR_APR
+		
+		//imprimir 'en medio:'
+		desde var=0 hasta 4
+		{
+			z = activacion_capa_enmedio(var)
+		}
+		
+		//llamar ver_capa_enmedio
+		desde var=0 hasta 3
+		{
+			z = activacion_capa_salida(var)
+		}
+		//llamar ver_capa_salida
+		hay_error = 0
+		llamar calcular_error
+		si hay_error = 0 entonces
+			salir
+		si-fin
+		//imprimir '-----------------------------------------------------------------------'
+	}	
+	contador = contador + 1
+	imprimir contador
+}
+
+llamar pruebas
+fin
+
+
+
+
+
+proc pruebas
+segm = 0
+imprimir 'introduce un numero del 0 al 9'
+leer segm
+z=cargar_entradas(segm)
+desde var=0 hasta 4
+		{
+			z = activacion_capa_enmedio(var)
+		}
+		
+		//llamar ver_capa_enmedio
+		desde var=0 hasta 3
+		{
+			z = activacion_capa_salida(var)
+		}
+llamar ver_capa_salida
+
+fin
+//error (en la salida)=(salida correcta - salida actual) * salida actual  * (1 - salida actual)
+//pesoJK = pesoJK + factor_apr*errorK*Oj
+//Oj es la salida con funcion zigmoide.
+
+//error (en las capas interiores) debe ser la sumatoria
+// Ej = Oj*(1-Oj)*sumatoria ( Ek * Wjk)
+
+
+
+proc calcular_error
+desde j = 0 hasta 4
+{
+err [ j ] = 0
+}
+
+desde i=0 hasta 3   //desde 0 hasta 3   por cada neurona de salida
+{
+   DIGITO = subcadena(VAR_APR, i + 1 , 1 )
+   convertir DIGITO digito
+   dig_salida = salidas [i]
+   
+		   error = (digito - dig_salida) * dig_salida * ( 1 - dig_salida)  //error en la salida (i)
+		   
+		   umbral_s[i] = umbral_s[i] + (factor_apr * error  * salidas[i])
+		   
+		   desde j  = 0 hasta 4   // una por cada peso entre la capa del medio y la salida
+			{ 
+					  indice = (i*factor) + j
+					  err[j] = err[j] + (error * peso_s [indice])
+					  
+				      //imprimir ' fila, columna, indice = ', i, '  ', j, '  ', indice, peso_s[indice]
+					  peso_s [ indice ] = peso_s [ indice ] + (factor_apr * error * capa[j])
+					 // imprimir 'peso_s , indice : ', peso_s [ indice ] , '      ', indice
+					  //umbral [j] = umbral[j] + factor_apr * error * capa[j]
+			}
+	 
+}
+
+desde j = 0 hasta 4
+{
+				  err[j] = err[j] * capa [j] * ( 1 - capa[j]  )
+				  umbral [j] = umbral[j] + (factor_apr * err[j]  * entrada[k])
+}
+
+		desde k = 0 hasta 6       //  7 iteraciones, uno por cada peso entre la inicial y la capa del medio
+		{
+			   desde j  = 0 hasta 4   // una por cada peso entre la capa del medio y la salida
+			   {
+				  indice = (j*factor2) + k
+				  //imprimir ' fila, columna, indice = ', j, '  ', k, '  ', indice, peso[indice]
+				  peso [indice] = peso [indice] + ( factor_apr * err[j] * entrada [k] )
+				  //imprimir 'peso , indice : ', peso [ indice ] , '      ', indice
+				  
+				  //umbral [j] = umbral[j] + factor_apr * error * capa[j]
+			   }
+			   //stop
+		}
+
+//imprimir 'fin calcular error'
+fin
+
+
+// procedimientos y funciones
+
+funcion activacion_capa_enmedio(indice)
+    suma = 0
+    desde i=0 hasta 6
+    {
+		indice2 = (indice*factor2)+i
+		//imprimir '  fila,  columna, indice  = ', indice, '  ', i, '  ', indice2, peso[indice2]
+		
+        suma = suma + entradas[i] * peso[indice2]
+		si manual = 1 entonces
+			imprimir entradas[i], '---', suma
+		si-fin
+    }
+    suma = suma + umbral[indice]
+    //imprimir 'suma = ', suma
+    activacion_u = sigmoide(suma)
+	si manual = 1 entonces
+			imprimir activacion_u, ' :: ', umbral[indice]
+	si-fin
+	//imprimir 'en medio: ', activacion_u
+    //imprimir 'activacion: ', activacion_u
+    llamar  llena_salidas_enmedio
+    retornar z
+fin
+
+proc llena_salidas_enmedio
+    capa[indice] = activacion_u
+fin
+
+proc  llena_salidas_salida
+		//no se podra indexar una variable no array,cuidado!
+        salidas[indice] = activacion_u
+		//imprimir '<<', indice, salidas[indice]
+fin
+
+funcion activacion_capa_salida(indice)
+    suma = 0
+    desde i=0 hasta 4
+    {
+		indice2 = (indice*factor)+i
+		//imprimir '  fila,  columna, indice  = ', indice, '  ', i, '  ', indice2, peso[indice2]
+        suma = suma + capa[i] * peso_s[indice2]
+    }
+    suma = suma + umbral_s[indice]
+    //imprimir 'suma = ', suma
+    activacion_u = sigmoide(suma)
+	//imprimir 'en salida: ', activacion_u
+    //imprimir 'activacion: ', activacion_u
+    llamar  llena_salidas_salida
+    retornar z
+fin
+
+
+
+proc ver_capa_enmedio
+ desde i=0 hasta 4
+ {
+    imprimir 'capa ', i, ': ',  capa[i]
+ }
+fin
+
+proc ver_capa_salida
+ desde i=0 hasta 3
+ {
+    imprimir 'salida ', i, ': ',  salidas[i]
+ }
+fin
+
+
+
+funcion sigmoide(suma)
+    //e =  2.718281828
+    exponente = suma * (-1)
+    s = 1 / (1 + potencia(e, exponente))
+    retornar s
+fin
+
+proc ver_entradas
+ desde i=0 hasta 6
+ {
+    imprimir 'entrada ', i, ': ',  entradas[i]
+ }
+fin
+
+
+funcion cargar_entradas(indice)
+    PALABRA = SEGM[indice]
+    desde segm = 1 hasta 7
+    {
+        DIGITO  = subcadena (PALABRA, segm, 1)
+        digito = 0
+        convertir DIGITO digito
+        entradas[segm-1] = digito
+    }
+	 
+fin
+
+
+	
+proc mostrar_pesos
+imprimir 'primeros pesos'
+desde i = 0 hasta 6
+{
+	desde j = 0 hasta 4
+	{
+		imprimir i, ' , ', j, '  --  ', peso[(j*factor2)+i]
+	}
+
+}
+
+
+imprimir 'ultimos pesos'
+desde i = 0 hasta 4
+{
+	desde j = 0 hasta 3
+	{
+	    indice = (j*factor) + i
+		imprimir i, ' , ', j, '  --  ', peso_s[indice], '   ', indice
+	}
+}
+
+fin
+
+
+
+
+	
+	

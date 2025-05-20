@@ -1,0 +1,35 @@
+
+decimales 1
+
+i = 0
+j = 2
+k = 0
+l = 0
+
+ mientras k < 10
+ 
+	haz
+			l = 0
+			mientras l < 20
+			haz
+				imprimir 'i es ', i, ' j es ', j
+				j = j + 2
+				i = i + 1
+				
+				si i > 9 entonces
+					i = 0
+				fin-si
+				
+				l = l + 1
+			fin-haz
+			i = 0
+			k = k + 1
+			
+			
+	fin-haz
+
+
+
+
+
+

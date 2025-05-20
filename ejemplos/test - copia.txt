@@ -1,0 +1,872 @@
+simbolos: ETF(a+*)
+
+simbolos: ETF(a+*)
+
+Creando los puntos iniciales en R$
+
+W=.E
+
+E=.E+T
+
+E=.T
+
+T=.T*F
+
+T=.F
+
+F=.(E)
+
+F=.a
+
+ARRAY C$: 
+
+0 --> W=.E
+
+1 --> E=.E+T
+
+2 --> E=.T
+
+3 --> T=.T*F
+
+4 --> T=.F
+
+5 --> F=.(E)
+
+6 --> F=.a
+
+7 --> 
+
+8 --> 
+
+9 --> 
+
+n=1   ii = 1   ic=1
+
+n=1   ii = 2   ic=2
+
+n=0   ii = 3   ic=3
+
+n=0   ii = 4   ic=4
+
+n=0   ii = 5   ic=5
+
+n=-1   ii = 6   ic=5
+
+n=-1   ii = 7   ic=5
+
+n=-1   ii = 8   ic=5
+
+n=-1   ii = 1   ic=5
+
+n=-1   ii = 2   ic=5
+
+n=-1   ii = 3   ic=5
+
+n=-1   ii = 4   ic=5
+
+n=-1   ii = 5   ic=5
+
+n=0   ii = 6   ic=6
+
+n=-1   ii = 7   ic=6
+
+n=-1   ii = 8   ic=6
+
+n=-1   ii = 1   ic=6
+
+n=-1   ii = 2   ic=6
+
+n=-1   ii = 3   ic=6
+
+n=-1   ii = 4   ic=6
+
+n=-1   ii = 5   ic=6
+
+n=-1   ii = 6   ic=6
+
+n=0   ii = 7   ic=7
+
+n=-1   ii = 8   ic=7
+
+n=-1   ii = 1   ic=7
+
+n=-1   ii = 2   ic=7
+
+n=-1   ii = 3   ic=7
+
+n=-1   ii = 4   ic=7
+
+n=-1   ii = 5   ic=7
+
+n=-1   ii = 6   ic=7
+
+n=-1   ii = 7   ic=7
+
+n=-1   ii = 8   ic=7
+
+n=1   ii = 1   ic=8
+
+n=1   ii = 2   ic=8
+
+n=0   ii = 3   ic=8
+
+n=0   ii = 4   ic=8
+
+n=0   ii = 5   ic=8
+
+n=-1   ii = 6   ic=8
+
+n=-1   ii = 7   ic=8
+
+n=-1   ii = 8   ic=8
+
+n=-1   ii = 1   ic=8
+
+n=-1   ii = 2   ic=8
+
+n=-1   ii = 3   ic=8
+
+n=-1   ii = 4   ic=8
+
+n=-1   ii = 5   ic=8
+
+n=-1   ii = 6   ic=8
+
+n=-1   ii = 7   ic=8
+
+n=-1   ii = 8   ic=8
+
+n=-1   ii = 1   ic=8
+
+n=1   ii = 2   ic=9
+
+n=0   ii = 3   ic=9
+
+n=0   ii = 4   ic=9
+
+n=0   ii = 5   ic=9
+
+n=-1   ii = 6   ic=9
+
+n=-1   ii = 7   ic=9
+
+n=-1   ii = 8   ic=9
+
+n=-1   ii = 1   ic=9
+
+n=-1   ii = 2   ic=9
+
+n=0   ii = 3   ic=10
+
+n=0   ii = 4   ic=10
+
+n=0   ii = 5   ic=10
+
+n=-1   ii = 6   ic=10
+
+n=-1   ii = 7   ic=10
+
+n=-1   ii = 8   ic=10
+
+n=-1   ii = 1   ic=10
+
+n=-1   ii = 2   ic=10
+
+n=-1   ii = 3   ic=10
+
+n=-1   ii = 4   ic=10
+
+n=-1   ii = 5   ic=10
+
+n=0   ii = 6   ic=10
+
+n=-1   ii = 7   ic=10
+
+n=0   ii = 8   ic=11
+
+n=-1   ii = 1   ic=11
+
+n=-1   ii = 2   ic=11
+
+n=-1   ii = 3   ic=11
+
+n=-1   ii = 4   ic=11
+
+n=-1   ii = 5   ic=11
+
+n=-1   ii = 6   ic=11
+
+n=0   ii = 7   ic=11
+
+n=-1   ii = 8   ic=11
+
+n=-1   ii = 1   ic=11
+
+n=-1   ii = 2   ic=11
+
+n=-1   ii = 3   ic=11
+
+n=-1   ii = 4   ic=11
+
+n=-1   ii = 5   ic=11
+
+n=-1   ii = 6   ic=11
+
+n=-1   ii = 7   ic=11
+
+n=-1   ii = 8   ic=11
+
+n=-1   ii = 1   ic=11
+
+n=-1   ii = 2   ic=11
+
+n=-1   ii = 3   ic=11
+
+n=-1   ii = 4   ic=11
+
+n=-1   ii = 5   ic=11
+
+n=-1   ii = 6   ic=11
+
+n=-1   ii = 7   ic=11
+
+n=-1   ii = 8   ic=11
+
+VAMOS A IR MOSTRAR LOS CONJUNTOS: 11
+
+ENTRAMOS EN MOSTRAR: 0
+
+I$(0, 0): W=.E
+
+I$(0, 1): E=.E+T
+
+I$(0, 2): E=.T
+
+I$(0, 3): T=.T*F
+
+I$(0, 4): T=.F
+
+I$(0, 5): F=.(E)
+
+(F=.(E)05
+
+VAMOS A BUSCAR IRA_(X, SYM)0(
+
+5----------------->4
+
+d4
+
+desplazar: 0 ,  3 ---  d4
+
+I$(0, 6): F=.a
+
+VAMOS A BUSCAR IRA_(X, SYM)0a
+
+5----------------->5
+
+d5
+
+desplazar: 0 ,  0 ---  d5
+
+ 
+
+ENTRAMOS EN MOSTRAR: 1
+
+I$(7, 0): W=E.
+
+SIG W ---- 
+
+ reducir SIG= 
+
+aceptar: 1 ,  5  acep    36
+
+I$(7, 1): E=E.+T
+
+VAMOS A BUSCAR IRA_(X, SYM)1+
+
+5----------------->6
+
+d6
+
+desplazar: 1 ,  1 ---  d6
+
+ 
+
+ENTRAMOS EN MOSTRAR: 2
+
+I$(14, 0): E=T.
+
+PRIXXX +T  -----   ++
+
+a??adimos FB de +T : ++ a sig: E
+
+PRIXXX )  -----   ))
+
+a??adimos FB de ) : )) a sig: E
+
+SIG E ---- $++))
+
+ reducir SIG= $++))
+
+vamos a rellena tabla accion
+
+reducir: 2  ,  5    r2
+
+reducir: 2  ,  1    r2
+
+reducir: 2  ,  1    r2
+
+reducir: 2  ,  4    r2
+
+reducir: 2  ,  4    r2
+
+I$(14, 1): T=T.*F
+
+VAMOS A BUSCAR IRA_(X, SYM)2*
+
+5----------------->7
+
+d7
+
+desplazar: 2 ,  2 ---  d7
+
+ 
+
+ENTRAMOS EN MOSTRAR: 3
+
+I$(21, 0): T=F.
+
+PRIXXX +T  -----   ++
+
+a??adimos FB de +T : ++ a sig: E
+
+PRIXXX )  -----   ))
+
+a??adimos FB de ) : )) a sig: E
+
+SIG E ---- $++))
+
+PRIXXX *F  -----   **
+
+a??adimos FB de *F : ** a sig: T
+
+SIG T ---- $++))**
+
+ reducir SIG= $++))**
+
+vamos a rellena tabla accion
+
+reducir: 3  ,  5    r4
+
+reducir: 3  ,  1    r4
+
+reducir: 3  ,  1    r4
+
+reducir: 3  ,  4    r4
+
+reducir: 3  ,  4    r4
+
+reducir: 3  ,  2    r4
+
+reducir: 3  ,  2    r4
+
+ 
+
+ENTRAMOS EN MOSTRAR: 4
+
+I$(28, 0): F=(.E)
+
+I$(28, 1): E=.E+T
+
+I$(28, 2): E=.T
+
+I$(28, 3): T=.T*F
+
+I$(28, 4): T=.F
+
+I$(28, 5): F=.(E)
+
+(F=.(E)45
+
+VAMOS A BUSCAR IRA_(X, SYM)4(
+
+5----------------->4
+
+d4
+
+desplazar: 4 ,  3 ---  d4
+
+I$(28, 6): F=.a
+
+VAMOS A BUSCAR IRA_(X, SYM)4a
+
+5----------------->5
+
+d5
+
+desplazar: 4 ,  0 ---  d5
+
+ 
+
+ENTRAMOS EN MOSTRAR: 5
+
+I$(35, 0): F=a.
+
+ bucle 1E=E+T
+
+ bucle 2E=T
+
+ bucle 3T=T*F
+
+PRIXXX +T  -----   ++
+
+a??adimos FB de +T : ++ a sig: E
+
+PRIXXX )  -----   ))
+
+a??adimos FB de ) : )) a sig: E
+
+SIG E ---- $++))
+
+PRIXXX *F  -----   **
+
+a??adimos FB de *F : ** a sig: T
+
+SIG T ---- $++))**
+
+ bucle 4T=F
+
+ bucle 5F=(E)
+
+ bucle 6F=a
+
+SIG F ---- $++))**
+
+ reducir SIG= $++))**
+
+vamos a rellena tabla accion
+
+reducir: 5  ,  5    r6
+
+reducir: 5  ,  1    r6
+
+reducir: 5  ,  1    r6
+
+reducir: 5  ,  4    r6
+
+reducir: 5  ,  4    r6
+
+reducir: 5  ,  2    r6
+
+reducir: 5  ,  2    r6
+
+ 
+
+ENTRAMOS EN MOSTRAR: 6
+
+I$(42, 0): E=E+.T
+
+I$(42, 1): T=.T*F
+
+I$(42, 2): T=.F
+
+I$(42, 3): F=.(E)
+
+(F=.(E)63
+
+VAMOS A BUSCAR IRA_(X, SYM)6(
+
+5----------------->4
+
+d4
+
+desplazar: 6 ,  3 ---  d4
+
+I$(42, 4): F=.a
+
+VAMOS A BUSCAR IRA_(X, SYM)6a
+
+5----------------->5
+
+d5
+
+desplazar: 6 ,  0 ---  d5
+
+ 
+
+ENTRAMOS EN MOSTRAR: 7
+
+I$(49, 0): T=T*.F
+
+I$(49, 1): F=.(E)
+
+(F=.(E)71
+
+VAMOS A BUSCAR IRA_(X, SYM)7(
+
+5----------------->4
+
+d4
+
+desplazar: 7 ,  3 ---  d4
+
+I$(49, 2): F=.a
+
+VAMOS A BUSCAR IRA_(X, SYM)7a
+
+5----------------->5
+
+d5
+
+desplazar: 7 ,  0 ---  d5
+
+ 
+
+ENTRAMOS EN MOSTRAR: 8
+
+I$(56, 0): F=(E.)
+
+VAMOS A BUSCAR IRA_(X, SYM)8)
+
+5----------------->11
+
+d11
+
+desplazar: 8 ,  4 ---  d11
+
+I$(56, 1): E=E.+T
+
+VAMOS A BUSCAR IRA_(X, SYM)8+
+
+5----------------->6
+
+d6
+
+desplazar: 8 ,  1 ---  d6
+
+ 
+
+ENTRAMOS EN MOSTRAR: 9
+
+I$(63, 0): E=E+T.
+
+PRIXXX +T  -----   ++
+
+a??adimos FB de +T : ++ a sig: E
+
+PRIXXX )  -----   ))
+
+a??adimos FB de ) : )) a sig: E
+
+SIG E ---- $++))
+
+ reducir SIG= $++))
+
+vamos a rellena tabla accion
+
+reducir: 9  ,  5    r1
+
+reducir: 9  ,  1    r1
+
+reducir: 9  ,  1    r1
+
+reducir: 9  ,  4    r1
+
+reducir: 9  ,  4    r1
+
+I$(63, 1): T=T.*F
+
+VAMOS A BUSCAR IRA_(X, SYM)9*
+
+5----------------->7
+
+d7
+
+desplazar: 9 ,  2 ---  d7
+
+ 
+
+ENTRAMOS EN MOSTRAR: 10
+
+I$(70, 0): T=T*F.
+
+PRIXXX +T  -----   ++
+
+a??adimos FB de +T : ++ a sig: E
+
+PRIXXX )  -----   ))
+
+a??adimos FB de ) : )) a sig: E
+
+SIG E ---- $++))
+
+PRIXXX *F  -----   **
+
+a??adimos FB de *F : ** a sig: T
+
+SIG T ---- $++))**
+
+ reducir SIG= $++))**
+
+vamos a rellena tabla accion
+
+reducir: 10  ,  5    r3
+
+reducir: 10  ,  1    r3
+
+reducir: 10  ,  1    r3
+
+reducir: 10  ,  4    r3
+
+reducir: 10  ,  4    r3
+
+reducir: 10  ,  2    r3
+
+reducir: 10  ,  2    r3
+
+ 
+
+ENTRAMOS EN MOSTRAR: 11
+
+I$(77, 0): F=(E).
+
+ bucle 1E=E+T
+
+ bucle 2E=T
+
+ bucle 3T=T*F
+
+PRIXXX +T  -----   ++
+
+a??adimos FB de +T : ++ a sig: E
+
+PRIXXX )  -----   ))
+
+a??adimos FB de ) : )) a sig: E
+
+SIG E ---- $++))
+
+PRIXXX *F  -----   **
+
+a??adimos FB de *F : ** a sig: T
+
+SIG T ---- $++))**
+
+ bucle 4T=F
+
+ bucle 5F=(E)
+
+ bucle 6F=a
+
+SIG F ---- $++))**
+
+ reducir SIG= $++))**
+
+vamos a rellena tabla accion
+
+reducir: 11  ,  5    r5
+
+reducir: 11  ,  1    r5
+
+reducir: 11  ,  1    r5
+
+reducir: 11  ,  4    r5
+
+reducir: 11  ,  4    r5
+
+reducir: 11  ,  2    r5
+
+reducir: 11  ,  2    r5
+
+ 
+
+accion 0 0 ---- a   d5
+
+accion 0 1 ---- +   
+
+accion 0 2 ---- *   
+
+accion 0 3 ---- (   d4
+
+accion 0 4 ---- )   
+
+accion 0 5 ---- $   
+
+----------------------------
+
+accion 1 0 ---- a   
+
+accion 1 1 ---- +   d6
+
+accion 1 2 ---- *   
+
+accion 1 3 ---- (   
+
+accion 1 4 ---- )   
+
+accion 1 5 ---- $   acep
+
+----------------------------
+
+accion 2 0 ---- a   
+
+accion 2 1 ---- +   r2
+
+accion 2 2 ---- *   d7
+
+accion 2 3 ---- (   
+
+accion 2 4 ---- )   r2
+
+accion 2 5 ---- $   r2
+
+----------------------------
+
+accion 3 0 ---- a   
+
+accion 3 1 ---- +   r4
+
+accion 3 2 ---- *   r4
+
+accion 3 3 ---- (   
+
+accion 3 4 ---- )   r4
+
+accion 3 5 ---- $   r4
+
+----------------------------
+
+accion 4 0 ---- a   d5
+
+accion 4 1 ---- +   
+
+accion 4 2 ---- *   
+
+accion 4 3 ---- (   d4
+
+accion 4 4 ---- )   
+
+accion 4 5 ---- $   
+
+----------------------------
+
+accion 5 0 ---- a   
+
+accion 5 1 ---- +   r6
+
+accion 5 2 ---- *   r6
+
+accion 5 3 ---- (   
+
+accion 5 4 ---- )   r6
+
+accion 5 5 ---- $   r6
+
+----------------------------
+
+accion 6 0 ---- a   d5
+
+accion 6 1 ---- +   
+
+accion 6 2 ---- *   
+
+accion 6 3 ---- (   d4
+
+accion 6 4 ---- )   
+
+accion 6 5 ---- $   
+
+----------------------------
+
+accion 7 0 ---- a   d5
+
+accion 7 1 ---- +   
+
+accion 7 2 ---- *   
+
+accion 7 3 ---- (   d4
+
+accion 7 4 ---- )   
+
+accion 7 5 ---- $   
+
+----------------------------
+
+accion 8 0 ---- a   
+
+accion 8 1 ---- +   d6
+
+accion 8 2 ---- *   
+
+accion 8 3 ---- (   
+
+accion 8 4 ---- )   d11
+
+accion 8 5 ---- $   
+
+----------------------------
+
+accion 9 0 ---- a   
+
+accion 9 1 ---- +   r1
+
+accion 9 2 ---- *   d7
+
+accion 9 3 ---- (   
+
+accion 9 4 ---- )   r1
+
+accion 9 5 ---- $   r1
+
+----------------------------
+
+accion 10 0 ---- a   
+
+accion 10 1 ---- +   r3
+
+accion 10 2 ---- *   r3
+
+accion 10 3 ---- (   
+
+accion 10 4 ---- )   r3
+
+accion 10 5 ---- $   r3
+
+----------------------------
+
+accion 11 0 ---- a   
+
+accion 11 1 ---- +   r5
+
+accion 11 2 ---- *   r5
+
+accion 11 3 ---- (   
+
+accion 11 4 ---- )   r5
+
+accion 11 5 ---- $   r5
+
+----------------------------
+
+E 0   --->   1
+
+T 0   --->   2
+
+F 0   --->   3
+
+E 4   --->   8
+
+T 4   --->   2
+
+F 4   --->   3
+
+T 6   --->   9
+
+F 6   --->   3
+
+F 7   --->   10
+
+END RUN
+
+fin del programa---------------------------
+
