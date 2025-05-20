@@ -4,8 +4,6 @@ este programa importa datos a un fichero dbf
 */
 
 /*
-<<<<<<< HEAD
-=======
 El registro de clientes permite 
 tener una estructura para acceder 
 al fichero de datos.
@@ -144,7 +142,6 @@ este programa importa datos a un fichero dbf
 */
 
 /*
->>>>>>> 1a874d082830815c1b8ba3ddd8cf9a1781bb1eca
 El registro de clientes permite tener una estructura para acceder al fichero de datos.
 El indice es necesario para poder acceder a los datos de forma rapida.
 El archivo de datos es el que contiene los datos importados.
