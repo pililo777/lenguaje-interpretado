@@ -1,0 +1,30 @@
+//openai1.pr
+
+imprimir 'ingresa el valor de n:'
+leer n
+imprimir 'ingresa el valor del divisor:'
+leer divisor
+dividendo = n/divisor
+i = 0
+decimales 14
+imprimir divisor, ', ' , dividendo
+mientras  ( absoluto (   dividendo - divisor) > 0.000001  ) {
+	i = i + 1
+	imprimir 'bucle ', i
+    dividendo = (dividendo + divisor) / 2
+    divisor = n / dividendo
+    imprimir ' dividendo:  ', dividendo
+    imprimir ' divisor: ', divisor
+}
+
+imprimir 'la raiz es: ', divisor
+
+
+terminar
+
+funcion absoluto(numero)
+    si (numero < 0) entonces
+        numero = numero * ( -1)
+    si-fin
+    retornar numero
+fin

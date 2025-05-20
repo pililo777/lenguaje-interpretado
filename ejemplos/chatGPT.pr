@@ -1,0 +1,11 @@
+decimales 1
+
+llamar contar_hasta_diez
+terminar
+
+proc contar_hasta_diez
+    DESDE i = 1 HASTA 10 {
+        IMPRIMIR 'Contador:', i
+    }
+
+fin

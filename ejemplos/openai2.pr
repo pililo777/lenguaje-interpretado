@@ -1,0 +1,8 @@
+//openai2.pr
+
+imprimir 'Ingrese el número para mostrar su tabla de multiplicar:'
+leer num
+desde i=1 hasta 9 {
+    resultado = num * i
+    imprimir num, ' * ', i, ' = ', resultado
+}

@@ -1,17 +1,6 @@
-/*
-
-    IMPORTANTE:  no dejar espacios entre los | | | !
-   '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux 
-
-
-Ultima compilacion: 8 agosto 2022
-PC:    desktop Rancho WSL
-
-ruta:  /mnt/c/Users/w10/Documents/NetBeansProjects/lenguaje-interpretado/CppApplication_1
-
-
-*/
-
+/* IMPORTANTE:  no dejar espacios entre los | | | !!!!!1   github */
+/* '[\x20-\x7D]{-}[\']+'  {   para LITERAL, en linux */
+/* compilar con:  flex  tokens.l */
 
 %{
 
@@ -23,7 +12,6 @@ void  cuentalineas(char * yytext);
 
 #include "nodo.h"
 #include "vars.h"
-
 #include "stdio.h"
 
 // #include "grammar_tab.h"
@@ -97,9 +85,7 @@ if (depurar)
     printf("-------------------------------------------------\n");
     printf("linea: %d\n", linenumber);
     printf("-------------------------------------------------\n");
-}
-
-
+}  
 /*
     if (lineaEjecucion==12)
         pausar();
