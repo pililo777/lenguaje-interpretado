@@ -620,9 +620,12 @@ runprog() {
     //linea añadida porque cambiaba el punto por comma
     if (!gtk_iniciado) {
       gtk_disable_setlocale();
-      gtk_init(&argc, &argv); 
+      if (!gtk_init_check(&argc, &argv)) {
+        fprintf(stderr, "No se pudo inicializar GTK; ejecute en modo texto.\n");
+        return -1;  /* o manejarlo de otra manera */
+      }
     }
-    
+
     gtk_iniciado = 1;
     
     indice = atoi(buff2[1]);
