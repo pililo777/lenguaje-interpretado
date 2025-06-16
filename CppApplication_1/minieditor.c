@@ -1846,7 +1846,10 @@ void runall() {
 
     if (!gtk_iniciado) {
         gtk_disable_setlocale();
-        gtk_init(&argc, &argv);
+        if (!gtk_init_check(&argc, &argv)) {
+            fprintf(stderr, "No se pudo inicializar GTK; ejecute en modo texto.\n");
+            return;      /* or other appropriate handling */
+        }
     }
 
     gtk_iniciado = 1;
