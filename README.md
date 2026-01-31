@@ -1,6 +1,10 @@
 # lenguaje-interpretado
 Automatically exported from code.google.com/p/lenguaje-interpretado
 
+## Documentación
+
+📄 [**Tipos de Ficheros en el Repositorio**](TIPOS_DE_FICHEROS.md) - Descripción completa de todos los tipos de archivos en este proyecto.
+
 # Requisitos
 
  gtk +   (version 2.24)
