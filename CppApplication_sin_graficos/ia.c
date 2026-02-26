@@ -325,6 +325,16 @@ void activacion_capa_salida(int indice) {
 
 char SALIDA[5];
 
+/*
+ * comprobar_salidas:
+ * Compara la salida de la red neuronal con la salida esperada (VAR_APR).
+ * Para cada una de las 4 neuronas de salida:
+ *   - Obtiene el valor esperado (digito) desde VAR_APR
+ *   - Aplica un umbral de 0.5 a la salida de la neurona: si > 0.5 -> 1, si no -> 0
+ *   - Si la salida real difiere de la esperada, pone hay_error = 1
+ * Al final imprime la salida esperada y la salida real de la red.
+ * Devuelve hay_error (1 si hubo algún error, 0 si todo es correcto).
+ */
 int comprobar_salidas() {
     hay_error = 0;
 
